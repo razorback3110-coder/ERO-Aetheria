@@ -27,13 +27,13 @@ namespace EternalRealmsOnline.V536
         void Awake(){if(I!=null&&I!=this){Destroy(gameObject);return;}I=this;SceneManager.sceneLoaded+=Loaded;}
         void OnDestroy(){SceneManager.sceneLoaded-=Loaded;}
         void Start(){Loaded(SceneManager.GetActiveScene(),LoadSceneMode.Single);}
-        void Loaded(Scene s,LoadSceneMode m){if(!s.name.Equals(SceneName,StringComparison.OrdinalIgnoreCase))return;Cleanup();EnsureEventSystem();HideLegacy(s);ReadProfile();BuildWorld();BuildPlayer();BuildCamera();BuildUI();SpawnEnemies();initialized=true;creatorOpen=!PlayerPrefs.HasKey("ERO_V12_PRESENTATION_READY")||PlayerPrefs.GetInt(CreatedKey,0)!=1;SetCreatorVisible(creatorOpen);Log(creatorOpen?"Create your Aetherian elf.":"Welcome to Greenhaven.");}
+        void Loaded(Scene s,LoadSceneMode m){if(!s.name.Equals(SceneName,StringComparison.OrdinalIgnoreCase))return;Cleanup();EnsureEventSystem();HideLegacy(s);ReadProfile();BuildWorld();BuildPlayer();BuildCamera();BuildUI();SpawnEnemies();initialized=true;creatorOpen=!PlayerPrefs.HasKey("ERO_V11_PRESENTATION_READY")||PlayerPrefs.GetInt(CreatedKey,0)!=1;SetCreatorVisible(creatorOpen);Log(creatorOpen?"Create your Aetherian elf.":"Welcome to Greenhaven.");}
         void Cleanup(){foreach(string n in new[]{"ERO_V535_VisualWorld","Aetheria_Runtime_World_V533","ERO_V533_FullPlayable","ERO_V532_PlayableRuntime"}){var o=GameObject.Find(n);if(o!=null)Destroy(o);}if(uiRoot)Destroy(uiRoot);if(previewCam)Destroy(previewCam.gameObject);if(previewTexture!=null){previewTexture.Release();previewTexture=null;}if(previewRoot)Destroy(previewRoot);if(worldRoot)Destroy(worldRoot.gameObject);if(player)Destroy(player);if(cam)Destroy(cam.gameObject);enemies.Clear();world.Clear();}
         void EnsureEventSystem(){es=EventSystem.current;if(es==null){var g=new GameObject("ERO_EventSystem_V536");es=g.AddComponent<EventSystem>();g.AddComponent<StandaloneInputModule>();}}
         void HideLegacy(Scene s){foreach(var r in s.GetRootGameObjects()){if(r==gameObject)continue;foreach(var c in r.GetComponentsInChildren<Canvas>(true))c.enabled=false;foreach(var b in r.GetComponentsInChildren<MonoBehaviour>(true)){if(b==null)continue;string n=b.GetType().Name;if(n.IndexOf("NetworkSimulatorUIMediator",StringComparison.OrdinalIgnoreCase)>=0)b.enabled=false;}}}
         void ReadProfile(){playerName=PlayerPrefs.GetString(NameKey,"Aetherian");cls=Mathf.Clamp(PlayerPrefs.GetInt(ClassKey,0),0,7);gender=Mathf.Clamp(PlayerPrefs.GetInt(GenderKey,0),0,1);hair=Mathf.Clamp(PlayerPrefs.GetInt(HairKey,0),0,5);eyes=Mathf.Clamp(PlayerPrefs.GetInt(EyesKey,0),0,5);skin=Mathf.Clamp(PlayerPrefs.GetInt(SkinKey,0),0,4);face=Mathf.Clamp(PlayerPrefs.GetInt(FaceKey,0),0,3);level=Mathf.Clamp(PlayerPrefs.GetInt("ERO_LEVEL",1),1,100);gold=Mathf.Max(0,PlayerPrefs.GetInt("ERO_GOLD",250));crystals=Mathf.Max(0,PlayerPrefs.GetInt("ERO_CRYSTALS",0));xp=Math.Max(0,PlayerPrefs.GetInt("ERO_XP",0));zone=Zones[Mathf.Clamp(PlayerPrefs.GetInt(ZoneKey,0),0,9)];maxHp=240+level*42;hp=maxHp;maxMp=120+level*24;mp=maxMp;}
 
-        void BuildWorld(){worldRoot=new GameObject("ERO_V536_World").transform;worldRoot.SetParent(transform,false);RenderSettings.fog=true;RenderSettings.fogMode=FogMode.ExponentialSquared;RenderSettings.fogDensity=.0035f;RenderSettings.fogColor=new Color(.025f,.04f,.075f);RenderSettings.ambientLight=new Color(.16f,.19f,.27f);var sun=new GameObject("Aetheria_Light");sun.transform.SetParent(worldRoot);var l=sun.AddComponent<Light>();l.type=LightType.Directional;l.intensity=1.55f;l.shadows=LightShadows.Soft;l.color=new Color(.72f,.82f,1);sun.transform.rotation=Quaternion.Euler(42,-32,0);world.Add(sun);BuildZone(Array.IndexOf(Zones,zone));}
+        void BuildWorld(){worldRoot=new GameObject("ERO_V536_World").transform;worldRoot.SetParent(transform,false);RenderSettings.fog=true;RenderSettings.fogMode=FogMode.ExponentialSquared;RenderSettings.fogDensity=.006f;RenderSettings.fogColor=new Color(.025f,.04f,.075f);RenderSettings.ambientLight=new Color(.16f,.19f,.27f);var sun=new GameObject("Aetheria_Light");sun.transform.SetParent(worldRoot);var l=sun.AddComponent<Light>();l.type=LightType.Directional;l.intensity=1.2f;l.shadows=LightShadows.Soft;l.color=new Color(.72f,.82f,1);sun.transform.rotation=Quaternion.Euler(42,-32,0);world.Add(sun);BuildZone(Array.IndexOf(Zones,zone));}
         void BuildZone(int z){Color c=ZoneColor[Mathf.Clamp(z,0,9)];BuildTerrain(c);BuildRoads(c);BuildSky(c,z);switch(z){case 0:Greenhaven(c);break;case 1:Everwood(c);break;case 2:Elyndor(c);break;case 3:Frostfall(c);break;case 4:Sunscar(c);break;case 5:Sylvaris(c);break;case 6:Abyssia(c);break;default:RiftZone(c,z);break;}for(int i=0;i<22;i++){float a=i*2.39f,r=30+(i%5)*4;Vector3 p=new Vector3(Mathf.Cos(a)*r,0,Mathf.Sin(a)*r);if(z<6)Tree(p,c,.65f+(i%3)*.18f);else Rock(p,c);}LabelWorld(Zones[z]+"  •  Lv."+ZoneLv[z]+"–"+(z==9?100:ZoneLv[z+1]-1),new Vector3(0,8,18));}
         void BuildTerrain(Color c){int n=32;float size=140;var m=new Mesh();var v=new Vector3[n*n];var uv=new Vector2[v.Length];var t=new int[(n-1)*(n-1)*6];for(int z=0;z<n;z++)for(int x=0;x<n;x++){float fx=(float)x/(n-1),fz=(float)z/(n-1);float h=(Mathf.PerlinNoise(fx*2.4f,fz*2.4f)-.5f)*3.2f;v[z*n+x]=new Vector3((fx-.5f)*size,h,(fz-.5f)*size);uv[z*n+x]=new Vector2(fx,fz);}int k=0;for(int z=0;z<n-1;z++)for(int x=0;x<n-1;x++){int a=z*n+x,b=a+1,c0=a+n,d=c0+1;t[k++]=a;t[k++]=c0;t[k++]=b;t[k++]=b;t[k++]=c0;t[k++]=d;}m.vertices=v;m.uv=uv;m.triangles=t;m.RecalculateNormals();var g=new GameObject("Aetheria_Terrain");g.transform.SetParent(worldRoot);g.AddComponent<MeshFilter>().sharedMesh=m;g.AddComponent<MeshRenderer>().sharedMaterial=Mat("Terrain",Color.Lerp(c,new Color(.008f,.012f,.02f),.48f),.8f,0);g.AddComponent<MeshCollider>().sharedMesh=m;world.Add(g);}
         void BuildRoads(Color c){var rm=Mat("Road",Color.Lerp(c,Color.black,.7f),.9f,0);for(int i=-2;i<=2;i++){var r=Cube("Road",new Vector3(i*23,-.3f,0),new Vector3(6,.25f,100));r.GetComponent<Renderer>().sharedMaterial=rm;world.Add(r);}}
@@ -180,7 +180,7 @@ namespace EternalRealmsOnline.V536
 
             previewRoot=new GameObject("ERO_V9_CharacterPreviewWorld");
             previewRoot.transform.SetParent(transform,false);
-            previewRoot.layer=0;
+            previewRoot.layer=30;
 
             previewCam=new GameObject("ERO_V9_CharacterPreviewCamera").AddComponent<Camera>();
             previewCam.transform.SetParent(transform,false);
@@ -189,20 +189,17 @@ namespace EternalRealmsOnline.V536
             previewCam.fieldOfView=28;
             previewCam.nearClipPlane=.03f;
             previewCam.farClipPlane=50f;
-            previewCam.cullingMask=~0;
+            previewCam.cullingMask=1<<30;
 
-            previewTexture=new RenderTexture(1024,1024,32,RenderTextureFormat.ARGB32);
+            previewTexture=new RenderTexture(900,900,24,RenderTextureFormat.ARGB32);
             previewTexture.name="ERO_V10_CharacterPreview_RT";
             previewTexture.Create();
             previewCam.targetTexture=previewTexture;
             previewCam.enabled=true;
             previewCam.clearFlags=CameraClearFlags.SolidColor;
-            previewCam.backgroundColor=new Color(.012f,.018f,.045f,1f);
-            previewCam.cullingMask=~0;
+            previewCam.backgroundColor=new Color(.008f,.012f,.028f,1f);
+            previewCam.cullingMask=1<<30;
             previewCam.allowHDR=true;
-            previewCam.allowMSAA=true;
-            previewCam.forceIntoRenderTexture=true;
-            previewCam.stereoTargetEye=StereoTargetEyeMask.None;
             pi.texture=previewTexture;
             BuildPreviewEnvironment();
 
@@ -249,7 +246,7 @@ namespace EternalRealmsOnline.V536
         void BuildPreviewEnvironment(){
             // Dedicated layer 30 isolates the character preview from the gameplay world.
             // The camera renders this small studio scene into the RenderTexture shown by the RawImage.
-            previewRoot.layer=0;
+            previewRoot.layer=30;
             var floor=CubePreview("PreviewFloor",new Vector3(0,.02f,0),new Vector3(4.8f,.08f,4.8f),new Color(.035f,.045f,.075f));
             floor.transform.SetParent(previewRoot.transform,false);
             var backdrop=CubePreview("PreviewBackdrop",new Vector3(0,2.7f,1.85f),new Vector3(5.2f,5.6f,.12f),new Color(.018f,.028f,.055f));
@@ -276,14 +273,14 @@ namespace EternalRealmsOnline.V536
             var g=GameObject.CreatePrimitive(PrimitiveType.Cube);
             g.name=n;g.transform.position=p;g.transform.localScale=s;
             var rr=g.GetComponent<Renderer>();if(rr)rr.sharedMaterial=Mat("Preview_"+n,c,.65f,0.8f);
-            foreach(var tr in g.GetComponentsInChildren<Transform>(true))tr.gameObject.layer=0;
+            foreach(var tr in g.GetComponentsInChildren<Transform>(true))tr.gameObject.layer=30;
             return g;
         }
         GameObject SpherePreview(string n,Vector3 p,Vector3 s,Color c){
             var g=GameObject.CreatePrimitive(PrimitiveType.Sphere);
             g.name=n;g.transform.position=p;g.transform.localScale=s;
             var rr=g.GetComponent<Renderer>();if(rr)rr.sharedMaterial=Mat("Preview_"+n,c,.25f,2.0f);
-            foreach(var tr in g.GetComponentsInChildren<Transform>(true))tr.gameObject.layer=0;
+            foreach(var tr in g.GetComponentsInChildren<Transform>(true))tr.gameObject.layer=30;
             return g;
         }
         GameObject NewPreviewLight(string n,LightType type,Vector3 p,Color color,float intensity,float range){
@@ -293,13 +290,13 @@ namespace EternalRealmsOnline.V536
             if(type==LightType.Spot)l.spotAngle=72f;
             return g;
         }
-        void RefreshCreator(){cGender.text="GENDER  •  "+(gender==0?"MALE ELF":"FEMALE ELF");cAppearance.text="Hair "+(hair+1)+"\nEyes "+(eyes+1)+"\nSkin "+(skin+1)+"\nFace "+(face+1)+"\n\nClass  •  "+Classes[cls]+"\nRole   •  "+Roles[cls];foreach(var kv in cards)kv.Value.GetComponent<Image>().color=kv.Key==Classes[cls]?new Color(.22f,.17f,.08f,.99f):Panel2;foreach(var o in preview.ToArray())if(o)Destroy(o);preview.Clear();if(previewRoot==null)return;var e=BuildElf(cls,gender,hair,eyes,skin,face,true);e.transform.SetParent(previewRoot.transform,false);e.layer=0;foreach(var tr in e.GetComponentsInChildren<Transform>(true))tr.gameObject.layer=0;e.transform.localPosition=new Vector3(0,0,0);
+        void RefreshCreator(){cGender.text="GENDER  •  "+(gender==0?"MALE ELF":"FEMALE ELF");cAppearance.text="Hair "+(hair+1)+"\nEyes "+(eyes+1)+"\nSkin "+(skin+1)+"\nFace "+(face+1)+"\n\nClass  •  "+Classes[cls]+"\nRole   •  "+Roles[cls];foreach(var kv in cards)kv.Value.GetComponent<Image>().color=kv.Key==Classes[cls]?new Color(.22f,.17f,.08f,.99f):Panel2;foreach(var o in preview.ToArray())if(o)Destroy(o);preview.Clear();if(previewRoot==null)return;var e=BuildElf(cls,gender,hair,eyes,skin,face,true);e.transform.SetParent(previewRoot.transform,false);e.layer=30;foreach(var tr in e.GetComponentsInChildren<Transform>(true))tr.gameObject.layer=30;e.transform.localPosition=new Vector3(0,0,0);
             e.transform.localRotation=Quaternion.Euler(0,15,0);
             e.transform.localScale=Vector3.one*1.22f;
             foreach(var rr in e.GetComponentsInChildren<Renderer>(true)){rr.enabled=true;rr.gameObject.layer=30;}
             preview.Add(e);
             if(previewCam!=null){previewCam.enabled=true;previewCam.Render();}}
-        void CreateCharacter(){playerName=string.IsNullOrWhiteSpace(nameInput.text)?"Aetherian":nameInput.text.Trim();PlayerPrefs.SetString(NameKey,playerName);PlayerPrefs.SetInt(ClassKey,cls);PlayerPrefs.SetInt(GenderKey,gender);PlayerPrefs.SetInt(HairKey,hair);PlayerPrefs.SetInt(EyesKey,eyes);PlayerPrefs.SetInt(SkinKey,skin);PlayerPrefs.SetInt(FaceKey,face);PlayerPrefs.SetInt(CreatedKey,1);PlayerPrefs.SetInt("ERO_V12_PRESENTATION_READY",1);PlayerPrefs.Save();SetCreatorVisible(false);RefreshPlayer();EternalRealmsOnline.V538.EROLoadingScreenV538.Brief("GREENHAVEN","ENTERING AETHERIA");Log("Welcome to Greenhaven, "+playerName+".");}
+        void CreateCharacter(){playerName=string.IsNullOrWhiteSpace(nameInput.text)?"Aetherian":nameInput.text.Trim();PlayerPrefs.SetString(NameKey,playerName);PlayerPrefs.SetInt(ClassKey,cls);PlayerPrefs.SetInt(GenderKey,gender);PlayerPrefs.SetInt(HairKey,hair);PlayerPrefs.SetInt(EyesKey,eyes);PlayerPrefs.SetInt(SkinKey,skin);PlayerPrefs.SetInt(FaceKey,face);PlayerPrefs.SetInt(CreatedKey,1);PlayerPrefs.SetInt("ERO_V11_PRESENTATION_READY",1);PlayerPrefs.Save();SetCreatorVisible(false);RefreshPlayer();EternalRealmsOnline.V538.EROLoadingScreenV538.Brief("GREENHAVEN","ENTERING AETHERIA");Log("Welcome to Greenhaven, "+playerName+".");}
         void SetCreatorVisible(bool v){creatorOpen=v;if(creator)creator.SetActive(v);if(hud)hud.SetActive(!v);if(cc)cc.enabled=!v;}
 
         void BuildWindows(){
@@ -322,7 +319,6 @@ namespace EternalRealmsOnline.V536
         string MonsterName(int i){return new[]{"Aether Slime","Everwolf","Aether Sprite","Rift Cultist","Abyss Hound"}[i];}
         GameObject Monster(int k){var r=new GameObject("MonsterVisual");Color[] c={new Color(.25f,.75f,1),new Color(.18f,.32f,.20f),new Color(.65f,.25f,1),new Color(.28f,.08f,.12f),new Color(.18f,.06f,.08f)};if(k==0)Part(r,PrimitiveType.Sphere,"Slime",new Vector3(0,.8f,0),new Vector3(1.2f,.8f,1.2f),c[k],.2f);else if(k==1){Part(r,PrimitiveType.Capsule,"Wolf",new Vector3(0,.8f,0),new Vector3(1.1f,.65f,.65f),c[k],.45f);Part(r,PrimitiveType.Sphere,"Head",new Vector3(.9f,1.1f,0),new Vector3(.45f,.42f,.42f),c[k],.4f);}else if(k==2){Part(r,PrimitiveType.Sphere,"Sprite",new Vector3(0,1.2f,0),new Vector3(.55f,.75f,.55f),c[k],.1f);for(int s=-1;s<=1;s+=2){var w=Part(r,PrimitiveType.Capsule,"Wing",new Vector3(s*.55f,1.25f,0),new Vector3(.15f,.65f,.55f),Color.Lerp(c[k],Color.white,.4f),.1f);w.transform.rotation=Quaternion.Euler(0,0,s*35);}}else if(k==3){Part(r,PrimitiveType.Capsule,"Cultist",new Vector3(0,1,0),new Vector3(.6f,1,.45f),c[k],.65f);Part(r,PrimitiveType.Sphere,"Head",new Vector3(0,2.1f,0),new Vector3(.42f,.42f,.42f),new Color(.16f,.08f,.08f),.25f);}else{Part(r,PrimitiveType.Capsule,"Hound",new Vector3(0,.85f,0),new Vector3(1.1f,.55f,.65f),c[k],.5f);for(int s=-1;s<=1;s+=2)Part(r,PrimitiveType.Capsule,"Horn",new Vector3(s*.5f,1.5f,0),new Vector3(.12f,.5f,.12f),new Color(.65f,.55f,.35f),.7f);}return r;}
 
-        void LateUpdate(){if(creatorOpen&&previewCam!=null&&previewTexture!=null)previewCam.Render();}
         void Update(){if(Input.GetKeyDown(KeyCode.F8)){PlayerPrefs.DeleteKey("ERO_V9_PRESENTATION_READY");SetCreatorVisible(true);}if(!initialized||creatorOpen)return;InputGame();Move();if(autoCombat)Auto();EnemiesUpdate();CameraUpdate();UIUpdate();}
         void InputGame(){for(int i=0;i<8;i++)if(Input.GetKeyDown((KeyCode)((int)KeyCode.F1+i))){cls=i;PlayerPrefs.SetInt(ClassKey,i);RefreshPlayer();Log("Class: "+Classes[i]);}if(Input.GetKeyDown(KeyCode.C))SetCreatorVisible(true);if(Input.GetKeyDown(KeyCode.I))Open("inventory");if(Input.GetKeyDown(KeyCode.Q))Open("quest");if(Input.GetKeyDown(KeyCode.M))SelectTarget();if(Input.GetKeyDown(KeyCode.Tab))Open("map");if((Input.GetMouseButtonDown(0)||Input.GetKeyDown(KeyCode.E))&&attackCd<=0){Attack(1);attackCd=.5f;}attackCd-=Time.deltaTime;}
         void Move(){if(!cc)return;float x=Input.GetAxisRaw("Horizontal"),z=Input.GetAxisRaw("Vertical");Vector3 f=cam.transform.forward;f.y=0;f.Normalize();Vector3 r=cam.transform.right;r.y=0;r.Normalize();Vector3 d=f*z+r*x;if(d.sqrMagnitude>1)d.Normalize();float sp=Input.GetKey(KeyCode.LeftShift)?8:5;if(d.sqrMagnitude>.01f){player.transform.rotation=Quaternion.Slerp(player.transform.rotation,Quaternion.LookRotation(d),Time.deltaTime*10);cc.Move(d*sp*Time.deltaTime);}velocity.y=cc.isGrounded?-1:velocity.y-22*Time.deltaTime;cc.Move(velocity*Time.deltaTime);}

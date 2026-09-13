@@ -1,0 +1,104 @@
+name: ERO Unity Validation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+permissions:
+  contents: read
+
+jobs:
+  project-preflight:
+    name: Project preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout ERO
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Verify Unity project structure
+        shell: bash
+        run: |
+          set -e
+          test -d Assets
+          test -d Packages
+          test -d ProjectSettings
+          test -f ProjectSettings/ProjectVersion.txt
+          grep -q "6000.0.67f1" ProjectSettings/ProjectVersion.txt
+          test -f Assets/ERO/V3_FreeAAA/README/README_V3_FREE_AAA.md
+          test -f Assets/ERO/V3_FreeAAA/Runtime/EROFreeAAAAssetRegistryV3.cs
+          echo "ERO structure: OK"
+          echo "Unity version target:"
+          cat ProjectSettings/ProjectVersion.txt
+
+      - name: Check accidental secrets
+        shell: bash
+        run: |
+          set -e
+          if grep -RInE "(UNITY_PASSWORD=|DISCORD_TOKEN=|BEGIN (RSA|OPENSSH|PRIVATE) KEY)" \
+              Assets Packages ProjectSettings --exclude-dir=.git --exclude='*.meta' 2>/dev/null; then
+            echo "::error::Possible secret found in project files."
+            exit 1
+          fi
+          echo "Secret scan: OK"
+
+      - name: Upload preflight report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ero-preflight
+          path: |
+            ProjectSettings/ProjectVersion.txt
+            Assets/ERO/V3_FreeAAA/README/README_V3_FREE_AAA.md
+
+  unity-validation:
+    name: Unity tests and validation build
+    needs: project-preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout ERO
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      # GameCI is used so the workflow can run Unity in a reproducible container.
+      # Unity credentials are supplied only through GitHub Actions secrets.
+      - name: Run Unity tests
+        uses: game-ci/unity-test-runner@v4
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: .
+          unityVersion: 6000.0.67f1
+          testMode: all
+          artifactsPath: test-results
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Linux validation player
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: .
+          unityVersion: 6000.0.67f1
+          targetPlatform: StandaloneLinux64
+          buildsPath: builds
+
+      - name: Upload Unity results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ero-unity-results
+          path: |
+            test-results
+            builds
+            artifacts
+            Logs
+          if-no-files-found: ignore
