@@ -11,7 +11,7 @@ permissions:
 jobs:
   project-preflight:
     name: Project preflight
-    runs-on: [self-hosted, Windows, X64, ERO-Unity]
+    runs-on: [self-hosted, Windows, X64]
     timeout-minutes: 15
     steps:
       - name: Checkout ERO
@@ -30,7 +30,7 @@ jobs:
   unity-validation:
     name: Unity compile validation
     needs: project-preflight
-    runs-on: [self-hosted, Windows, X64, ERO-Unity]
+    runs-on: [self-hosted, Windows, X64]
     timeout-minutes: 60
     steps:
       - name: Checkout ERO
