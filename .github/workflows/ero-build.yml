@@ -41,20 +41,23 @@ jobs:
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
         run: |
           New-Item -ItemType Directory -Force -Path "$env:GITHUB_WORKSPACE\Builds\Logs" | Out-Null
-          & "$env:ERO_UNITY_EXE" -batchmode -nographics -quit -projectPath "$env:GITHUB_WORKSPACE" -buildTarget StandaloneWindows64 -executeMethod EternalRealmsOnline.CI.EROBuildAutomation.ValidateCompile -logFile "$env:GITHUB_WORKSPACE\Builds\Logs\compile.log"
-          if ($LASTEXITCODE -ne 0) { throw "Unity compile/validation failed with exit code $LASTEXITCODE" }
+          $args = @("-batchmode","-accept-apiupdate","-projectPath","$env:GITHUB_WORKSPACE","-buildTarget","StandaloneWindows64","-executeMethod","EternalRealmsOnline.CI.EROBuildAutomation.ValidateCompile","-quit","-logFile","$env:GITHUB_WORKSPACE\Builds\Logs\compile.log")
+          $p = Start-Process -FilePath "$env:ERO_UNITY_EXE" -ArgumentList $args -Wait -PassThru
+          if ($p.ExitCode -ne 0) { Get-Content "$env:GITHUB_WORKSPACE\Builds\Logs\compile.log" -Tail 400; throw "Unity compile/validation failed with exit code $($p.ExitCode)" }
 
       - name: Build Windows Player
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
         run: |
-          & "$env:ERO_UNITY_EXE" -batchmode -nographics -quit -projectPath "$env:GITHUB_WORKSPACE" -buildTarget StandaloneWindows64 -executeMethod EternalRealmsOnline.CI.EROBuildAutomation.BuildWindows -logFile "$env:GITHUB_WORKSPACE\Builds\Logs\windows.log"
-          if ($LASTEXITCODE -ne 0) { throw "Windows build failed with exit code $LASTEXITCODE" }
+          $args = @("-batchmode","-accept-apiupdate","-projectPath","$env:GITHUB_WORKSPACE","-buildTarget","StandaloneWindows64","-executeMethod","EternalRealmsOnline.CI.EROBuildAutomation.BuildWindows","-quit","-logFile","$env:GITHUB_WORKSPACE\Builds\Logs\windows.log")
+          $p = Start-Process -FilePath "$env:ERO_UNITY_EXE" -ArgumentList $args -Wait -PassThru
+          if ($p.ExitCode -ne 0) { Get-Content "$env:GITHUB_WORKSPACE\Builds\Logs\windows.log" -Tail 500; throw "Windows build failed with exit code $($p.ExitCode)" }
 
       - name: Build Linux Dedicated Server
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
         run: |
-          & "$env:ERO_UNITY_EXE" -batchmode -nographics -quit -projectPath "$env:GITHUB_WORKSPACE" -buildTarget StandaloneLinux64 -executeMethod EternalRealmsOnline.CI.EROBuildAutomation.BuildLinuxDedicatedServer -logFile "$env:GITHUB_WORKSPACE\Builds\Logs\linux-server.log"
-          if ($LASTEXITCODE -ne 0) { throw "Linux Dedicated Server build failed with exit code $LASTEXITCODE" }
+          $args = @("-batchmode","-accept-apiupdate","-nographics","-projectPath","$env:GITHUB_WORKSPACE","-buildTarget","StandaloneLinux64","-executeMethod","EternalRealmsOnline.CI.EROBuildAutomation.BuildLinuxDedicatedServer","-quit","-logFile","$env:GITHUB_WORKSPACE\Builds\Logs\linux-server.log")
+          $p = Start-Process -FilePath "$env:ERO_UNITY_EXE" -ArgumentList $args -Wait -PassThru
+          if ($p.ExitCode -ne 0) { Get-Content "$env:GITHUB_WORKSPACE\Builds\Logs\linux-server.log" -Tail 500; throw "Linux Dedicated Server build failed with exit code $($p.ExitCode)" }
 
       - name: Verify outputs
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}

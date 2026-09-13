@@ -17,6 +17,7 @@ namespace EternalRealmsOnline.CI
         {
             ValidateProject();
             Debug.Log("[ERO CI] Unity editor loaded and EROBuildAutomation compiled successfully.");
+            EditorApplication.Exit(0);
         }
 
         [MenuItem("ERO/CI/Build Windows")]
@@ -25,6 +26,7 @@ namespace EternalRealmsOnline.CI
             ValidateProject();
             var report = BuildPipeline.BuildPlayer(CreateOptions(BuildTarget.StandaloneWindows64, "Builds/Windows/ERO.exe", StandaloneBuildSubtarget.Player));
             EnsureSucceeded(report, "Windows");
+            EditorApplication.Exit(0);
         }
 
         [MenuItem("ERO/CI/Build Linux Dedicated Server")]
@@ -33,6 +35,7 @@ namespace EternalRealmsOnline.CI
             ValidateProject();
             var report = BuildPipeline.BuildPlayer(CreateOptions(BuildTarget.StandaloneLinux64, "Builds/LinuxServer/ERO-WorldServer.x86_64", StandaloneBuildSubtarget.Server));
             EnsureSucceeded(report, "Linux Dedicated Server");
+            EditorApplication.Exit(0);
         }
 
         private static BuildPlayerOptions CreateOptions(BuildTarget target, string output, StandaloneBuildSubtarget subtarget)
