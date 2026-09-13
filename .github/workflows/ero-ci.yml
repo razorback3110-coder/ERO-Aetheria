@@ -14,13 +14,13 @@ jobs:
   validate:
     name: ERO Project Validation
     runs-on: [self-hosted, Windows, X64, ERO-Unity]
-    timeout-minutes: 30
+    timeout-minutes: 180
     steps:
       - name: Checkout ERO
         uses: actions/checkout@v6
         with:
           lfs: true
-          clean: true
+          clean: false
 
       - name: Show environment
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
@@ -76,14 +76,20 @@ jobs:
           "ERO_UNITY_EXE=$unity" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           & $unity -version
 
-      - name: Initialize Unity project and rebuild Library
+      - name: Initialize Unity project and rebuild Library when needed
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
-        timeout-minutes: 20
+        timeout-minutes: 60
         run: |
           $ErrorActionPreference = "Stop"
           New-Item -ItemType Directory -Force -Path "$env:GITHUB_WORKSPACE\Builds\Logs" | Out-Null
           $log = "$env:GITHUB_WORKSPACE\Builds\Logs\unity-initialize.log"
-          Write-Host "Initializing Unity 6000.0.67f1 and rebuilding Library if required..."
+          $library = Join-Path $env:GITHUB_WORKSPACE "Library"
+          $marker = Join-Path $library "AssetDatabase"
+          if ((Test-Path $library) -and ((Get-ChildItem $library -Force -ErrorAction SilentlyContinue | Measure-Object).Count -gt 0) -and (Test-Path (Join-Path $library "SourceAssetDB"))) {
+            Write-Host "Unity Library cache exists; reusing persistent self-hosted runner cache."
+            exit 0
+          }
+          Write-Host "Unity Library is missing/empty. Performing first-time Unity import (up to 60 minutes)."
           $args = @(
             "-batchmode", "-accept-apiupdate",
             "-projectPath", "$env:GITHUB_WORKSPACE",
@@ -95,13 +101,13 @@ jobs:
           Write-Host "Unity initialization exit code: $($p.ExitCode)"
           if ($p.ExitCode -ne 0) {
             Write-Host "===== UNITY INITIALIZATION LOG ====="
-            if (Test-Path $log) { Get-Content $log -Tail 250 }
+            if (Test-Path $log) { Get-Content $log -Tail 400 }
             throw "Unity project initialization failed with exit code $($p.ExitCode)"
           }
 
       - name: Unity compile validation
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
-        timeout-minutes: 20
+        timeout-minutes: 60
         run: |
           $ErrorActionPreference = "Stop"
           New-Item -ItemType Directory -Force -Path "$env:GITHUB_WORKSPACE\Builds\Logs" | Out-Null

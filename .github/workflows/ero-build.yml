@@ -13,14 +13,14 @@ jobs:
   build:
     name: Build ERO
     runs-on: [self-hosted, Windows, X64, ERO-Unity]
-    timeout-minutes: 120
+    timeout-minutes: 240
 
     steps:
       - name: Checkout ERO
         uses: actions/checkout@v6
         with:
           lfs: true
-          clean: true
+          clean: false
 
       - name: Locate Unity 6000.0.67f1
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
@@ -37,8 +37,28 @@ jobs:
           Write-Host "Unity: $unity"
           & $unity -version
 
+
+      - name: Initialize Unity project and rebuild Library when needed
+        shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
+        timeout-minutes: 60
+        run: |
+          $ErrorActionPreference = "Stop"
+          New-Item -ItemType Directory -Force -Path "$env:GITHUB_WORKSPACE\Builds\Logs" | Out-Null
+          $log = "$env:GITHUB_WORKSPACE\Builds\Logs\unity-initialize.log"
+          $library = Join-Path $env:GITHUB_WORKSPACE "Library"
+          if ((Test-Path $library) -and ((Get-ChildItem $library -Force -ErrorAction SilentlyContinue | Measure-Object).Count -gt 0) -and (Test-Path (Join-Path $library "SourceAssetDB"))) {
+            Write-Host "Unity Library cache exists; reusing persistent runner cache."
+            exit 0
+          }
+          Write-Host "Unity Library missing/empty; importing project (up to 60 minutes)."
+          $args = @("-batchmode","-accept-apiupdate","-projectPath","$env:GITHUB_WORKSPACE","-buildTarget","StandaloneWindows64","-quit","-logFile",$log)
+          $p = Start-Process -FilePath "$env:ERO_UNITY_EXE" -ArgumentList $args -Wait -PassThru
+          Write-Host "Unity initialization exit code: $($p.ExitCode)"
+          if ($p.ExitCode -ne 0) { if (Test-Path $log) { Get-Content $log -Tail 400 }; throw "Unity initialization failed with exit code $($p.ExitCode)" }
+
       - name: Validate Unity compile
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
+        timeout-minutes: 60
         run: |
           New-Item -ItemType Directory -Force -Path "$env:GITHUB_WORKSPACE\Builds\Logs" | Out-Null
           $args = @("-batchmode","-accept-apiupdate","-projectPath","$env:GITHUB_WORKSPACE","-buildTarget","StandaloneWindows64","-executeMethod","EternalRealmsOnline.CI.EROBuildAutomation.ValidateCompile","-quit","-logFile","$env:GITHUB_WORKSPACE\Builds\Logs\compile.log")
@@ -47,6 +67,7 @@ jobs:
 
       - name: Build Windows Player
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
+        timeout-minutes: 120
         run: |
           $args = @("-batchmode","-accept-apiupdate","-projectPath","$env:GITHUB_WORKSPACE","-buildTarget","StandaloneWindows64","-executeMethod","EternalRealmsOnline.CI.EROBuildAutomation.BuildWindows","-quit","-logFile","$env:GITHUB_WORKSPACE\Builds\Logs\windows.log")
           $p = Start-Process -FilePath "$env:ERO_UNITY_EXE" -ArgumentList $args -Wait -PassThru
@@ -54,6 +75,7 @@ jobs:
 
       - name: Build Linux Dedicated Server
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
+        timeout-minutes: 120
         run: |
           $args = @("-batchmode","-accept-apiupdate","-nographics","-projectPath","$env:GITHUB_WORKSPACE","-buildTarget","StandaloneLinux64","-executeMethod","EternalRealmsOnline.CI.EROBuildAutomation.BuildLinuxDedicatedServer","-quit","-logFile","$env:GITHUB_WORKSPACE\Builds\Logs\linux-server.log")
           $p = Start-Process -FilePath "$env:ERO_UNITY_EXE" -ArgumentList $args -Wait -PassThru
