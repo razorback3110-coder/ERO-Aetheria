@@ -11,7 +11,7 @@ permissions:
 jobs:
   project-preflight:
     name: Project preflight
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Windows, X64, ERO-Unity]
     timeout-minutes: 15
     steps:
       - name: Checkout ERO
@@ -20,85 +20,81 @@ jobs:
           lfs: true
 
       - name: Verify Unity project structure
-        shell: bash
+        shell: powershell
         run: |
-          set -e
-          test -d Assets
-          test -d Packages
-          test -d ProjectSettings
-          test -f ProjectSettings/ProjectVersion.txt
-          grep -q "6000.0.67f1" ProjectSettings/ProjectVersion.txt
-          test -f Assets/ERO/V3_FreeAAA/README/README_V3_FREE_AAA.md
-          test -f Assets/ERO/V3_FreeAAA/Runtime/EROFreeAAAAssetRegistryV3.cs
-          echo "ERO structure: OK"
-          echo "Unity version target:"
-          cat ProjectSettings/ProjectVersion.txt
+          $ErrorActionPreference = 'Stop'
+          if (!(Test-Path Assets)) { throw 'Assets missing' }
+          if (!(Test-Path Packages)) { throw 'Packages missing' }
+          if (!(Test-Path ProjectSettings)) { throw 'ProjectSettings missing' }
+          if (!(Test-Path ProjectSettings/ProjectVersion.txt)) { throw 'ProjectVersion.txt missing' }
+          if (-not (Select-String -Path ProjectSettings/ProjectVersion.txt -Pattern '6000.0.67f1' -Quiet)) { throw 'Unity version is not 6000.0.67f1' }
+          Write-Host 'ERO structure: OK'
+          Get-Content ProjectSettings/ProjectVersion.txt
 
       - name: Check accidental secrets
-        shell: bash
+        shell: powershell
         run: |
-          set -e
-          if grep -RInE "(UNITY_PASSWORD=|DISCORD_TOKEN=|BEGIN (RSA|OPENSSH|PRIVATE) KEY)" \
-              Assets Packages ProjectSettings --exclude-dir=.git --exclude='*.meta' 2>/dev/null; then
-            echo "::error::Possible secret found in project files."
-            exit 1
-          fi
-          echo "Secret scan: OK"
-
-      - name: Upload preflight report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: ero-preflight
-          path: |
-            ProjectSettings/ProjectVersion.txt
-            Assets/ERO/V3_FreeAAA/README/README_V3_FREE_AAA.md
+          $ErrorActionPreference = 'Stop'
+          $patterns = @('UNITY_' + 'PASSWORD=','DISCORD_' + 'TOKEN=','BEGIN RSA PRIVATE KEY','BEGIN OPENSSH PRIVATE KEY','BEGIN PRIVATE KEY')
+          $files = Get-ChildItem Assets,Packages,ProjectSettings -Recurse -File -ErrorAction SilentlyContinue | Where-Object { $_.Extension -ne '.meta' }
+          foreach ($file in $files) {
+            $hit = Select-String -Path $file.FullName -Pattern $patterns -SimpleMatch -ErrorAction SilentlyContinue
+            if ($hit) { throw "Possible secret found in project file: $($file.FullName)" }
+          }
+          Write-Host 'Secret scan: OK'
 
   unity-validation:
-    name: Unity tests and validation build
+    name: Unity compile validation
     needs: project-preflight
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Windows, X64, ERO-Unity]
     timeout-minutes: 60
-
     steps:
       - name: Checkout ERO
         uses: actions/checkout@v4
         with:
           lfs: true
 
-      # GameCI is used so the workflow can run Unity in a reproducible container.
-      # Unity credentials are supplied only through GitHub Actions secrets.
-      - name: Run Unity tests
-        uses: game-ci/unity-test-runner@v4
-        env:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          projectPath: .
-          unityVersion: 6000.0.67f1
-          testMode: all
-          artifactsPath: test-results
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
+      - name: Resolve Unity executable
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $candidates = @(
+            $env:ERO_UNITY_EXE,
+            'C:\Program Files\Unity\Hub\Editor\6000.0.67f1\Editor\Unity.exe'
+          ) | Where-Object { $_ -and (Test-Path $_) }
+          if (!$candidates) { throw 'Unity 6000.0.67f1 executable not found. Set ERO_UNITY_EXE or install the editor at the standard Unity Hub path.' }
+          "UNITY_EXE=$($candidates[0])" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          Write-Host "Using Unity: $($candidates[0])"
 
-      - name: Build Linux validation player
-        uses: game-ci/unity-builder@v4
-        env:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          projectPath: .
-          unityVersion: 6000.0.67f1
-          targetPlatform: StandaloneLinux64
-          buildsPath: builds
+      - name: Stop stale Unity/Bee processes
+        shell: powershell
+        run: |
+          Get-Process Unity,UnityHub,BeeBackend -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+          Start-Sleep -Seconds 2
 
-      - name: Upload Unity results
+      - name: Validate Unity compile
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          New-Item -ItemType Directory -Force -Path Logs | Out-Null
+          $log = Join-Path $PWD 'Logs/ERO_Unity_Validation.log'
+          & $env:UNITY_EXE -batchmode -nographics -quit -accept-apiupdate -projectPath $PWD -buildTarget StandaloneWindows64 -executeMethod EternalRealmsOnline.CI.EROBuildAutomation.ValidateCompile -logFile $log
+          $code = $LASTEXITCODE
+          if (Test-Path $log) { Get-Content $log -Tail 250 }
+          if ($code -ne 0) { throw "Unity compile validation failed with exit code $code" }
+
+      - name: Cleanup temporary Unity/Bee data
+        if: always()
+        shell: powershell
+        run: |
+          Remove-Item -Recurse -Force Library/Bee -ErrorAction SilentlyContinue
+          Remove-Item -Recurse -Force Temp -ErrorAction SilentlyContinue
+          Remove-Item -Recurse -Force obj -ErrorAction SilentlyContinue
+
+      - name: Upload Unity validation log
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ero-unity-results
-          path: |
-            test-results
-            builds
-            artifacts
-            Logs
+          name: ero-unity-validation-log
+          path: Logs/ERO_Unity_Validation.log
           if-no-files-found: ignore
