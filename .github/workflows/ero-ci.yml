@@ -13,7 +13,7 @@ permissions:
 jobs:
   validate:
     name: ERO Project Validation
-    runs-on: [self-hosted, Windows, X64, ERO-Unity]
+    runs-on: [self-hosted, Windows, X64]
     timeout-minutes: 180
     steps:
       - name: Checkout ERO
