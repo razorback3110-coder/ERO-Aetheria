@@ -20,7 +20,7 @@ jobs:
           lfs: true
 
       - name: Verify Unity project structure
-        shell: powershell
+        shell: powershell -ExecutionPolicy Bypass -File {0}
         run: |
           $ErrorActionPreference = 'Stop'
           if (!(Test-Path Assets)) { throw 'Assets missing' }
@@ -32,7 +32,7 @@ jobs:
           Get-Content ProjectSettings/ProjectVersion.txt
 
       - name: Check accidental secrets
-        shell: powershell
+        shell: powershell -ExecutionPolicy Bypass -File {0}
         run: |
           $ErrorActionPreference = 'Stop'
           $patterns = @('UNITY_' + 'PASSWORD=','DISCORD_' + 'TOKEN=','BEGIN RSA PRIVATE KEY','BEGIN OPENSSH PRIVATE KEY','BEGIN PRIVATE KEY')
@@ -55,7 +55,7 @@ jobs:
           lfs: true
 
       - name: Resolve Unity executable
-        shell: powershell
+        shell: powershell -ExecutionPolicy Bypass -File {0}
         run: |
           $ErrorActionPreference = 'Stop'
           $candidates = @(
@@ -67,13 +67,13 @@ jobs:
           Write-Host "Using Unity: $($candidates[0])"
 
       - name: Stop stale Unity/Bee processes
-        shell: powershell
+        shell: powershell -ExecutionPolicy Bypass -File {0}
         run: |
           Get-Process Unity,UnityHub,BeeBackend -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
           Start-Sleep -Seconds 2
 
       - name: Validate Unity compile
-        shell: powershell
+        shell: powershell -ExecutionPolicy Bypass -File {0}
         run: |
           $ErrorActionPreference = 'Stop'
           New-Item -ItemType Directory -Force -Path Logs | Out-Null
@@ -85,7 +85,7 @@ jobs:
 
       - name: Cleanup temporary Unity/Bee data
         if: always()
-        shell: powershell
+        shell: powershell -ExecutionPolicy Bypass -File {0}
         run: |
           Remove-Item -Recurse -Force Library/Bee -ErrorAction SilentlyContinue
           Remove-Item -Recurse -Force Temp -ErrorAction SilentlyContinue
