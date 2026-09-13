@@ -1,0 +1,12 @@
+{
+  "project": "Eternal Realms Online",
+  "unity": "6000.0.67f1",
+  "changeset": "78a1c2bbeb6a",
+  "ci": ".github/workflows/unity-ci.yml",
+  "tests": [
+    "Unity EditMode/PlayMode tests",
+    "Linux validation build",
+    "artifact/log upload"
+  ],
+  "security": "credentials must be supplied as CI secrets"
+}

@@ -1,0 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using EternalRealmsOnline.V508;
+
+namespace EternalRealmsOnline.V509
+{
+    /// <summary>Applies ERO localization to the V505 presentation without touching Boss Room networking.</summary>
+    public sealed class EROLocalizedCharSelectV509 : MonoBehaviour
+    {
+        static EROLocalizedCharSelectV509 instance;
+        EROLocalizationV508 loc;
+        readonly Dictionary<Text,string> keys = new Dictionary<Text,string>();
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void Boot(){ if(instance!=null)return; var go=new GameObject("ERO_V509_LocalizedCharSelect"); DontDestroyOnLoad(go); instance=go.AddComponent<EROLocalizedCharSelectV509>(); }
+        void Awake(){SceneManager.sceneLoaded+=OnSceneLoaded;}
+        void OnDestroy(){SceneManager.sceneLoaded-=OnSceneLoaded;if(loc!=null)loc.LanguageChanged-=Refresh;}
+        void OnSceneLoaded(Scene scene,LoadSceneMode mode){if(scene.name=="CharSelect")StartCoroutine(Scan());}
+        IEnumerator Scan(){yield return null;yield return new WaitForSeconds(.35f);loc=EROLocalizationV508.Instance;if(loc!=null){loc.LanguageChanged-=Refresh;loc.LanguageChanged+=Refresh;}keys.Clear();foreach(var t in FindObjectsOfType<Text>(true)){string v=t.text;string key=KeyFor(v);if(key!=null)keys[t]=key;}Refresh(loc!=null?loc.CurrentLanguage:EROLanguage.English);}
+        string KeyFor(string v){switch(v){case "ETERNAL REALMS ONLINE":return null;case "CHARACTER CREATION • AETHERIA":return "charselect.subtitle";case "CHOOSE YOUR CLASS":return "charselect.choose";case "CHARACTER NAME":return "charselect.name";case "CREATE CHARACTER":return "charselect.create";case "MALE":return "charselect.male";case "FEMALE":return "charselect.female";default:return null;}}
+        void Refresh(EROLanguage _){if(loc==null)return;foreach(var pair in keys)if(pair.Key!=null)pair.Key.text=loc.Get(pair.Value);}
+    }
+}

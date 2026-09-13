@@ -1,0 +1,440 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using ERO.Data;
+using EternalRealmsOnline.Full;
+
+namespace EternalRealmsOnline.V532
+{
+    /// <summary>
+    /// Self-contained playable ERO vertical slice. It intentionally avoids Boss Room UI and
+    /// builds a complete testable world at runtime: character, movement, combat, enemies,
+    /// quests, loot, inventory, portals, HUD and zone travel.
+    /// </summary>
+    public sealed class EROPlayableRuntimeV532 : MonoBehaviour
+    {
+        public static EROPlayableRuntimeV532 I { get; private set; }
+        const string SceneName = "ERO_Playable";
+        const string PlayerNameKey = "ERO_CHARACTER_NAME";
+        const string ClassKey = "ERO_CHARACTER_CLASS";
+        readonly List<EnemyRuntime> enemies = new();
+        readonly List<GameObject> worldObjects = new();
+        readonly Dictionary<string, Vector3> zoneSpawns = new();
+        readonly Dictionary<string, int> zoneLevels = new();
+        CharacterController controller;
+        GameObject player;
+        GameObject playerVisual;
+        Camera cam;
+        Canvas canvas;
+        TMP_Text statusText, questText, targetText, zoneText, logText;
+        Image hpFill, mpFill, xpFill;
+        Transform worldRoot;
+        EnemyRuntime target;
+        float attackCooldown;
+        float cameraYaw = 35f, cameraPitch = 18f;
+        Vector3 velocity;
+        bool built;
+        EROClass playerClass = EROClass.Knight;
+        string playerName = "Aetherian";
+        int hp = 220, maxHp = 220, mp = 120, maxMp = 120;
+        int level = 1;
+        long xp;
+        int gold = 250;
+        int questKills;
+        string currentZone = "Greenhaven";
+
+        readonly string[] zoneNames = { "Greenhaven", "Everwood", "Kingdom of Elyndor", "Frostfall", "Sunscar Desert", "Sylvaris", "Abyssia", "The Rift", "Eternal Rift", "Endless Abyss" };
+        readonly int[] zoneMin = { 1, 10, 20, 30, 40, 50, 60, 70, 80, 90 };
+        readonly string[] enemyNames = { "Rift Slime", "Corrupted Wolf", "Aether Sprite", "Rift Cultist", "Abyss Hound" };
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        static void AutoBoot()
+        {
+            if (I != null) return;
+            if (SceneManager.GetActiveScene().name != SceneName) return;
+            var go = new GameObject("ERO_PlayableRuntime_V532");
+            I = go.AddComponent<EROPlayableRuntimeV532>();
+            DontDestroyOnLoad(go);
+        }
+
+        void Awake()
+        {
+            if (I != null && I != this) { Destroy(gameObject); return; }
+            I = this;
+        }
+
+        void Start()
+        {
+            if (built) return;
+            built = true;
+            ReadProfile();
+            BuildWorld();
+            BuildPlayer();
+            BuildCamera();
+            BuildUI();
+            SpawnEnemies();
+            Log("Aetheria est prête. Bienvenue à Greenhaven.");
+        }
+
+        void Update()
+        {
+            if (!built || player == null) return;
+            HandleMovement();
+            HandleCamera();
+            HandleCombatInput();
+            UpdateEnemies();
+            UpdateTarget();
+            UpdateUI();
+        }
+
+        void ReadProfile()
+        {
+            playerName = PlayerPrefs.GetString(PlayerNameKey, "Aetherian");
+            int cls = Mathf.Clamp(PlayerPrefs.GetInt(ClassKey, 0), 0, 7);
+            playerClass = (EROClass)cls;
+            level = Mathf.Clamp(PlayerPrefs.GetInt("ERO_TEST_LEVEL", 1), 1, 100);
+            maxHp = 180 + level * 40;
+            hp = maxHp;
+            maxMp = 100 + level * 20;
+            mp = maxMp;
+            zoneSpawns.Clear();
+            zoneLevels.Clear();
+            for (int i = 0; i < zoneNames.Length; i++)
+            {
+                zoneSpawns[zoneNames[i]] = new Vector3(i * 55f, 0f, 0f);
+                zoneLevels[zoneNames[i]] = zoneMin[i];
+            }
+        }
+
+        void BuildWorld()
+        {
+            worldRoot = new GameObject("Aetheria_Runtime_World").transform;
+            CreateLighting();
+            for (int i = 0; i < zoneNames.Length; i++)
+            {
+                Vector3 center = zoneSpawns[zoneNames[i]];
+                CreateZone(zoneNames[i], center, i);
+            }
+        }
+
+        void CreateLighting()
+        {
+            RenderSettings.ambientLight = new Color(0.12f, 0.15f, 0.22f);
+            RenderSettings.fog = true;
+            RenderSettings.fogColor = new Color(0.05f, 0.07f, 0.12f);
+            RenderSettings.fogDensity = 0.006f;
+            var sun = new GameObject("Aetheria Sun").AddComponent<Light>();
+            sun.type = LightType.Directional;
+            sun.intensity = 1.1f;
+            sun.transform.rotation = Quaternion.Euler(48f, -35f, 0f);
+            worldObjects.Add(sun.gameObject);
+        }
+
+        void CreateZone(string name, Vector3 center, int index)
+        {
+            var floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
+            floor.name = "Zone_" + name;
+            floor.transform.SetParent(worldRoot);
+            floor.transform.position = center;
+            floor.transform.localScale = Vector3.one * 5.5f;
+            var floorMat = MakeMaterial(index == 6 ? new Color(.12f,.07f,.10f) : new Color(.09f + index*.008f,.16f + index*.005f,.12f + index*.01f));
+            if (floorMat != null) floor.GetComponent<Renderer>().material = floorMat;
+            worldObjects.Add(floor);
+
+            for (int p = 0; p < 10; p++)
+            {
+                float a = p * Mathf.PI * 2f / 10f;
+                Vector3 pos = center + new Vector3(Mathf.Cos(a), 0f, Mathf.Sin(a)) * (9f + (p % 2) * 5f);
+                CreateTreeOrCrystal(pos, index, p);
+            }
+
+            var sign = new GameObject("ZoneLabel_" + name);
+            sign.transform.SetParent(worldRoot);
+            sign.transform.position = center + Vector3.up * 3f + Vector3.forward * 7f;
+            var tm = sign.AddComponent<TextMesh>();
+            tm.text = name + "  Lv." + zoneMin[index] + "-" + (index == 9 ? 100 : zoneMin[index + 1] - 1);
+            tm.characterSize = 0.45f;
+            tm.fontSize = 48;
+            tm.anchor = TextAnchor.MiddleCenter;
+            tm.color = new Color(.75f,.86f,1f);
+            worldObjects.Add(sign);
+        }
+
+        void CreateTreeOrCrystal(Vector3 pos, int zone, int seed)
+        {
+            PrimitiveType type = (zone >= 6 && seed % 2 == 0) ? PrimitiveType.Cube : PrimitiveType.Cylinder;
+            var go = GameObject.CreatePrimitive(type);
+            go.name = "Environment_Prop";
+            go.transform.SetParent(worldRoot);
+            go.transform.position = pos;
+            go.transform.localScale = type == PrimitiveType.Cube ? new Vector3(1.2f, 2.8f + seed%3, 1.2f) : new Vector3(1.1f, 2.5f + seed%2, 1.1f);
+            var propMat = MakeMaterial(zone >= 6 ? new Color(.25f,.08f,.13f) : new Color(.12f,.28f,.16f));
+            if (propMat != null) go.GetComponent<Renderer>().material = propMat;
+            worldObjects.Add(go);
+        }
+
+        GameObject BuildModel(EROClass cls, Gender gender)
+        {
+            string[] names = { "Knight", "Assassin", "Ranger", "Mage", "Priest", "Monk", "Summoner", "Paladin" };
+            string path = "EROCharacters/" + names[(int)cls] + "_" + gender;
+            GameObject prefab = Resources.Load<GameObject>(path);
+            if (prefab == null) return null;
+            return Instantiate(prefab);
+        }
+
+        void BuildPlayer()
+        {
+            player = new GameObject("ERO_Player_" + playerName);
+            player.transform.position = zoneSpawns[currentZone] + new Vector3(0, 1, -3);
+            controller = player.AddComponent<CharacterController>();
+            controller.height = 2.0f;
+            controller.radius = .45f;
+            controller.center = new Vector3(0,1,0);
+            playerVisual = BuildModel(playerClass, Gender.Male);
+            if (playerVisual != null)
+            {
+                playerVisual.name = "ERO_RealCharacterModel";
+                playerVisual.transform.SetParent(player.transform, false);
+                NormalizeVisual(playerVisual, 1.75f);
+                playerVisual.transform.localPosition = Vector3.zero;
+            }
+            else
+            {
+                var fallback = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+                fallback.transform.SetParent(player.transform, false);
+                fallback.transform.localPosition = Vector3.up;
+                fallback.name = "ModelFallback";
+            }
+        }
+
+        void NormalizeVisual(GameObject go, float desiredHeight)
+        {
+            var renderers = go.GetComponentsInChildren<Renderer>(true);
+            if (renderers.Length == 0) return;
+            Bounds b = renderers[0].bounds;
+            foreach (var r in renderers) b.Encapsulate(r.bounds);
+            float h = Mathf.Max(.01f, b.size.y);
+            float s = desiredHeight / h;
+            go.transform.localScale *= s;
+        }
+
+        void BuildCamera()
+        {
+            var go = new GameObject("ERO_PlayerCamera");
+            cam = go.AddComponent<Camera>();
+            cam.fieldOfView = 60f;
+            cam.nearClipPlane = .05f;
+            cam.farClipPlane = 1200f;
+            cam.transform.position = player.transform.position + new Vector3(7,5,-9);
+            cam.transform.LookAt(player.transform.position + Vector3.up*1.1f);
+        }
+
+        void BuildUI()
+        {
+            var es = FindFirstObjectByType<EventSystem>();
+            if (es == null)
+            {
+                var e = new GameObject("ERO_EventSystem");
+                e.AddComponent<EventSystem>();
+                e.AddComponent<StandaloneInputModule>();
+            }
+            var go = new GameObject("ERO_RuntimeHUD");
+            canvas = go.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.sortingOrder = 100;
+            go.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            go.GetComponent<CanvasScaler>().referenceResolution = new Vector2(1920,1080);
+            go.AddComponent<GraphicRaycaster>();
+
+            Panel("Top", .02f,.88f,.35f,.98f);
+            Text("Name", playerName + "  •  Lv." + level + "  •  " + playerClass, 15, Color.white, .04f,.945f,.33f,.975f);
+            hpFill = Bar("HP", .04f,.915f,.33f,.94f, Color.red);
+            mpFill = Bar("MP", .04f,.885f,.33f,.91f, Color.cyan);
+            xpFill = Bar("XP", .04f,.855f,.33f,.88f, new Color(.75f,.55f,1));
+            zoneText = Text("Zone", currentZone, 16, new Color(.8f,.9f,1), .39f,.94f,.68f,.98f);
+            targetText = Text("Target", "Aucune cible", 14, Color.white, .72f,.88f,.98f,.97f);
+            questText = Text("Quest", "Quête: Rift Echoes\nMonstres: 0 / 10", 14, Color.white, .02f,.70f,.28f,.84f);
+            logText = Text("Log", "", 13, new Color(1f,.86f,.55f), .36f,.15f,.64f,.22f);
+            Panel("Bottom", .27f,.02f,.73f,.14f);
+            string[] skills = { "1  ATK", "2  SKILL", "3  AOE", "4  ULT" };
+            for(int i=0;i<skills.Length;i++)
+            {
+                int k=i;
+                var b = Button(skills[i], .29f + i*.105f, .045f, .10f + i*.105f, .105f);
+                b.onClick.AddListener(()=>UseSkill(k));
+            }
+            var auto = Button("AUTO", .735f,.045f,.80f,.105f); auto.onClick.AddListener(()=>{ if(EROFullGame.I!=null) EROFullGame.I.ToggleAuto(!EROFullGame.I.AutoCombat); Log("Auto Combat basculé"); });
+            var save = Button("SAVE", .81f,.045f,.87f,.105f); save.onClick.AddListener(()=>{ if(EROFullGame.I!=null) EROFullGame.I.SaveLocal(); Log("Sauvegarde effectuée"); });
+            var map = Button("MAP", .88f,.045f,.94f,.105f); map.onClick.AddListener(OpenZoneMenu);
+            Text("Help", "WASD déplacer • Souris caméra • Clic gauche / E attaquer • 1-4 compétences • M cible la plus proche • TAB change de zone", 11, new Color(.65f,.72f,.82f), .30f,.145f,.95f,.17f);
+        }
+
+        Image Bar(string name,float a,float b,float c,float d,Color fillColor)
+        {
+            var bg = Panel(name+"BG",a,b,c,d);
+            var bgImg = bg.GetComponent<Image>();
+            var f = new GameObject("Fill").AddComponent<Image>();
+            f.transform.SetParent(bg.transform,false);
+            f.rectTransform.anchorMin=Vector2.zero; f.rectTransform.anchorMax=new Vector2(1,1); f.rectTransform.offsetMin=Vector2.zero; f.rectTransform.offsetMax=Vector2.zero;
+            f.color=fillColor;
+            return f;
+        }
+
+        GameObject Panel(string name,float a,float b,float c,float d)
+        {
+            var g=new GameObject(name); g.transform.SetParent(canvas.transform,false);
+            var i=g.AddComponent<Image>(); i.color=new Color(.008f,.016f,.032f,.88f);
+            Rect(g.GetComponent<RectTransform>(),a,b,c,d); return g;
+        }
+        TMP_Text Text(string name,string value,float size,Color color,float a,float b,float c,float d)
+        {
+            var g=new GameObject(name);g.transform.SetParent(canvas.transform,false);var t=g.AddComponent<TextMeshProUGUI>();t.text=value;t.fontSize=size;t.color=color;t.alignment=TextAlignmentOptions.Left;t.textWrappingMode=TextWrappingModes.Normal;t.raycastTarget=false;Rect(t.rectTransform,a,b,c,d);return t;
+        }
+        Button Button(string value,float a,float b,float c,float d)
+        {
+            var g=Panel("Button_"+value,a,b,c,d);var btt=g.AddComponent<Button>();var t=Text("Label",value,14,new Color(.85f,.9f,1),0,0,1,1);t.alignment=TextAlignmentOptions.Center;return btt;
+        }
+        void Rect(RectTransform r,float a,float b,float c,float d){r.anchorMin=new Vector2(a,b);r.anchorMax=new Vector2(c,d);r.offsetMin=r.offsetMax=Vector2.zero;}
+
+        void HandleMovement()
+        {
+            float h = UnityEngine.Input.GetAxisRaw("Horizontal");
+            float v = UnityEngine.Input.GetAxisRaw("Vertical");
+            Vector3 forward = Quaternion.Euler(0,cameraYaw,0) * Vector3.forward;
+            Vector3 right = Quaternion.Euler(0,cameraYaw,0) * Vector3.right;
+            Vector3 move=(forward*v+right*h); if(move.sqrMagnitude>1)move.Normalize();
+            float speed=5f;
+            if(UnityEngine.Input.GetKey(KeyCode.LeftShift)) speed=8f;
+            controller.Move(move*speed*Time.deltaTime);
+            if(move.sqrMagnitude>.01f) player.transform.rotation=Quaternion.Slerp(player.transform.rotation,Quaternion.LookRotation(move),12f*Time.deltaTime);
+            if(controller.isGrounded) velocity.y=-1f; else velocity.y-=25f*Time.deltaTime;
+            controller.Move(velocity*Time.deltaTime);
+        }
+        void HandleCamera()
+        {
+            if(UnityEngine.Input.GetMouseButton(1)) { cameraYaw += UnityEngine.Input.GetAxis("Mouse X")*4f; cameraPitch -= UnityEngine.Input.GetAxis("Mouse Y")*3f; cameraPitch=Mathf.Clamp(cameraPitch,5,35); }
+            if(UnityEngine.Input.GetKeyDown(KeyCode.M)) SelectNearest();
+            if(UnityEngine.Input.GetKeyDown(KeyCode.Tab)) OpenZoneMenu();
+            Vector3 offset=Quaternion.Euler(cameraPitch,cameraYaw,0)*new Vector3(0,1.5f,-9f);
+            cam.transform.position=Vector3.Lerp(cam.transform.position,player.transform.position+offset,12f*Time.deltaTime);
+            cam.transform.LookAt(player.transform.position+Vector3.up*1.2f);
+        }
+        void HandleCombatInput()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                if (UnityEngine.Input.GetKeyDown((KeyCode)((int)KeyCode.F1 + i))) SwitchClass((EROClass)i);
+            }
+            if (UnityEngine.Input.GetKeyDown(KeyCode.I)) Log("Inventaire: ouvrez le système ERO avec l'UI principale.");
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Q)) Log("Quête: Rift Echoes — vaincre 10 créatures touchées par la Faille.");
+            if (UnityEngine.Input.GetKeyDown(KeyCode.C)) Log("Personnage: " + playerName + " • " + playerClass + " • Lv." + level);
+            attackCooldown-=Time.deltaTime;
+            if((UnityEngine.Input.GetMouseButtonDown(0)||UnityEngine.Input.GetKeyDown(KeyCode.E)) && attackCooldown<=0){AttackTarget(1);attackCooldown=.65f;}
+            if(UnityEngine.Input.GetKeyDown(KeyCode.Alpha1))UseSkill(0);
+            if(UnityEngine.Input.GetKeyDown(KeyCode.Alpha2))UseSkill(1);
+            if(UnityEngine.Input.GetKeyDown(KeyCode.Alpha3))UseSkill(2);
+            if(UnityEngine.Input.GetKeyDown(KeyCode.Alpha4))UseSkill(3);
+        }
+        void SelectNearest()
+        {
+            target=enemies.Where(e=>e!=null&&e.alive).OrderBy(e=>(e.go.transform.position-player.transform.position).sqrMagnitude).FirstOrDefault();
+            if(target!=null) Log("Cible: "+target.name);
+        }
+        void AttackTarget(int skill)
+        {
+            if(target==null||!target.alive)SelectNearest();
+            if(target==null)return;
+            float dist=Vector3.Distance(player.transform.position,target.go.transform.position);if(dist>8f){Log("Trop loin");return;}
+            int damage=25+level*6+(int)playerClass*2; if(skill==2)damage*=2;if(skill==3)damage*=4;
+            target.TakeDamage(damage); Log(""+damage+" dégâts sur "+target.name);
+            if(!target.alive){questKills++;xp+=50+target.level*10;gold+=target.level*8;TryLevelUp();DropLoot(target.level);}
+        }
+        void UseSkill(int skill){ if(mp<10){Log("Mana insuffisant");return;}mp-=10+skill*5;AttackTarget(skill); }
+        void SwitchClass(EROClass cls)
+        {
+            playerClass = cls;
+            if (playerVisual != null) Destroy(playerVisual);
+            playerVisual = BuildModel(playerClass, Gender.Male);
+            if (playerVisual != null)
+            {
+                playerVisual.name = "ERO_RealCharacterModel_" + playerClass;
+                playerVisual.transform.SetParent(player.transform, false);
+                NormalizeVisual(playerVisual, 1.75f);
+                playerVisual.transform.localPosition = Vector3.zero;
+            }
+            PlayerPrefs.SetInt(ClassKey, (int)cls); PlayerPrefs.Save();
+            Log("Classe sélectionnée: " + cls + " • F1-F8 pour changer");
+        }
+        void UpdateEnemies()
+        {
+            foreach(var e in enemies.ToArray())
+            {
+                if(e==null||!e.alive)continue;
+                float d=Vector3.Distance(player.transform.position,e.go.transform.position);
+                if(d<12f){Vector3 dir=(player.transform.position-e.go.transform.position).normalized; e.go.transform.position+=dir*e.speed*Time.deltaTime; if(d<2f&&UnityEngine.Random.value<Time.deltaTime*.7f){hp=Mathf.Max(0,hp-e.damage);if(hp==0){hp=maxHp;player.transform.position=zoneSpawns[currentZone]+new Vector3(0,1,-3);Log("Vous êtes tombé au combat. Résurrection à Greenhaven.");}}}
+            }
+        }
+        void UpdateTarget(){if(target!=null&&target.alive)targetText.text=target.name+"  Lv."+target.level+"  HP "+target.hp+" / "+target.maxHp;else targetText.text="Aucune cible";}
+        void UpdateUI()
+        {
+            if(hpFill!=null)hpFill.rectTransform.anchorMax=new Vector2(Mathf.Clamp01((float)hp/maxHp),1);
+            if(mpFill!=null)mpFill.rectTransform.anchorMax=new Vector2(Mathf.Clamp01((float)mp/maxMp),1);
+            long need=100L+level*level*25L; if(xpFill!=null)xpFill.rectTransform.anchorMax=new Vector2(Mathf.Clamp01((float)xp/need),1);
+            if(zoneText!=null)zoneText.text=currentZone+"  •  Lv."+level+"  •  Gold "+gold;
+            if(questText!=null)questText.text="Quête principale: Rift Echoes\nMonstres vaincus: "+questKills+" / 10\nXP: "+xp+"   HP: "+hp+" / "+maxHp;
+        }
+        void TryLevelUp(){while(level<100){long need=100L+level*level*25L;if(xp<need)break;xp-=need;level++;maxHp+=40;maxMp+=20;hp=maxHp;mp=maxMp;Log("NIVEAU "+level+" !");}}
+        void DropLoot(int enemyLevel){ if(EROFullGame.I!=null)EROFullGame.I.AddItem(new ItemData{id="rift_fragment",name="Rift Fragment",rarity=Rarity.Common,level=enemyLevel,quantity=1}); }
+        void SpawnEnemies()
+        {
+            int zoneIndex=Array.IndexOf(zoneNames,currentZone);zoneIndex=Mathf.Max(0,zoneIndex);
+            for(int i=0;i<18;i++)
+            {
+                float x=(i%6-2.5f)*4f;float z=(i/6-1)*5f;var e=SpawnEnemy(enemyNames[i%enemyNames.Length],zoneMin[zoneIndex]+i%4,zoneSpawns[currentZone]+new Vector3(x,1,z));enemies.Add(e);
+            }
+        }
+        EnemyRuntime SpawnEnemy(string name,int enemyLevel,Vector3 pos)
+        {
+            var go=new GameObject("Enemy_"+name);go.transform.SetParent(worldRoot);go.transform.position=pos;
+            var model=BuildModel(EROClass.Assassin,Gender.Female);
+            if(model!=null){model.transform.SetParent(go.transform,false);NormalizeVisual(model,1.45f);model.transform.localPosition=Vector3.zero;foreach(var r in model.GetComponentsInChildren<Renderer>()){var mat=MakeMaterial(new Color(.35f,.12f,.18f));if(mat!=null)r.material=mat;}}
+            else{var c=GameObject.CreatePrimitive(PrimitiveType.Capsule);c.transform.SetParent(go.transform,false);c.transform.localPosition=Vector3.up;var mat=MakeMaterial(new Color(.45f,.12f,.2f));if(mat!=null)c.GetComponent<Renderer>().material=mat;}
+            var enemy=new EnemyRuntime{name=name,go=go,level=enemyLevel,maxHp=70+enemyLevel*25,hp=70+enemyLevel*25,damage=8+enemyLevel*2,speed=.8f+enemyLevel*.015f};return enemy;
+        }
+        void OpenZoneMenu()
+        {
+            string zone=zoneNames[(Array.IndexOf(zoneNames,currentZone)+1)%zoneNames.Length];
+            Travel(zone);
+        }
+        void Travel(string zone)
+        {
+            int idx=Array.IndexOf(zoneNames,zone);if(idx<0)return;
+            if(level<zoneMin[idx]){Log("Zone verrouillée: niveau "+zoneMin[idx]);return;}
+            currentZone=zone;player.transform.position=zoneSpawns[zone]+new Vector3(0,1,-3);foreach(var e in enemies)if(e!=null)e.Destroy();enemies.Clear();SpawnEnemies();Log("Bienvenue à "+zone);
+        }
+        void DropToWorld(ItemData item){ }
+        void Log(string message){if(logText!=null)logText.text=message;}
+        Material MakeMaterial(Color c)
+        {
+            Shader shader = Shader.Find("Universal Render Pipeline/Lit");
+            if (shader == null) shader = Shader.Find("Standard");
+            if (shader == null) return null;
+            var m = new Material(shader);
+            m.color = c;
+            if (m.HasProperty("_Smoothness")) m.SetFloat("_Smoothness", .35f);
+            return m;
+        }
+
+        sealed class EnemyRuntime
+        {
+            public string name;public int level,maxHp,hp,damage;public float speed;public GameObject go;public bool alive=true;
+            public void TakeDamage(int amount){hp=Mathf.Max(0,hp-amount);if(hp==0){alive=false;go.SetActive(false);}}
+            public void Destroy(){if(go!=null)UnityEngine.Object.Destroy(go);}
+        }
+    }
+}

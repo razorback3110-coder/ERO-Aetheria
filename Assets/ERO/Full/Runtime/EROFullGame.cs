@@ -1,0 +1,143 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using ERO.Data;
+
+namespace EternalRealmsOnline.Full
+{
+    [Serializable] public class EROStats { public int hp=100, maxHp=100, mp=100, maxMp=100, attack=10, defense=5, magicAttack=10, magicDefense=5, speed=100, crit=5; }
+    [Serializable] public class SkillState { public string id; public int level=1; public float cooldown; }
+    [Serializable] public class PetState { public string id; public string name; public int level=1; public bool active; }
+    [Serializable] public class MountState { public string id; public string name; public int level=1; public bool unlocked; }
+    [Serializable] public class AchievementState { public string id; public int progress; public int target=1; public bool claimed; }
+    [Serializable] public class MailState { public string id; public string sender; public string subject; public string body; public List<ItemData> attachments=new(); public bool read; }
+    [Serializable] public class PartyState { public string id; public string leader; public List<string> members=new(); }
+    [Serializable] public class GuildMember { public string id; public string name; public string rank="Member"; public bool online; }
+    [Serializable] public class GuildFullState { public GuildData data=new(); public List<GuildMember> members=new(); public long guildGold; }
+    [Serializable] public class RecipeState { public string id; public string name; public int level; public string[] ingredients; public string resultId; public int resultQty=1; }
+    [Serializable] public class ListingState { public string id; public string seller; public ItemData item=new(); public long price; public bool sold; }
+    [Serializable] public class HousingState { public string plotId; public string owner; public int houseLevel=1; public List<string> furniture=new(); }
+    [Serializable] public class EventState { public string id; public string title; public string description; public DateTime startsUtc; public DateTime endsUtc; public bool active; }
+    [Serializable] public class RankingEntry { public string player; public long score; }
+
+    public sealed class EROFullGame : MonoBehaviour
+    {
+        public static EROFullGame I { get; private set; }
+        public CharacterData Character { get; private set; } = new CharacterData();
+        public EROStats Stats { get; private set; } = new EROStats();
+        public List<ItemData> Inventory { get; } = new();
+        public List<QuestData> Quests { get; } = new();
+        public List<SkillState> Skills { get; } = new();
+        public List<PetState> Pets { get; } = new();
+        public List<MountState> Mounts { get; } = new();
+        public List<AchievementState> Achievements { get; } = new();
+        public List<MailState> Mail { get; } = new();
+        public List<PartyState> Parties { get; } = new();
+        public List<GuildFullState> Guilds { get; } = new();
+        public List<RecipeState> Recipes { get; } = new();
+        public List<ListingState> Market { get; } = new();
+        public List<HousingState> Housing { get; } = new();
+        public List<EventState> Events { get; } = new();
+        public List<RankingEntry> Rankings { get; } = new();
+        public string CurrentZone { get; private set; } = "Greenhaven";
+        public bool PvPEnabled { get; private set; }
+        public bool AutoCombat { get; private set; }
+        public int PartySize => Parties.FirstOrDefault()?.members.Count ?? 1;
+        public event Action<string> OnNotification;
+        public event Action OnStateChanged;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        static void Boot() { if (I != null) return; var go=new GameObject("ERO_FullGame"); I=go.AddComponent<EROFullGame>(); DontDestroyOnLoad(go); }
+        void Awake(){ if(I!=null&&I!=this){Destroy(gameObject);return;} I=this; Initialize(); }
+
+        public void Initialize()
+        {
+            if(string.IsNullOrEmpty(Character.id)) Character.id=Guid.NewGuid().ToString("N");
+            if(string.IsNullOrEmpty(Character.name)) Character.name="Aetherian";
+            BuildDefaultContent();
+        }
+        void BuildDefaultContent()
+        {
+            if(Quests.Count==0) Quests.AddRange(new[]{
+                Q("greenhaven_01","A New Dawn","Speak with the village elder.",1,50,100),
+                Q("greenhaven_02","Rift Echoes","Defeat creatures touched by the Rift.",10,250,500),
+                Q("everwood_01","Whispers of Everwood","Collect spirit fragments.",12,400,900)});
+            if(Recipes.Count==0) Recipes.AddRange(new[]{
+                new RecipeState{id="potion_small",name="Small Potion",level=1,ingredients=new[]{"herb:2"},resultId="potion_small",resultQty=2},
+                new RecipeState{id="iron_sword",name="Iron Sword",level=10,ingredients=new[]{"iron:5","wood:2"},resultId="iron_sword"}});
+            if(Skills.Count==0) Skills.AddRange(new[]{new SkillState{id="basic_attack"},new SkillState{id="class_skill_01"},new SkillState{id="class_skill_02"}});
+            if(Pets.Count==0) Pets.Add(new PetState{id="riftling",name="Riftling"});
+            if(Mounts.Count==0) Mounts.Add(new MountState{id="elyndor_stag",name="Elyndor Stag",unlocked=true});
+            if(Achievements.Count==0) Achievements.Add(new AchievementState{id="first_blood",target=1});
+        }
+        QuestData Q(string id,string title,string desc,int req,int gold,long xp)=>new QuestData{id=id,title=title,description=desc,required=req,goldReward=gold,xpReward=xp};
+        void Notify(string s){OnNotification?.Invoke(s); OnStateChanged?.Invoke();}
+
+        // CHARACTER / PROGRESSION
+        public void CreateCharacter(string name, EROClass cls, Gender gender){Character.name=name;Character.classId=cls;Character.appearance.gender=gender;Character.level=1;Character.xp=0;RecalculateStats();Notify("Character created");}
+        public void GainXp(long amount){if(amount<=0)return; Character.xp+=amount; while(Character.level<100 && Character.xp>=XpToNext(Character.level)){Character.xp-=XpToNext(Character.level);Character.level++; Notify("Level " + Character.level);} RecalculateStats();}
+        public long XpToNext(int level)=>100L+level*level*25L;
+        public void RecalculateStats(){int l=Mathf.Max(1,Character.level); Stats.maxHp=100+l*30;Stats.hp=Mathf.Clamp(Stats.hp,1,Stats.maxHp);Stats.maxMp=100+l*15;Stats.mp=Mathf.Clamp(Stats.mp,0,Stats.maxMp);Stats.attack=10+l*5;Stats.defense=5+l*3;Stats.magicAttack=10+l*6;Stats.magicDefense=5+l*3;}
+        public void Awaken(){if(Character.level<100){Notify("Awakening requires level 100");return;} Notify("Awakening unlocked");}
+        public void Evolve(int tier){if(tier==1&&Character.level<18||tier==2&&Character.level<40||tier==3&&Character.level<75){Notify("Evolution requirement not met");return;}Notify("Evolution tier "+tier+" unlocked");}
+
+        // WORLD
+        public void TravelTo(string zone){if(string.IsNullOrWhiteSpace(zone))return;CurrentZone=zone;Notify("Entered "+zone);}
+        public bool CanEnter(int minLevel)=>Character.level>=minLevel;
+        public void Discover(string point){Notify("Discovered "+point);}
+
+        // COMBAT / PVE / PVP / MVP / RAID
+        public int DealDamage(int power,bool magical=false){int value=Mathf.Max(1,power+(magical?Stats.magicAttack:Stats.attack));return value;}
+        public void ReceiveDamage(int value){Stats.hp=Mathf.Max(0,Stats.hp-value);if(Stats.hp==0){Stats.hp=Stats.maxHp;Notify("Defeated — revived");}OnStateChanged?.Invoke();}
+        public void ToggleAuto(bool enabled){AutoCombat=enabled;Notify(enabled?"Auto combat enabled":"Auto combat disabled");}
+        public void EnterPvP(bool enabled){PvPEnabled=enabled;AutoCombat=enabled?false:AutoCombat;Notify(enabled?"PvP enabled":"PvP disabled");}
+        public void CompleteDungeon(string dungeonId,int tier){GainXp(500L*tier);AddGold(100*tier);Notify("Dungeon cleared: "+dungeonId);}
+        public void DefeatMvp(string bossId){GainXp(2500);AddGold(1000);AddItem(new ItemData{id="mvp_loot",name="MVP Loot",rarity=Rarity.Legendary});Notify("MVP defeated: "+bossId);}
+        public void DefeatWorldBoss(string bossId){GainXp(5000);AddGold(2500);Notify("World Boss defeated: "+bossId);}
+        public void CompleteRaid(string raidId,int difficulty){GainXp(5000L*difficulty);AddGold(3000*difficulty);Notify("Raid cleared: "+raidId);}
+        public void GvgMatch(string guildId,bool victory){if(victory)AddGuildXp(guildId,1000);Notify(victory?"GvG victory":"GvG result recorded");}
+
+        // INVENTORY / LOOT / EQUIPMENT / CRAFTING
+        public void AddItem(ItemData item){if(item==null)return;var existing=Inventory.FirstOrDefault(x=>x.id==item.id&&!x.equipped);if(existing!=null)existing.quantity+=Mathf.Max(1,item.quantity);else Inventory.Add(item);OnStateChanged?.Invoke();}
+        public bool RemoveItem(string id,int qty=1){var x=Inventory.FirstOrDefault(i=>i.id==id&&!i.equipped);if(x==null||x.quantity<qty)return false;x.quantity-=qty;if(x.quantity<=0)Inventory.Remove(x);OnStateChanged?.Invoke();return true;}
+        public void Equip(string id){var x=Inventory.FirstOrDefault(i=>i.id==id);if(x==null)return;foreach(var i in Inventory)if(i.equipped)i.equipped=false;x.equipped=true;Notify("Equipped "+x.name);}
+        public void UnequipAll(){foreach(var i in Inventory)i.equipped=false;Notify("Equipment cleared");}
+        public bool Craft(string recipeId){var r=Recipes.FirstOrDefault(x=>x.id==recipeId);if(r==null||r.level>Character.level)return false;foreach(var ingredient in r.ingredients){var p=ingredient.Split(':');if(p.Length!=2 || Inventory.FirstOrDefault(x=>x.id==p[0])==null || Inventory.FirstOrDefault(x=>x.id==p[0]).quantity < int.Parse(p[1])) return false;}foreach(var ingredient in r.ingredients){var p=ingredient.Split(':');RemoveItem(p[0],int.Parse(p[1]));}AddItem(new ItemData{id=r.resultId,name=r.name,rarity=Rarity.Uncommon,quantity=r.resultQty});Notify("Crafted "+r.name);return true;}
+        public void GenerateLoot(string source,Rarity rarity){AddItem(new ItemData{id="loot_"+Guid.NewGuid().ToString("N"),name=source+" Loot",rarity=rarity});}
+
+        // ECONOMY / CRYSTALS / MARKET / TRADE
+        public void AddGold(int amount){Character.gold=Mathf.Max(0,Character.gold+amount);OnStateChanged?.Invoke();}
+        public bool SpendGold(int amount){if(Character.gold<amount)return false;Character.gold-=amount;OnStateChanged?.Invoke();return true;}
+        public void AddCrystals(int amount){Character.crystals=Mathf.Max(0,Character.crystals+amount);OnStateChanged?.Invoke();}
+        public bool SpendCrystals(int amount){if(Character.crystals<amount)return false;Character.crystals-=amount;OnStateChanged?.Invoke();return true;}
+        public string CreateListing(string itemId,long price){var item=Inventory.FirstOrDefault(x=>x.id==itemId&&!x.equipped);if(item==null||price<1)return null;var id=Guid.NewGuid().ToString("N");Market.Add(new ListingState{id=id,seller=Character.name,item=item,price=price});Inventory.Remove(item);Notify("Market listing created");return id;}
+        public bool BuyListing(string listingId){var l=Market.FirstOrDefault(x=>x.id==listingId&&!x.sold);if(l==null||!SpendGold((int)Mathf.Min(int.MaxValue,l.price)))return false;l.sold=true;AddItem(l.item);Notify("Market purchase complete");return true;}
+        public bool Trade(ItemData item,long gold){if(item==null||gold<0)return false;AddItem(item);AddGold((int)Mathf.Min(int.MaxValue,gold));Notify("Trade completed");return true;}
+
+        // QUESTS / EVENTS / SEASONS
+        public void ProgressQuest(string id,int amount=1){var q=Quests.FirstOrDefault(x=>x.id==id&&!x.completed);if(q==null)return;q.progress=Mathf.Min(q.required,q.progress+amount);if(q.progress>=q.required){q.completed=true;GainXp(q.xpReward);AddGold(q.goldReward);Notify("Quest completed: "+q.title);}else OnStateChanged?.Invoke();}
+        public void StartSeason(string id,string title){Events.Add(new EventState{id=id,title=title,description="Seasonal content",startsUtc=DateTime.UtcNow,endsUtc=DateTime.UtcNow.AddDays(30),active=true});Notify("Season started: "+title);}
+        public void AddEvent(string id,string title,DateTime start,DateTime end){Events.Add(new EventState{id=id,title=title,startsUtc=start,endsUtc=end,active=true});}
+        public void ClaimAchievement(string id){var a=Achievements.FirstOrDefault(x=>x.id==id&&!x.claimed);if(a==null||a.progress<a.target)return;a.claimed=true;AddGold(500);Notify("Achievement claimed");}
+
+        // SOCIAL / GUILD / PARTY / MAIL / RANKING
+        public string CreateParty(){var p=new PartyState{id=Guid.NewGuid().ToString("N"),leader=Character.name};p.members.Add(Character.name);Parties.Add(p);Notify("Party created");return p.id;}
+        public bool JoinParty(string id,string member){var p=Parties.FirstOrDefault(x=>x.id==id);if(p==null||p.members.Count>=8)return false;p.members.Add(member);Notify(member+" joined party");return true;}
+        public string CreateGuild(string name){var g=new GuildFullState();g.data.id=Guid.NewGuid().ToString("N");g.data.name=name;g.members.Add(new GuildMember{id=Character.id,name=Character.name,rank="Guild Master",online=true});Guilds.Add(g);Notify("Guild created: "+name);return g.data.id;}
+        public void AddGuildXp(string guildId,long xp){var g=Guilds.FirstOrDefault(x=>x.data.id==guildId);if(g==null)return;g.data.experience+=xp;g.data.level=Mathf.Max(1,1+(int)(g.data.experience/10000));OnStateChanged?.Invoke();}
+        public void SendMail(string recipient,string subject,string body,List<ItemData> attachments=null){Mail.Add(new MailState{id=Guid.NewGuid().ToString("N"),sender=recipient,subject=subject,body=body,attachments=attachments??new List<ItemData>()});Notify("Mail sent");}
+        public void SubmitRanking(long score){Rankings.Add(new RankingEntry{player=Character.name,score=score});Rankings.Sort((a,b)=>b.score.CompareTo(a.score));if(Rankings.Count>100)Rankings.RemoveAt(100);OnStateChanged?.Invoke();}
+
+        // PETS / MOUNTS / HOUSING
+        public void SummonPet(string id){var p=Pets.FirstOrDefault(x=>x.id==id);if(p==null)return;foreach(var x in Pets)x.active=false;p.active=true;Notify("Pet summoned: "+p.name);}
+        public void Mount(string id){var m=Mounts.FirstOrDefault(x=>x.id==id&&x.unlocked);if(m==null)return;Notify("Mounted: "+m.name);}
+        public void BuyHouse(string plotId){if(Housing.Any(x=>x.owner==Character.name))return;Housing.Add(new HousingState{plotId=plotId,owner=Character.name});Notify("House acquired");}
+        public void PlaceFurniture(string plotId,string furnitureId){var h=Housing.FirstOrDefault(x=>x.plotId==plotId&&x.owner==Character.name);if(h==null)return;h.furniture.Add(furnitureId);Notify("Furniture placed");}
+
+        // SAVE / LOAD
+        [Serializable] class SaveBlob { public CharacterData character; public EROStats stats; public List<ItemData> inventory; public List<QuestData> quests; public string zone; }
+        public void SaveLocal(){var blob=new SaveBlob{character=Character,stats=Stats,inventory=Inventory.ToList(),quests=Quests.ToList(),zone=CurrentZone};PlayerPrefs.SetString("ERO_FULL_SAVE",JsonUtility.ToJson(blob));PlayerPrefs.Save();Notify("Game saved");}
+        public bool LoadLocal(){var json=PlayerPrefs.GetString("ERO_FULL_SAVE","");if(string.IsNullOrEmpty(json))return false;var b=JsonUtility.FromJson<SaveBlob>(json);Character=b.character??Character;Stats=b.stats??Stats;Inventory.Clear();if(b.inventory!=null)Inventory.AddRange(b.inventory);Quests.Clear();if(b.quests!=null)Quests.AddRange(b.quests);CurrentZone=string.IsNullOrEmpty(b.zone)?"Greenhaven":b.zone;OnStateChanged?.Invoke();return true;}
+    }
+}

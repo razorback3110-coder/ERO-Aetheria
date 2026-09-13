@@ -1,0 +1,2 @@
+Roboto — Apache License 2.0. Source: https://github.com/googlefonts/roboto-2
+The project already contains a Roboto license file under Assets/TextMesh Pro/Fonts/Roboto-LICENSE.txt. Preserve it in releases where required.

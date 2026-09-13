@@ -1,0 +1,23 @@
+{
+  "version": "V5 MMO Architecture Push",
+  "base": "ERO_V4_VERTICAL_SLICE_FAST.zip",
+  "unity": "6000.0.67f1",
+  "architecture": "client -> gateway -> master -> world",
+  "features": [
+    "world instances",
+    "private instances",
+    "interest grid",
+    "service roles"
+  ],
+  "new_files": [
+    "Assets/ERO/V5_MMOArchitecture/Runtime/EROMMOEndpoint.cs",
+    "Assets/ERO/V5_MMOArchitecture/Runtime/EROMMOInstanceId.cs",
+    "Assets/ERO/V5_MMOArchitecture/Runtime/EROMMOInterestGrid.cs",
+    "Assets/ERO/V5_MMOArchitecture/Server/EROMMOWorldShardProfile.cs",
+    "Assets/ERO/V5_MMOArchitecture/Server/EROMMOServiceRoles.cs",
+    "Assets/ERO/V5_MMOArchitecture/Data/ero-mmo-topology.json",
+    "Assets/ERO/V5_MMOArchitecture/Production/MMO_ARCHITECTURE_ADOPTION.md",
+    "Assets/ERO/V5_MMOArchitecture/Production/V5_NEXT_TESTS.md",
+    "Assets/ERO/V5_MMOArchitecture/README/README_V5.md"
+  ]
+}

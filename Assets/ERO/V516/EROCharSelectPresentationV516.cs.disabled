@@ -1,0 +1,250 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using EternalRealmsOnline.V508;
+
+namespace EternalRealmsOnline.V516
+{
+    public sealed class EROCharSelectPresentationV516 : MonoBehaviour
+    {
+        static EROCharSelectPresentationV516 instance;
+        Canvas canvas;
+        GameObject languagePanel;
+        Button languageButton;
+        TMP_Text languageButtonText;
+        readonly List<Button> languageButtons = new List<Button>();
+        readonly Dictionary<TMP_Text, string> tmpKeys = new Dictionary<TMP_Text, string>();
+        readonly Dictionary<Text, string> legacyKeys = new Dictionary<Text, string>();
+        readonly Dictionary<string, string> keyByText = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+        static readonly EROLanguage[] Languages = { EROLanguage.French, EROLanguage.English, EROLanguage.German, EROLanguage.Spanish, EROLanguage.Italian, EROLanguage.Dutch, EROLanguage.Portuguese, EROLanguage.Japanese, EROLanguage.Korean, EROLanguage.ChineseSimplified };
+        static readonly string[] LanguageNames = { "Français", "English", "Deutsch", "Español", "Italiano", "Nederlands", "Português", "日本語", "한국어", "简体中文" };
+
+        static void Boot()
+        {
+            if (instance != null) return;
+            var go = new GameObject("ERO_V516_CharSelectPresentation");
+            DontDestroyOnLoad(go);
+            instance = go.AddComponent<EROCharSelectPresentationV516>();
+        }
+
+        void Awake()
+        {
+            if (instance != null && instance != this) { Destroy(gameObject); return; }
+            instance = this;
+            BuildTranslationMap();
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            var loc = EROLocalizationV508.Instance;
+            if (loc != null) loc.LanguageChanged -= OnLanguageChanged;
+        }
+
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name == "CharSelect") StartCoroutine(Initialize());
+            else if (canvas != null) canvas.gameObject.SetActive(false);
+        }
+
+        IEnumerator Initialize()
+        {
+            yield return null;
+            yield return new WaitForSeconds(0.15f);
+            var loc = EROLocalizationV508.Instance;
+            if (loc != null)
+            {
+                loc.LanguageChanged -= OnLanguageChanged;
+                loc.LanguageChanged += OnLanguageChanged;
+            }
+            EnsureEventSystem();
+            BuildLanguageUI();
+            RefreshLocalizedTexts();
+            languagePanel.SetActive(false);
+            StartCoroutine(RescanLoop());
+        }
+
+        IEnumerator RescanLoop()
+        {
+            while (canvas != null && canvas.gameObject.activeSelf)
+            {
+                yield return new WaitForSeconds(0.5f);
+                RefreshLocalizedTexts();
+            }
+        }
+
+        void EnsureEventSystem()
+        {
+            if (EventSystem.current != null) return;
+            var go = new GameObject("ERO_EventSystem");
+            DontDestroyOnLoad(go);
+            go.AddComponent<EventSystem>();
+            go.AddComponent<StandaloneInputModule>();
+        }
+
+        void BuildLanguageUI()
+        {
+            if (canvas != null) Destroy(canvas.gameObject);
+            var root = new GameObject("ERO_V516_LanguageUI");
+            root.transform.SetParent(transform, false);
+            canvas = root.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.sortingOrder = 3000;
+            var scaler = root.AddComponent<CanvasScaler>();
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1920, 1080);
+            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+            scaler.matchWidthOrHeight = 0.5f;
+            root.AddComponent<GraphicRaycaster>();
+
+            var buttonGo = MakeBox(root.transform, "LanguageButton", new Color(0.025f, 0.03f, 0.05f, 0.98f));
+            SetAnchors(buttonGo.GetComponent<RectTransform>(), new Vector2(0.805f, 0.925f), new Vector2(0.985f, 0.975f));
+            languageButton = buttonGo.AddComponent<Button>();
+            StyleButton(languageButton);
+            languageButton.onClick.AddListener(TogglePanel);
+            languageButtonText = MakeText(buttonGo.transform, "LanguageText", "LANGUAGE", 20);
+            Stretch(languageButtonText.rectTransform, 5);
+
+            languagePanel = MakeBox(root.transform, "LanguagePanel", new Color(0.008f, 0.012f, 0.025f, 0.995f));
+            SetAnchors(languagePanel.GetComponent<RectTransform>(), new Vector2(0.755f, 0.40f), new Vector2(0.985f, 0.915f));
+            var title = MakeText(languagePanel.transform, "Title", "LANGUAGE", 24);
+            SetAnchors(title.rectTransform, new Vector2(0.06f, 0.90f), new Vector2(0.94f, 0.99f));
+            title.fontStyle = FontStyles.Bold;
+
+            var list = new GameObject("LanguageList");
+            list.transform.SetParent(languagePanel.transform, false);
+            var lr = list.AddComponent<RectTransform>();
+            SetAnchors(lr, new Vector2(0.07f, 0.035f), new Vector2(0.93f, 0.885f));
+            var layout = list.AddComponent<VerticalLayoutGroup>();
+            layout.spacing = 5; layout.padding = new RectOffset(0, 0, 3, 3);
+            layout.childControlWidth = true; layout.childControlHeight = true; layout.childForceExpandWidth = true; layout.childForceExpandHeight = false;
+
+            languageButtons.Clear();
+            for (int i = 0; i < Languages.Length; i++)
+            {
+                int index = i;
+                var item = MakeBox(list.transform, "Language_" + i, new Color(0.035f, 0.05f, 0.075f, 1f));
+                var le = item.AddComponent<LayoutElement>(); le.minHeight = 42; le.preferredHeight = 42;
+                var button = item.AddComponent<Button>(); StyleButton(button);
+                button.onClick.AddListener(() => SelectLanguage(index));
+                var text = MakeText(item.transform, "Text", LanguageNames[i], 18);
+                Stretch(text.rectTransform, 3);
+                languageButtons.Add(button);
+            }
+        }
+
+        GameObject MakeBox(Transform parent, string name, Color color)
+        {
+            var go = new GameObject(name); go.transform.SetParent(parent, false);
+            var image = go.AddComponent<Image>(); image.color = color;
+            return go;
+        }
+
+        TMP_Text MakeText(Transform parent, string name, string value, float size)
+        {
+            var go = new GameObject(name); go.transform.SetParent(parent, false);
+            var text = go.AddComponent<TextMeshProUGUI>();
+            text.text = value; text.fontSize = size; text.alignment = TextAlignmentOptions.Center; text.color = Color.white; text.enableWordWrapping = false;
+            var font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
+            if (font != null) text.font = font;
+            return text;
+        }
+
+        void StyleButton(Button button)
+        {
+            var c = button.colors;
+            c.normalColor = new Color(0.035f, 0.055f, 0.085f, 1f);
+            c.highlightedColor = new Color(0.24f, 0.08f, 0.34f, 1f);
+            c.pressedColor = new Color(0.38f, 0.12f, 0.50f, 1f);
+            c.selectedColor = c.highlightedColor; c.disabledColor = new Color(0.08f, 0.08f, 0.10f, .6f); c.fadeDuration = .08f;
+            button.colors = c;
+        }
+
+        void TogglePanel() { if (languagePanel != null) languagePanel.SetActive(!languagePanel.activeSelf); }
+
+        void SelectLanguage(int index)
+        {
+            if (index < 0 || index >= Languages.Length) return;
+            var loc = EROLocalizationV508.Instance;
+            if (loc != null) loc.SetLanguage(Languages[index]);
+            if (languagePanel != null) languagePanel.SetActive(false);
+        }
+
+        void OnLanguageChanged(EROLanguage language) { RefreshLocalizedTexts(); }
+
+        void RefreshLocalizedTexts()
+        {
+            var loc = EROLocalizationV508.Instance;
+            if (loc == null || canvas == null) return;
+            ScanTexts();
+            foreach (var pair in tmpKeys) if (pair.Key != null) pair.Key.text = loc.Get(pair.Value);
+            foreach (var pair in legacyKeys) if (pair.Key != null) pair.Key.text = loc.Get(pair.Value);
+            if (languageButtonText != null) languageButtonText.text = loc.Get("menu.language") + "  •  " + LanguageNames[(int)loc.CurrentLanguage];
+            for (int i = 0; i < languageButtons.Count; i++)
+            {
+                var c = languageButtons[i].colors;
+                c.normalColor = i == (int)loc.CurrentLanguage ? new Color(.30f,.08f,.42f,1f) : new Color(.035f,.055f,.085f,1f);
+                languageButtons[i].colors = c;
+            }
+        }
+
+        void ScanTexts()
+        {
+            tmpKeys.Clear(); legacyKeys.Clear();
+            foreach (var t in FindObjectsOfType<TextMeshProUGUI>(true))
+            {
+                if (t.transform.IsChildOf(canvas.transform)) continue;
+                var key = ResolveKey(t.text); if (key != null) tmpKeys[t] = key;
+            }
+            foreach (var t in FindObjectsOfType<Text>(true))
+            {
+                if (t.transform.IsChildOf(canvas.transform)) continue;
+                var key = ResolveKey(t.text); if (key != null) legacyKeys[t] = key;
+            }
+        }
+
+        string ResolveKey(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value)) return null;
+            var normalized = Normalize(value);
+            if (keyByText.TryGetValue(normalized, out var key)) return key;
+            return null;
+        }
+
+        static string Normalize(string value) => value.Replace("\r", " ").Replace("\n", " ").Replace("<b>", "").Replace("</b>", "").Trim();
+
+        void BuildTranslationMap()
+        {
+            Add("ETERNAL REALMS ONLINE", "menu.brand");
+            Add("CHARACTER CREATION • AETHERIA", "charselect.subtitle"); Add("CRÉATION DE PERSONNAGE • AETHERIA", "charselect.subtitle");
+            Add("CHOOSE YOUR CLASS", "charselect.choose"); Add("CHOISISSEZ VOTRE CLASSE", "charselect.choose");
+            Add("CHARACTER NAME", "charselect.name"); Add("NOM DU PERSONNAGE", "charselect.name");
+            Add("CREATE CHARACTER", "charselect.create"); Add("CRÉER LE PERSONNAGE", "charselect.create");
+            Add("MALE", "charselect.male"); Add("HOMME", "charselect.male"); Add("FEMALE", "charselect.female"); Add("FEMME", "charselect.female");
+            Add("STYLE", "charselect.style"); Add("LANGUAGE", "menu.language"); Add("READY!", "charselect.ready");
+            Add("KNIGHT", "class.knight"); Add("ASSASSIN", "class.assassin"); Add("RANGER", "class.ranger"); Add("MAGE", "class.mage"); Add("PRIEST", "class.priest"); Add("MONK", "class.monk"); Add("SUMMONER", "class.summoner"); Add("PALADIN", "class.paladin");
+            Add("FIRST EVOLUTION", "class.firstEvolution"); Add("STARTING ROLE", "class.startingRole"); Add("WEAPON", "class.weapon"); Add("LEVEL", "class.level"); Add("PLAYSTYLE", "class.playstyle");
+            Add("CHEVALIER", "class.knight"); Add("ASSASSIN", "class.assassin"); Add("RÔDEUR", "class.ranger"); Add("ARCHER", "class.ranger"); Add("MAGE", "class.mage"); Add("PRÊTRE", "class.priest"); Add("MOINE", "class.monk"); Add("INVOCATEUR", "class.summoner"); Add("PALADIN", "class.paladin");
+            Add("RITTER", "class.knight"); Add("ATTENTÄTER", "class.assassin"); Add("WALDLÄUFER", "class.ranger"); Add("MAGIER", "class.mage"); Add("PRIESTER", "class.priest"); Add("MÖNCH", "class.monk"); Add("BESCHWÖRER", "class.summoner");
+            Add("CABALLERO", "class.knight"); Add("ASESINO", "class.assassin"); Add("EXPLORADOR", "class.ranger"); Add("MAGO", "class.mage"); Add("SACERDOTE", "class.priest"); Add("MONJE", "class.monk"); Add("INVOCADOR", "class.summoner");
+            Add("CAVALIERE", "class.knight"); Add("RANGER", "class.ranger"); Add("MAGO", "class.mage"); Add("SACERDOTE", "class.priest"); Add("MONACO", "class.monk"); Add("EVOCATORE", "class.summoner");
+            Add("RIDDER", "class.knight"); Add("TOVENAAR", "class.mage"); Add("PRIester", "class.priest"); Add("MONNIK", "class.monk"); Add("OPROEPER", "class.summoner");
+            Add("CAVALEIRO", "class.knight"); Add("ASSASSINO", "class.assassin"); Add("GUERREIRO", "class.ranger"); Add("MAGO", "class.mage"); Add("SACERDOTE", "class.priest"); Add("MONGE", "class.monk"); Add("INVOCADOR", "class.summoner");
+            Add("ナイト", "class.knight"); Add("アサシン", "class.assassin"); Add("レンジャー", "class.ranger"); Add("メイジ", "class.mage"); Add("プリースト", "class.priest"); Add("モンク", "class.monk"); Add("サモナー", "class.summoner"); Add("パラディン", "class.paladin");
+            Add("기사", "class.knight"); Add("어쌔신", "class.assassin"); Add("레인저", "class.ranger"); Add("메이지", "class.mage"); Add("프리스트", "class.priest"); Add("몽크", "class.monk"); Add("소환사", "class.summoner"); Add("팔라딘", "class.paladin");
+            Add("骑士", "class.knight"); Add("刺客", "class.assassin"); Add("游侠", "class.ranger"); Add("法师", "class.mage"); Add("牧师", "class.priest"); Add("武僧", "class.monk"); Add("召唤师", "class.summoner"); Add("圣骑士", "class.paladin");
+        }
+
+        void Add(string text, string key) => keyByText[Normalize(text)] = key;
+
+        static void SetAnchors(RectTransform r, Vector2 min, Vector2 max) { r.anchorMin = min; r.anchorMax = max; r.offsetMin = Vector2.zero; r.offsetMax = Vector2.zero; }
+        static void Stretch(RectTransform r, float margin) { r.anchorMin = Vector2.zero; r.anchorMax = Vector2.one; r.offsetMin = new Vector2(margin, margin); r.offsetMax = new Vector2(-margin, -margin); }
+    }
+}

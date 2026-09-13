@@ -1,0 +1,21 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
+
+namespace EternalRealmsOnline.V523
+{
+    /// <summary>Lightweight ERO boot presentation. Does not delay or control the Boss Room boot flow.</summary>
+    public sealed class EROBootPresentationV523 : MonoBehaviour
+    {
+        Canvas canvas; CanvasGroup group;
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void Boot(){var go=new GameObject("ERO_V523_BootPresentation");DontDestroyOnLoad(go);go.AddComponent<EROBootPresentationV523>();}
+        void Awake(){SceneManager.sceneLoaded+=Loaded;}
+        void OnDestroy(){SceneManager.sceneLoaded-=Loaded;}
+        void Loaded(Scene scene,LoadSceneMode mode){if(scene.name=="Startup")StartCoroutine(Show());else if(group!=null)group.alpha=0;}
+        IEnumerator Show(){yield return null;if(canvas!=null)Destroy(canvas.gameObject);var root=new GameObject("ERO_V523_BootCanvas");canvas=root.AddComponent<Canvas>();canvas.renderMode=RenderMode.ScreenSpaceOverlay;canvas.sortingOrder=5000;var scaler=root.AddComponent<CanvasScaler>();scaler.uiScaleMode=CanvasScaler.ScaleMode.ScaleWithScreenSize;scaler.referenceResolution=new Vector2(1920,1080);group=root.AddComponent<CanvasGroup>();group.alpha=0;var bg=root.AddComponent<Image>();bg.color=new Color(.006f,.008f,.016f,1);bg.raycastTarget=false;var title=Text(root.transform,"ETERNAL REALMS ONLINE",42,Color.white,.25f,.54f,.75f,.64f);title.fontStyle=FontStyles.Bold;var sub=Text(root.transform,"AETHERIA  •  THE ETERNAL RIFT",15,new Color(.55f,.62f,.78f),.30f,.48f,.70f,.54f);var line=root.AddComponent<Image>();line.color=new Color(.55f,.25f,1f,.7f);var r=line.rectTransform;r.anchorMin=new Vector2(.38f,.455f);r.anchorMax=new Vector2(.62f,.458f);r.offsetMin=r.offsetMax=Vector2.zero;for(float t=0;t<.35f;t+=Time.unscaledDeltaTime){group.alpha=t/.35f;yield return null;}group.alpha=1;yield return new WaitForSecondsRealtime(.65f);for(float t=0;t<.35f;t+=Time.unscaledDeltaTime){group.alpha=1-t/.35f;yield return null;}group.alpha=0;}
+        TMP_Text Text(Transform p,string v,float size,Color c,float a,float b,float d,float e){var g=new GameObject("Text");g.transform.SetParent(p,false);var t=g.AddComponent<TextMeshProUGUI>();t.text=v;t.fontSize=size;t.color=c;t.alignment=TextAlignmentOptions.Center;t.raycastTarget=false;var r=t.rectTransform;r.anchorMin=new Vector2(a,b);r.anchorMax=new Vector2(d,e);r.offsetMin=r.offsetMax=Vector2.zero;return t;}
+    }
+}

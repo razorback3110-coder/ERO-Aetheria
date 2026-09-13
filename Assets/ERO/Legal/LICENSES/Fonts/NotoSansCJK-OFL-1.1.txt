@@ -1,0 +1,2 @@
+Noto Sans CJK — SIL Open Font License 1.1. Source: https://github.com/notofonts/noto-cjk/blob/main/Sans/LICENSE
+Commercial embedding/bundling is permitted under OFL 1.1 subject to its terms. Preserve this notice/license.

@@ -1,0 +1,42 @@
+using UnityEngine;
+using Unity.BossRoom.Gameplay.Configuration;
+
+namespace EternalRealmsOnline.V509
+{
+    /// <summary>
+    /// Runtime safety net for Boss Room Avatar graphics. If a serialized reference is missing,
+    /// ERO falls back to the real character-select prefab shipped with the foundation.
+    /// </summary>
+    public static class EROAvatarReferenceRepairV509
+    {
+        public static GameObject GetCharacterSelectPrefab(Avatar avatar)
+        {
+            if (avatar == null) return null;
+
+            GameObject prefab = null;
+            try { prefab = avatar.GraphicsCharacterSelect; }
+            catch (MissingReferenceException) { prefab = null; }
+            if (prefab != null) return prefab;
+
+            string name = avatar.name ?? string.Empty;
+            if (name.IndexOf("TankGirl", System.StringComparison.OrdinalIgnoreCase) >= 0)
+                return Resources.Load<GameObject>("EROCharacters/PlayerGraphics_Tank_Girl_CharacterSelect");
+            if (name.IndexOf("TankBoy", System.StringComparison.OrdinalIgnoreCase) >= 0)
+                return Resources.Load<GameObject>("EROCharacters/PlayerGraphics_Tank_Boy_CharacterSelect");
+            if (name.IndexOf("RogueGirl", System.StringComparison.OrdinalIgnoreCase) >= 0)
+                return Resources.Load<GameObject>("EROCharacters/PlayerGraphics_Rogue_Girl_CharacterSelect");
+            if (name.IndexOf("RogueBoy", System.StringComparison.OrdinalIgnoreCase) >= 0)
+                return Resources.Load<GameObject>("EROCharacters/PlayerGraphics_Rogue_Boy_CharacterSelect");
+            if (name.IndexOf("ArcherGirl", System.StringComparison.OrdinalIgnoreCase) >= 0)
+                return Resources.Load<GameObject>("EROCharacters/PlayerGraphics_Archer_Girl_CharacterSelect");
+            if (name.IndexOf("ArcherBoy", System.StringComparison.OrdinalIgnoreCase) >= 0)
+                return Resources.Load<GameObject>("EROCharacters/PlayerGraphics_Archer_Boy_CharacterSelect");
+            if (name.IndexOf("MageGirl", System.StringComparison.OrdinalIgnoreCase) >= 0)
+                return Resources.Load<GameObject>("EROCharacters/PlayerGraphics_Mage_Girl_CharacterSelect");
+            if (name.IndexOf("MageBoy", System.StringComparison.OrdinalIgnoreCase) >= 0)
+                return Resources.Load<GameObject>("EROCharacters/PlayerGraphics_Mage_Boy_CharacterSelect");
+
+            return Resources.Load<GameObject>("EROCharacters/PlayerGraphics_Mage_Boy_CharacterSelect");
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+  "base_archive": "ERO_V2_AAA_VISUAL_GAMEPLAY_FOUNDATION.zip",
+  "added_files": [
+    "Assets/ERO/V2_1_RenderPush/Runtime/ERORenderPushV21.cs",
+    "Assets/ERO/V2_1_RenderPush/Runtime/ERORenderPushBootstrapV21.cs",
+    "Assets/ERO/V2_1_RenderPush/Shaders/ERO_CharacterRim.shader",
+    "Assets/ERO/V2_1_RenderPush/README/README_V21_RENDER_PUSH.md"
+  ],
+  "verification": "source presence + zip integrity + required project roots"
+}

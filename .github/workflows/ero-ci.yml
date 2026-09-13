@@ -1,0 +1,87 @@
+name: ERO CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: ERO Project Validation
+    runs-on: [self-hosted, Windows, X64, ERO-Unity]
+    timeout-minutes: 30
+    steps:
+      - name: Checkout ERO
+        uses: actions/checkout@v6
+        with:
+          lfs: true
+          clean: true
+
+      - name: Show environment
+        shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
+        run: |
+          Write-Host "=== ERO CI ==="
+          Write-Host "Runner: $env:RUNNER_NAME"
+          Write-Host "OS: $env:RUNNER_OS"
+          Write-Host "Architecture: $env:RUNNER_ARCH"
+          Write-Host "Workspace: $env:GITHUB_WORKSPACE"
+
+      - name: Validate Unity project
+        shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
+        run: |
+          $ErrorActionPreference = "Stop"
+          $required = @("Assets","Packages","ProjectSettings","ProjectSettings/ProjectVersion.txt")
+          foreach ($path in $required) {
+            if (!(Test-Path -LiteralPath $path)) { throw "Missing required path: $path" }
+            Write-Host "OK: $path"
+          }
+          $version = (Get-Content "ProjectSettings/ProjectVersion.txt" -Raw).Trim()
+          Write-Host "Unity version file: $version"
+          if ($version -notmatch "6000\.0\.67f1") { throw "Expected Unity 6000.0.67f1" }
+          $scripts = @(Get-ChildItem "Assets/ERO" -Recurse -Filter "*.cs" -File)
+          Write-Host "ERO C# scripts: $($scripts.Count)"
+          if ($scripts.Count -eq 0) { throw "No ERO C# scripts found" }
+
+      - name: Scan for accidental secrets
+        shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
+        run: |
+          $ErrorActionPreference = "Stop"
+          $patterns = @("UNITY_PASSWORD=","DISCORD_TOKEN=","BEGIN RSA PRIVATE KEY","BEGIN OPENSSH PRIVATE KEY","ghp_")
+          $files = Get-ChildItem Assets,Packages,ProjectSettings -Recurse -File -ErrorAction SilentlyContinue
+          foreach ($f in $files) {
+            if ($f.Extension -in @('.png','.jpg','.jpeg','.tga','.fbx','.obj','.wav','.mp3','.ttf','.otf','.dll','.zip')) { continue }
+            $text = Get-Content $f.FullName -Raw -ErrorAction SilentlyContinue
+            foreach ($p in $patterns) {
+              if ($text -and $text.Contains($p)) { throw "Possible secret pattern '$p' found in $($f.FullName)" }
+            }
+          }
+          Write-Host "Secret scan: OK"
+
+      - name: Locate Unity 6000.0.67f1
+        shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
+        run: |
+          $candidates = @(
+            $env:ERO_UNITY_EXE,
+            "C:\Program Files\Unity\Hub\Editor\6000.0.67f1\Editor\Unity.exe",
+            "C:\Program Files\Unity Hub\Editor\6000.0.67f1\Editor\Unity.exe"
+          ) | Where-Object { $_ -and $_.Trim() -ne "" }
+          $unity = $candidates | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
+          if ($unity) {
+            Write-Host "Unity found: $unity"
+            "ERO_UNITY_EXE=$unity" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+            & $unity -version
+          } else {
+            Write-Warning "Unity 6000.0.67f1 was not found. Project validation passed; Unity compile/build is not run in this job."
+          }
+
+      - name: Validation success
+        shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
+        run: |
+          Write-Host "========================================"
+          Write-Host " ERO CI VALIDATION SUCCESS"
+          Write-Host "========================================"

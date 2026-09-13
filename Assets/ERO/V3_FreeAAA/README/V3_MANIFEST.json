@@ -1,0 +1,16 @@
+{
+  "version": "ERO V3 Free AAA Foundation",
+  "base_archive": "ERO_V2_1_RENDER_PUSH.zip",
+  "platform_strategy": "PC/Steam primary; mobile fallback supported architecturally",
+  "external_asset_policy": "verified CC0/QAL or explicit commercial license only",
+  "new_files": [
+    "Assets/ERO/V3_FreeAAA/Runtime/EROFreeAAAAssetRegistryV3.cs",
+    "Assets/ERO/V3_FreeAAA/Runtime/EROFreeAAABootstrapV3.cs",
+    "Assets/ERO/V3_FreeAAA/Shaders/ERO_FreeAAA_Rim.shader",
+    "Assets/ERO/V3_FreeAAA/Art/FREE_ASSET_PIPELINE.md",
+    "Assets/ERO/V3_FreeAAA/Licensing/ASSET_LICENSE_REGISTER.md",
+    "Assets/ERO/V3_FreeAAA/Production/PREMIUM_REPLACEMENT_SLOTS.md",
+    "Assets/ERO/V3_FreeAAA/Mobile/ERO_MOBILE_FIRST_OPTION.md",
+    "Assets/ERO/V3_FreeAAA/README/README_V3_FREE_AAA.md"
+  ]
+}

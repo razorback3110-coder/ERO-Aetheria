@@ -1,0 +1,2739 @@
+# Current ERO V541 File Manifest
+
+| Path | Size | SHA-256 |
+|---|---:|---|
+| `Assets/TextMesh Pro.meta` | 172 | `8529d84d190a68aeb1a16e0a90308081bd30a738dbcc63c63b2a93c53b9a11b3` |
+| `Assets/Editor.meta` | 172 | `5b5dd48d05ca623fda8e0a1e2931e922ba0da279b59c70e85acede542e838cd1` |
+| `Assets/Shaders.meta` | 172 | `e84d67cc267b3a143f4649fe19191e1a0bacf7a96101ed465ac5bd04b860b579` |
+| `Assets/UI Toolkit.meta` | 172 | `9d53d04ec42109db0f66f01f73e2f98d80aba021f2fc7332b2eb8fd730c02dca` |
+| `Assets/Prefabs.meta` | 172 | `3f53074c5f9b07a6ca5dffcf578b186fd3bf47bba5e57e58ad1b5927dbd59e6c` |
+| `Assets/Scripts.meta` | 172 | `a5ee61858b9354be98fa949837163f1c618c9177547e5968009e1b8453755890` |
+| `Assets/Fonts.meta` | 172 | `60386522a8947d0cb0c01569eb9d30786b0695b4aa45c1f03e46b5c5ad0c6081` |
+| `Assets/Models.meta` | 172 | `aacf70fcda5193720dc07db67a34abd5b2393efc29c339504aad934df04d262b` |
+| `Assets/Sounds.meta` | 172 | `379ed12c19e604b2fe80ffe0324b5684e73f95fcf0ddeff43a6ecc0da6578d78` |
+| `Assets/Material.meta` | 172 | `6a26f0ec94aac4e36874b32ed382c7b1cb3c81895f5dc88f3f4f704e78fe03c3` |
+| `Assets/GameData.meta` | 172 | `cf4d57a062ddfc3eaa8d74dd56c18946b7e8afbd44499b9b952a699a518c3feb` |
+| `Assets/UniversalRenderPipelineGlobalSettings.asset.meta` | 189 | `e390d2cd1908b9319e39e9a79dbfae22f5388d1c6cab8f828efaa1dc019a28a8` |
+| `Assets/Animations.meta` | 172 | `1a906debe26e7b7d3ebf05bc6c9bd2a8a0b94cd42dbd06e56ed94f2ca8524dba` |
+| `Assets/UniversalRenderPipelineGlobalSettings.asset` | 21653 | `8505bb67f60142799e6e7c60fe6b0776808faeaadf5ecd42e73eecfb482f75b3` |
+| `Assets/InputSystem.meta` | 172 | `6773f50bff3a9a3573e568f4dfec5ad7ae140a9d826339aff4c2f7de56bfaeac` |
+| `Assets/Tests.meta` | 172 | `c0de6186b4e965aca37717931cca8557db10133c9afa264b80145e71c598691c` |
+| `Assets/VFX.meta` | 172 | `5b74be3f259add16766fc5d344c614ee812dd421c27c8e63067756b1d84c1c08` |
+| `Assets/Textures.meta` | 172 | `a23910cd93c20b639910b588112b78f999a9a41152465a29946e35663e9bef34` |
+| `Assets/Scenes.meta` | 172 | `89c0bafdf3b455bcaaf665b867cca5d16a4b5cf787257d7edd106c80a83f315c` |
+| `Assets/URP.meta` | 172 | `3807213aec8f666353151ad986dc669dd6dc7a6278864925c28543679f3d7b3e` |
+| `Assets/UI Toolkit/UnityThemes.meta` | 172 | `71154e6555103c3563060960a7a1c46ec8ce0011b91161c385aec02245612d62` |
+| `Assets/UI Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss.meta` | 305 | `98bead999819e1bf24dbecf32ebe73861413ecd0151332d332c09173ce7fdd09` |
+| `Assets/UI Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss` | 37 | `341561a31fcbb6f0c53c2ca99c2c311e2904369efb470004dd3ae9701b8cb433` |
+| `Assets/URP/Windows.meta` | 172 | `97f4b70b0d98054a3b0ec41873f113ef68fd5a87efb2e295fd839da8c4ec3d1d` |
+| `Assets/URP/PostProcessProfile.asset.meta` | 189 | `300777656d35b5c2c3b1764cf20a2af7a6f1402daf1c11e0d4ce93bc72fe88c9` |
+| `Assets/URP/PostProcessProfile.asset` | 7709 | `49a771e04f190e58a18ec2c6aeb1db7f00148e410aa87d93d09e965328cebc7c` |
+| `Assets/URP/Mobile.meta` | 172 | `7098c39d7cbce1c397dc17ee8815cc8abe280281262acac21da0d9d95e697404` |
+| `Assets/URP/Windows/3_UniversalRenderPipelineAsset_Windows_Ultra_Renderer.asset` | 2933 | `85326bc4113ab739adc65e25d786df803e5cbb8d2339d28438ae861c330aca24` |
+| `Assets/URP/Windows/0_UniversalRenderPipelineAsset_Windows_Low.asset.meta` | 189 | `ab5bca46cd49541b295573a30a983861871f1746fb23583640cfd3813e5824d5` |
+| `Assets/URP/Windows/2_UniversalRenderPipelineAsset_Windows_High.asset.meta` | 189 | `98287fa08057290d1cdfa24479bcc586f75ba47c3cbb971fca7f454bf0018ee3` |
+| `Assets/URP/Windows/1_UniversalRenderPipelineAsset_Windows_Medium.asset.meta` | 189 | `7b54e4bb723423318aceedcef534433d827f1d50bc2608281be3c4e9b8b868f9` |
+| `Assets/URP/Windows/0_UniversalRenderPipelineAsset_Windows_Low_Renderer.asset.meta` | 189 | `2f2d08596976bcdf8038b9e15675ef8e8df8caa87f6ea864410229e2dd2d6a33` |
+| `Assets/URP/Windows/0_UniversalRenderPipelineAsset_Windows_Low.asset` | 4350 | `b2208c1fefb455a174645cb2d6f7f6cb6bc074cdec65f73f0d5c27bb83bd58a2` |
+| `Assets/URP/Windows/3_UniversalRenderPipelineAsset_Windows_Ultra.asset.meta` | 189 | `a61db44039662ab3d9c12f2539cab37f1698da85b02559bfe060485650364848` |
+| `Assets/URP/Windows/3_UniversalRenderPipelineAsset_Windows_Ultra_Renderer.asset.meta` | 189 | `b6e803d51b82520a7c657a9bcf4e321668d0968521779936923990684ec85e1c` |
+| `Assets/URP/Windows/1_UniversalRenderPipelineAsset_Windows_Medium_Renderer.asset` | 3760 | `52463974785ae7050f0828ba83615b26e51c2f3cdd25e326985c5ee71a7493ab` |
+| `Assets/URP/Windows/2_UniversalRenderPipelineAsset_Windows_High_Renderer.asset.meta` | 189 | `bb2ac21c8c4958716c8879ff1289c2da7fc2796564a7f3418ada9c77cf70c5df` |
+| `Assets/URP/Windows/1_UniversalRenderPipelineAsset_Windows_Medium_Renderer.asset.meta` | 189 | `8cdf8676a1e43c3508dd0e477fc20b71004288baf64cfc846f9bb341bdc267b2` |
+| `Assets/URP/Windows/2_UniversalRenderPipelineAsset_Windows_High.asset` | 4350 | `6c0d47cc8fbafe78df3db51ebedce43631a947c7f7a203250ba9ac03f5fa8d7f` |
+| `Assets/URP/Windows/0_UniversalRenderPipelineAsset_Windows_Low_Renderer.asset` | 2220 | `793787738ef6a7d8f9e553a20d44cf75e60d045f4386ef1eeb0cb98798778a4d` |
+| `Assets/URP/Windows/1_UniversalRenderPipelineAsset_Windows_Medium.asset` | 4358 | `3c1d9864c4d2c4ead0ff0dff29f14e21309acc8ab0f0aee67a08fd1ed7ae3f30` |
+| `Assets/URP/Windows/2_UniversalRenderPipelineAsset_Windows_High_Renderer.asset` | 2932 | `7a132b7fac73e145d5af8df9167e155ab28a9e70174e39dd58a2e0de691204b5` |
+| `Assets/URP/Windows/3_UniversalRenderPipelineAsset_Windows_Ultra.asset` | 4352 | `28d385e1d260174bbd8cee17dc41f84e17fec5b306384add1bbfb55b31f161fa` |
+| `Assets/URP/Mobile/PostProcessProfile_Mobile_Medium.asset.meta` | 189 | `8c615c1f1205532525f192c11f0cd81e1f8311210db55f0c2c8f0a17f48aab12` |
+| `Assets/URP/Mobile/1_UniversalRenderPipelineAsset_Mobile_Medium.asset` | 4361 | `61fd1498ae417613b1e4fc43d90f62a1a8eacb61953ed8defc91082077be5148` |
+| `Assets/URP/Mobile/0_UniversalRenderPipelineAsset_Mobile_Low.asset` | 4358 | `a14e787d75e40f95ac253c8ff8f4024f220abe97989868c59132ca6946c77e43` |
+| `Assets/URP/Mobile/PostProcessProfile_Mobile_High.asset.meta` | 189 | `7b1b844f26d05023dfd357568c5dca3aead829f9c56579e2176d8b61666af09d` |
+| `Assets/URP/Mobile/PostProcessProfile_Mobile_Medium.asset` | 6606 | `3dbe33c3e855cc9d5977609c287c5c59345b2fd2cf814fb6338c29d8be80c953` |
+| `Assets/URP/Mobile/1_UniversalRenderPipelineAsset_Mobile_Medium.asset.meta` | 189 | `2b97b8113b47b2e907ffca576f10ecd678e81a9d3907c8bef171d5500cce41d7` |
+| `Assets/URP/Mobile/2_UniversalRenderPipelineAsset_Mobile_High.asset` | 4359 | `95bc4e0a16a45168277872febc3470a47559b5388c278832a3df1e3573839f34` |
+| `Assets/URP/Mobile/0_UniversalRenderPipelineAsset_Renderer_Mobile_Low.asset.meta` | 189 | `df2e7cf4db0e8ebe20b00c0e6b507a2109d4299bbab943bfd1a1207651953028` |
+| `Assets/URP/Mobile/1_UniversalRenderPipelineAsset_Renderer_Mobile_Med.asset.meta` | 189 | `0f490fffdaec762f5dcf6866e41d177ad35ceef96832ddfedd24ef0e22167c3c` |
+| `Assets/URP/Mobile/2_UniversalRenderPipelineAsset_Renderer_Mobile_High.asset` | 2981 | `6408403e59e172e153e90ae16892b4992fee6142074df9747d664fd795eef97a` |
+| `Assets/URP/Mobile/PostProcessProfile_Mobile_High.asset` | 9352 | `0e4ea103cd72779b9356f876f1112b64371bcd3fb7c53c15d13089e7cee5dbb1` |
+| `Assets/URP/Mobile/2_UniversalRenderPipelineAsset_Mobile_High.asset.meta` | 189 | `8a71ec910fe7e837d21478db1a57c2962a527f177637e2918cc63d2afdf30009` |
+| `Assets/URP/Mobile/0_UniversalRenderPipelineAsset_Renderer_Mobile_Low.asset` | 1864 | `2ee8e9a75cc7d541ccfb345312c6231deb9bbd94c838d1470e539a01424f4620` |
+| `Assets/URP/Mobile/2_UniversalRenderPipelineAsset_Renderer_Mobile_High.asset.meta` | 189 | `a8054b58371c89b3c3f2ffbdf43e9f2c32bcc58b379b2c0e8a651851b99b2376` |
+| `Assets/URP/Mobile/0_UniversalRenderPipelineAsset_Mobile_Low.asset.meta` | 189 | `065a4c428e1fd1ff562af7f0ef5be5829174d180d6b162037e4a1a71aa0e5605` |
+| `Assets/URP/Mobile/1_UniversalRenderPipelineAsset_Renderer_Mobile_Med.asset` | 2279 | `cc486cc0582fe3cee0148ed329ef30cafee4ff44cd74ad8bb332ff64536d36c1` |
+| `Assets/Material/Characters.meta` | 172 | `8b1c4928a4e867186d394447bb166c39a7a0fef01eea8e7999ff3cd448e89c3b` |
+| `Assets/Material/M_MainMenu_Title.mat.meta` | 182 | `daa201afa8829e1d64c7775cec494fcbecafbf77df8385a5d97e2666d8153fad` |
+| `Assets/Material/Dungeon.meta` | 172 | `a4115d15212f3f214c6ef1c0b9f06150dda95280762dda9469fa4a1826f9c9f1` |
+| `Assets/Material/M_MainMenu_Title.mat` | 2125 | `42300afc256514d4d6443dbdec48443f87015c9b8ed2cb950f126c0a766de6b6` |
+| `Assets/Material/Dungeon/M_Lava.mat.meta` | 182 | `4f6cced4ed94deff6b20254e13c90c7fc79efd33c68168826990277c306d997e` |
+| `Assets/Material/Dungeon/M_Lava.mat` | 4253 | `21a3e0d3cdd4bae0635385719eb28ce86370368d42413dd28b2a43c255f6af9b` |
+| `Assets/Material/Dungeon/M_Environment.mat.meta` | 188 | `a3cdc5310c471461ac020fcff53d61d1a32c2697d80b7851ef31ba54ed88b618` |
+| `Assets/Material/Dungeon/M_SpiderWeb.mat.meta` | 182 | `d99adbd6d6547e594a2c175125d3a87fa9b24c3ec94708d88ae7503b72311b39` |
+| `Assets/Material/Dungeon/M_Door_01.mat.meta` | 188 | `36c60031a95564eeeeec17d98c436254ad86fe8f46b8af959f817b0ed19aeba7` |
+| `Assets/Material/Dungeon/M_SpiderWeb.mat` | 5358 | `d4995c054259ac8a0f2d82b4c5b9e79fd5a19470b14faf7638f25bc987ebe0cb` |
+| `Assets/Material/Dungeon/M_BossFloor.mat` | 4189 | `604c53f2659a599a56f3d8e17363184c90aa388f38dc0309a6bbe77282f269a8` |
+| `Assets/Material/Dungeon/M_Door_01.mat` | 4108 | `ec4c2bd278c8d1593c8c1281e41a2469835c0e944f16ef9bdb50f01d5b9ba729` |
+| `Assets/Material/Dungeon/M_DungeonBorder.mat` | 3975 | `7a8274117bb28e2cc820c928e18c17d043c02a558422e7fd59c33781ce0dcac3` |
+| `Assets/Material/Dungeon/M_FloorSwitch.mat.meta` | 182 | `ab7f0192bb654477f7bff536d0ac8a8dd7efed65aba922d1a15a81d0e0eb5a91` |
+| `Assets/Material/Dungeon/M_Door_02.mat.meta` | 188 | `22b4e786f0f3d1cfdc8031eee4dc762180ebf7e684e9ab6197b808d56c48498b` |
+| `Assets/Material/Dungeon/M_Door_02.mat` | 4098 | `125a36dec7669e33ebddf30aa1c015b41ec16fa584daaeb2baa265f153900cb9` |
+| `Assets/Material/Dungeon/M_DungeonBorder.mat.meta` | 188 | `4cfad81dbead7b2a881800c85e56659227e2b60aaaa8ce65c313f34360ba4499` |
+| `Assets/Material/Dungeon/M_FloorSwitch.mat` | 3957 | `5692fb99b4e6936bda8453e4e13f4d484954b2f48d1ed6d3218249f30b7cc2b0` |
+| `Assets/Material/Dungeon/M_Environment.mat` | 4119 | `eb0d07746b9945c1de160b4eb6d20bbd34fcf2e2df353774cfb012a918d873a3` |
+| `Assets/Material/Dungeon/M_BossFloor.mat.meta` | 182 | `b3d87f6b898ddae7f4abbdd2fd360a0d5d051eb8b8e4b3d96e2bf53e1bc5dcb2` |
+| `Assets/Material/Characters/Enemy_Mouth_sheet.mat` | 4280 | `3bf3727bc589cb46dbcf99890048527fc20fd6571bbedd8cb2709075aec1f42c` |
+| `Assets/Material/Characters/Hero_Eyes_sheet.mat` | 4060 | `ac601bf74c7c4d8d674868b953d86111f6c06d10de629d9804af389a56a6a96a` |
+| `Assets/Material/Characters/Enemy_Mouth_sheet.mat.meta` | 182 | `78aae08fbbbe3ae4fbaafb78991adabae2f83cb780bd8b83855599d1aef68301` |
+| `Assets/Material/Characters/Hero_Mouth_sheet.mat` | 4278 | `dcbd957a0b002d3f9084662176d12befa26eb2b793d6968f86749dccff061d05` |
+| `Assets/Material/Characters/Hero_Mouth_sheet.mat.meta` | 182 | `13149ce8ef83e2091248f44e444d9249d56db8d0dd6e39b69f30fb24b3f22ffa` |
+| `Assets/Material/Characters/Toon.meta` | 172 | `d714ad5fa7f62f551e05775827b23535ee13ef924c90e4adb486abcafc03f9b7` |
+| `Assets/Material/Characters/Character_Shadow.mat` | 4199 | `e40a81e85e39d0ff10210dd7ab03d684f554e65e7267ec9b968ec2cbc3b233d3` |
+| `Assets/Material/Characters/Enemy_Eyes_sheet.mat` | 4085 | `0f4928743961673944e24ce69f07ce70590a369f14e19e2a11ca822c911f44e5` |
+| `Assets/Material/Characters/Character_Shadow.mat.meta` | 188 | `ec32b14ffef4b8c425f54b2bf65a5feafed2aacb43caf8c2cdd0b1cf0e34f060` |
+| `Assets/Material/Characters/Hero_Eyes_sheet.mat.meta` | 182 | `5379fd29abfad6762aea64c0b5933889bc977275f96df21aacb74fbd54637934` |
+| `Assets/Material/Characters/Enemy_Eyes_sheet.mat.meta` | 182 | `ffa24d8a3921b989620388998a929c7515670fc3e0c62c0c3c809fcf819e5343` |
+| `Assets/Material/Characters/Toon/Hair_Tank_Girl.mat` | 3484 | `0d588ce111507f5470f7b48fb5ff05007f6b048e465362f8524a3173978a4588` |
+| `Assets/Material/Characters/Toon/Head_Rogue_Boy.mat` | 3390 | `afe7a51a0cb60713c5b7709b7e05fdd2ec459fd1bc74d93dc01dd54b6ea5ee80` |
+| `Assets/Material/Characters/Toon/Hair_Archer_Girl.mat.meta` | 182 | `d112e4742ce5011e7bd0fa51cc6e874e57968b89f39eca7ecce2ef8f43fdd4aa` |
+| `Assets/Material/Characters/Toon/Weapons_Rogue.mat` | 3357 | `a157f7a90b0d6b96ba3d4baecfb71797064c9df72c35c4e122549e565fac3f1e` |
+| `Assets/Material/Characters/Toon/Torso_Tank.mat.meta` | 182 | `11afa9f2caef11897869ddba6950c347b486ad1068ee9f3bb0707a765481b9be` |
+| `Assets/Material/Characters/Toon/Torso_Boss.mat.meta` | 182 | `38a9992e474f99535a7f9639c0b7b6e312177a4bab7dd61fa4dd88bcc0ee84a2` |
+| `Assets/Material/Characters/Toon/Weapons_Tank.mat` | 3394 | `5f9e518fb9b6ad2f8bafcd2c5536c6d1a3394e3ed201db2d74f847e0c2381770` |
+| `Assets/Material/Characters/Toon/Torso_Mage_Girl.mat.meta` | 182 | `e4d125223a3991fe09d034b0b7ff4c7f5d031c7c302aa355af1ef9877d49f1a7` |
+| `Assets/Material/Characters/Toon/Torso_Imp_Vandal.mat.meta` | 188 | `7d1579cfd5ba2921682da91966b273257ccac24d7aaec5b74e698548ec7b5c85` |
+| `Assets/Material/Characters/Toon/Head_Tank_Boy.mat.meta` | 182 | `909cedf553abf26072958a34f3853e2156fe04842a6852ddb4c84b1555a4c03c` |
+| `Assets/Material/Characters/Toon/Head_Imp.mat.meta` | 182 | `5829051e2d0ef959575e81a918e5b6be15a73f30fec899534bed408b5b49553a` |
+| `Assets/Material/Characters/Toon/Weapons_Rogue.mat.meta` | 182 | `caa0dd07dc7dbf1828e5f90502419ddd4b1b78fa7b4d1766e3a2def89bff3e76` |
+| `Assets/Material/Characters/Toon/Head_Boss.mat.meta` | 182 | `25e0619f71751a201234f6a627310a64c5b3b3f9488ca8ff5a41d7624509dc03` |
+| `Assets/Material/Characters/Toon/Hair_Tank_Boy.mat.meta` | 182 | `8b819ad6b0d5f8082582ab449a788ad84a0b0ecb1c204a6cd59fd0e9a229c3cd` |
+| `Assets/Material/Characters/Toon/Head_Archer_Girl.mat` | 3393 | `1ffe4d46912e56645ad57813e354a531dfa12a765b384c0590f43aeb80c1f8d5` |
+| `Assets/Material/Characters/Toon/Hair_Rogue_Girl.mat.meta` | 182 | `d50ef06edc8d4600be100626ceb258fd642fe7c0cd7bd08b49953ab368c4bb1d` |
+| `Assets/Material/Characters/Toon/Head_Rogue_Girl.mat` | 3765 | `396c63eaaeafc915c05ad2a0b0c17f45b844e6bc54984b555c5cc29ce0b9f8fd` |
+| `Assets/Material/Characters/Toon/Head_Rogue_Boy.mat.meta` | 182 | `7ed7cbd0323b064bfe4c53d4ef9a4fa37a81c7827fe8eeb7e93fc3e56c97ef45` |
+| `Assets/Material/Characters/Toon/Torso_Mage_Boy.mat.meta` | 182 | `c6722738cc20631fa15fec4d3e7df324c5532da448b6498a759e8deb9406288c` |
+| `Assets/Material/Characters/Toon/Torso_Mage_Girl.mat` | 3396 | `0f237376d189fa267067535a66705ebc7a117cd5819cdefea78a84b2d81de8af` |
+| `Assets/Material/Characters/Toon/Hair_Archer_Boy.mat` | 3462 | `50e328cf607bc5b23d6bad99a0b69a9fbc97448dc74995d628999000b4ff9c21` |
+| `Assets/Material/Characters/Toon/Weapons_Mage.mat.meta` | 182 | `493daf170490ab5161d5488b5ca2e705e401625607524e93443d0bcb1a0f4f2b` |
+| `Assets/Material/Characters/Toon/Torso_Archer.mat.meta` | 182 | `f07310d40c7a80da0732365049c42e86782491495c47bec73565cbc30a59bb4e` |
+| `Assets/Material/Characters/Toon/Weapons_Archer.mat` | 3732 | `a8543dcc377e9ebabda94c8fb57709320304113ce2d7df75a08ecd3b7a6e525a` |
+| `Assets/Material/Characters/Toon/Torso_Rogue.mat.meta` | 182 | `69aa26d8222cbeaf3cf03f47e323aae91737a402936d0a6fb0c20fb072682ace` |
+| `Assets/Material/Characters/Toon/Torso_Imp_Vandal.mat` | 3396 | `6272e84d9d0904c9f9a1e71039a6c6a510b5fcb668343aa87ba1863d943203cf` |
+| `Assets/Material/Characters/Toon/Head_Tank_Girl.mat` | 3388 | `708adddbfd3623326fa908b09a0745c0beb4db2090ffc139eaa883ece8e2d86b` |
+| `Assets/Material/Characters/Toon/Torso_Mage_Boy.mat` | 3768 | `14e9b251d404df2cfd4ae5280b0ffcb9eb564ec6f49baf510bd881d0201d4601` |
+| `Assets/Material/Characters/Toon/Hair_Tank_Girl.mat.meta` | 182 | `5d29f8ef04770c6e5c282c1f6bbadba92fb72f2d4d6f824c154fe6a5044e1cd1` |
+| `Assets/Material/Characters/Toon/Weapons_Archer.mat.meta` | 182 | `a134cd33c072987780de85ea0da46817a3efa6dadac218f582c06f916bc69c50` |
+| `Assets/Material/Characters/Toon/Hair_Rogue_Girl.mat` | 3463 | `720772a531dbe6f7672eb2a0d329c3cf87a1cee90ed941ff8146777b3cd702ce` |
+| `Assets/Material/Characters/Toon/Torso_Rogue.mat` | 3391 | `562b1ec2b5f820be395e2b46296f45408a837a4ad9a480d23d80d3749f7c9d5c` |
+| `Assets/Material/Characters/Toon/Head_Mage_Boy.mat` | 3390 | `d365686310fde2edd4d57181edc4d3a55fce0980b7ef8501f5970650910d93a3` |
+| `Assets/Material/Characters/Toon/Hair_Tank_Boy.mat` | 3462 | `bd94c61cce72643c4cb6c0ff079f38ed3b0fdd50d5efd1890fa3ee6afe9dedd2` |
+| `Assets/Material/Characters/Toon/Torso_Imp.mat` | 3389 | `a4546ffb3213ec05380fb737e3c5d3b80cd1d247302216f73d83142cc7239aa5` |
+| `Assets/Material/Characters/Toon/Head_Mage_Girl.mat` | 3764 | `b5e115a4fb6b5f4107964d160a30ae2d3ee7a6d345e69e57ab19b7d6a40528e1` |
+| `Assets/Material/Characters/Toon/Hair_Archer_Boy.mat.meta` | 182 | `f0ead1dcc72a8d842ec023dd981fcfd6dcbdda6a102f423f0920603741da7345` |
+| `Assets/Material/Characters/Toon/Head_Mage_Girl.mat.meta` | 182 | `b09d6057090b04b00f7f239cdcf056b654ec41bdda02494c20bc3320f81bbfdf` |
+| `Assets/Material/Characters/Toon/Torso_Imp.mat.meta` | 182 | `0a29ca86b720600897f4ad89d18fab1ace620be7abeb98b8c20890b88bf38063` |
+| `Assets/Material/Characters/Toon/Weapons_VandalImp.mat.meta` | 188 | `9b4d33341dc998741e6cd8b3c9dcd1b4d3e8330f74afdba0e392d20db933d41f` |
+| `Assets/Material/Characters/Toon/Head_Archer_Girl.mat.meta` | 182 | `72bb11cd2b63259552c7b903d4a197b9e4e02aa42430a49384e98d29871f3a7d` |
+| `Assets/Material/Characters/Toon/Head_Rogue_Girl.mat.meta` | 182 | `082aed77cd15a26057c2ec8ee8ca51ae9961add03f7c972404f4662f963d41df` |
+| `Assets/Material/Characters/Toon/Weapons_Imp.mat.meta` | 182 | `f1c27220358ee3681fdecf2e1a031bd627a0ceef8db36b061982f5eced365ea2` |
+| `Assets/Material/Characters/Toon/Head_Boss.mat` | 3759 | `bf1b14ca82808aef0e1efcdab7abbfdd5a563d2a6b5887c362df1ad4f7634228` |
+| `Assets/Material/Characters/Toon/Head_Archer_Boy.mat` | 3391 | `269753a1c65127083a2665cfbf413b3444091a69a782b21d29d115e015e96bfd` |
+| `Assets/Material/Characters/Toon/Torso_Boss.mat` | 3368 | `9b96bf56ab93a0de9bb82f0f149df7256bfbdceacfa6caac197b04e86a023bb2` |
+| `Assets/Material/Characters/Toon/Hair_Rogue_Boy.mat.meta` | 182 | `54be8217a6da03f3840af583cdb6648a1191f4199c5800ab028400990709e748` |
+| `Assets/Material/Characters/Toon/Hair_Mage_Boy.mat.meta` | 182 | `8b9fa7a6d700155ac7c1929e8851cc3d86633a7346d9ffb5214086539e3073ee` |
+| `Assets/Material/Characters/Toon/Hair_Mage_Boy.mat` | 3462 | `0881d081a4d557c53cb7954830451728ce2f6465e81a29b6c2664513b7939fca` |
+| `Assets/Material/Characters/Toon/Head_Tank_Girl.mat.meta` | 182 | `a8ebf7dfc54fd73cc11472b1007e3fb47c68e7129c36e125bffc3d5de1d6ef25` |
+| `Assets/Material/Characters/Toon/Head_Imp.mat` | 3758 | `8f6460c17921f5994a57f5070bd0b567c278644448bcd0c04bc3e4948a7c18f4` |
+| `Assets/Material/Characters/Toon/Head_Archer_Boy.mat.meta` | 182 | `c1601553245aa19ea8453aab8b4847ca9412d38276bd3ab985efc88b42f8a214` |
+| `Assets/Material/Characters/Toon/Hair_Archer_Girl.mat` | 3464 | `aae55e0689db3198928bea7a33346667533a8f4e8b2b78df7e494e43a7ad6d2a` |
+| `Assets/Material/Characters/Toon/Head_Tank_Boy.mat` | 3390 | `1f46ddc868b0599ae9a952460d6d41bb978da5dce4e83b40bf5af95469fa9a75` |
+| `Assets/Material/Characters/Toon/Torso_Tank.mat` | 3762 | `5427a177235cd3414dd3449d16594e7018587e178d20509ddc638d17da4a19f1` |
+| `Assets/Material/Characters/Toon/Helmet_Imp.mat.meta` | 188 | `8d2be36b0a720de330b8e28a6b342ff70b419ad5f0a76df964662ef1b957ffa8` |
+| `Assets/Material/Characters/Toon/Weapons_Imp.mat` | 3371 | `56eabaee936eba57c2ffd7b79493005abe5124beb82d2cf2336da23f520e7dc3` |
+| `Assets/Material/Characters/Toon/Hair_Mage_Girl.mat.meta` | 182 | `6f0971538b5fb074da6382ed67c2940be037f828d2897cf0fb72f3ab937ebd35` |
+| `Assets/Material/Characters/Toon/Head_Mage_Boy.mat.meta` | 182 | `b9984a9341b1fefd27dd5bddaa40fc4f18b969ab92485c10b9fbe619dcab2d32` |
+| `Assets/Material/Characters/Toon/Weapons_Tank.mat.meta` | 182 | `a1f57c246d08f40b410fae83fb2446f16942b0578370f28b819390d0089e9ae6` |
+| `Assets/Material/Characters/Toon/Head_Imp_Vandal.mat` | 3391 | `b885656a5a010a25d293d44ed7faa1e79da915c9a42d25a0ffcf6b410f7be158` |
+| `Assets/Material/Characters/Toon/Head_Imp_Vandal.mat.meta` | 188 | `53288384dec3e82b2b7bf8e4b59d39dfa9e275e23fe21934f0b81f3b81278e7a` |
+| `Assets/Material/Characters/Toon/Torso_Archer.mat` | 3766 | `c48490abee1da8a283dbb8e97aaf3dd6e13708cb088991f5a2241c5683df1372` |
+| `Assets/Material/Characters/Toon/Helmet_Imp.mat` | 3367 | `6a4a029958404bc78c5156fe3bed321d1c405c6eb34984ebadc356f05b77070c` |
+| `Assets/Material/Characters/Toon/Weapons_Mage.mat` | 3372 | `cb48c796ca9f4a1f3e53576a8caeb0f461c36af863643f103a90b7676ba3d09d` |
+| `Assets/Material/Characters/Toon/Hair_Mage_Girl.mat` | 3836 | `e3e204834ba7b3eca5acea972ab142bbfd9a14480157fca9f82df4c162959043` |
+| `Assets/Material/Characters/Toon/Hair_Rogue_Boy.mat` | 3463 | `74ef4c112637edafd73fe60e4cf2b818f06cd39ad65cbb2b5d64de9ccedec3ea` |
+| `Assets/Material/Characters/Toon/Weapons_VandalImp.mat` | 3395 | `d7871c826bcda5d3b35f948c0d95255666e63fabedb0bd78a1563cf1ac5d7f93` |
+| `Assets/Models/CharacterSetController_Mage.overrideController.meta` | 189 | `b51f143adbb4e7ba3d93fd70bc7ecd64b63cf60fa68b8074d1bcd74c132ad85a` |
+| `Assets/Models/UI_GroundClick.anim` | 5249 | `20225d855c2b5c5457fcfb2a6eb7cbecffdb5b5f0696f3aaebe218f7e8d88ec2` |
+| `Assets/Models/Animation Controllers.meta` | 172 | `df65506fe25a491c15436b7e9cc7dcb9bc5cbcb3dac56b1b333aaa4d911bb030` |
+| `Assets/Models/DungeonPieces.FBX` | 1050944 | `0f296f2a70e195b84ebca698b470031894ecd268c12f0167710960dc5085ff07` |
+| `Assets/Models/ClickFeedbackController.controller` | 2045 | `0febe8c04213a148997e3c8fedab531893e9a1b2cb9e032a0e83485e7494b945` |
+| `Assets/Models/CharacterSetController_Mage.overrideController` | 1740 | `8a1ad9766798bd7e26cc1ac7c5ef4bc6afc468bd93a3dff2f58ae9f4c49f756a` |
+| `Assets/Models/DungeonPieces.FBX.meta` | 2683 | `d3a17a1120549070573db96517c8d9014cb24a7fa528997231a98be39b54f1a7` |
+| `Assets/Models/CharacterSetController_Tank.overrideController` | 1745 | `ab245b134d501367c11fe2cd0e78872780d968036841d7922fdafd915d488912` |
+| `Assets/Models/CharacterSet.fbx` | 8035376 | `8a581198ea826f5ccad6a6a04045a5771381855629ef1a006711add744e50278` |
+| `Assets/Models/DungeonBorder.obj` | 9900 | `799d4c45f2da92572db2f7c1e50738a60a9fe1ca07bf9cfe7d1a0b7d49054461` |
+| `Assets/Models/CharacterSetController_Rogue.overrideController` | 1743 | `1c0bbabb85efa3f7095d563417ccce06cdf5e4bb38f684137ec191149ccfe787` |
+| `Assets/Models/CharacterSetController_Rogue.overrideController.meta` | 189 | `90da732e37c1d58ff5a483ed2e85f2425fb9527193eb241aa4d07ec4ef10dec8` |
+| `Assets/Models/ClickFeedbackController.controller.meta` | 188 | `29ac3271eddbb3ba95b9f331f3dbc0e59fd87cbe5e3b21e101d916e749801ddd` |
+| `Assets/Models/UI_LobbyBox_LockedIn.anim.meta` | 188 | `4be64ae54ea540d712e0755c542db43ac3b7644cabf27ac3773acfcc13879d6b` |
+| `Assets/Models/CharacterSet.fbx.meta` | 115445 | `ca798acef00e0eaed2b7acb0e2af37e71240773e6faea8e120c5d6d52dca7303` |
+| `Assets/Models/CharacterSetController_Archer.overrideController.meta` | 189 | `8b688d55fe86b1a5284fce511275008a4516749f127150b8e9529f79a66ae5e3` |
+| `Assets/Models/UI_LobbyBox_LockedIn.anim` | 4134 | `038a2df2a177de24ef8ae5860f9967b0a8dcbc98fdc46a33a87fabd422d13a20` |
+| `Assets/Models/Animated.meta` | 172 | `d52d47bd5c08945e77cae67598de3a465441f24951dfce5e9b331a1e83fd2c3f` |
+| `Assets/Models/CharacterSetController_Archer.overrideController` | 1741 | `8a5ef919cbe38d8556c1bc2386c833a111d3ce8398cb30a3c02cea90ac95578f` |
+| `Assets/Models/CharacterSetController_Tank.overrideController.meta` | 189 | `ac7fd7ece6763bd1188070ad495092e25e41912ae020ac55f0b3989c2d452e4a` |
+| `Assets/Models/DungeonBorder.obj.meta` | 2791 | `fcd53813499a4dfba2fca94e7cbc5df855c310dd19c87ccba036fb5efdeaa1d9` |
+| `Assets/Models/UI_GroundClick.anim.meta` | 188 | `8398da3b597b169ecd7b984a735c721d95864ec45568ca1a623eb9279560b8bd` |
+| `Assets/Models/Animated/chest_ani.FBX` | 598736 | `44c709da0c03d13b9ea711837c82da22ffa062d59a18b8258d6388b1856131ed` |
+| `Assets/Models/Animated/door_boss_ani.FBX.meta` | 3623 | `94fe0a7cba50fd68e700cc2ead20166d8f5f0de8d3331d005c8366d897348005` |
+| `Assets/Models/Animated/door_boss_ani.FBX` | 374576 | `5055291b5238aa32157ccdd0d8b10ca16ecdee9f81cfac922dfc86273e76645f` |
+| `Assets/Models/Animated/door_gears_ani.FBX.meta` | 3623 | `b98983572be8298e211cedeb39c6a44a9f85c2589cbf419237cbac6aa585cf83` |
+| `Assets/Models/Animated/floor_switch_ani.FBX.meta` | 4493 | `a5c71891955d08de8e98405a1935b93d5ec3acd64f00a51c3f53dda6a593753f` |
+| `Assets/Models/Animated/door_gears_ani.FBX` | 220112 | `029918ba4a9640c23a3cc74b56649e0aa264497b6e9932ebe026986cd4166726` |
+| `Assets/Models/Animated/chest_ani.FBX.meta` | 3623 | `d30f78d86ee8a4f75d59e065bf43103341ab55cedcbe8426ee3c80e438a39590` |
+| `Assets/Models/Animated/floor_switch_ani.FBX` | 56352 | `5ab0e50b2c93e5c7ff762530decf1415e31144a1b716d6167768003e3ebb8b38` |
+| `Assets/Models/Animation Controllers/CharacterSetController.controller.meta` | 182 | `a57524fbe4418e5d12d55bfaf9a40f26240cf9bb872d87b86f8e02cebe26124b` |
+| `Assets/Models/Animation Controllers/DoorController.controller` | 5767 | `183646bcecedc185d0c2e9e84208e4717e395c4493963916b118f66e4e1ad1d4` |
+| `Assets/Models/Animation Controllers/CharacterSetMask_UpperBody.mask` | 9929 | `7523f23b966618f55139f60ba1cc4da00fefa542a93431f125a41b1be17972a8` |
+| `Assets/Models/Animation Controllers/SwitchController.controller.meta` | 188 | `facc0217e656120f5917768e7a494e79fdc978a089dfd1c4b8d3e1068bbfeb59` |
+| `Assets/Models/Animation Controllers/CharacterSetController_Imp.overrideController.meta` | 189 | `9b03042a917748545e5296171f02d6b2f06f433a4d254c44042bd246e9d10644` |
+| `Assets/Models/Animation Controllers/SwitchController.controller` | 5683 | `3f8f071e5cb4339b171e2f8f60145babad9e40dae11c1222994118c5c95efdbd` |
+| `Assets/Models/Animation Controllers/DoorController.controller.meta` | 188 | `755f75202399c5303a0f4a11afcc7d4e96ec3fe5e29b3acdc4a3068c8d6967ee` |
+| `Assets/Models/Animation Controllers/CharacterSetMask_UpperBody.mask.meta` | 182 | `4027e341fa5e7125bcba838dbd3f815121a68f6209e0a136c216b4eb1a7acdd1` |
+| `Assets/Models/Animation Controllers/CharacterSetController_Boss.overrideController.meta` | 189 | `d98e6f26596454df64ec222a45b291f135a754590a8c67583c859e887ce65f28` |
+| `Assets/Models/Animation Controllers/CharacterSetController_Boss.overrideController` | 2136 | `5a0bec5a14b433325916a7d4a7638f198fccfd5e97fd2c243f37a880a6ad7742` |
+| `Assets/Models/Animation Controllers/CharacterSetController.controller` | 108232 | `6c28e46c6d7ebcacb864e10f4e99a8fbaaa8db2ffd30946f4dbd4d8d46765c6e` |
+| `Assets/Models/Animation Controllers/CharacterSetController_Imp.overrideController` | 1742 | `be2ea476e21e6fd88fb2c03fe1769710dc2c13f115d676c02dd5d6afacc58421` |
+| `Assets/Models/Animation Controllers/UI_LobbyBox.controller` | 7611 | `6111f829857219f1a0b4997870798c5e9a6083117c5d7ec85c0ed1aafdace547` |
+| `Assets/Models/Animation Controllers/UI_LobbyBox.controller.meta` | 188 | `63994d987b96172ad2c3923e9e255a61e5cb99ea1e00fc4ba2924bbffcc205b6` |
+| `Assets/Models/Animation Controllers/CharacterSetController_VandalImp.overrideController` | 2544 | `9a0ac8ed00898626993c25fa6dbd55947a263376d214e06047b4b52fc62a5d25` |
+| `Assets/Models/Animation Controllers/CharacterSetController_VandalImp.overrideController.meta` | 189 | `9f05ac9fb41462b9b6fc3a556fb1678effbd1154d3097403fe8c21024982a062` |
+| `Assets/Sounds/BossRoomMixer.mixer.meta` | 189 | `f36b2d8eb0532849980503a40cb87f6784ce75570a6349540757a2bda49b01ad` |
+| `Assets/Sounds/Env.meta` | 172 | `ec765126416e934af237808fccfaa4d14e26e19db48d93bc39f019f5a1c2a4d6` |
+| `Assets/Sounds/BossRoomMixer.mixer` | 6194 | `26371450b95c0950a41c3c761ab63c1210e08b8b1da98a7d70fcb6c9a9e22572` |
+| `Assets/Sounds/Music.meta` | 172 | `3e6f66342f36b077d8be0421408c46004767f5e861b72c0cc9b4705506b199b9` |
+| `Assets/Sounds/Character.meta` | 172 | `d29fea7ac49ee2933e222ab153a3f1110e95ae12aeb1411152632f3eb66ca3ac` |
+| `Assets/Sounds/Character/Rogue.meta` | 172 | `de78d578f301955d6c4bd4345d1cb2c1853ed5b93eb77e063b11188ff3664a47` |
+| `Assets/Sounds/Character/Boss.meta` | 172 | `333c712361dd5b630af0818591d1244163421a1c30d4d88d91dfa19898b137de` |
+| `Assets/Sounds/Character/Shared.meta` | 172 | `2b2f4c2ab8c4e342c485886d2ffe85fed20331ef2c998f913ef3552db052fac2` |
+| `Assets/Sounds/Character/Archer.meta` | 172 | `e578c67e28c3ae4b9f07121a6ed894dc30619a2a3a9f38ef95be2d3927dbb2b1` |
+| `Assets/Sounds/Character/Tank.meta` | 172 | `d76fb18738b2b9b61edcc7933958bc3a168ea8d7e2d47d57585a287b54c401b3` |
+| `Assets/Sounds/Character/Mage.meta` | 172 | `9a54c571baf376cb690a2fb91cbc1414ce80611c6609e1aed5881e47f32ac1af` |
+| `Assets/Sounds/Character/Imp.meta` | 172 | `962a5661fe3d671001a10bca126eb39ceb69ff124cd7721a9ef014a38553f878` |
+| `Assets/Sounds/Character/Shared/shared_fall.wav` | 85254 | `ecefdfedc7c6403812f6d498458538419d99eec838c61f5e8df03180e2aec734` |
+| `Assets/Sounds/Character/Shared/shared_fall.wav.meta` | 458 | `a16efbd0940d4cf6d7903a0a83272f7cbaba716b4f5c9e0d191a39feb5ca5ea9` |
+| `Assets/Sounds/Character/Shared/shared_hitreact_minor.wav` | 24018 | `7909a0bd134a675631e02831ba2dac63096e1e010de87dea98163564811289dd` |
+| `Assets/Sounds/Character/Shared/shared_hitreact_minor.wav.meta` | 458 | `2ecac0c2773cdde19b42e655a5635f85038afd52db250e31b627af585bf39c77` |
+| `Assets/Sounds/Character/Shared/shared_ice_freeze.wav.meta` | 458 | `b938a5631c3a176decf54d328f75b4380d7ac2baca1848779e3a8d47e81b32f7` |
+| `Assets/Sounds/Character/Shared/shared_hitreact_critical_withImpact.wav` | 48354 | `090e58eab47f4028c3bd73a916f524b1b94ff4504be91ef6924dda9f49fc8dbc` |
+| `Assets/Sounds/Character/Shared/shared_run.wav` | 160778 | `10f1041893d3f6764f252df5babb68aec176ba280279eb00930c0dbe73f8c0bc` |
+| `Assets/Sounds/Character/Shared/shared_hitreact_critical.wav` | 35602 | `bbd596173341685c5dc09e307db02cd216910ccd36dc86d32d0d323176dfd45c` |
+| `Assets/Sounds/Character/Shared/shared_stunned.wav` | 128434 | `7f928714d967c18e27be6aeb33d43a473d61abc6911ac8ea2d0d11d5f767e8dc` |
+| `Assets/Sounds/Character/Shared/shared_hitreact_minor_withImpact.wav` | 13640 | `8ca744146a7609945f6ae6548705e495f0579bac9d1877bd694ec7afa7e0faf0` |
+| `Assets/Sounds/Character/Shared/shared_hitreact_critical.wav.meta` | 458 | `d1be16c8a1c2414357333a00740012d01d1e153118e54dd67ff058d9562e834c` |
+| `Assets/Sounds/Character/Shared/shared_hitreact_minor_withImpact.wav.meta` | 458 | `8a2933c5793f370b78cb1f245fb350ee71404488d7d0a0c3cc44a7cfe9ab0a10` |
+| `Assets/Sounds/Character/Shared/shared_hitreact_critical_withImpact.wav.meta` | 458 | `1404b9a56534fcc9ddcf6f26dd07c0434f66b944993f2f7efd4ef7eca6cb2b87` |
+| `Assets/Sounds/Character/Shared/shared_fall_withImpact.wav.meta` | 458 | `e96197f7c674ea7baa3f17dbf325b92b9ec39f60889131db8fe373b1b82d4571` |
+| `Assets/Sounds/Character/Shared/shared_revived.wav.meta` | 458 | `be93891ac015b2def99cab123eadeda5b7b880f7140248d7422ae1c0666d7901` |
+| `Assets/Sounds/Character/Shared/revive_someone.wav.meta` | 458 | `6b50e215e6293570c9a3909e78c7fad03cf08ee0c59813b2e4d68384a8728e9e` |
+| `Assets/Sounds/Character/Shared/shared_walk.wav` | 111436 | `27ab62ee5d181598c27095ca096b7b5dfd3ac1ee24a1680e7896cc98f03cd568` |
+| `Assets/Sounds/Character/Shared/shared_ice_freeze.wav` | 228670 | `87082c94cc278d38608b44e65a2d14ab3ae048bc9c3fe6befbd53980fc597517` |
+| `Assets/Sounds/Character/Shared/shared_fall_withImpact.wav` | 106794 | `128ff5a4f920b97954a388bf180d73fef1ea128d72fc57344fb7c6cc7291f650` |
+| `Assets/Sounds/Character/Shared/shared_stunned.wav.meta` | 458 | `f207aac3f76b5b05edec7224aef35f644e5f3d18888e4aa76778f1c19f811361` |
+| `Assets/Sounds/Character/Shared/shared_revived.wav` | 108486 | `d930ab125cae219b14f9a6e571b52bdb99e10af10fe0e1a8f24d99592a5e42ed` |
+| `Assets/Sounds/Character/Shared/revive_someone.wav` | 60342 | `4328714a90723a3c6cb1f797e70b492f6fc6f162f96d193cc5aa54f7ae2a8be0` |
+| `Assets/Sounds/Character/Shared/shared_walk.wav.meta` | 458 | `bd1342b33a7289bdee44443ae4d5ccd6816046c2e2eb8aff212cf16bb24556a8` |
+| `Assets/Sounds/Character/Shared/shared_run.wav.meta` | 458 | `5ddc4631d160dd73ae9bd32e9492df26e42d30af0c04add1fc92dd79e60f206c` |
+| `Assets/Sounds/Character/Imp/mn_imp_tossed_attack_throw.wav` | 233324 | `c2ca24a135e81848ae1ec232f89b39e58ce31e5327e7f52606c647a7e78552dc` |
+| `Assets/Sounds/Character/Imp/mn_imp_attk_b.wav` | 66064 | `3edc556f753e53c39214e44ab86ba1f5b570d785cb66ed39adb2a7c2365e75dd` |
+| `Assets/Sounds/Character/Imp/mn_imp_call_for_help.wav` | 85346 | `d92c67d9ed16352955a14c08a219e9027c5fabd12e952f97c586b4fa0f85c798` |
+| `Assets/Sounds/Character/Imp/mn_imp_call_for_help.wav.meta` | 458 | `72a5a9a7f8d71836ebd850a3fd098d573b2cd1fbe1091930921ddb7808fbb022` |
+| `Assets/Sounds/Character/Imp/mn_imp_tossed_attack_explode.wav.meta` | 458 | `8bec1886f3bd6d58fbc98baf306d0e96ef546a6cd24df1d5a2d3789614069e04` |
+| `Assets/Sounds/Character/Imp/mn_imp_attk_b.wav.meta` | 458 | `5cc2410257e55d6ee8c4396c3395b3df533554cd6b9c297114da97b5097ca5de` |
+| `Assets/Sounds/Character/Imp/mn_imp_attk_a.wav` | 60388 | `2125cd3fcf3ddf67fcf7434aec218ec92924ee1985a28ca9314e8f876eb5fc42` |
+| `Assets/Sounds/Character/Imp/mn_imp_tossed_attack_throw.wav.meta` | 458 | `830009a6ee5444dec35cd4568fe89d867b88ff94031233530bf09f613b62905e` |
+| `Assets/Sounds/Character/Imp/mn_imp_defeat_a.wav` | 118826 | `0af24cb947afbfaae92e7757a3c8977491ac0647b1de06b9361fa021db5cd6b9` |
+| `Assets/Sounds/Character/Imp/mn_imp_tossed_attack_explode.wav` | 182284 | `2bde825a1085547b4691402c816be457df2dceb81af95d2c8a2885d16587ca33` |
+| `Assets/Sounds/Character/Imp/mn_imp_defeat_a.wav.meta` | 458 | `96f6b3c044d9750da700885aa1b19ed20eca0925c812af904302432706e7f000` |
+| `Assets/Sounds/Character/Imp/mn_imp_attk_a.wav.meta` | 458 | `7e796e3c7de35f0c229dc892724ec939616559ea1b352fce9b7073f5d023d06c` |
+| `Assets/Sounds/Character/Tank/tank_skill_shieldrush.wav.meta` | 458 | `166686dccdead72d20b83e5b7e99036bb8a5036bb8fda816870f746124dc5a89` |
+| `Assets/Sounds/Character/Tank/tank_skill_shieldbuff_start.wav.meta` | 458 | `4400d90a4f680685d657b53b453c9a4897e49551101b8fa23a55b297b8f4f30a` |
+| `Assets/Sounds/Character/Tank/tank_skill_shieldbuff.wav.meta` | 458 | `7717d5dd5e29c04414557e946508b672293a973e4d9fb8b414d57f50ecb2aaa2` |
+| `Assets/Sounds/Character/Tank/tank_skill_shieldrush.wav` | 256280 | `2442a4532c364db3d038c3e07f26723221629d9bd000fc6cce3a58547a810cef` |
+| `Assets/Sounds/Character/Tank/tank_skill_shieldbuff_loop.wav` | 154318 | `c7025afa5258fcc3b0c757f6650650a5595ea6c699c519839cd2215fd6156b2f` |
+| `Assets/Sounds/Character/Tank/tank_attk1.wav.meta` | 458 | `1646809b21edc20663f35a29a498fc8f946473aeb2f5910b77a02e75d0afca2e` |
+| `Assets/Sounds/Character/Tank/tank_skill_shieldbuff.wav` | 423240 | `ad0ef0482cd14f250c07084f0756d51636057032efb1257b1240e1af4fd194ad` |
+| `Assets/Sounds/Character/Tank/tank_skill_shieldbuff_loop.wav.meta` | 458 | `6f760a91aad0c6bf9b0e59baf3b9d950482fc7a07312d222dd6d260cd0be2c98` |
+| `Assets/Sounds/Character/Tank/tank_skill_shieldbuff_start.wav` | 108102 | `00dd0f59011a838da7a62550abbcf924353f96fdf669ae9c6fed354db07f3418` |
+| `Assets/Sounds/Character/Tank/tank_attk1.wav` | 60342 | `9b650abb6f624ef907c376ea426617ad4c9a6e8edb87c436c6813b281697dd05` |
+| `Assets/Sounds/Character/Tank/tank_skill_shieldbuff_end.wav` | 46802 | `ff61461f72391ce50afb699ccb942781003a636ac98662920b1d5306fab8deb3` |
+| `Assets/Sounds/Character/Tank/tank_attk2.wav.meta` | 458 | `6cd5bcfc0bafede38e6821e35bee7939f72ef7a3bb4ff608d78ac26dd03bef51` |
+| `Assets/Sounds/Character/Tank/tank_attk2.wav` | 60342 | `a8a0c676b56e27fca5595bf203e9b6b81f5497d9886ebc2c23276392671ca8e4` |
+| `Assets/Sounds/Character/Tank/tank_skill_shieldbuff_end.wav.meta` | 458 | `9970bc2ee2856fd2359b591cac0179dad3334d2b58eaa323229353605814a33b` |
+| `Assets/Sounds/Character/Archer/archer_slowing_shot.wav.meta` | 458 | `b2e46c71e648c3c142e492846a111c277d6e9595d1a825a99e97efa4efa74226` |
+| `Assets/Sounds/Character/Archer/archer_powershot_loop.wav.meta` | 458 | `7c0ebe9de52aed6058753040a8d7f79f0cfdaf53282f231511d8609375c09049` |
+| `Assets/Sounds/Character/Archer/archer_powershot_start.wav.meta` | 458 | `8d4d4a5cbc584422379455330d8bed6bb9eff1677c183a661826cd24b2afa988` |
+| `Assets/Sounds/Character/Archer/archer_powershot_end.wav.meta` | 458 | `16fcc63f252eb90737492664c01aab88001a0e75013b5201d59748a19a661d9e` |
+| `Assets/Sounds/Character/Archer/archer_powershot_loop.wav` | 36836 | `98196fdbf31b54bfe14293e95e19ab21b0b13c0ed1620bac95a5d79e2a716966` |
+| `Assets/Sounds/Character/Archer/archer_powershot_start.wav` | 19196 | `65bbd35f749a7ed2570bc03d4814f5eb74da4c0da0ceaf710ed28d8c8e21ae7a` |
+| `Assets/Sounds/Character/Archer/archer_volley_loop.wav.meta` | 458 | `2cb269fb5f1382538cf53602107d1a15c3e3306b11f7eb769629ccc2600b5844` |
+| `Assets/Sounds/Character/Archer/archer_powershot.wav` | 88344 | `45d48b79cdcf1f4029f7e51f856ff353134d439c7ac99e6d2bb2e8afcd5380f7` |
+| `Assets/Sounds/Character/Archer/archer_attk_b.wav.meta` | 458 | `116430de6d43361ccb44378508f465a9d46c6c219ef2bdc933d25810843428f7` |
+| `Assets/Sounds/Character/Archer/archer_attk_a.wav.meta` | 458 | `9d9238d4ba256e8d3fbfd7fc10b545fd9e4d528039c872731de0378aabefc1fd` |
+| `Assets/Sounds/Character/Archer/archer_volley.wav.meta` | 458 | `d4f4fe41df59c638cded60f79aa016fa7c56ac1702a9a7ef5de364f0bfd5fa1e` |
+| `Assets/Sounds/Character/Archer/archer_volley_loop.wav` | 86532 | `0de953513b099605847d9542bb2f5ebb6f0a8c42bbb33e6ae40164544fe5dfed` |
+| `Assets/Sounds/Character/Archer/archer_attk_a.wav` | 42442 | `293057a5cdaf4f0566b78b589670c730025f1e17c4fe08b51a6ac0685d9b029d` |
+| `Assets/Sounds/Character/Archer/archer_volley.wav` | 53100 | `e2c686aaf9638ec91f190f2e09119326d861fbb5c022269a8a048fbefa2ff8ec` |
+| `Assets/Sounds/Character/Archer/archer_attk_b.wav` | 41676 | `f3cf4e810f9e4530c19235122bbdc568a05ab522101164f9c82bc873fd5a2aa4` |
+| `Assets/Sounds/Character/Archer/archer_powershot.wav.meta` | 458 | `fe3b3f5abd24943a323918ba44a162382b573a9f7895b6ddfbf5547ea546122a` |
+| `Assets/Sounds/Character/Archer/archer_slowing_shot.wav` | 86868 | `1acea8c3701ef8bf29d508e1ad74dd1a8b81afb672e6891e4dca93af8f1e26de` |
+| `Assets/Sounds/Character/Archer/archer_powershot_end.wav` | 32426 | `fa5eb444abafe33f72b7bf5696b0aa53cab87407f41f547834ad2aefa32e48c0` |
+| `Assets/Sounds/Character/Boss/defeat_loop_a.wav` | 216444 | `1a03a96acc58ff81e35022a0e138fd8d2a4b04869f1c11ee9c11e02435e32929` |
+| `Assets/Sounds/Character/Boss/defeat_loop_a.wav.meta` | 458 | `150d8d1750fd1ceb4558477f5d2b694170671c88d16afd58ac75f9d83aa2876d` |
+| `Assets/Sounds/Character/Boss/charge_attack_start.wav` | 93940 | `7516cb743e6014dcc13a42f3702f4e67fd389859fdbb2118d3a68913971e37d1` |
+| `Assets/Sounds/Character/Boss/walk_a.wav` | 183332 | `dcf92e1f0226ed82dcf80cd3f4aaa2dbfd4465a87264f1200c1c7dc1ce1de89b` |
+| `Assets/Sounds/Character/Boss/walk_a.wav.meta` | 458 | `d16b1bdd0919fb508f0f0a60c5834b0b42e1df7e7cbcc4b0877c3b21453b0019` |
+| `Assets/Sounds/Character/Boss/charge_attack_end.wav` | 78872 | `38bce816b1f635993b0d3a8e79cfe60fcfd023deee328445c339160917267b4b` |
+| `Assets/Sounds/Character/Boss/defeat_a.wav` | 157966 | `aa139689ac7e445720bf651d06bcc1f0fdb17c51d853dd81c3af41fa5721e9a9` |
+| `Assets/Sounds/Character/Boss/charge_attack_end.wav.meta` | 458 | `0c1f84ad844500c0b65bc354d28508640e3a6806a45fc6eda0005fa2d8563c35` |
+| `Assets/Sounds/Character/Boss/run_a.wav.meta` | 458 | `486b76b419616a3aac08fd1f5d095509c38666bee662a5c925b9a4dc10fdbc1e` |
+| `Assets/Sounds/Character/Boss/charge_attack_start.wav.meta` | 458 | `42e436d483bae73848f74dceaaf9db70b81485c173a8535a0a9edb0f1e48218b` |
+| `Assets/Sounds/Character/Boss/defeat_a.wav.meta` | 458 | `ba2e2ff24a90ae2e9d93966a18addfca737b5d2a4d26bce0dc94c8357d1138ec` |
+| `Assets/Sounds/Character/Boss/charge_attack_loop.wav.meta` | 458 | `8ffaa1ff78476a683dd7c264f1c5b276d7c014fd2892f9382195d11bfab91f64` |
+| `Assets/Sounds/Character/Boss/run_a.wav` | 141678 | `e8734abc15157700c874a910c9bc3831d7eb60b00f5f29ba4be173060df7640a` |
+| `Assets/Sounds/Character/Boss/charge_attack_loop.wav` | 89716 | `a8ddb823a5dbe335387780ce778f70ad5ce4a420b5e5ee05f5bac847341680c3` |
+| `Assets/Sounds/Character/Mage/attk 1 magic bolt.wav` | 58690 | `c5bb69bad1367bfbb35d0f6db4b8e76ea2ee6f798193f0b10427b9d7b27bf79c` |
+| `Assets/Sounds/Character/Mage/skill_fire_blast_a.wav` | 60342 | `b711f02ea35e9486521eb8fbf3ae72764b98435d431739704ef53ba00f28a1ee` |
+| `Assets/Sounds/Character/Mage/skill_fire_blast_a.wav.meta` | 458 | `bf099fe42489f136ca94fcc9a546b29cf936240c431cc92f7029aaabae828251` |
+| `Assets/Sounds/Character/Mage/attk 2 magic bolt.wav.meta` | 458 | `b9dff40e2b938731ecd3465b2cc18cac5f0bf17979d10ff099e42f2aa7694a1e` |
+| `Assets/Sounds/Character/Mage/skill_heal_a.wav.meta` | 458 | `ad9d8fef4230f66cc454c063d472538e4412000cb2f83b260e9ef9d91fbce0c1` |
+| `Assets/Sounds/Character/Mage/attk 2 magic bolt.wav` | 58096 | `21830518d6282d9a411815ce806ac1ebae1ae1ef9738ca9c7c541a4fd581f4eb` |
+| `Assets/Sounds/Character/Mage/skill_heal_a.wav` | 60342 | `386d57e5d014e01cbb9238a3912269011b1e7f048db84f44179323dec2162642` |
+| `Assets/Sounds/Character/Mage/skill_freeze_a.wav` | 60342 | `180fadc2b9950241ba0b68e2dac6d35923fb4c6392543b3b195878a6884cac52` |
+| `Assets/Sounds/Character/Mage/skill_freeze_a.wav.meta` | 458 | `6cb0bd9f37bae04f71928d1f5b688f0f4169ce2b3c0681cc03e47a4c791072bb` |
+| `Assets/Sounds/Character/Mage/attk 1 magic bolt.wav.meta` | 458 | `42bfbda82880e322030a142d226f69af4e117b9fa1ef36e41690ce3855c58901` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_sneak_attack_end.wav.meta` | 458 | `cbbebf0716ccd3d8ca1f24e13631d9d3848843c3bf6545e2b65f9d89f979a5af` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_dash_attack_loop_energy.wav.meta` | 458 | `fb367eb3fd5a6413b7bb51c7a0cc8e88ec6ff4455ffefe0632d6708a7821e896` |
+| `Assets/Sounds/Character/Rogue/rogue_attk_2.wav` | 75026 | `51d01f688e014651ea8d5f92ac24550c614dde7e5f2afe603f735751fb5753d7` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_dash_attack_start.wav` | 55880 | `511098f145eccf7a713422d9b56e36a8292a3f495fd0f9609163bd3974ebcf5c` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_dash_attack_loop_energy.wav` | 245926 | `53a68504db0c392b3d51412c8a5b944a20d50cadf98a4142c7b24384785ec397` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_dash_attack_loop_fs.wav.meta` | 458 | `470b112411e17de7f05561d1a88f69e79d3af273002f541e3cd95fe8f1b2daed` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_sneak.wav` | 294340 | `b4f7435addd29a03e848c698f7746c52735e6817db42c4e48d5b68e95b594d68` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_dash_attack_end.wav` | 60342 | `0e55f1dcd5de995f5a7e45eb2f69c041d29816af9c12c491a00a68efe67c0a14` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_dash_attack_loop.wav.meta` | 458 | `fa7b8f3a4cdbc13844c04a218e49188778bb8c2f531e86f206f2931ee570ce8f` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_dash_attack_loop.wav` | 14786 | `df72b7690cea23801ea4418aa102ae45c14aabd0520190e743a2234118f3041e` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_dash.wav` | 101530 | `ef7cf7e5e4dc4de0ec3dbda61d7cca49ad47a7942c2b0f3f024f7b92645133e6` |
+| `Assets/Sounds/Character/Rogue/rogue_attk_1.wav` | 75026 | `569a5bdd78966e3e8dd9204e9278b4d106ff07f09b57a5469af963184a5e2f71` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_sneak.wav.meta` | 458 | `3308e76accab8017bf8193dcbac0c5015edcd794c7515ec3dbe5c1b2e5142286` |
+| `Assets/Sounds/Character/Rogue/rogue_attk_1.wav.meta` | 458 | `067d33dbc39cec5d6892377b4580dea6d802ab6f9ae990d357901b4d4b772008` |
+| `Assets/Sounds/Character/Rogue/rogue_attk_2.wav.meta` | 458 | `d47bf054651ad5a518d9a2add35b6178fd826bcad48c66fa437e018d5bd433b6` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_dash_attack_end.wav.meta` | 458 | `61ca4f7a8be4b7de9a6733fa425bba56038b73ebda05bb449227cb16016ba362` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_dash.wav.meta` | 458 | `1e413f845a5d9f94509fa85fb45b920c8d729a0cadff6d9027039d86fdd21dd2` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_slowing_slice.wav.meta` | 458 | `b8f4f7d8ebaa67085a6d5be3682c414df6c56c29733c80b170c41fdf49566a09` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_sneak_attack_end.wav` | 60342 | `64657ec7cf7eb76119bc7a78bafa08f52be555c97ae6362c98cec775f78f67f5` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_dash_attack_loop_fs.wav` | 245926 | `4be881ec8f2a50144f847ea4ef1aa78f8c47ab4f291d34914147acb935127f20` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_dash_attack_start.wav.meta` | 458 | `59ecb6d476491b28fe90c1fbfe4a87bae94314baedbe56edfc895dd17ff5cbf0` |
+| `Assets/Sounds/Character/Rogue/rogue_skill_slowing_slice.wav` | 55932 | `53657eea7b34b04a373e9732f7dcc7f1a548e05df12aacfd342e7fd61c0f5ff5` |
+| `Assets/Sounds/Env/pickup_pot.wav` | 9432 | `fb8bc7b56f4e166427bc01d89abf5c51234982b4647641c61d4b067ff2e54cc4` |
+| `Assets/Sounds/Env/Environment Crystal_break.wav.meta` | 458 | `d745090f44aa6e6df6de4da5129a04d87cd779680a720eda76c7773cb31c9bce` |
+| `Assets/Sounds/Env/Treasure Chest_loop.wav.meta` | 458 | `10d71172d15da615801880c06e47db4139201f59cdc55517391077c5b4940cfd` |
+| `Assets/Sounds/Env/Treasure Chest_open.wav` | 144864 | `15c5ff3b031c46921a61aa5428a3715a62cbc46bc3258bbaf50c3d99b405deff` |
+| `Assets/Sounds/Env/pickup_pot.wav.meta` | 458 | `732e586fc4a06db58d3f0bcd564913c5cb4b2a7f3a1db9f6c05a702a1f1b16de` |
+| `Assets/Sounds/Env/P2 Water dripping.wav` | 690072 | `6a46886f4f0f8756146540be4815cb6aa2bf681e3659279fe0e9b19b1ff73f01` |
+| `Assets/Sounds/Env/drop_pot.wav` | 37364 | `07abc77117cd1a1f427e391098c93c738650580570f94311e3197876347b9a6d` |
+| `Assets/Sounds/Env/Treasure Chest_open.wav.meta` | 458 | `b6924a43b4514c74d4036e33212f5a58a02d84545f033d81c62a0c25026a8070` |
+| `Assets/Sounds/Env/Environment Crystal_break.wav` | 34260 | `530de83ba7a1f626ccc73ace2e17a90b1aaaebebf3332ac8e9e4a57aaab68be0` |
+| `Assets/Sounds/Env/drop_pot.wav.meta` | 458 | `d833846ee022796fb803865ef96054a6ae903f9e83d708a00b73f834ac1e88fb` |
+| `Assets/Sounds/Env/Torch.wav` | 441702 | `f60c779c53f696b62779e701fb49d730e4d18d5b420a229c23fa876f7dbfb3cc` |
+| `Assets/Sounds/Env/Env_Treasure chest_v2.wav` | 610104 | `8460bedb441cf9b05fa65b69721927f06236331a7487bd96f14daf8aabfeeaae` |
+| `Assets/Sounds/Env/P2 Water dripping.wav.meta` | 458 | `85d9a644ce912a0205b643fa01c31bf58f585f03254da5d2c5e243337d8204ea` |
+| `Assets/Sounds/Env/Torch.wav.meta` | 458 | `8b8a1f1165495f0e9cfd6fcbd646d585b9622600dd1234e00524dc951493658f` |
+| `Assets/Sounds/Env/Treasure Chest_loop.wav` | 356918 | `bb17985c8516f948afdf398ec5b709d4cb0ce06fe1a12332a4aa05be06eebeef` |
+| `Assets/Sounds/Env/Env_Treasure chest_v2.wav.meta` | 458 | `22d68e8689242a199511278f44a6a0486940923a4118458201ccc187928f9b90` |
+| `Assets/Sounds/Music/Boss_Room_Battle_Loop.ogg` | 1839386 | `150a38a32709989cff9fa1ba7b87498d9f1e6a82f79c438e3df030ac228001a3` |
+| `Assets/Sounds/Music/Boss_Room_Victory.ogg` | 405321 | `08206e447180d7a3f80237a85a6afb48a5c8b587c0244bb7c9c6303c29225132` |
+| `Assets/Sounds/Music/Boss_Room_Theme_Loop.ogg.meta` | 458 | `d616489ba41f377aa600049f5ff942bd7c1f69f2ad8772bd6a3287bacdfe096b` |
+| `Assets/Sounds/Music/Boss_Room_Theme_Loop.ogg` | 1715087 | `2365d51a0debe7b441ad95fee488975740610e80b4a4ef1c51852a9a8ded6006` |
+| `Assets/Sounds/Music/Boss_Room_Battle_Loop.ogg.meta` | 458 | `c510f86fefb75cc77aab9678772a2601ab6fd68dc51c19d9bb4306fecedc4953` |
+| `Assets/Sounds/Music/Boss_Room_Victory.ogg.meta` | 458 | `fd92735e3c879f6795965d577ffd7540a12063cc4b518c25526a144944d95489` |
+| `Assets/Shaders/SG_CrystalShader.shadergraph` | 76536 | `2cf8f02cc7bb07604a6587c2aec68b6e3f9e5069723afe6b560b64293ba2993b` |
+| `Assets/Shaders/SG_CrystalShader.shadergraph.meta` | 285 | `2857010f8e23ad03d8f4a3a609f5943830e0e08fce41ded73ab46a227fcab227` |
+| `Assets/Shaders/MainLight.hlsl.meta` | 86 | `ca8be528dc27c29e386b7ef29d7bf19fabce2d6517a2f45a96f7b7a50b15544c` |
+| `Assets/Shaders/SG_Environment.shadergraph.meta` | 285 | `4254beeaa09cb3174b35a2e294e9eb15f5f0d9bd23420445fbd84f3b296cd96d` |
+| `Assets/Shaders/SG_Environment.shadergraph` | 63102 | `2f6c7b82e4022e39af767fc624f44890de06ceb8ee6e3bb1c20f9a3a3b0e2fc7` |
+| `Assets/Shaders/SG_Toon.shadergraph.meta` | 285 | `5fc003f1ab985b2a7b67bb02d89a217fd6b14a0cd7173868e07357a51ff1532d` |
+| `Assets/Shaders/MainLight.hlsl` | 1018 | `97a9e64096f30eaf92a15b8c7a2033096ac60cc231deb3574198a5c15352e6e2` |
+| `Assets/Shaders/SG_Toon.shadergraph` | 162111 | `0556da36c630c63b9a038e1050b81d60d07d9d39945181afc1440074a537418a` |
+| `Assets/Fonts/Bungee-Regular SDF.asset` | 580541 | `f423064a483d6f113328aaf08af463cced623dceb931b1caef991ed769eb9f70` |
+| `Assets/Fonts/Bungee-Regular SDF05.mat` | 2914 | `487605c1e223a1f15a2a576c3fed6e13ef453a855cf4de491c3c3a1d8af0cc90` |
+| `Assets/Fonts/Bungee-Regular SDF02.mat.meta` | 188 | `a50fecb777ffe7992dceb93fee7036d13ef5db5a4d01d7f732d2f46042a3a66e` |
+| `Assets/Fonts/Bungee-Regular SDF09.mat.meta` | 188 | `fbe1f1ac3028a78f80c735b3aa4bea1213bb6402f55e1e983597de3dc9894ba6` |
+| `Assets/Fonts/Roboto-Bold SDF.asset.meta` | 189 | `5bd07b18f5483095108e31578e031dd2df58de54205a3a6df971f9f6a6a07cf9` |
+| `Assets/Fonts/Bungee-Regular SDF.asset.meta` | 189 | `79137e10d3325730253559cab37a1a8f92b2b70add9b94596984d3045de3167a` |
+| `Assets/Fonts/Roboto-Bold SDF.asset` | 578636 | `05ddc342c7eb4b882050be2a364c0b9d425d9521fdbe27bc4871228c77877f46` |
+| `Assets/Fonts/Bungee-Regular SDF09.mat` | 2914 | `2dd804cf2552cf4bcbaea5860b47985b32d1c8cce25318c8466cc4e92e1af09a` |
+| `Assets/Fonts/Bungee-Regular SDF02.mat` | 2914 | `08bd071639c28665998241929b3d226250e1aa73b834126ed973433d9fce5e35` |
+| `Assets/Fonts/Bungee-Regular SDF05.mat.meta` | 188 | `a03337c738bcaa8ae1aaef757c7912f4ca51b6f8bc2721de783acc6ad95641df` |
+| `Assets/Scenes/Startup.unity.meta` | 155 | `f5dc4e9856f4e46deb25425b740c0f46a6a6282b3ab9164111c177e0604de65f` |
+| `Assets/Scenes/MainMenu.unity` | 73659 | `cdaca1553f6a56d171dd72e4d8c51a3d22e5e4eaaff8def9c6ef3a7cde259a37` |
+| `Assets/Scenes/Startup.unity` | 61395 | `127974d557ea582f65053f54c1434fd719f74af4ad1fada904afe2a11227e99a` |
+| `Assets/Scenes/PostGame.meta` | 172 | `4adf76b7296b3b0849eb3bc602d8d8a7b8efe86588d53a4dab5d10a7fc898ce5` |
+| `Assets/Scenes/PostGame.unity.meta` | 155 | `eada5bcce55d7ffea0942a8005c7543001dd6afe53ba9863d9efb4d624df7745` |
+| `Assets/Scenes/BossRoom.meta` | 172 | `eee14e89027c86f5be403c346fc960c7356bec933b195d478521826510aea181` |
+| `Assets/Scenes/CharSelect.unity.meta` | 155 | `76cf5ed5cb14a13a47a9ceb72c4b54f0d19132119584d43848f28047ddda561d` |
+| `Assets/Scenes/BossRoom.unity.meta` | 155 | `73f094d5fcdcfdcd8ed33efcd70faf2d642578adaeb3ece604026684b15d8a72` |
+| `Assets/Scenes/MainMenu.unity.meta` | 155 | `93b4b1e9c6bda049ce2128234710cbae624e9000fa665e11c58188c7e33396ba` |
+| `Assets/Scenes/CharSelect.unity` | 50035 | `b0a1012444ca7683272cb5372585c2c7917395ef9691159dd85bce962b36e772` |
+| `Assets/Scenes/BossRoom.unity` | 427987 | `3a002e0d85e334bfd3b283e702fce926d0c8d2201d741d767d2842f3344f01c1` |
+| `Assets/Scenes/PostGame.unity` | 34859 | `9f6d043b0d737b156218d82153c0068bda1b8af7cf40d1acdf13adc7356e6ae8` |
+| `Assets/Scenes/PostGame/ReflectionProbe-0.png.meta` | 3098 | `d8421a7d4cfdf0a785afb1604de0af9ee3a675a815c078f1f1bcf5fb4a8561c6` |
+| `Assets/Scenes/PostGame/ReflectionProbe-1.exr.meta` | 3098 | `5f31df5116fad03e352ecc8b3bc2168d4b09cec1b0e02cae34fbbd2c4d5edb58` |
+| `Assets/Scenes/PostGame/LightingData.asset.meta` | 190 | `5ca90e8eb11ce5466f49ae2ed0bd53ce53efbb152cf368453f8bfdd445d45941` |
+| `Assets/Scenes/PostGame/ReflectionProbe-1.exr` | 163865 | `8ec6a8fbb03ba5127b654f8416f51c54e036806b69510fd2b2ce4daff4b8c27c` |
+| `Assets/Scenes/PostGame/LightingData.asset` | 18256 | `a48ad0af841d36f8e00ec5281f8386c2ad03cb7b7b4980c31e4fff93a71c70fd` |
+| `Assets/Scenes/PostGame/ReflectionProbe-0.png` | 2747 | `3ab8c3479a7233e5b62062ebb9c29e03a642f929d5308da6842642aa8f7f4bc1` |
+| `Assets/Scenes/BossRoom/FastBaking.lighting.meta` | 200 | `e6b0c1d51fba09a5b48df1a84148b299d0dd9599981d5830c2e07246f33a70f5` |
+| `Assets/Scenes/BossRoom/ReflectionProbe-1.png.meta` | 2948 | `706bd1b94253645670f56afdc5137c9190699a1b4428c6b33379b14834e79668` |
+| `Assets/Scenes/BossRoom/FastBaking.lighting` | 1744 | `ef693c4a44a99aec15470f908c755b702fbcaf728dbee6cb63171ce9a6a46a3f` |
+| `Assets/Scenes/BossRoom/GoodBaking.lighting.meta` | 200 | `586dc4b8b32fb18803effc279c10bac87ccf3beee37c9b1e693ab6cb08c68142` |
+| `Assets/Scenes/BossRoom/ReflectionProbe-0.png.meta` | 2948 | `a7b1d5394e77de334e064700826a825e6d452e68033ac0e7b627e649fbd6fc6d` |
+| `Assets/Scenes/BossRoom/DungeonTransition.unity.meta` | 155 | `82d0b12d487a907d3107f77fc60a6534df51e41c7c129e1e1ec10d0d821c86c7` |
+| `Assets/Scenes/BossRoom/DungeonBossRoom.unity` | 340011 | `62fb49820dd395603c4ed3c6a3eed0497fafd4e799b58d630eb996c84e9e78e1` |
+| `Assets/Scenes/BossRoom/Lightmap-5_comp_light.exr.meta` | 2947 | `5a2b517cbd70da98d01873b8238333fc9f5f54999f7841b3e10c07f6150f0ca3` |
+| `Assets/Scenes/BossRoom/DungeonEntrance.unity.meta` | 155 | `4d9fe50d63adb30a0a7e4ace74cb658283aeb11c1e9278196f888c6fe627fc47` |
+| `Assets/Scenes/BossRoom/Lightmap-4_comp_light.exr` | 2892971 | `ba1ce99f2ae5b19990f4b2e40c98deb4fb533e2366547f7750ce27d678852272` |
+| `Assets/Scenes/BossRoom/DungeonEntrance.unity` | 35122 | `2e754825749cbdff6a94176d031686e9ba6918b5fd9b89937e30bc7120d90998` |
+| `Assets/Scenes/BossRoom/ReflectionProbe-3.exr.meta` | 2948 | `a5cd080864db7c80bd1530824005ab454fa5c29e4d17894f8b1660589ad0883d` |
+| `Assets/Scenes/BossRoom/Lightmap-3_comp_light.exr.meta` | 2947 | `fb84da5b70405e7d9255ba9e67005eef3f91fced047068cc6d1eebdf2889f088` |
+| `Assets/Scenes/BossRoom/ReflectionProbe-1.png` | 10235 | `c8c85eee7048c0e4f6802d16366ec1049fc27efbc643cd660696479f317c5300` |
+| `Assets/Scenes/BossRoom/DungeonTransition.unity` | 28071 | `c9ddbb20b51266d5d0bca5e4ca52df58929a8af4a84f736c129e629f96291382` |
+| `Assets/Scenes/BossRoom/GoodBaking.lighting` | 1750 | `57938900185d84fd26cbce24df2e0980639ed2f7eb98a1c3f5739a58e7e6bd08` |
+| `Assets/Scenes/BossRoom/BossroomLightprobes.prefab` | 9957 | `62fb4438555c048913b0914cfb05471cf1a3b751d8792e1337fbfc07013cf24d` |
+| `Assets/Scenes/BossRoom/ReflectionProbe-2.png` | 9236 | `65904120612d6320dd83defa45fb1d0f546018c014f7540b5eeab5b6039dd65e` |
+| `Assets/Scenes/BossRoom/BossroomLightprobes.prefab.meta` | 154 | `876c84081a9ca74dc38e80118d94e38ec2c8a225bfd7ded0b02e864eaebe8691` |
+| `Assets/Scenes/BossRoom/Lightmap-0_comp_light.exr.meta` | 2947 | `1c0928a15bb4f065986158445ef3cf4bda11651d0ea8c78695885ae3d8cdcb5c` |
+| `Assets/Scenes/BossRoom/Lightmap-4_comp_light.exr.meta` | 2947 | `55cec0eb9a63900cf662a98371cbb9e8031f46ccedbbce0541447d6fd230912f` |
+| `Assets/Scenes/BossRoom/Lightmap-5_comp_light.exr` | 1677426 | `b7899a2462a5de89d9c79bd9d38141c974d5e0b67187e9f6e7bb27b5eeece7f8` |
+| `Assets/Scenes/BossRoom/NavMesh-DungeonNavMesh.asset` | 62272 | `4c1581efdf2082311ae5299b817350234731a158ff2981596eec2b356bee042a` |
+| `Assets/Scenes/BossRoom/NavMesh-DungeonNavMesh.asset.meta` | 189 | `ab5f89b5c3ebc4fabad907930886045e41c3614a2779b93e3daf2f7af3f24780` |
+| `Assets/Scenes/BossRoom/Lightmap-1_comp_light.exr` | 884546 | `33e04993ea472bbc610c8a80632673c95c94e5a8d9ec05c03b2970561d24c401` |
+| `Assets/Scenes/BossRoom/Lightmap-2_comp_light.exr.meta` | 2947 | `4f0d70271f1fdb89ec40c87285edcdd480010297bc737eb24e41f37f6e6f47e2` |
+| `Assets/Scenes/BossRoom/LightingData.asset.meta` | 200 | `715d805d78eccc9239c4148610cd146d54a23d8a0608e68da4d50312fd57b1a0` |
+| `Assets/Scenes/BossRoom/Lightmap-0_comp_light.exr` | 3278467 | `d5a7333a5a73f3c3211570b45185ba1bc9ed3620ef6569ad8291aedbcd4b0f2c` |
+| `Assets/Scenes/BossRoom/Lightmap-1_comp_light.exr.meta` | 2947 | `c3645e4d0aeb47a96c0b22e97545698dcd6e56518548a39ac854fa8018c945cf` |
+| `Assets/Scenes/BossRoom/LightingData.asset` | 213084 | `bd6954cf2b1b09a98bd4c3424f332cd50b8e20033691aa85e8fcf2276ea27e41` |
+| `Assets/Scenes/BossRoom/Lightmap-2_comp_light.exr` | 2475847 | `269f5807c005a61511248c7dbd9bfdc763f65669e9965b6e528a1fc14aded1bb` |
+| `Assets/Scenes/BossRoom/ReflectionProbe-2.png.meta` | 2948 | `275230f0a249b8f524898216e4adb933f7cdf376a06e349d77c634158600b23f` |
+| `Assets/Scenes/BossRoom/ReflectionProbe-3.exr` | 17104 | `055e3739c94dd9806536b06b11773379924ae4a4058c84ad9f3e4e577ad3ca94` |
+| `Assets/Scenes/BossRoom/DungeonBossRoom.unity.meta` | 155 | `9bf5e0f1aa5b88bbfa0b9ac4973037e68d6df563aeffee5e34e7d45e6621fd7e` |
+| `Assets/Scenes/BossRoom/ReflectionProbe-0.png` | 9853 | `162f0d1edc923835c10709c899053dbea4ca48f95cc3972b8a562022904dc552` |
+| `Assets/Scenes/BossRoom/Lightmap-3_comp_light.exr` | 2794146 | `3f383a74713fc7d9cd8cb6924251ba4c998e0ef666f13b278e229fa1d69860bf` |
+| `Assets/Scenes/ERO/ERO_Playable.unity.meta` | 155 | `5f6b747449b842723b8a5c828868fea7a795def2d47ff941f06958de4994897e` |
+| `Assets/Scenes/ERO/ERO_Playable.unity` | 1137 | `af0989d9648fafe024b0d10e66c972f92909768f08e76a6ca5856feb5289bbc3` |
+| `Assets/Resources/ERO_Mobs/ImpBoss.prefab` | 15062 | `73d23d907aa0362089bbb67ec10889ddf2803f5fa2b02e93d8378a2fe59a39c2` |
+| `Assets/Resources/ERO_Mobs/BossGraphics.prefab` | 99147 | `9e1f882ae2fb8eb84a83d78d5c5a36dfaaf3eccde254d9e7d1acef3583fd293e` |
+| `Assets/Resources/ERO_Mobs/BossGraphics.prefab.meta` | 154 | `fffd0afac291bd5ff1468b1db2c94e5260ae49b63568fa4dda9f2aa320c58a81` |
+| `Assets/Resources/ERO_Mobs/ImpGraphics.prefab.meta` | 154 | `a2356380110a68d93fdcd3a72e17902e5576d841c1d905f43b3ff6f7d4776987` |
+| `Assets/Resources/ERO_Mobs/VandalImpGraphics.prefab` | 69039 | `fe25830b39d82d0c094e77108c366b6a4b71ab80f2fe148f66fb64ab34693570` |
+| `Assets/Resources/ERO_Mobs/VandalImp.prefab` | 10090 | `bd40071e11915b546648db65aa4448fd4adc56afa6fc6b9d72bdc98f87e144de` |
+| `Assets/Resources/ERO_Mobs/VandalImp.prefab.meta` | 154 | `6f09ddd58cba4ac918752558bc46676280ee53b1adee57899997046a6b187188` |
+| `Assets/Resources/ERO_Mobs/ImpBoss.prefab.meta` | 154 | `090b001e2b6081c6c2a8812289351ed60e0c186eca9f365892bd4bcbd6493d05` |
+| `Assets/Resources/ERO_Mobs/Imp.prefab.meta` | 154 | `7a48678f45fb86b1c403bbf7040da985669e074afb366d9444a39b9e74164de4` |
+| `Assets/Resources/ERO_Mobs/Imp.prefab` | 14630 | `6fe4fbdb1e5866b2fd37c560d5ecc52df7a462660036526cda0135bb33bc5f3b` |
+| `Assets/Resources/ERO_Mobs/VandalImpGraphics.prefab.meta` | 154 | `a2b6fc665a900384c36b07b578900e0ecdf4a2894867e796e84abb790db7b4e7` |
+| `Assets/Resources/ERO_Mobs/ImpGraphics.prefab` | 63175 | `b8bfb15c071f6f0a2a78337cd5fcc07cb4bbcab2f5b7a7bf8cf5d4a1771a4aa3` |
+| `Assets/Resources/Fonts/CJK/NotoSansCJK-JP.ttf` | 16467712 | `8aa425482c0c132c3511705c37ea5807d9005db5496d58243df7a646c055b026` |
+| `Assets/Resources/Fonts/CJK/NotoSansCJK-KR.ttf` | 16433088 | `eacf732396b7c02e78a68e098802334a0cd5eacf8dabbfccd2d1cd048f25ce3c` |
+| `Assets/Resources/Fonts/CJK/NotoSansCJK-SC.ttf` | 16437340 | `9efd10f08b4abedcd2c1001417f7a9c30878e2c8967431e788d2236cac57ffd1` |
+| `Assets/Resources/EROCharacters/PlayerGraphics_Tank_Girl_CharacterSelect.prefab.meta` | 154 | `3511386cd62b2a0d72a75f2c755ffb535551f6fe171b4f4486ce97c1855f39e0` |
+| `Assets/Resources/EROCharacters/PlayerGraphics_Rogue_Girl_CharacterSelect.prefab.meta` | 154 | `490d438e6fbbe3a34689f95f876d71115ec616051d0de42767c54b23971686de` |
+| `Assets/Resources/EROCharacters/PlayerGraphics_Rogue_Boy_CharacterSelect.prefab.meta` | 154 | `6d52934efe8620c27effcc194482043b11df862f2bef378fe1155790f683b069` |
+| `Assets/Resources/EROCharacters/PlayerGraphics_Mage_Girl_CharacterSelect.prefab` | 4752 | `809fe547fde49fe9cfb2c9a67ff198586aef1ae084f434191c5c86d0156cab0c` |
+| `Assets/Resources/EROCharacters/PlayerGraphics_Mage_Boy_CharacterSelect.prefab.meta` | 154 | `f66b3bf6ee5d121a74e85ef0575e9c5c958099612c4029b244b920bd85d7747b` |
+| `Assets/Resources/EROCharacters/Ranger_Female.mtl` | 388 | `577893c60de755504ff1a04b9dbefe07d2b549e0b2be27f7a684d6f9cc12c28c` |
+| `Assets/Resources/EROCharacters/PlayerGraphics_Tank_Boy_CharacterSelect.prefab.meta` | 154 | `fbce699d217c33b4f8c52fde675e814e11f9011a2f61d92343c616e7296a7c30` |
+| `Assets/Resources/EROCharacters/PlayerGraphics_Rogue_Girl_CharacterSelect.prefab` | 4751 | `72c2a2dd5a0aa3475a52435a66630e813fb4ca64ebc5b47e243b95a322cae6e7` |
+| `Assets/Resources/EROCharacters/Knight_Male.mtl` | 388 | `a89b45049494b8a52ce46df5bd18da4bbed8149b7d2a73672b9d0f9f5bd15d48` |
+| `Assets/Resources/EROCharacters/PlayerGraphics_Mage_Boy_CharacterSelect.prefab` | 4752 | `a7e0250f2750b982f35c2292643102b6d45f892b1f603da643dd2bd710bc1720` |
+| `Assets/Resources/EROCharacters/PlayerGraphics_Archer_Boy_CharacterSelect.prefab` | 4753 | `6373d4dd1c90a15a6d9e70f673e0cbf7db46731a21baac2b96b286571e878a4d` |
+| `Assets/Resources/EROCharacters/Monk_Female.mtl` | 388 | `ec20dac6461d062d86ae06967c684126a8e434150096aff2867e426a83646948` |
+| `Assets/Resources/EROCharacters/Assassin_Male.mtl` | 388 | `d9757a19f8bd7a53ba865ca3e77edb52d5923d21bdfcbf2ffe98dedc57ea74dc` |
+| `Assets/Resources/EROCharacters/PlayerGraphics_Mage_Girl_CharacterSelect.prefab.meta` | 154 | `b0eb2aa8ea982008d20e4b91d08c5dc133bc5426fb8d95d4aa595b8ab3d1572a` |
+| `Assets/Resources/EROCharacters/Summoner_Female.obj` | 33839 | `c4b6ab7c9753ee532efbd4946be6b95655ecb18740628a28a8248c7d8ab3bd65` |
+| `Assets/Resources/EROCharacters/Monk_Female.obj` | 33521 | `033f736acb3aea65e105b79670c57d111079f9b2ab622203c225e36097be7885` |
+| `Assets/Resources/EROCharacters/Knight_Male.obj` | 30035 | `f26d47718927ceb1dc7d65da32adb5f7ad69848fcf8d8f87b69bfae5802d4744` |
+| `Assets/Resources/EROCharacters/Knight_Female.mtl` | 388 | `6888296dc3c2c46b7e7c80c9bf6627a623708194a58ac902081fb94b4e703d66` |
+| `Assets/Resources/EROCharacters/PlayerGraphics_Archer_Girl_CharacterSelect.prefab.meta` | 154 | `5d6f73912524affa0ab21a4642b89b14a2382b2baba721ec3880a240053bde8e` |
+| `Assets/Resources/EROCharacters/Mage_Male.obj` | 29705 | `efa8d9e96a5b44e4e8e92d4f6c2e9e93037e592b0f85607cc9a801bdb325a960` |
+| `Assets/Resources/EROCharacters/Summoner_Male.obj` | 33835 | `71be61b6c4a0f58d5329f1e78a2d4bc41bda1d60b1c2684dd8b8843a6ffcd4f3` |
+| `Assets/Resources/EROCharacters/PlayerGraphics_Archer_Girl_CharacterSelect.prefab` | 4755 | `8412054598176e2ad16a7a3094dbf4885a6a376f06efeade0a38e00dcfa97b2d` |
+| `Assets/Resources/EROCharacters/Assassin_Female.mtl` | 388 | `833a69868d683cea93f4441d70199a9d88ea50292da4a53ba602b9228dbc09a4` |
+| `Assets/Resources/EROCharacters/Ranger_Female.obj` | 26860 | `90e10eef44583fd48664e3f37e3335c1e0e65961ce03e2bc5dc06ac04b9239e0` |
+| `Assets/Resources/EROCharacters/Paladin_Female.obj` | 30041 | `71434ee2c9e3f3fd1f5bb82672570a5fe50bc465e1d2a5e60b3c82d85552ae0e` |
+| `Assets/Resources/EROCharacters/Paladin_Male.obj` | 30037 | `ac4e500cc3d31df46fea3cd0f87df76c963a774897ebd85cd484f338c34f9249` |
+| `Assets/Resources/EROCharacters/Priest_Male.obj` | 25487 | `96c153123ccc6c41ab2fbcb80056849273629b769322b50364374b0374b84130` |
+| `Assets/Resources/EROCharacters/Mage_Female.obj` | 29709 | `fd21a7ea27dbf7ed1bcbf1d719fbe08186fdc6a07f48f18f77942447a1e105dd` |
+| `Assets/Resources/EROCharacters/Mage_Female.mtl` | 388 | `ba5e43402d3550284be5aca0d2dcdc52d36c1fd5bd813e0272825a28680167fa` |
+| `Assets/Resources/EROCharacters/Mage_Male.mtl` | 388 | `59c308e70d4f8ea24081196dc3af0135fcdf07bf545be47401a282d6ab486594` |
+| `Assets/Resources/EROCharacters/Ranger_Male.obj` | 26856 | `0f1ba1c9ab0467071e9a565ad5bdcf895f9aafc3849cf34c96247f36968f80ff` |
+| `Assets/Resources/EROCharacters/Ranger_Male.mtl` | 388 | `d7315f41dca6365c919a45970ba4a0cf8e8d37b929bde575ca3ed4ef6dd23a5f` |
+| `Assets/Resources/EROCharacters/Assassin_Female.obj` | 25284 | `1b06dfd4daff158e5618a2b8e09f995fcbf62d3e7e0ac83432a5db4bc70b086c` |
+| `Assets/Resources/EROCharacters/Paladin_Female.mtl` | 388 | `e11cedb433fe335b1c9b107749331ae8a164c65ecdac94d67e83179c13a201a4` |
+| `Assets/Resources/EROCharacters/PlayerGraphics_Rogue_Boy_CharacterSelect.prefab` | 4749 | `c91dd8b2a9bcb1b98a9532e29a28fd547958350d7de80c681680963b94ec6eb7` |
+| `Assets/Resources/EROCharacters/PlayerGraphics_Tank_Girl_CharacterSelect.prefab` | 4750 | `9d623a0a5fc890b8da17261c7ddf0088dcd55253395144943f71741b2922285a` |
+| `Assets/Resources/EROCharacters/Summoner_Male.mtl` | 388 | `2ea5d9b27c57553411715864f9274aa4dcde867f8f4b3b724cbd62edd1709d4b` |
+| `Assets/Resources/EROCharacters/Priest_Female.mtl` | 388 | `c93cd19e246ee2ca868d1f889bedcc76787582615d31a9445229351e856c990f` |
+| `Assets/Resources/EROCharacters/Monk_Male.mtl` | 388 | `6bb6dff7187e80a573f32ebb3f8f523f503922a59b0c6d0aa4c187e3bd1326b4` |
+| `Assets/Resources/EROCharacters/Priest_Male.mtl` | 388 | `a6909fa5fc679de2f527c6fa9cc96e25d10faf5f604a1f34ed283fdbe583ddce` |
+| `Assets/Resources/EROCharacters/Priest_Female.obj` | 25491 | `ded70a160b33d3b81d678695c115414e390d8a108c298be9c7ebeeb6471ebbdf` |
+| `Assets/Resources/EROCharacters/PlayerGraphics_Archer_Boy_CharacterSelect.prefab.meta` | 154 | `60c2ccda31fd856ccbd09c9b3ea756460e0899d60b9dd944166ba5fa4a57b0d3` |
+| `Assets/Resources/EROCharacters/PlayerGraphics_Tank_Boy_CharacterSelect.prefab` | 4749 | `bbc5cfacfd7a9d118ab11f2ebc73571b4756c86a6078523c32f585f52f780995` |
+| `Assets/Resources/EROCharacters/Paladin_Male.mtl` | 388 | `2866c308905d19e17e57ddfd368be53eb9886a64e8017cac985503693b2c7b3b` |
+| `Assets/Resources/EROCharacters/Summoner_Female.mtl` | 388 | `18fe849b96706e9db707712e44927f4496297c183443e04b49beddc66e6b6b65` |
+| `Assets/Resources/EROCharacters/Assassin_Male.obj` | 25280 | `560b01b321f42d75be69b82905ba2c039ec0942f64e1d9ce091ccf8a6fda2dff` |
+| `Assets/Resources/EROCharacters/Monk_Male.obj` | 33517 | `20c9fc93ca7f3be73f451162e1dee86526b5e8a84229b2d3b9a636fff4f55ab9` |
+| `Assets/Resources/EROCharacters/Knight_Female.obj` | 30039 | `dbead4e65c35f0fdbd19837899899e733c580aa18fd6c4dfb07c649759e0a048` |
+| `Assets/Resources/ERO/ERO_CharacterCreation_Reference.png` | 2194429 | `442a50b7a1fd67ca108d86e04f3d58f8251b4c628b5d412d8709c1c24f14fc62` |
+| `Assets/Resources/ERO/ERO_Aetheria_Map_V535.png.meta` | 1373 | `2aae6b2f0c004a1fe4a6acda4c45bd8363ef3499769aab831b0fd6600425adce` |
+| `Assets/Resources/ERO/ERO_Aetheria_Map_V535.png` | 21738 | `834692779a9357f1df88b53987596b5b371af05ec238786e57ad4e830d2136cd` |
+| `Assets/Resources/ERO/ERO_CharacterCreation_Reference.png.meta` | 398 | `4387853aefaa0a45be765476b9b3db4ee9af2f98dbe44c12bba8c7b07acc6a60` |
+| `Assets/Resources/ERO/V536/CharacterCreatorBackdrop.png.meta` | 278 | `4b3822450404527073a4cb9ef7c352404943778a4ca495d760b197e471b6bd88` |
+| `Assets/Resources/ERO/V536/CharacterCreatorBackdrop.png` | 111665 | `e8293f193fe34c4066e158670809cb2a10cf2c4c4f76c6267d9c8edc7991ff3c` |
+| `Assets/Editor/Tutorials.meta` | 172 | `5efaa43683510dc5f3ee93aec362f5a15baa41e4d3fc0016a8b95959698f148e` |
+| `Assets/Editor/Tutorials/DiscordIcon.png` | 107123 | `08cc1cf08b0054635dc74e8dc7da29f352c108ed25141bd2d4fd8e5dd5859f90` |
+| `Assets/Editor/Tutorials/TutorialCallbacks.asset.meta` | 189 | `1207058fdc8675e1b8540e797c52c7f8be8fea88b29e9f168bedb2b194dc8396` |
+| `Assets/Editor/Tutorials/Images.meta` | 172 | `7d5849af277d8928b54d175dd230fe7a2b4e6173421911cbed7c05aa9557d72d` |
+| `Assets/Editor/Tutorials/TutorialCallbacks.cs.meta` | 243 | `8eae6532563abcf1a1312b88503e59609c8763dba176a1ad9fb8fba3f6f405de` |
+| `Assets/Editor/Tutorials/Homepage.meta` | 172 | `fce2bd628ee39813715b00a16f28d0f8916efa0d59d88e618f25cc680df8280f` |
+| `Assets/Editor/Tutorials/TutorialCallbacks.asset` | 493 | `be4bd812a520630e50025d82ee80a9e0cd2fab15be44fd04a405b7f2588976ad` |
+| `Assets/Editor/Tutorials/layout.wlt` | 31158 | `864bc89bb5ed7bdb2a7ff525bc9fbf454fcc86290fecdc4289d71fcce774ff5a` |
+| `Assets/Editor/Tutorials/Tutorial0_SetupUGS.meta` | 172 | `e8e2e734cdf6dcb651e0407fb58979aefbbf696e735ae771840cd805de48d8c2` |
+| `Assets/Editor/Tutorials/TutorialCallbacks.cs` | 2208 | `46455d2e298188f648f6af6258e1d3c354341e7ce514c19010eac11ae25e1e88` |
+| `Assets/Editor/Tutorials/Tutorial Welcome Page.asset` | 3203 | `5324a2c2df7f4983887f5f31d8a7a934b43c6e0255e2fc9821fdaa3e52eb0d25` |
+| `Assets/Editor/Tutorials/DiscordIcon.png.meta` | 2848 | `c9bc3c701d98e958c86b88492684f4b3506e85b07ffbd98355f2e9bfc8086e54` |
+| `Assets/Editor/Tutorials/Tutorial Project Settings.asset.meta` | 189 | `41e4c4b7528df782d7e9b1cb454d7808afecac8b405689af6dc9d638ce7dc799` |
+| `Assets/Editor/Tutorials/Tutorial Welcome Page.asset.meta` | 189 | `d5b2cbf7652634c969b9f753663810a96eeacd2d92e3ff1bcf87dda12c883a1d` |
+| `Assets/Editor/Tutorials/Resources.meta` | 172 | `8f607844285ec29c2a7e842e4c191672fe2b1c2fe61aeea69ccac4896287ea53` |
+| `Assets/Editor/Tutorials/UnityIcon.png` | 28134 | `e77075e5f49411a22d1efd630cbc3ba6e4b3175a07baedd159367bf0b1a60a89` |
+| `Assets/Editor/Tutorials/layout.wlt.meta` | 155 | `a35ad73341511bee7d53548083d35cf569afabcfdeec5db9381a93cdd75ca85d` |
+| `Assets/Editor/Tutorials/GithubIcon.png` | 2781 | `4bb3bef19cb8c588b21d999d670a4ce488c57004ce8634ae2576fa0f938d1b59` |
+| `Assets/Editor/Tutorials/GithubIcon.png.meta` | 2848 | `d9d43760c1a292352265cdd815d936be5c12fe52ba761e1042a0ab499679d0da` |
+| `Assets/Editor/Tutorials/UnityIcon.png.meta` | 2848 | `05bb7543f3d49894d8ee9f84449996868b528cb38f0d10d9810d697e95519ab5` |
+| `Assets/Editor/Tutorials/Tutorial Project Settings.asset` | 1034 | `776391e23b53af59a2556f2d8b32646961251a94a2e76f7555305e71a2468e43` |
+| `Assets/Editor/Tutorials/Tutorial0_SetupUGS/2-CheckServices.asset` | 6585 | `cdf61b105a1e633877187ab063da4c4d6b8734eae95cc403ec05d1983f0e4d7f` |
+| `Assets/Editor/Tutorials/Tutorial0_SetupUGS/Tutorial 0 - UGS Setup.asset` | 1795 | `54db6af02dc3be072fc11e511152d7d6a69b59256e114d2f566ae4c856d8b5cb` |
+| `Assets/Editor/Tutorials/Tutorial0_SetupUGS/1-Verify And Setup UGS.asset` | 3035 | `906b96219e7c7d6e763a0654834197a27bb67bc3f93752c43fbbaa784a7b45a7` |
+| `Assets/Editor/Tutorials/Tutorial0_SetupUGS/8-Project Successfully Linked.asset` | 3302 | `ac721dec4e2a4370270b1e70b4383351ec621fab2f7f8af27bc34b89ed1e3a17` |
+| `Assets/Editor/Tutorials/Tutorial0_SetupUGS/2-CheckServices.asset.meta` | 189 | `0ecd20be62dbf33c1a9ad0e364579a8a37b903daa0d3119ee026ebba90eb1e73` |
+| `Assets/Editor/Tutorials/Tutorial0_SetupUGS/1-Verify And Setup UGS.asset.meta` | 189 | `5f526985d0d5764012e608e1eae042d289257c4c9332e11a5698f890a7cf2085` |
+| `Assets/Editor/Tutorials/Tutorial0_SetupUGS/8-Project Successfully Linked.asset.meta` | 189 | `ec165d8ba0cf78002a17c8570f4aed45a612fa7892ff6602bf62d3eca875cdd8` |
+| `Assets/Editor/Tutorials/Tutorial0_SetupUGS/Tutorial 0 - UGS Setup.asset.meta` | 189 | `99f0412971c48881e7efb28983f01a7c3a24af2982ab1ef0f29d47562ba49f33` |
+| `Assets/Editor/Tutorials/Images/Feature_Image_008.png.meta` | 2948 | `6ce088949baeb322494288544b5ff81855ada1a78574613dfa2c04cf00838f7e` |
+| `Assets/Editor/Tutorials/Images/Feature_Image_008.png` | 662808 | `f350b3e22fa4522e7ac217db0b810653f7d2cbf37e5a913e4229cc04efb041f2` |
+| `Assets/Editor/Tutorials/Images/Feature_Image_003.png` | 437823 | `fd2de8d8d729d64b3f1b4660f3a33c1ba4c5eb46ad30a78423884a249d346cb7` |
+| `Assets/Editor/Tutorials/Images/Feature_Image_001.png` | 329212 | `3185a42bb832dfa1348dd3bd1e5eab84a4e916786cd8935119788abb644ee99e` |
+| `Assets/Editor/Tutorials/Images/Icon_Authentication.png.meta` | 2980 | `4614ba43fa7fc9b51b1b83e118d5a8c8893133f1827a5db5f51e6a07fdafb218` |
+| `Assets/Editor/Tutorials/Images/Feature_Image_001.png.meta` | 2948 | `39daab073d2429037aca6a0ee726b194d4defe60a21e4ff4069aa249f41eacca` |
+| `Assets/Editor/Tutorials/Images/Icon_Vivox.png.meta` | 2980 | `86520128f95c548bd748703d826bd2b9d1942ad73c7669d41ec7c4e695975bb1` |
+| `Assets/Editor/Tutorials/Images/Icon_Multiplayer_Services.png.meta` | 2980 | `70aafac51b1a1ebdc69bb07c4affd2a84ca1528c83e117ec773de0a5d6c27b2f` |
+| `Assets/Editor/Tutorials/Images/Feature_Image_006.png.meta` | 2948 | `8021604684c4d5eb4f014d435cfcdc61212896ac4850a5f5796104e37ace96db` |
+| `Assets/Editor/Tutorials/Images/Feature_Image_006.png` | 534643 | `c1a874a74e006d569bfceadf34a51f72284b657bbc3c600b7d0bcb5cf34cdc33` |
+| `Assets/Editor/Tutorials/Images/Icon_Authentication.png` | 16835 | `da1e7072326ad8f1cd04a78324a4e09728ce0f4c4ec6a61dd346e8c190a484cc` |
+| `Assets/Editor/Tutorials/Images/Feature_Image_003.png.meta` | 2948 | `acd3f1b04236d0345119b94e4e39e2fd83c790d4bac3170b06f594f3cd11f8ed` |
+| `Assets/Editor/Tutorials/Images/Icon_Multiplayer_Services.png` | 16532 | `c78fe1a5fec1f0f9b2a64a584bd5e2b22155c3ca3376fcfc06fe1c6720a5e6fd` |
+| `Assets/Editor/Tutorials/Images/Icon_Vivox.png` | 15062 | `b0922bc9636911a49d7797377abe06497e3e1c5a3a4e4820ee192fd5572b143c` |
+| `Assets/Editor/Tutorials/Resources/4_HelpNGO.asset` | 2715 | `1077c6d00b8d09912da1a2d727d452c17668df82a43d41fe65340b627d102298` |
+| `Assets/Editor/Tutorials/Resources/5_HelpUGS.asset` | 2226 | `695797ac3a2b65d7d20ebf5df3e9c25d3caa310cfcfab30756157d160aea7b50` |
+| `Assets/Editor/Tutorials/Resources/5_HelpUGS.asset.meta` | 189 | `f3a55715cf44c4df272c2d7ed8ce435a1e5115647dfea1874105d601b8bfa992` |
+| `Assets/Editor/Tutorials/Resources/4_HelpNGO.asset.meta` | 189 | `022b080a97e79338c5c70248e78909aaccc4691a3fe4b3303738b3cad0353616` |
+| `Assets/Editor/Tutorials/Homepage/0_TableOfContents.asset` | 1524 | `501dc3e378c5a1ddb9f1ddc7333f3ce867fd846939d76fdf0f9ff61a9d163b9e` |
+| `Assets/Editor/Tutorials/Homepage/1_ConfigureUGS.asset` | 1216 | `c16f97958fbc897c0311d98cca161ed16d2cacb9c386127b9afbdc1c03041ad1` |
+| `Assets/Editor/Tutorials/Homepage/1_ConfigureUGS.asset.meta` | 189 | `c7fb0e668c77231a077fececd5f839666a1e08941f79b62c9a2502fee8da5dd0` |
+| `Assets/Editor/Tutorials/Homepage/4_Resources.asset.meta` | 189 | `0e7b387cefc8c4c1f8b98586243cc582dd272a831aa0dfc2735ae34e6ec85b78` |
+| `Assets/Editor/Tutorials/Homepage/4_Resources.asset` | 856 | `9bd8a34a13e8cf635a44acfc9d33fa56bb7455c8267a8f50e206dbfee5aad04d` |
+| `Assets/Editor/Tutorials/Homepage/0_TableOfContents.asset.meta` | 189 | `47068788ec430c2c0b54d7cfc16bb36fa94b70e8265082995965ee07341090f0` |
+| `Assets/Editor/ERO/EROAvatarReferenceRepairV509Editor.cs` | 2914 | `a0f1ac3026ea2a0b80474b6c3d7c07c403133b5e0863d9f0ea69a78fa32152cc` |
+| `Assets/Tests/Runtime.meta` | 172 | `c1cb33999cdb79801ebcbaf09d754b4a4291d7c3e0dc2f17909493830ccf87e4` |
+| `Assets/Tests/Runtime/NetworkedMessageChannelTests.cs` | 11573 | `31db6cc4b63d49e5354a1c1fb32e43b9b3606e93b0427590d413e5d9796fd41e` |
+| `Assets/Tests/Runtime/Unity.BossRoom.Tests.Runtime.asmdef` | 1105 | `e59e5f0f1ba4873b388c5be6e4957461bb2a0b80dec3bf1aa3ff9c86959a4377` |
+| `Assets/Tests/Runtime/MessageChannelTest.cs.meta` | 243 | `0fe4dd180f657b1051833003dd0f2599ffa31fd640f0ac75ce1e9055833819fb` |
+| `Assets/Tests/Runtime/ConnectionManagementTests.cs` | 21308 | `1385e723c30d79e0ab24952d33000cec48b6053cc3b7db731d5e1ea024aa32e8` |
+| `Assets/Tests/Runtime/NetworkedMessageChannelTests.cs.meta` | 243 | `99b158c986444252cf8035c50d5faa1074512178afe85ede5c274e5629d64f93` |
+| `Assets/Tests/Runtime/HostAndDisconnectTest.cs` | 6806 | `4ffed0e70b136db1bd1c98215682883e3d2cb34aaaf998b411ed684b15de7df8` |
+| `Assets/Tests/Runtime/ConnectionManagementTests.cs.meta` | 243 | `8baa6d8522c68c336cf881596a7086996c0613c7ce20fe3bc3f3420eeeb3b7fc` |
+| `Assets/Tests/Runtime/Unity.BossRoom.Tests.Runtime.asmdef.meta` | 166 | `4f2dc686efd55908276c6a826fda7781d183266cc38d9875ffe0a5c9978196f7` |
+| `Assets/Tests/Runtime/MessageChannelTest.cs` | 2576 | `b618c3c2959a2b7e69963f273f132e89b84edb1fee1cb59ebe8eebc3671c920f` |
+| `Assets/Tests/Runtime/HostAndDisconnectTest.cs.meta` | 243 | `bb60f949ed15a72b8046d706880ba39cb0426e5e6e962577ae2e5afd52adb670` |
+| `Assets/Scripts/Editor.meta` | 172 | `eeb4be532cbaa137dbc047a8604f50344794dbebda510acff70b91e93e107fa9` |
+| `Assets/Scripts/Gameplay.meta` | 172 | `812901035055f71bf8a5ad9b6acb9df37d784925aceabae222bfd2e03242eca6` |
+| `Assets/Scripts/Infrastructure.meta` | 83 | `ace4e924d25082cd5c5c090c6cd566d612d2891a2c495808dc32c38c9fde4bcb` |
+| `Assets/Scripts/VisualEffects.meta` | 172 | `1df1f3be7580f7fcae982de299ffe3e996c28cb09b6ea21ed54894a603e2d056` |
+| `Assets/Scripts/UnityServices.meta` | 83 | `0779eb4748a2628306f0f98720cf2de8f2dedb92770987d1b49ed139aa507f74` |
+| `Assets/Scripts/ApplicationLifecycle.meta` | 172 | `b63f32d9e34d19973350e3753d6e22174945b62574d8ad165c2cf65c0277caf3` |
+| `Assets/Scripts/ConnectionManagement.meta` | 172 | `f0d57d1baf53d6b6b73f50bc0d94b3f86992f349e527e76a55b58f11f65915e6` |
+| `Assets/Scripts/Audio.meta` | 172 | `9f9775ec1101c77212ffa8387593bfbd4be9aa366817308ec3a90bdb667045f8` |
+| `Assets/Scripts/Utils.meta` | 172 | `000d209bd4166ad7d8b6fe2d9cf3aa92ffb433c46a9507aa2f25ba7a494791d0` |
+| `Assets/Scripts/CameraUtils.meta` | 172 | `bc75254da9173e0d337d29f101c98536be8a5893857b1d2b282033afd70d7870` |
+| `Assets/Scripts/Navigation.meta` | 172 | `44f70059a46d238002935f80c40e07a6e4bc209435edbccfdcc24970ad4febbf` |
+| `Assets/Scripts/UnityServices/Unity.BossRoom.UnityServices.asmdef` | 578 | `0b3147785badea777d74901d1f663f078fa80343b83b203d8b5df418cca2d2a3` |
+| `Assets/Scripts/UnityServices/Infrastructure.meta` | 172 | `d46cc25af7624aed01b803dc4c1c841eecfd8a3fa06e6b4752e750249275b083` |
+| `Assets/Scripts/UnityServices/Sessions.meta` | 172 | `e835c0a2d3630265948a744dc1b721d5c6b974fe48c728289460b442b9a2bd77` |
+| `Assets/Scripts/UnityServices/Unity.BossRoom.UnityServices.asmdef.meta` | 166 | `35d475bdd553c3a3e6de7f312598f74b4828ab59d017ffeda3f1c129cc6b7af4` |
+| `Assets/Scripts/UnityServices/Auth.meta` | 172 | `c7fcb24ee4c3c729ef40ac7d3e62ea970b470b3ecd8ad2854f469e08b059c9f3` |
+| `Assets/Scripts/UnityServices/Auth/AuthenticationServiceFacade.cs.meta` | 83 | `4512c4cefcb99b0c4dc6a73e7b76d176f7e7162b550a7fa42bfbbf98866c5828` |
+| `Assets/Scripts/UnityServices/Auth/AuthenticationServiceFacade.cs` | 4125 | `5195096ff7c6a71331c8e411a7f5fe005f2074cb25ec8d70630156aef9ccd9d6` |
+| `Assets/Scripts/UnityServices/Sessions/MultiplayerServicesFacade.cs.meta` | 243 | `99450f004b46346c6012a60bb8cbc6008972009d66d1aee2a64e04d4e0b0e0b1` |
+| `Assets/Scripts/UnityServices/Sessions/LocalSession.cs.meta` | 243 | `9e238687211b619e538f817efbf7a334dd771d3993e68b8a25959fadd6c1856d` |
+| `Assets/Scripts/UnityServices/Sessions/MultiplayerServicesInterface.cs.meta` | 243 | `9f48c48a25f66921ac12bbf08de4387bdae84b0890cbb0fc806c43edaa2263a5` |
+| `Assets/Scripts/UnityServices/Sessions/LocalSession.cs` | 7180 | `aec9571fd57adad999ade005c2a8f66948721ac2c209b76c51c9b8df89f4e565` |
+| `Assets/Scripts/UnityServices/Sessions/Messages.meta` | 83 | `7e56ac8edc4fcc1cfa6c363f61e790237e09fae6b5e05e74517c626be8524e26` |
+| `Assets/Scripts/UnityServices/Sessions/MultiplayerServicesInterface.cs` | 3954 | `d5da14171b7ba79249dca6dba86c2468f1fb3ad05e795c8388c364dd2cfd0dc5` |
+| `Assets/Scripts/UnityServices/Sessions/LocalSessionUser.cs.meta` | 243 | `7ed6088e12ba67e4814ad084814845841439be7ab7d9363032c836dbe2baa015` |
+| `Assets/Scripts/UnityServices/Sessions/LocalSessionUser.cs` | 3538 | `e13c3b85ef1628937bd7f5c57dc3d17ff681c11040eac7413521a2aca929569d` |
+| `Assets/Scripts/UnityServices/Sessions/MultiplayerServicesFacade.cs` | 15166 | `c22ebee6580643d2d03373d66251f4728a9825ba8bf059a2f8d5049c9d765951` |
+| `Assets/Scripts/UnityServices/Sessions/Messages/SessionListFetchedMessage.cs` | 376 | `e75110d2ea2566e03b216a88d61103084d5fd4e51b8b56b1b762e2199aa39425` |
+| `Assets/Scripts/UnityServices/Sessions/Messages/SessionListFetchedMessage.cs.meta` | 83 | `9bec1d5a6a0122b2445efdd53a5992b09c5f70214652325265e701231aa5231e` |
+| `Assets/Scripts/UnityServices/Infrastructure/Messages.meta` | 83 | `c5060975b7be6c84b644fc8747c89348baed606baf2fc9de2d29dab544975f54` |
+| `Assets/Scripts/UnityServices/Infrastructure/RateLimitCooldown.cs.meta` | 83 | `b0fdf8242d2373a734419ccfd620b129fce7055ab892f0bb79aede74eb84a3be` |
+| `Assets/Scripts/UnityServices/Infrastructure/RateLimitCooldown.cs` | 670 | `38626f3de4c1bfda7011317a50c3cc2b2b93989848df39d2868823dbf304227a` |
+| `Assets/Scripts/UnityServices/Infrastructure/Messages/UnityServiceErrorMessage.cs` | 647 | `37ec6f629dcfad3a31e93182fab6e1bfe0e1b4298555c5c77925f151471ea914` |
+| `Assets/Scripts/UnityServices/Infrastructure/Messages/UnityServiceErrorMessage.cs.meta` | 83 | `468b7442485c328f1282d958c7013b5c9d6cf75ae63774ef4295ef6a07928483` |
+| `Assets/Scripts/Navigation/NavigationSystem.cs.meta` | 243 | `55c96dd9d5f7ee71bad2d51a9b35395d1b1549b895d5c646da46575d17e530f3` |
+| `Assets/Scripts/Navigation/Unity.BossRoom.Navigation.asmdef.meta` | 166 | `c4747f1fea2c91eac29938ac82d94ce17a68b79fe397b633c57f9a5b067e9a50` |
+| `Assets/Scripts/Navigation/NavigationSystem.cs` | 1665 | `8f411c25a4ccf9b8dd44f39a665ac8e243c319e90c8158047f6c2bca349209b0` |
+| `Assets/Scripts/Navigation/DynamicNavPath.cs` | 6073 | `0f2bece5e311d9aad4f5f8e3020df1c662486e4954cfecd937b60a84ee315e44` |
+| `Assets/Scripts/Navigation/Unity.BossRoom.Navigation.asmdef` | 359 | `f86a802b9b32c7149a5d512a6e4e85dc7509795247467d9d129bfb047bafb8e8` |
+| `Assets/Scripts/Navigation/DynamicNavPath.cs.meta` | 243 | `95a3383bfb5488122df9ed2cc88c988a29f4a6a863527b826af65c877effceb4` |
+| `Assets/Scripts/ConnectionManagement/ConnectionManager.cs.meta` | 86 | `a43cbe998042bf5a4943ce5b4ce87424f98df101b68a736d8c8522be84c5a6d7` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState.meta` | 86 | `f3d9f3d412895d0ee6b09bd73170c1522255c15c835b9225c5c7dbebac2b0359` |
+| `Assets/Scripts/ConnectionManagement/Unity.BossRoom.ConnectionManagement.asmdef` | 735 | `5714ea8fc31cfaf49810ad71a145cb04650c0ace42793e93999bf8ea42486e4a` |
+| `Assets/Scripts/ConnectionManagement/SessionPlayerData.cs` | 1434 | `40018dff1783cd4469f20be65335fc5f3b86347eba413a02694478512bb0c6db` |
+| `Assets/Scripts/ConnectionManagement/ConnectionManager.cs` | 6454 | `6f5b50f91e34dfad22b259cdfd545cebe0dfe24e51e78f607f0e51788684de26` |
+| `Assets/Scripts/ConnectionManagement/ConnectionMethod.cs` | 7352 | `a3f92129357e5a2589f0114bfbe52201510c5e5ce7f7bf64f15517f41e91f7a5` |
+| `Assets/Scripts/ConnectionManagement/Unity.BossRoom.ConnectionManagement.asmdef.meta` | 166 | `cdf5ec415c5fb9bec90e271927d1bbf8beb255054e6fdcb3f0441490cca04d98` |
+| `Assets/Scripts/ConnectionManagement/SessionPlayerData.cs.meta` | 243 | `6498f01c7f4db81be7f3140b6331ef10b1903cecb7ed340a35bc3c8616c5e8ed` |
+| `Assets/Scripts/ConnectionManagement/ConnectionMethod.cs.meta` | 86 | `0e60795e0e659eab54f6ca526307c4fd65da82032fad92634c12a2b0961e28d0` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState/HostingState.cs.meta` | 86 | `9d0f57efcc88d3499a2bbab75a058aeea5826c20ba3bb1baa0bda7c7edbae756` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState/HostingState.cs` | 8019 | `e51e716702617638432d180863cbbaf75c6c1d165e57d22a211bfbe2332637a5` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState/ClientConnectingState.cs.meta` | 86 | `89e2c868ee56becb46f90ade121a1fba764b1a86462749c5af09111f5f145c24` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState/ClientReconnectingState.cs.meta` | 86 | `9057c8c594ede4ebbaf9eb65b13855715dbabe5d688a15d789663e1ba303255f` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState/OnlineState.cs.meta` | 86 | `fb42d531c8e002022e0bf7d1c91457b07b68f78f84356c64ca8fa57ba12fb592` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState/ConnectionState.cs` | 1359 | `6e142b00177068db4d6af6ddc102ada1b245d0d3eb0adc20955a00212ac4329a` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState/ClientConnectedState.cs.meta` | 86 | `31970b413a10ff06f3190a708f7be95a30c9fe7f707aa2f10064b8c887a207b8` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState/StartingHostState.cs.meta` | 86 | `60216bbcc4768c0d1b1be4bc2c9e94c01bb9003ca29e87ced532c87f0a853309` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState/OnlineState.cs` | 731 | `0ecfde1bba017784f0794c74a8221027a166a059f8f83ec5932a3541d10c04df` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState/ClientReconnectingState.cs` | 6176 | `0fd370d1bbad6cdc1007d57eceae5fdfe34b32602cf646436a5c56002bbb7027` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState/StartingHostState.cs` | 3312 | `f067b58ef03d3aca199c47b70576ccd63094c5a02d908490260734e0341d0b8a` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState/ConnectionState.cs.meta` | 86 | `9552326cdd45043d72f00851c5b7c48c46659e47f17790c90ba9675de21c067b` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState/ClientConnectedState.cs` | 1546 | `3f902d17dea680f6c728d1716756614387d9993f6947be6f7d47f043cd34e36a` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState/ClientConnectingState.cs` | 2579 | `156a091b77d4fbd40c2c1200faa12fae218d9e4a8bb02135ae109a0a2b8cc30a` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState/OfflineState.cs.meta` | 86 | `d754a80d4f0f7d3961d6378f6e3ecc4c0c3ed3e1b39fb052e596c4196f87ea39` |
+| `Assets/Scripts/ConnectionManagement/ConnectionState/OfflineState.cs` | 2841 | `af6126b5196797b04e7bee3b81edf54ac2258dcf90f55cd3e77925082b1dc7fe` |
+| `Assets/Scripts/Editor/Unity.BossRoom.Editor.asmdef` | 448 | `2ced99949e90e79b20cbef41ad5a076d7bb59350391ab9dc678e2d14049a5b06` |
+| `Assets/Scripts/Editor/Unity.BossRoom.Editor.asmdef.meta` | 166 | `68d14def53d869240df92622cfc56876c1534e15c4a4ac84a1e382fd96382f3b` |
+| `Assets/Scripts/Editor/SceneBootstrapper.cs` | 6936 | `eda35118ea68956adcad66a6e1af848582892ba03738d49b20f4a2e6a04865fb` |
+| `Assets/Scripts/Editor/BakingMenu.cs.meta` | 243 | `14aede665dc65134e231b1805b6a21888d9acd87b384dc3ebbfa4c757d366a0f` |
+| `Assets/Scripts/Editor/SceneBootstrapper.cs.meta` | 243 | `aaf9b8e23be329c506c8406bed6878b61ee9a11436a52c1ef87367374122fc1a` |
+| `Assets/Scripts/Editor/BuildHelpers.cs` | 9323 | `84863e4f8fa52d0f4c5c4fbbd4976716d9574d91e900e808f2d55ad14d3237d2` |
+| `Assets/Scripts/Editor/BakingMenu.cs` | 4119 | `707063d3091460d8575cab44859f2ae43ba567759785da5803af23cb16458f43` |
+| `Assets/Scripts/Editor/BuildHelpers.cs.meta` | 243 | `ae22777b9d7c7a33c5307bf3e45b4adcee80ab44c4c47ec5eb19df635443d3f7` |
+| `Assets/Scripts/Infrastructure/UpdateRunner.cs.meta` | 243 | `3e124c3c77ec541b7728abce27d7005fa42becae7f21252bdcd805605bd9b4f0` |
+| `Assets/Scripts/Infrastructure/Unity.BossRoom.Infrastructure.asmdef.meta` | 166 | `84d03cbe97950ac7a08fb051f18b8e67e427c44baa6f775c24e1bfe3df4b97f8` |
+| `Assets/Scripts/Infrastructure/Unity.BossRoom.Infrastructure.asmdef` | 450 | `d54763fad466a68867f8bc8b10e3763262625c7657b86125973409bdf07f7396` |
+| `Assets/Scripts/Infrastructure/DisposableGroup.cs` | 547 | `7f617ab2d86f79361323fad2ab1960187e2a8eddb9a79ddeff17b8709a8462ce` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture.meta` | 172 | `e9f081311e4a137b2b294d3f3de754049324d952ce33af222a0ef3d1624008aa` |
+| `Assets/Scripts/Infrastructure/NetworkObjectPool.cs` | 6508 | `1023e6bf8492ac7eb83e5bd10b82451ab489a2c41b7168cd5ea700f49f338f02` |
+| `Assets/Scripts/Infrastructure/PubSub.meta` | 83 | `bc99b4ea3edd65c8783ef17abffd21d1c9c493440c871948c9e4a38300b6bb0b` |
+| `Assets/Scripts/Infrastructure/NetworkObjectPool.cs.meta` | 243 | `8a2d89b1291256565fba93c244c7408884d4d9bc45d2974a3be44b32430ababf` |
+| `Assets/Scripts/Infrastructure/UpdateRunner.cs` | 3873 | `530027f6a569e710c668387c71cabf35b5a1aa2c2697d4103ae6beabed73c878` |
+| `Assets/Scripts/Infrastructure/NetworkGuid.cs.meta` | 86 | `f51e617e991ffbd6907d16ea1a0ac3f9bca0c9da816e28ce58daf0d0efa22bba` |
+| `Assets/Scripts/Infrastructure/DisposableGroup.cs.meta` | 83 | `f65fc5e4e9778d29655e6f8aa66aa7865ee965fa2b34f7abc17d3c31cafd6eb3` |
+| `Assets/Scripts/Infrastructure/NetworkGuid.cs` | 928 | `2eaa91d27455dfa4bde130a88df54fe9d6af02cbd8f6bb2a2cafae8813c8a09d` |
+| `Assets/Scripts/Infrastructure/PubSub/IMessageChannel.cs.meta` | 83 | `75f296960ba1df4a8d558f93491b815425ea5e12c4e7912beaa1193188817edb` |
+| `Assets/Scripts/Infrastructure/PubSub/NetworkedMessageChannel.cs` | 3347 | `a7edc758305cf3d86bd9224b8c1eac92e43b3fb060df37d395ae248df7a9f190` |
+| `Assets/Scripts/Infrastructure/PubSub/MessageChannel.cs.meta` | 243 | `0968cc8d575410f9676c4cd56a660e1dad5012d315ed1b870c4982ac5d1fd0ec` |
+| `Assets/Scripts/Infrastructure/PubSub/DisposableSubscription.cs.meta` | 83 | `1f3bb28d0ca06f82e66d49ebf1ea4c407de1f862941e694db1dadafa123cf3dd` |
+| `Assets/Scripts/Infrastructure/PubSub/NetworkedMessageChannel.cs.meta` | 86 | `59ed447dd71550bd8bb4a69a6ad8581aeeaf608a7600719c2cd7996bab327156` |
+| `Assets/Scripts/Infrastructure/PubSub/BufferedMessageChannel.cs.meta` | 83 | `9244eb72f7bfb439f5c7cbeb92438cff17add6a6a416ff977ba10d943b511101` |
+| `Assets/Scripts/Infrastructure/PubSub/IMessageChannel.cs` | 572 | `ae2ab6ba342c050547b238cb47120fc43194a6bdcf4c028d45c9b437e5711c33` |
+| `Assets/Scripts/Infrastructure/PubSub/DisposableSubscription.cs` | 997 | `7085dbcc19137e636f3795d36475f232c4a4822d12a9898c7bbbab503b89dcab` |
+| `Assets/Scripts/Infrastructure/PubSub/MessageChannel.cs` | 3279 | `d4f37b0efeafe4a5761cf95f6f1fde6ba2b3ca0b3643304a058f7e1698e02d8c` |
+| `Assets/Scripts/Infrastructure/PubSub/BufferedMessageChannel.cs` | 760 | `081f625149d6c69a0a02987821b21c999102f62fada63c32df8f20791d242cf3` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/IGameEventListenable.cs.meta` | 243 | `c244ada5c8ad8e542d9e41afdb591d8625809129b272288417f7e7fdc5ea82a9` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/GameEvent.cs` | 1314 | `181be2e4deeb0fe12a1126a9b1395bf3c27d2dcf882e1a066d58516e75148607` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/GuidScriptableObject.cs` | 647 | `66d91ffe3c8140802874512329906afed9867cf102c2efeb27b6399d384de98e` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/Editor.meta` | 172 | `3926abc9e7f7fdac03620901d718f8f2177ccec466465d9d91e4a724cfc5b5ea` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/UnityEventGameEventListener.cs.meta` | 243 | `ed261e282c56037a08aa96d7352046811ca159c9967ef53fe6ebf2bcb62087e8` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/RuntimeCollection.cs` | 987 | `1fa87c619b22a58e02ea103e9cd5ef93debe78ebc76ef30367031aabd299ca52` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/IntVariable.cs.meta` | 243 | `a7fff7ab26a12fe498dddacf0fb5f9c34c9ded92d1c20948c7f8d003c76d0a87` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/UnityEventGameEventListener.cs` | 1085 | `88f71517fce1e84886d2104c4c915e155155a3d835304e1b6dd16326088182b6` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/IGameEventListenable.cs` | 599 | `0b9b5496ea6b2cd099cd9cdb588a73f36c3cd3526b9f56c5c4997ca6c5d15e3e` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/RuntimeCollection.cs.meta` | 243 | `3c79faad43323d84cafa11289a08ba3f8f9df7110bc572cf94976a1d7450585e` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/GameEvent.cs.meta` | 243 | `4c3d7a0903b6741ec1f2583bd812cc66faccff5ec4a0c8545fddebd0213824ad` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/IntVariable.cs` | 172 | `6d12e58ce4e2645da7c7ab605be3fca8e74c4ddb22feaca8c725be678afc843b` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/GuidScriptableObject.cs.meta` | 243 | `be4284d7a15a2567615fd46a2ea8aac1fb6a2ff387a602b6ea8799569823e906` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/Editor/GameEventEditor.cs` | 677 | `c8d363c7cf17f297a8c18b0ff482752d653d778bfa3c8da8944342b40c2a45d0` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/Editor/Unity.BossRoom.Infrastructure.ScriptableObjectArchitecture.Editor.asmdef` | 527 | `c8c3bdc1d5ab47c1449b27a42f8220a5f874e3e51ed580b943852ef3eafadaac` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/Editor/GameEventEditor.cs.meta` | 243 | `679ead9474409ea45900f196a22019c3c37eb35e251b73342765f8ed2e62b20d` |
+| `Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/Editor/Unity.BossRoom.Infrastructure.ScriptableObjectArchitecture.Editor.asmdef.meta` | 166 | `40ae578cfa3bfc8bc847090d09adddc48318b162346cd2405dd75fc07b506d90` |
+| `Assets/Scripts/CameraUtils/CameraController.cs.meta` | 243 | `acd4c8b89a7916c2d64cbc868f9c7ee9e067893f52bde8131aba32a687653353` |
+| `Assets/Scripts/CameraUtils/Unity.BossRoom.CameraUtils.asmdef.meta` | 166 | `15815cbf57be541d13d2695f45ac68aa5233c0061cde2c81238cfaa2a107ecc9` |
+| `Assets/Scripts/CameraUtils/Unity.BossRoom.CameraUtils.asmdef` | 392 | `81e19ad885bbfe08068e2ed50023a21fc3f0fadbceb61f4e57edaf8c3c2c421e` |
+| `Assets/Scripts/CameraUtils/CameraController.cs` | 1452 | `fd30d67bfdea1b35c615a80149c9ed5bd2b357050cf2791e82af2d5fa16e338d` |
+| `Assets/Scripts/Audio/Unity.BossRoom.Audio.asmdef.meta` | 166 | `6c76810f081a430a5c960cfd637ecddda47b291e2106ffd11d1ecc0ef9f5a4d5` |
+| `Assets/Scripts/Audio/ClientMusicPlayer.cs` | 1908 | `197a8b439e13e7cd16dd58f621dcaf7bd1e7334790c15b65dc811a05ffde4e42` |
+| `Assets/Scripts/Audio/ClientMusicPlayer.cs.meta` | 243 | `351798b147d969b8ffe51203096a57f82ab288a01d5774bb364e96b77f432253` |
+| `Assets/Scripts/Audio/Unity.BossRoom.Audio.asmdef` | 389 | `d768a5d06e5340e26d171777a884ea65e2b407f56f384d36d26090e046a29df4` |
+| `Assets/Scripts/Audio/AudioMixerConfigurator.cs` | 1945 | `12012d1641d425cb8009b0c06e20f7488242f65eb7f9f79594862dd2cfc6c247` |
+| `Assets/Scripts/Audio/AudioMixerConfigurator.cs.meta` | 243 | `85239a9fbee44eecc036764b810464c3dcacbd567cbbb20956ec1a21f2b26fb2` |
+| `Assets/Scripts/VisualEffects/Unity.BossRoom.VisualEffects.asmdef.meta` | 83 | `ef424b42f95573c361e0bc3aab49556821c242c4805cce2e04a784bc890b7681` |
+| `Assets/Scripts/VisualEffects/SpecialFXGraphic.cs.meta` | 243 | `0862f3b17cbc10084b5622c07e4642b473662ba0d44d020faf136a3c7bbd9d23` |
+| `Assets/Scripts/VisualEffects/ScrollingMaterialUVs.cs` | 897 | `3fb531f3003c87bf55a22a38cf2a2a6d901a48a57c3bee162cfc1268c4bd0681` |
+| `Assets/Scripts/VisualEffects/RandomizedLight.cs.meta` | 243 | `53c385c0831cfcd20fa77c9b5010ebdf041f20108a4d5e603eff99dacc37b25b` |
+| `Assets/Scripts/VisualEffects/RandomizedLight.cs` | 2107 | `07c4692551430f88297c42e7add6647bbb6fae9ed136e991c08666d5a457796a` |
+| `Assets/Scripts/VisualEffects/SpecialFXGraphic.cs` | 6648 | `6d28b644c8e79040ecd53959b7c76ae8fe9dfee644692c2f07aadc355b79b40a` |
+| `Assets/Scripts/VisualEffects/Unity.BossRoom.VisualEffects.asmdef` | 361 | `c16601d9a2f8c5a0060972d7485bba6c1cb451480b93e44e8940bd6ece5e218b` |
+| `Assets/Scripts/VisualEffects/ScrollingMaterialUVs.cs.meta` | 243 | `f3c0d60ddb887c1eecb39e1a8e0147f21eaee7b75d9578339ec613cb3ad5a7a6` |
+| `Assets/Scripts/Utils/EnableOrDisableColliderOnAwake.cs` | 343 | `d6161c41999d4b2bc35a7511ae28f97bd3d7ea8ad08cc2890333829b901899c5` |
+| `Assets/Scripts/Utils/NetworkNameState.cs` | 1191 | `f74d377abc6973986d4b9d5937d007e5f41699b4f8a6a3017386f7b405e564f1` |
+| `Assets/Scripts/Utils/NetworkSimulatorUIMediator.cs.meta` | 86 | `26a42d8bc6ead80166a4f35aec3452238d95ca6fec9201f28f723f6dc7ce5221` |
+| `Assets/Scripts/Utils/SelfDisable.cs` | 598 | `9a95358b45f8573a5adde06f4738babc6c5063b1947daef787ae83d5d17eb37e` |
+| `Assets/Scripts/Utils/PrefabSpawner.cs` | 613 | `25f2ba801a865a0720614063780db2189a820c12c2a2241bf1c910504b3d119e` |
+| `Assets/Scripts/Utils/NetworkNameState.cs.meta` | 243 | `6f068bd6eb98e4066cd4e3f553d11cd219d6e5e21242e2348321ec5f90f47367` |
+| `Assets/Scripts/Utils/Unity.BossRoom.Utils.asmdef.meta` | 83 | `b3e5e853da9e4a6dd83e47bf96fd987a46ae4fd5ec95121b88f0c8df231d3b7a` |
+| `Assets/Scripts/Utils/Unity.BossRoom.Utils.asmdef` | 575 | `24a5fcb8b36c5b5e2a05b2cd5f022d3ecb1c6f2cc8e10929457ec45359e96bb8` |
+| `Assets/Scripts/Utils/PrefabSpawner.cs.meta` | 243 | `0c81bd4a00202755a0ad24ea297c9a861aaa7eb0c305fd0771068c145b60ee47` |
+| `Assets/Scripts/Utils/ProfileManager.cs.meta` | 243 | `9af55782bea6cfdc4734ec7c25d682b0de9472e285ccfe317b60b5abdd5ab778` |
+| `Assets/Scripts/Utils/NetworkSimulatorUIMediator.cs` | 9665 | `85096bd778b4191a9f5d77c6eb528e0e32094e0240ad0a98f87846f73230a3e3` |
+| `Assets/Scripts/Utils/RotationLerper.cs.meta` | 83 | `b55550d6fba46ffdf1713fac10d5723883cc6f13d55e197ecbbd29e85500cf06` |
+| `Assets/Scripts/Utils/RotationLerper.cs` | 1678 | `4a538008c5c9286e3e7f4e3364dc982b6a15fbb04162f0e09b9dd9c68cdff9eb` |
+| `Assets/Scripts/Utils/ClientPrefs.cs.meta` | 243 | `c78149a353aa502d4733df2f17540dbbca339900587fd3f21b8234aaaf62f85b` |
+| `Assets/Scripts/Utils/NetworkOverlay.meta` | 83 | `cb71be7ec25eacfa555106b189c96eef7f4bfebb7b1e066dec934af0942298e1` |
+| `Assets/Scripts/Utils/ProfileManager.cs` | 3398 | `0a9f301b50cf984033a1cfbd108d71e58b4e7d8e3ee2a443cd0beaf0cd39105f` |
+| `Assets/Scripts/Utils/TimedSelfDestruct.cs` | 1360 | `ee0981eff03dd75efa72a99e7645be235412bb7ebd745819792c1cb13ba01af1` |
+| `Assets/Scripts/Utils/EnableOrDisableColliderOnAwake.cs.meta` | 243 | `5f6403ad395a250a53293ca785949538b061b3e2dd19e2c4a8ac8a4daf1947f9` |
+| `Assets/Scripts/Utils/TimedSelfDestruct.cs.meta` | 243 | `07445aee7e877bb7bed58aef0d5f5f08f29d990416b37b83075db48ffee759d5` |
+| `Assets/Scripts/Utils/PositionLerper.cs.meta` | 243 | `b0b5a21473d8eeb1de27a1b7d464f3f45e29822a885829cf438ab7d2a51ed89f` |
+| `Assets/Scripts/Utils/SelfDisable.cs.meta` | 243 | `46206b11c7236507164ccbaea7401482bade5b722af750248eb8df79380ddf36` |
+| `Assets/Scripts/Utils/PositionLerper.cs` | 1636 | `223909b46f9e7f3b58feb0c3c1e071a47dc70bd7ea8235f8de0d5db6ae2c8d5f` |
+| `Assets/Scripts/Utils/ClientPrefs.cs` | 2201 | `3f9c1c1e34bd74b25ded7bedc285d13acaef36d11dd73c1f059d5d10a146b9b8` |
+| `Assets/Scripts/Utils/NetworkOverlay/NetworkOverlay.cs.meta` | 243 | `8ca49e6faf1e7b918cecdd974a9203600493eb09e4bb035c18b8d396d9f19c46` |
+| `Assets/Scripts/Utils/NetworkOverlay/NetworkLatencyWarning.cs.meta` | 243 | `583e3983d01f215bbb131ff60f56604b719c97ea57fd210de96dde07554af39e` |
+| `Assets/Scripts/Utils/NetworkOverlay/NetworkStats.cs.meta` | 243 | `9e392d293c7a0435380ceff958bf95a7d9be0daec193eed36bfe8499f812ee2f` |
+| `Assets/Scripts/Utils/NetworkOverlay/NetworkOverlay.cs` | 1823 | `9454daaf4489a6f8028f1f00d71e117e5220aa64f462de4afb2981672c9e2d2f` |
+| `Assets/Scripts/Utils/NetworkOverlay/NetworkLatencyWarning.cs` | 2622 | `6a84ba7158d9caa8055ea012a764e832ac831e25e049eb75fafed919a7493b55` |
+| `Assets/Scripts/Utils/NetworkOverlay/NetworkStats.cs` | 7474 | `511f47955281c01320962dee574aa7c6a9457f5bf894682b106facdaee8795dd` |
+| `Assets/Scripts/Gameplay/GameState.meta` | 172 | `71bd5e096eb8058f84c2ee0064b957c0b7dfdbfd6d00095029312d91674bddb0` |
+| `Assets/Scripts/Gameplay/GameplayObjects.meta` | 172 | `54e6eddba1fcfbe924a051ce8427a985ff2cc72afcff78a144090f28818d68e5` |
+| `Assets/Scripts/Gameplay/Messages.meta` | 172 | `5d7bc96a5de602d1bfd72a39342220f866cc45d8ec3960e7e840fffdd7e550d8` |
+| `Assets/Scripts/Gameplay/Unity.BossRoom.Gameplay.asmdef.meta` | 166 | `19f4726b9254ff7395a30f70804606e3d569283945de164ff4e5d655eff01473` |
+| `Assets/Scripts/Gameplay/UI.meta` | 172 | `e80177db02e0e1d68e7ce980b4c28391aa1de20a49030befef4339d12dd3f88a` |
+| `Assets/Scripts/Gameplay/Action.meta` | 172 | `7c2fa25ecaf58735d1f3c7bc50b2d64d8d59c4079b74e31d23b4ed1f0f512174` |
+| `Assets/Scripts/Gameplay/Unity.BossRoom.Gameplay.asmdef` | 1120 | `203078a847d6b310c6da175f6ee3c592a71694b43e7b6ed8a2c7deda698b7042` |
+| `Assets/Scripts/Gameplay/Configuration.meta` | 172 | `2b803553bb903cf70fe27487ccbf2aca828cfe03e6e3b6f413364057818c33f9` |
+| `Assets/Scripts/Gameplay/UserInput.meta` | 172 | `f52296ac9adebcdd7fcd82f09fa9b2e7713a2e4c6819cd9163cfc1dea8076764` |
+| `Assets/Scripts/Gameplay/DebugCheats.meta` | 172 | `db6a22a8ca86ca9f13ebed9576a0be6ffe3de4217478695ff8aed8e1899e6e73` |
+| `Assets/Scripts/Gameplay/UI/UIStateDisplayHandler.cs.meta` | 243 | `be2f54d6f94e6793c8e3040b1aa606848fe33f9b258875e267e9f0ff0f0f23a7` |
+| `Assets/Scripts/Gameplay/UI/HeroActionBar.cs.meta` | 243 | `ad5b4e28384edb9b3123fd9511d6e89cb882f3a06d0888ff69b0ba88ab7ec097` |
+| `Assets/Scripts/Gameplay/UI/UITooltipDetector.cs.meta` | 243 | `466f1892add4313b208b37b97f9a59ac062e2965be416a5564d4013cb0752cb6` |
+| `Assets/Scripts/Gameplay/UI/QualityButton.cs` | 995 | `cef986197621e36ffb60c9a258b00d5727bfd3c9476bd159a26b63fa2dcbda58` |
+| `Assets/Scripts/Gameplay/UI/ProfileListItemUI.cs.meta` | 86 | `b8e342b5ecaa88bb8703ae7e22f610efee1f1e5893b4d0b7cf198cd7123e3eea` |
+| `Assets/Scripts/Gameplay/UI/PostGameUI.cs.meta` | 243 | `c4d843e9a3d5db3661b990e35347bb3514856f47a5ac2881aba24025c0110a0e` |
+| `Assets/Scripts/Gameplay/UI/HeroEmoteBar.cs` | 2583 | `f950692a8bd527b66ef2b66031adce0c1a19ef8e9828b926dea4be0d5fa45a87` |
+| `Assets/Scripts/Gameplay/UI/ConnectionAnimation.cs` | 533 | `11b314532ffce8c9f2d056b8f7ad6d17111fcf32a866e9413426cf713a7751dd` |
+| `Assets/Scripts/Gameplay/UI/UIMessageFeed.cs` | 4728 | `4225ba1bfc10444a5efdbb6171ee83c8debb5b071e5ac264a3b59e2423bb502b` |
+| `Assets/Scripts/Gameplay/UI/ClickFeedbackLerper.cs.meta` | 243 | `111819205ecf40e2cd97aa3d5a581aa9fc947095c017839560971eeef68d57f6` |
+| `Assets/Scripts/Gameplay/UI/UICharSelectClassInfoBox.cs` | 3487 | `06cddbea858bfd0da3c050e3b5896ff87dbbb33a9d6a3f9fb95a31318c0d4801` |
+| `Assets/Scripts/Gameplay/UI/ClientClickFeedback.cs.meta` | 243 | `dd28f2cf420c56740e8e349f7c0aceac5154e33ef8f3dff02ccb35525ac16b77` |
+| `Assets/Scripts/Gameplay/UI/PopupManager.cs` | 3330 | `f8c20198c5d677454de0209e87a426e12dfdcd2c7da0713359989028a2b3eecc` |
+| `Assets/Scripts/Gameplay/UI/UnityServicesUIHandler.cs` | 3064 | `c8f5d6023ae91a9577af6d5bc661c1029b576255800d3573219780c48935be84` |
+| `Assets/Scripts/Gameplay/UI/ConnectionStatusMessageUIManager.cs.meta` | 243 | `0848524e87113c07cc2d65ae541e18fca72c8cb10254d79d26a15ea32d33dc61` |
+| `Assets/Scripts/Gameplay/UI/PopupPanel.cs.meta` | 243 | `f45bfa39ece9b2249e397585086a8692f84991423323269d55dc048f6a239641` |
+| `Assets/Scripts/Gameplay/UI/UICharSelectPlayerSeat.cs.meta` | 243 | `22547d6f0710f997b5cfbc0d3e5c0e52881319f2f90f11f0f8a15511795dd6d5` |
+| `Assets/Scripts/Gameplay/UI/UIQuitPanel.cs.meta` | 243 | `e401167c7e888446e4bd2360cc5ad8221f1e7c4d93b024f5a83f1de23c4c9e57` |
+| `Assets/Scripts/Gameplay/UI/UIMessageSlot.cs` | 1049 | `be4ee0f3503444788e63943827fd93fbdb64a865ee879e4cc3541327eccd4261` |
+| `Assets/Scripts/Gameplay/UI/UIProfileSelector.cs` | 3997 | `e43e992f6850e33ca55ee1ae457d12881683e51da3e2cd4ab563072bc0c5125c` |
+| `Assets/Scripts/Gameplay/UI/UITooltipPopup.cs` | 2303 | `80717db5ac423307d369cef90e1dc341ef240a8bcb5542fc4a5d467844bc9fc7` |
+| `Assets/Scripts/Gameplay/UI/ClickFeedbackLerper.cs` | 931 | `dc0efebe18b78a11d53fe17da92953b700899d07ce91faabbb4f5daa1b484740` |
+| `Assets/Scripts/Gameplay/UI/UIHUDButton.cs.meta` | 243 | `13b302d47fbed2856125ca69163fb49b4b04bea2994d9983503165d9f13153f8` |
+| `Assets/Scripts/Gameplay/UI/IPJoiningUI.cs.meta` | 243 | `74e57203bc8bc47f10d041e0b0f3edef46e579f2ad0acf483eecd2beca70cdd2` |
+| `Assets/Scripts/Gameplay/UI/UIStateDisplayHandler.cs` | 6788 | `7b5ebad47b77852aa5577868777ab6f36d15a14aec6ac642ce70a979d04acaa7` |
+| `Assets/Scripts/Gameplay/UI/UIHealth.cs.meta` | 243 | `01756060b5e4050311923fb97c6b30db3b761d261299b5a7af4566a8d123e619` |
+| `Assets/Scripts/Gameplay/UI/UIName.cs` | 1000 | `918f82443baa2f8032b841bcf5538b788c56568e90696a860e4cd2c540c95787` |
+| `Assets/Scripts/Gameplay/UI/ConnectionAnimation.cs.meta` | 243 | `33d725bfda6a9429f01835b61dfa932d30ca8778e6060dfa971bf47c49fdf166` |
+| `Assets/Scripts/Gameplay/UI/UISettingsPanel.cs` | 1529 | `1169f7b24dfcd8f13e41bbe1658d45036370c8adac6d406697fcbe89499ac171` |
+| `Assets/Scripts/Gameplay/UI/HeroEmoteBar.cs.meta` | 243 | `48d103ac41fc9a6a45aed22b97fdb0768495eef4d65ba04a63a77f37df27cbd8` |
+| `Assets/Scripts/Gameplay/UI/RoomNameBox.cs.meta` | 243 | `681e3e9a028a1e3e52a4a3c087a765e8a35ed2105cf5b26680532032fc0216e0` |
+| `Assets/Scripts/Gameplay/UI/UIMessageSlot.cs.meta` | 86 | `363c8154e7c254c2571fd5cd2eb27e1e3e1cbfe542943c4b6126867dd7ca95c6` |
+| `Assets/Scripts/Gameplay/UI/UIMessageFeed.cs.meta` | 86 | `5397f0e8430daa4dda6a11bc54379bc25a55bae9ac0ed35af3dcebc1663bbd04` |
+| `Assets/Scripts/Gameplay/UI/UISettingsCanvas.cs.meta` | 243 | `7c3b89dc307289cd5e8df04d1e199fb16c24aca15455768d61902ac3dfae98b8` |
+| `Assets/Scripts/Gameplay/UI/UIProfileSelector.cs.meta` | 243 | `76855b72a119ac82ad069973df471745df6a0142839365221a6c672db1ee514c` |
+| `Assets/Scripts/Gameplay/UI/RoomNameBox.cs` | 1425 | `03c38e01be4423890620624fcaeeadefdb088cf7b732cc5cc17e3abdd5f221b4` |
+| `Assets/Scripts/Gameplay/UI/ConnectionStatusMessageUIManager.cs` | 4167 | `adbac4b29d831260da4d015e1855488338154c76ef5b58ffd30033eef6b1253d` |
+| `Assets/Scripts/Gameplay/UI/UITooltipPopup.cs.meta` | 243 | `ba966a1043c145b979a58f76fe3de8753c8d6af860a07a5e511cd32368aa9527` |
+| `Assets/Scripts/Gameplay/UI/UITinter.cs` | 575 | `610351e86fccbab172ed7c06efcc2346bc866665c3cdb651aefbcbd1a0002162` |
+| `Assets/Scripts/Gameplay/UI/UIHUDButton.cs` | 1458 | `0bf68c6bdfa3899eb9b045c2d53272fc182fb6abd99b52759a46e5b73ecfa385` |
+| `Assets/Scripts/Gameplay/UI/UICharSelectClassInfoBox.cs.meta` | 243 | `e847b7a1fdfb6fff58e7bd6ca0b01fbf7849b987624d5321e7f8f2b476cd1605` |
+| `Assets/Scripts/Gameplay/UI/ClientClickFeedback.cs` | 1475 | `f4f0e0c2e38eb902c256e622340f8ce27577dea98442ee8f229c88d77ef54231` |
+| `Assets/Scripts/Gameplay/UI/PopupManager.cs.meta` | 243 | `c834e6ee0d17f4bbae25fac107d2bf61251fbcbe5f9f210d9293c82a5193d04d` |
+| `Assets/Scripts/Gameplay/UI/IPUIMediator.cs.meta` | 243 | `6fb86daf0cddfb40006c9aed892eb14c9a63939bcf8e36a5339e1f60819819d8` |
+| `Assets/Scripts/Gameplay/UI/UnityServicesUIHandler.cs.meta` | 243 | `0052248fa384059e4754b6275f7bde1958b341bb80ca87a7b4377cd5136ea165` |
+| `Assets/Scripts/Gameplay/UI/Session.meta` | 83 | `9d53c33893e306d3c0c9d63455149e1e024882d033dc5bf5d43cdaa34d710112` |
+| `Assets/Scripts/Gameplay/UI/PostGameUI.cs` | 3023 | `6578cb1a85402140c26f3cd02245450b0e47bbff497c1dbdad02ad48b05f7ca5` |
+| `Assets/Scripts/Gameplay/UI/UITinter.cs.meta` | 243 | `b847be332408c4be0525cfa30d57cfbb51f7f3f3c8d9140eccda22851a490fe0` |
+| `Assets/Scripts/Gameplay/UI/HeroActionBar.cs` | 10218 | `19e929848ba88da12ad0f3074428890cb7b61f486090bc46c8de0cd8c2f9b393` |
+| `Assets/Scripts/Gameplay/UI/IPConnectionWindow.cs.meta` | 243 | `a676090bef5117fe3c44a049ae292505d144f00f2d6b597e74096dca40977634` |
+| `Assets/Scripts/Gameplay/UI/UIQuitPanel.cs` | 1125 | `a11b4f01cee3064b3bf4abfa754425c6f6fe0389b25a5ed223861909c7b24c55` |
+| `Assets/Scripts/Gameplay/UI/UIHealth.cs` | 1196 | `c4015fcad791488db1f32d631f1045bf3e39bfd2ee38b91928d356c179b12c97` |
+| `Assets/Scripts/Gameplay/UI/IPJoiningUI.cs` | 1852 | `dd9dc178e193f287a6cec64ede32c3879f95d663a1cf2e24b8efbd88f54b05a8` |
+| `Assets/Scripts/Gameplay/UI/IPConnectionWindow.cs` | 2957 | `ce0fc511c462254fafdf0684b7baa527e954accedc629b1a51d3b322d13f2a55` |
+| `Assets/Scripts/Gameplay/UI/IPHostingUI.cs` | 1848 | `14cb6746a79270c8203a8344effc91dfd8f9ce2f8250f8260b8810d8d47e4f9d` |
+| `Assets/Scripts/Gameplay/UI/UITooltipDetector.cs` | 3615 | `37b61c8fcf23ac46323a3d8d5fab86ec8eed81e9020d5f35e02c8d796e0f5988` |
+| `Assets/Scripts/Gameplay/UI/ClientBossRoomLoadingScreen.cs.meta` | 86 | `5fe56e317067f3b7e12a1668ca081aebc9f07b9113e3aed1b0753b65c795cac8` |
+| `Assets/Scripts/Gameplay/UI/UIStateDisplay.cs` | 962 | `84323ea0c547935ea95f13476b70fae78b987974e2545a9f40ea74c15e9c5cd0` |
+| `Assets/Scripts/Gameplay/UI/UIStateDisplay.cs.meta` | 243 | `a7835ef1488f1d3f985b13182e64f9a20444e2e8ac72f26810e4dd717f9e8a42` |
+| `Assets/Scripts/Gameplay/UI/UISettingsPanel.cs.meta` | 243 | `c4568026f50f7864f8aac9755d2cfbbbe0c0cd49711969750045b14a8c89cb91` |
+| `Assets/Scripts/Gameplay/UI/UISettingsCanvas.cs` | 1454 | `f918b04a0629cab18ac1da2dcecf4a8a18bdaaf9dd7ba77ab7315cf188429550` |
+| `Assets/Scripts/Gameplay/UI/PopupPanel.cs` | 1592 | `2917a6eb5c34b22dde196df71c8656b2e183d7bc63772bc0f09c9ecf6ca03bfa` |
+| `Assets/Scripts/Gameplay/UI/UIName.cs.meta` | 243 | `f710c986bedc51c350c74550957ed73b3b460a520fed1dba90a22967dbab738f` |
+| `Assets/Scripts/Gameplay/UI/PartyHUD.cs.meta` | 243 | `705063c89b6d4ee9531c88ffd50db64bf2f2afcda767cce66c7de8678e5dbb5b` |
+| `Assets/Scripts/Gameplay/UI/ClientBossRoomLoadingScreen.cs` | 1276 | `2b3d3995d119cfa63ca3c14fb8c5c8dba34143d0c2758d101ce06bc904f14d5f` |
+| `Assets/Scripts/Gameplay/UI/UICharSelectPlayerSeat.cs` | 5497 | `4aa1d3ebc2f16d33e44140734d18235957308c10e728994ff25b8e4b7e910acc` |
+| `Assets/Scripts/Gameplay/UI/IPHostingUI.cs.meta` | 243 | `ccbc8b841b8beaad684d5b130cf931acfb4d3b99b37e9e2159bb1574e17d4f82` |
+| `Assets/Scripts/Gameplay/UI/ProfileListItemUI.cs` | 687 | `01e4220ffc7777b081f1f387955a5cb8af04f342f713baba8b0617304c5ee448` |
+| `Assets/Scripts/Gameplay/UI/IPUIMediator.cs` | 6188 | `b1d4b33840d5925c43d481d4af76c881fca6a250717b06092ae567c7e5979cc1` |
+| `Assets/Scripts/Gameplay/UI/QualityButton.cs.meta` | 243 | `2939e6a51986c3285ba4104df0d7553ab8cf9e72336150dac1fe4748f5695406` |
+| `Assets/Scripts/Gameplay/UI/PartyHUD.cs` | 11905 | `53870e41e4de9fe94d86e39e7ce8beeaec4edcc5097a8ce677e1dbb9eb38ce84` |
+| `Assets/Scripts/Gameplay/UI/Session/SessionCreationUI.cs` | 1070 | `7f872d43296e461e1e0248478e40f5f6becb30de436ac70551363b41bd3379a3` |
+| `Assets/Scripts/Gameplay/UI/Session/SessionCreationUI.cs.meta` | 243 | `2c2a6d34f649f09fc4244aada2c6b65576a62fdd9d1c6b58f766918e32ace2c0` |
+| `Assets/Scripts/Gameplay/UI/Session/SessionUIMediator.cs.meta` | 83 | `b7673db2e0122f67be21671914331516304dbadde3599e9580922ce0c1a54a15` |
+| `Assets/Scripts/Gameplay/UI/Session/SessionUIMediator.cs` | 8775 | `7e4a97ed3470f32a0c288121f49876668918aace0924d64c3d59d502e9285dd0` |
+| `Assets/Scripts/Gameplay/UI/Session/SessionJoiningUI.cs` | 5084 | `cb5bf0acadf414b51c41408fcf9222099811b7b322f68635a04f8f1f5c63cd91` |
+| `Assets/Scripts/Gameplay/UI/Session/SessionListItemUI.cs.meta` | 243 | `58b7af54407192ac35bc05c880068023383fde8a7e095d3252ab1ee2549a35ff` |
+| `Assets/Scripts/Gameplay/UI/Session/SessionJoiningUI.cs.meta` | 83 | `86a038fb46faddac968da71bee399ba9cc9e6e9972e5fd818d2ee6c96de6ef28` |
+| `Assets/Scripts/Gameplay/UI/Session/SessionListItemUI.cs` | 898 | `da1374ad0fd844694bb34bad3d3e6a6ec8a0925772c59b28c6ebd24eee9988d5` |
+| `Assets/Scripts/Gameplay/Messages/DoorStateChangedEventMessage.cs.meta` | 83 | `a268a230e2e45e846b05dd1f22b4e61c0b9c14f88f8539b116a4add7410002b5` |
+| `Assets/Scripts/Gameplay/Messages/DoorStateChangedEventMessage.cs` | 202 | `2256856fde8c0c2b2fbde8432c8960e8223c87d7785c58917fc18ce935bb38f4` |
+| `Assets/Scripts/Gameplay/Messages/CheatUsedMessage.cs` | 629 | `d299ef6e09b4acbc3f783e7bab6d99d76a7eed328939e24f02e278c7ea23af87` |
+| `Assets/Scripts/Gameplay/Messages/CheatUsedMessage.cs.meta` | 83 | `0d6075dc1983681c86b5c9e47919ca272fc0fbbbacb84ec323ec62bf932a686b` |
+| `Assets/Scripts/Gameplay/Messages/LifeStateChangedEventMessage.cs` | 435 | `5b2171f0cc2e626411abb64704212072c7f440029a1ae245d90047a8c3fa2360` |
+| `Assets/Scripts/Gameplay/Messages/LifeStateChangedEventMessage.cs.meta` | 86 | `c5c94dd47680682c12c94fe7f3cd31e1015d1e9472f95c25abef90e08e3d8e5c` |
+| `Assets/Scripts/Gameplay/UserInput/ClientInputSender.cs` | 28462 | `352233f4c2828e2d30cb6fe5382dfa2131a83089f5d2e4ab9c3b7c38cfeb1c6d` |
+| `Assets/Scripts/Gameplay/UserInput/ClientInputSender.cs.meta` | 243 | `56e841580264acce3c1af84921925d6537e165d1f8adac272ab4f760f0d3502d` |
+| `Assets/Scripts/Gameplay/GameState/ServerPostGameState.cs` | 1969 | `2a5ac34068d45a18704639d4342508864bfafe3461e64311628732b595c15e56` |
+| `Assets/Scripts/Gameplay/GameState/PersistentGameState.cs` | 647 | `f0b500b99d9fcc39e5e137d6b27574c52bfc8876a14bce332ddc0e6768a64753` |
+| `Assets/Scripts/Gameplay/GameState/ServerCharSelectState.cs.meta` | 243 | `d723078569328ecf2414247c1ae6f1474d0fd328e7d920fd2732f0f3bc9b511a` |
+| `Assets/Scripts/Gameplay/GameState/NetworkCharSelection.cs` | 4348 | `0eaf42b27a6baa64150af5e29255bf7b5894cf21bc01f32a2d9c9ee17caa94f8` |
+| `Assets/Scripts/Gameplay/GameState/ClientMainMenuState.cs.meta` | 243 | `37bee3cb89e5fdb3317f2c83fc77f02c659514a3e5e5fd23a686c75dd4b24196` |
+| `Assets/Scripts/Gameplay/GameState/NetworkPostGame.cs.meta` | 83 | `5d0d489d45cbe34cf1b4e45e9224aaa3cd5e8eb9a1b402f1b84e5bdb804fba77` |
+| `Assets/Scripts/Gameplay/GameState/ClientMainMenuState.cs` | 5142 | `a9eddbaae99b13db6d34ebb2967636d2940e324f832c9a4b171820dd531ddaa8` |
+| `Assets/Scripts/Gameplay/GameState/GameStateBehaviour.cs.meta` | 243 | `cda08680c0fec6565955c5c5cf6b1b2655fb1840013be000fe8be8d7bff95de9` |
+| `Assets/Scripts/Gameplay/GameState/NetworkPostGame.cs` | 502 | `b5b66c88f91b4445e7d54c5b276b81e67cfb04e0d3bccf4b0372d567c775484d` |
+| `Assets/Scripts/Gameplay/GameState/ClientCharSelectState.cs.meta` | 243 | `8d4b905b0c16dfb18429f1514eae8e4589c9784f2dd23e0297ca12e07ada3bdd` |
+| `Assets/Scripts/Gameplay/GameState/ClientCharSelectState.cs` | 19437 | `1d7cd3fea920a45ec347beb446fc26254aedb4b9df834cb6cf33ad083bd46f1e` |
+| `Assets/Scripts/Gameplay/GameState/GameStateBehaviour.cs` | 4320 | `fdcc727090b03ab4c940a0edc5a793d8dc8c0f4a60e712810b8fdacd5d44b299` |
+| `Assets/Scripts/Gameplay/GameState/ServerPostGameState.cs.meta` | 243 | `ab0f1c95496946122039e68ef8901bdfb3355e3ad23731e89d2a07b15e7b1711` |
+| `Assets/Scripts/Gameplay/GameState/ServerBossRoomState.cs.meta` | 243 | `fa485076b5facb00533bcf345dbe71539be1bb699f21ae1e013ab677dc8d16ff` |
+| `Assets/Scripts/Gameplay/GameState/EROAvatarReferenceRepairV509.cs` | 2571 | `5c1a742fe607c55cfaaef8e1b32db094afaaf3973f1dd277ea3ae54835cffc47` |
+| `Assets/Scripts/Gameplay/GameState/ServerCharSelectState.cs` | 12514 | `6a3cee494701c596c94dd563a96cb41047175676e0fea8620c1c2fa990de40ab` |
+| `Assets/Scripts/Gameplay/GameState/PersistentGameState.cs.meta` | 243 | `d0dcbfe2b080e891711c1c7ee9b2a4a2d9976ecb44c33522a1b25cfd99cf9f60` |
+| `Assets/Scripts/Gameplay/GameState/NetworkCharSelection.cs.meta` | 243 | `5560db3fd50707dfa182cb8a6599017469016a6e836095f3de79d6bcd422c85a` |
+| `Assets/Scripts/Gameplay/GameState/ServerBossRoomState.cs` | 11159 | `26683da3fe3987acfd1c68b141e1dbf8c49fa67cf4fa46fd42d8d2b364014b6c` |
+| `Assets/Scripts/Gameplay/DebugCheats/DebugCheatsManager.cs` | 11243 | `9c9f4710025b2fce834c162cfb520c5cfd9de15b5913172167079f8513702318` |
+| `Assets/Scripts/Gameplay/DebugCheats/Unity.BossRoom.DebugCheats.asmdef.meta` | 83 | `d48e535078ad455e25cf7a35f0b9201207f0a3d3a812576055529f98aab08656` |
+| `Assets/Scripts/Gameplay/DebugCheats/DebugCheatsManager.cs.meta` | 243 | `d7b3113e832f3d899260cc0fbbe19267c6fac01c6d9af96158b5bb67b1a42147` |
+| `Assets/Scripts/Gameplay/DebugCheats/Unity.BossRoom.DebugCheats.asmdef` | 617 | `404f8f4e00cb1d95717b870c43962298dc0fd5988590d13e0be8d6c301e062f6` |
+| `Assets/Scripts/Gameplay/Action/Input.meta` | 83 | `853c29f50e919879003dcf24564802b9c8e114898d5ff87cc05ec43ac54788be` |
+| `Assets/Scripts/Gameplay/Action/Action.cs.meta` | 243 | `1f15babd1327ef95ebf642742b4982f12630be019bd2b55faae00f5a835e1493` |
+| `Assets/Scripts/Gameplay/Action/ActionID.cs.meta` | 83 | `5cf902926b8f4ec9b1f21bbbbe6fb656e5e095dbff0465278afcb3f1c16c1339` |
+| `Assets/Scripts/Gameplay/Action/Action.cs` | 17539 | `d95f275200aedd883d3d709642ac7427c3437da0b3eae47407a5e3b40018b20e` |
+| `Assets/Scripts/Gameplay/Action/ActionFactory.cs.meta` | 83 | `2225e3e4bd8a02bab49efc0f30768ad46f39b824c299f34b359aec4cba06a822` |
+| `Assets/Scripts/Gameplay/Action/ActionPlayers.meta` | 83 | `5ef6d715ff90fa40272c76542bab6867f865ee6e802d54027f090abc566803ba` |
+| `Assets/Scripts/Gameplay/Action/ActionID.cs` | 1018 | `585ccf44fa62d8cc75ee44063f3242eaf9b7cd01bee6f6d0f0896cc34b2f654a` |
+| `Assets/Scripts/Gameplay/Action/ActionFactory.cs` | 1789 | `1e5a9f710d24ea9fa4b78749527dbd9a1191d0f158df680a8ecf4b4fa0d456fa` |
+| `Assets/Scripts/Gameplay/Action/ActionUtils.cs` | 11633 | `6039b3625793d5bf170aaa11ed43809071369525ac8a958190929b39ce302986` |
+| `Assets/Scripts/Gameplay/Action/BlockingModeType.cs` | 184 | `bbfc64d4858171ec09a5049e23db2c10e6be7aad5e70006c8b37bf79ccbe9893` |
+| `Assets/Scripts/Gameplay/Action/ActionUtils.cs.meta` | 243 | `f0ce7a0df4391ec1522f60728be1abb5b930b1fc750f651bfb486d9b47bda6cb` |
+| `Assets/Scripts/Gameplay/Action/ActionConfig.cs` | 4826 | `9ca9f9b883baf5cf00dc826b22851d6d2c308e56e515a3a6f30e98a1d60061ac` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions.meta` | 83 | `86ebdcc6f5296be1acb1544c13dc6606ef0608cb03a19cb1b033f236f6ef4931` |
+| `Assets/Scripts/Gameplay/Action/BlockingModeType.cs.meta` | 83 | `b756782b0326d4b0bccc949801bff160be8432562e2c45943c6794527d5cef07` |
+| `Assets/Scripts/Gameplay/Action/ActionConfig.cs.meta` | 83 | `cfe968f735474affbce17404dc60a980513cf9b393fa61e86bd2173e66b6313e` |
+| `Assets/Scripts/Gameplay/Action/ActionPlayers/ClientActionPlayer.cs` | 8918 | `51a84baa692202b1cd66c6aa4e170e5dead69a947ec9cfb31a50bd0a60d13984` |
+| `Assets/Scripts/Gameplay/Action/ActionPlayers/ServerActionPlayer.cs` | 19769 | `9ae2643f88823c412dc5ce225b85ce8874ceb421d44784dc4e37ea2e8d49b58d` |
+| `Assets/Scripts/Gameplay/Action/ActionPlayers/ClientActionPlayer.cs.meta` | 243 | `ffd5e662381fd3338a41b77e7200a9281b2b177cffa4351ee0d99c3884433a0f` |
+| `Assets/Scripts/Gameplay/Action/ActionPlayers/ServerActionPlayer.cs.meta` | 243 | `cf1f741db23947a846865b5ee7923fbaafa3ca12f57703e4b12f6fbcdd1b7d01` |
+| `Assets/Scripts/Gameplay/Action/Input/AoeActionInput.cs` | 4837 | `bf1a2871cfbedb1abe3491d76b1d74c32c8d3b55a038c458df8cad6b23a20125` |
+| `Assets/Scripts/Gameplay/Action/Input/ActionRequestData.cs` | 5122 | `562ac1298f013c078faf38f282e478b7288383d4a119da9c9b2ebb717e880b86` |
+| `Assets/Scripts/Gameplay/Action/Input/ActionLogic.cs.meta` | 83 | `34f0e25f3a4d18f4b571c361db29ac0796be3ad7e63ef92b44bdc3f0f0cc1520` |
+| `Assets/Scripts/Gameplay/Action/Input/ActionLogic.cs` | 578 | `fd78a44ae96a9493438046b6719324d19090ac89f63e8e08c789502c4d5b4fba` |
+| `Assets/Scripts/Gameplay/Action/Input/ChargedActionInput.cs` | 942 | `efaa2ea7a90aae7234df2246aeabe2b012ff51259a332fdd803bf0748bc42cc2` |
+| `Assets/Scripts/Gameplay/Action/Input/BaseActionInput.cs` | 953 | `941038328e773902317549285eae3b725376ee5538b116391a3efc4825d1621b` |
+| `Assets/Scripts/Gameplay/Action/Input/ActionRequestData.cs.meta` | 243 | `d5aeab43d979489756794239456de2bbaccaa91614dfa777255c06d1469003d4` |
+| `Assets/Scripts/Gameplay/Action/Input/AoeActionInput.cs.meta` | 243 | `de7544dc4a6f03e3cf7b9f3e4f4f4bb3604123d1743ad41060e89aae90bfef36` |
+| `Assets/Scripts/Gameplay/Action/Input/ChargedActionInput.cs.meta` | 243 | `e40ee2959e14e314ae0c450f60d14eea5f1a1452802ab9781fc6b9c70870144d` |
+| `Assets/Scripts/Gameplay/Action/Input/BaseActionInput.cs.meta` | 243 | `fd7c03bb7fb09a2f7ca14c348ebefab9b8e99c40a42ce4a3daa862d7b170678b` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/DropAction.cs` | 1756 | `b1342b7afbbd1a89fe53f45786a3b315d0c6211d965327b720db9daca5d78b82` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/ChaseAction.cs.meta` | 243 | `4df0b97099b5af7444433d47dfd03f4a0e41cb453d4e485ae695e9bb40cf4bb4` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/StunnedAction.cs` | 1728 | `db5f4383ce3343f624b8d0afc8291bce5e88773731b1573f6d69bf6a1f3c7bf0` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/MeleeAction.cs` | 7801 | `78337b9e0b03e6f76c447cb36f002d06f0ecdf08a9ee7ddb03866febf1af27d3` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/ChargedLaunchProjectileAction.Client.cs` | 2143 | `2f096604648cfb489c600a512ec3a036fe06974e64d3ec846a91f2b82f9eec58` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/LaunchProjectileAction.cs` | 4018 | `af44b3aec63cbecedb1abf8808e00a86e8fdccd1eaa0d6b4701ab9d044797548` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/TrampleAction.cs` | 10559 | `0ac7dee761d3126a6d56559389f8cad394f1ab01735a03338081fe3a472aa5c9` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/TrampleAction.Client.cs` | 1994 | `75d810edee31872aebe7706d83ec1fa02a5b4be7bbd676cf440a9a806486fa4b` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/TargetAction.cs.meta` | 243 | `2102d82c5d99446d3aee17b9b5f2af7383d8b1060770a003e2b2b8cd4fb2811a` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/DropAction.cs.meta` | 243 | `514db70eea10c16022e038cfcb9fe0df9227b7418d562ce4bf21f62789f73699` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/LaunchProjectileAction.cs.meta` | 243 | `306654320a81b2e0eda45e1f0ae7e93002c72c2326c3d0e905d437cea1fd62ca` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/ChargedShieldAction.cs` | 8304 | `18d4a279e653472258fd1d660c9760af670fc026ae1bcfdd656c9c24553294f3` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/ReviveAction.cs` | 2427 | `df972d0d06ce7fc2a9a2857bb11ce222f1ec0d76a80b7a8d98da07dc7c4a8605` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/FXProjectileTargetedAction.cs` | 5517 | `4296d3da362099fe8336ca7479d7d6e59f2f5edd7f83a8a776ba2d29bc3ebe4e` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/TrampleAction.Client.cs.meta` | 83 | `2e116ae5c47b425adc7bde12c83cec6ed2028ce06afd4a5985a23c8a97974047` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/PickUpAction.cs` | 5179 | `75f355ff9c338107ac217d1b6812f2e9b237615da7695075884879f5bcb275ac` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/FXProjectileTargetedAction.Client.cs.meta` | 83 | `86716349b06d5e574c9dc2aed0fcdfa46bb3d42ad29c791ab93456bbee684bf4` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/ChargedLaunchProjectileAction.Client.cs.meta` | 83 | `d5f305d3ec645fc2cd343e0f5584c26a25c706163d67ed0e666413beaa541a1f` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/TossAction.cs` | 4516 | `11b04bbb33bce9f0d1204dffa6ea45bc5c503c0102734ad0a1faaa0968eb1c26` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/TossAction.cs.meta` | 243 | `a51097c7e4c2ca56eae15124303cdf42dba53dbb1e3e1ce0963ebe6deb3e57e0` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/EmoteAction.cs.meta` | 243 | `57db20bddd4826181ee1d62c57c7b41b6d075f393d9ab5b0f0c5f5d6c97be8ab` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/TrampleAction.cs.meta` | 243 | `faad2df355a292634f2a976ff94b6d0b836696cf10ac9b2d44c7a355047b1c34` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/ChargedShieldAction.Client.cs` | 2641 | `a0d53a86150756c7da9e50cf6942ceebed427d56da3efe7bfb313c7c2fa90417` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/TargetAction.Client.cs.meta` | 83 | `d8e1ea65f2fc428cd462ae94f822fbbf549e2c65d39e0b0fce638d331ec67cb2` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/ChargedShieldAction.cs.meta` | 243 | `2333ec7c3a98c9bfc12c28903dce10abac01ff2363cb9aea46ec42705d7c7990` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/StealthModeAction.cs` | 4693 | `90e258d212ba3057928cbda257a6489042c8e61316b3251a2d2c4fa21368efe9` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/FXProjectileTargetedAction.Client.cs` | 6592 | `1ede03faf80234e9ee8303fdadfa739601c2700c0f5f96ca2be6a1eea51e9546` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/ChargedLaunchProjectileAction.cs` | 6829 | `fdab6d47139bea7675dce0d96bb5480903d442c5e0b633e48600649e22f7d30e` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/FXProjectileTargetedAction.cs.meta` | 243 | `9f38c1ea0244ba990f9f9d6cf995d6edc7cced9b6729b6572edd97ce4a5060f2` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/ChaseAction.cs` | 4610 | `841375183bb0b90bf72fca11a277d98841f5c5d41f558d29dd33a00b50ec4958` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/StealthModeAction.cs.meta` | 243 | `2ce69ab39c6bac248ee7a6fe6ac4bcd86dd3034f4fa35d07e6395a8cad0858d6` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/ProjectileInfo.cs` | 608 | `b91ffab450390334ec5674b02eeb56749e2be30e4a852c414695d1e2551638d2` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/TargetAction.cs` | 3544 | `00b425ecf58d92004fdd5121fb0d1d4ad4bd8fc603ae2202c0828f591f268296` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/EmoteAction.cs` | 1115 | `fe6386439f2fe70da2a328a21af4a7192061d0bb2aba40e2bd07c0eb211a53bc` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/PickUpAction.cs.meta` | 243 | `fb1f998f706de25ee4c5218e5e89a70e06538f0b76e60f167620e2c9117c645d` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/AOEAction.cs.meta` | 243 | `f5a13d6dc2e78cd0635b0185414ad2a86f36b7e0d13dfe9bee86f90cd013b001` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/ChargedLaunchProjectileAction.cs.meta` | 243 | `8e9edca0ea9a1c70688299544d5f3781a64ed1d9e544598fcd042386f7f8acd8` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/DashAttackAction.cs.meta` | 243 | `e6e11faf4e8fdf051db26a6471e26d3e30db0a70024022f0313b36de2063619e` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/MeleeAction.cs.meta` | 243 | `ecd72226c3e01691d72ba80f2f8f44e5c262bac5e307b161cd833e61d8e172e4` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/DashAttackAction.cs` | 4757 | `c8dbb7026588becb6a9181dee88a6e2ff0f2eb027a5560434d61cf2296b1200e` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/ProjectileInfo.cs.meta` | 83 | `1bed3c58911ae0bacbeaba3f3ad3671d6a23ee4ab40873fb032fd01579dfca53` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/MeleeAction.Client.cs.meta` | 83 | `456645e77b3852a33113854e5d80f7a51682ae0d199cbb08ba1d95b58d845256` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/StunnedAction.cs.meta` | 243 | `8131338e93d0f0f70a186f1a73b806c4a6b7837a85f5990636817dd2611b2f46` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/TargetAction.Client.cs` | 4425 | `1dae2483af74a15e60def197c91939e680c724bb79fbed5a3dbd3763aef5953b` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/ReviveAction.cs.meta` | 88 | `f3c676468a7838d0efcbd572c112c8c0eacf47ad6b707ea8db007fcd98eb8d0a` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/ChargedShieldAction.Client.cs.meta` | 83 | `703f7bae3969527bde083888805c2ed860481e6a1d2f28dee155fe110cd0fd04` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/MeleeAction.Client.cs` | 5677 | `f46fbbd22695f74d02d1cf7cdf7af47fe17065d313b8bfdb6c1c44f8d4be1165` |
+| `Assets/Scripts/Gameplay/Action/ConcreteActions/AOEAction.cs` | 3721 | `03ae75c84c90862725b1e9037a18b44d2bd6aef2829909ea3135ad354ebfc6be` |
+| `Assets/Scripts/Gameplay/GameplayObjects/ServerDisplacerOnParentChange.cs` | 2841 | `aa19092df6a01ab3a4bccd70a074981346ecb81d69b675c723a6abaf8875709e` |
+| `Assets/Scripts/Gameplay/GameplayObjects/SwitchedDoor.cs` | 3427 | `0624e884327316e8dbef61de7901168c11353882d426bc6b90be1b4deea4bd62` |
+| `Assets/Scripts/Gameplay/GameplayObjects/NetworkHealthState.cs.meta` | 243 | `3de3f730838490ec5af6553717097e199d7ea4ff24a0596f5f26e6a9edbefa86` |
+| `Assets/Scripts/Gameplay/GameplayObjects/ServerWaveSpawner.cs` | 11114 | `aa49ee16cd7acff94037d5e7feb0d6abd4c2cf04937c50436193dd7aefcfeee0` |
+| `Assets/Scripts/Gameplay/GameplayObjects/FloorSwitch.cs` | 2428 | `c0ddf04694e0a9efdcca3158512a5f923b7b5efd748d80616b34f2dbabe9a6da` |
+| `Assets/Scripts/Gameplay/GameplayObjects/IDamageable.cs.meta` | 243 | `f548411ffec3c7446e756064b02aed42d3f5e84e35cfd18b5317d02b346115a3` |
+| `Assets/Scripts/Gameplay/GameplayObjects/AnimationCallbacks.meta` | 172 | `604986e6d22c477a3726b26b128100683f8cdf82ac98c0101a765c39442b1d84` |
+| `Assets/Scripts/Gameplay/GameplayObjects/PublishMessageOnLifeChange.cs.meta` | 86 | `bb0bf60bdc849ef53a607f29abf870733915e27cfd9548c4b36aca8d451ee224` |
+| `Assets/Scripts/Gameplay/GameplayObjects/PersistentPlayer.cs.meta` | 243 | `198b551048255a474a33f95b61f422968ec9d55cb81f2238acbe306bdcb6d80f` |
+| `Assets/Scripts/Gameplay/GameplayObjects/EnemyPortal.cs` | 4627 | `82107c29dbf4f88ec4e5c7b0cd064c7800caa711594ad3c1e0c2e38d7a0a8a05` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Projectiles.meta` | 83 | `8fd05ce8800f4e2c367127796595cb98c586cc8a349f1230b0c671c800d05239` |
+| `Assets/Scripts/Gameplay/GameplayObjects/NetworkLifeState.cs` | 889 | `685a2e654aac8e1c7b287371499b725120a4a69df1f272ede6d6fc39712fd145` |
+| `Assets/Scripts/Gameplay/GameplayObjects/ClientPickUpPotEffects.cs.meta` | 243 | `205dccf1daa4514ca19cd7d39e8c850965076678c6ad6563ad853c345dc66e30` |
+| `Assets/Scripts/Gameplay/GameplayObjects/ITargetable.cs.meta` | 243 | `5f40cab888063606f496f419600f31c76feac83353285656b93306591741d0e1` |
+| `Assets/Scripts/Gameplay/GameplayObjects/NetworkLifeState.cs.meta` | 243 | `f96095835ac537ce23836649712bb42e50bb14e2dac31ee7a49e8c9ccd97ecb2` |
+| `Assets/Scripts/Gameplay/GameplayObjects/DamageReceiver.cs` | 1300 | `660b4a33bd23e01baca26a10f868617b39ea0f377fdca47cd98ca147f10b5162` |
+| `Assets/Scripts/Gameplay/GameplayObjects/TossedItem.cs.meta` | 243 | `590972b8f279905caa0f7ac946968909dbccdf03366f0bd84dabe82705e417c5` |
+| `Assets/Scripts/Gameplay/GameplayObjects/EnemyPortal.cs.meta` | 243 | `c42384dd4837ac2c04ed848063a3dee21ecd8d1890b4cb53296ab27c981d7579` |
+| `Assets/Scripts/Gameplay/GameplayObjects/DamageReceiver.cs.meta` | 243 | `1ddccd9c73f332662067ffcc7ec5e232975d9e0987e5f6d919a48c495efd978f` |
+| `Assets/Scripts/Gameplay/GameplayObjects/ServerDisplacerOnParentChange.cs.meta` | 243 | `16557be5ff09a9ad4cf16d52dc3d5fca5be376c4610925d09929ec8ef0a4b166` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Audio.meta` | 83 | `e470c079fe5d92affce58b37580d4eae51316a56b124c02786af08cbb0f386c5` |
+| `Assets/Scripts/Gameplay/GameplayObjects/ITargetable.cs` | 527 | `4fd31046fef91215c31de1f5170b7891f19f0a4af9317fb0362c552c070b1e94` |
+| `Assets/Scripts/Gameplay/GameplayObjects/ServerWaveSpawner.cs.meta` | 243 | `e2be99f45bc4c6645c8e85788a1bae6c2198b617e368e4e45c6689a0191cc0e7` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character.meta` | 172 | `f7c6ebd2d41cd73b4f73e62c1ed806c5ba412da51e0522d340d400b734cf4060` |
+| `Assets/Scripts/Gameplay/GameplayObjects/PersistentPlayer.cs` | 3759 | `0377e27b9af123d1dca5d205c3af41f60da63647fe256cc85721eb60431319d9` |
+| `Assets/Scripts/Gameplay/GameplayObjects/ClientPickUpPotEffects.cs` | 1154 | `5c978c69d41b23f5327fe036e48b7c5cfac12ffc1679be87405db31cab583efc` |
+| `Assets/Scripts/Gameplay/GameplayObjects/IDamageable.cs` | 2428 | `5ee258f349b4ef88bc11a446f8a59413e2dfce263e56f8a8f6affe2f5a92c831` |
+| `Assets/Scripts/Gameplay/GameplayObjects/PickUpState.cs` | 340 | `b6fdb2e3bdfac8922dddb96ad3c8bc3eda75bc0cc023393ecf89ae737a2c1283` |
+| `Assets/Scripts/Gameplay/GameplayObjects/NetworkHealthState.cs` | 1297 | `d9094ebf79d7ade2b49d814e9a4f58148d11bd0776814037720ce37967ca7c3e` |
+| `Assets/Scripts/Gameplay/GameplayObjects/PickUpState.cs.meta` | 243 | `737678a03177ae92cdb71aa5c28b859caf42305ac1c993fb46aedcc4c45fd7f6` |
+| `Assets/Scripts/Gameplay/GameplayObjects/RuntimeDataContainers.meta` | 172 | `8a35f0f686a5137e6b2577e41a96bcaa12efc813d7467ca8c0af2aa9348da704` |
+| `Assets/Scripts/Gameplay/GameplayObjects/FloorSwitch.cs.meta` | 243 | `c09189846c621de664a70c9deb0d55d0357572d3b3f462541e7355fb3d60d1b9` |
+| `Assets/Scripts/Gameplay/GameplayObjects/SwitchedDoor.cs.meta` | 243 | `2a338e0e1d72f0b47831dfb82df7a7207f0e856c0ff2bac0c65dd7a829dddc57` |
+| `Assets/Scripts/Gameplay/GameplayObjects/TossedItem.cs` | 4317 | `5ffe007c284d8cb2a9e866e0befb49044e4369bbb0341ae12822b96b346030d0` |
+| `Assets/Scripts/Gameplay/GameplayObjects/PublishMessageOnLifeChange.cs` | 1941 | `6cf8d75a13a45f35c3073a1098ec179b20cb1671761cd1894342d357e66f9a05` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Breakable.cs` | 6666 | `54a64a6a4264af29942976dab271c82bd15c3a9167cf3b2e98c8397b7a59ff1e` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Breakable.cs.meta` | 243 | `6f26ea14e5977db3366a7866c8b777f00abcf098cf86db0d8d1edf0ea64f9daa` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Projectiles/PhysicsProjectile.cs.meta` | 243 | `081fa1bf92d8df7fc65acde243939018ca01c7b7698fb4483716cc2883cbae24` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Projectiles/PhysicsProjectile.cs` | 9229 | `7ef301e99d0313588df5df64baded8b678139b964eb0e3c59f8a39f9f3d32144` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Projectiles/FXProjectile.cs` | 3326 | `2afa42dd1526b1c9ea9d058ac1996a2965d589961b77b7e1ec356981d8ea5416` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Projectiles/FXProjectile.cs.meta` | 243 | `855bec3e83f8f8065e7d77ee6cc9622ded763a9458d5e343a5532b1ffbd9dbdd` |
+| `Assets/Scripts/Gameplay/GameplayObjects/RuntimeDataContainers/GameDataSource.cs.meta` | 243 | `6ee0e00e41f358704145b17895320ddd62d9ce1d4cd6172e511905520428ecca` |
+| `Assets/Scripts/Gameplay/GameplayObjects/RuntimeDataContainers/GameDataSource.cs` | 5370 | `5b24210c8a5c6fb59701140399319f84f6105faf343919b19087649ec0a219df` |
+| `Assets/Scripts/Gameplay/GameplayObjects/RuntimeDataContainers/PersistentPlayerRuntimeCollection.cs` | 820 | `df40da6a0dd3bc432490233d61c2104d3a5ca841c89e0e7e623a51148a358bbf` |
+| `Assets/Scripts/Gameplay/GameplayObjects/RuntimeDataContainers/PersistentPlayerRuntimeCollection.cs.meta` | 243 | `073f691edd63da691c7ef040c5fd4bba11eebf452fdd3b915fab270323d99463` |
+| `Assets/Scripts/Gameplay/GameplayObjects/RuntimeDataContainers/ClientPlayerAvatarRuntimeCollection.cs` | 457 | `b8feae774b4fe1d77e63f564cec80b826eee112b307407f164f1cdf094126d7d` |
+| `Assets/Scripts/Gameplay/GameplayObjects/RuntimeDataContainers/ClientPlayerAvatarRuntimeCollection.cs.meta` | 243 | `e8358f3715cf3e8fb5d93fa50c49e55485edb4547be6c870943f6a3ae020b3e9` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/ServerCharacter.cs` | 14880 | `08a3baf69782bf81a143cf53528c2fef53867fa7fe2abeadbaab640c0d5a51c3` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/CharacterTypeEnum.cs.meta` | 243 | `557c0a4cf8a22d578e817dff1bd639090a78f259cf90f5f175218556ee3216ff` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/ServerCharacterMovement.cs.meta` | 243 | `74cc2fd4c94dee1bb16549922d02e9078ab35d960a274e310352162223ec4604` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/ServerCharacterMovement.cs` | 9815 | `b1cab93f64fc7742527f869b460982ffb11bf77d7f44e64aa889a69caa04e4f1` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/ClientPlayerAvatar.cs.meta` | 243 | `2e0a68e819a18940b5da6ea1efb610c60cef8d502d05eaf5bac4330f08abb7ce` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/ClientPlayerAvatarNetworkAnimator.cs.meta` | 243 | `b0f25fef583bd3857f1397e924ef7c656039a36856514e55f4f07282c4c7087e` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/ClientPlayerAvatarNetworkAnimator.cs` | 2197 | `ac39388940ae18bbef22eedf4250f6c82886278167a01f2c23ceea03a1f3f76e` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/PlayerServerCharacter.cs.meta` | 243 | `4112db55a0c9dde7bc41fe9b25d16b96fcc9fc85924ed03abcdece6c9272aca2` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/NetworkAvatarGuidState.cs.meta` | 243 | `af24927528afcb2c7b9db059524055cdf3006bfe46d2eee2d64b0ff7f2e69b7d` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/CharacterTypeEnum.cs` | 442 | `890c8c121f51b5671a6633ced2a7fc5e7937dd29ed95e2828c560014f9ea7eb0` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/ClientCharacter.cs` | 12407 | `59744ee642bb65257a55976e59c56072cc1489d7f9b04bd6957dca75ff03a34c` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/MovementStatus.cs` | 884 | `893d96463c9158ca23b6d24210589c6ab47e1ab44d64bb59a05588dceaa83799` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/AI.meta` | 172 | `69f4357d3e109040167f35f7e6cc1446d07beda226922eab6e04347a7a6d1258` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/NetworkAvatarGuidState.cs` | 2004 | `05f77b42ba8e5dca16d782834e075d2fb8641af2ad8e99a5e628636eda26d9b4` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/CharacterSwap.cs.meta` | 243 | `52c997a7f20a6a95f4d152e5c74ade846027ad33cae7025581398246203ea80d` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/ClientPlayerAvatar.cs` | 1262 | `09e99775b1e49dce3e7c1cfa48dcb94e7ef794d44b948809cec4a41a61e27be9` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/ServerCharacter.cs.meta` | 243 | `759c5b65248b62bf1cecfb583a045d24c0147e159057f03837c3bd9d2dc5d746` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/PhysicsWrapper.cs.meta` | 243 | `e2de2a885ddc01e8e8577087e60b776f28553e4f8e688060e1fd919521ef7be8` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/ServerAnimationHandler.cs.meta` | 243 | `ee4a124d63bba4474fb89735986576f60f866b4270bc6a8c7e5823b06704571c` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/ClientCharacter.cs.meta` | 243 | `660a8d50bfc80cdddc5f884ca16a58bffc693d8808fab293ac4c435f570e1a04` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/CharacterSwap.cs` | 7755 | `48d83c256aca567d36acdd74253b4b923ecd0df935cda6945b645f363fd0e737` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/PlayerServerCharacter.cs` | 3508 | `2aeb5345468dc01f2f43fbea8d4c846742bad5a34bb21ba1045bd27e1ac352b4` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/PhysicsWrapper.cs` | 1777 | `a78f2432ec4418ea3a6b6fdb74915af7cd6ac79ff58ec6ae05684d5b505e6d17` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/ServerAnimationHandler.cs` | 1772 | `da58aa0afb8a6f8e69222c6c053fcf0624dba6b04d0605992c945b0175bddb06` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/MovementStatus.cs.meta` | 83 | `7bb11a5eb2c36dba172471286a70f96ac830beb0a5f250b7bf95d0ca4917c2a1` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/AI/AIState.cs.meta` | 243 | `fa4a0a6c73f8103a830410d6db4b823ae7781ecdf44e488bfe891d8819d336aa` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/AI/AttackAIState.cs` | 5979 | `40a2c4e2d613abed422bebb5b6e095ee6dc1523a8d58a74f4713a707920e3218` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/AI/AIState.cs` | 900 | `93341b70645da0cad8b2a4a5983bffbec0c9a1ef679fb6317280f0e040b4cfce` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/AI/AIBrain.cs` | 5980 | `1679e0f13f8804c0da6b74c2f4e742175e64d49f2e763e9677ddcb9c9efb47d5` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/AI/IdleAIState.cs.meta` | 243 | `63e238e80002073a223dd3b52fd8c2ca2ce0ad02c795cff3166714c024f6f0f7` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/AI/AttackAIState.cs.meta` | 243 | `3d6cfbcdbc54b47204a219011119da857b1a746cd2f079c5a5d088588e2d2126` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/AI/IdleAIState.cs` | 1539 | `1aaa64f79c05131eac105848425e7934067176023972e7f8e9bb89e7fd629b51` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Character/AI/AIBrain.cs.meta` | 243 | `ec48a0e70062d50f4cec34e4d676b0471924f6a3a09438448d49675f3b0534ae` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Audio/MainMenuMusicStarter.cs` | 499 | `175294110a8934609bf5135e6f3addd25bce06d15cf67040620e82e8c2422e36` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Audio/BossMusicStarter.cs` | 2158 | `93d1888d550235524877a4cffe67ee042cd181be15a200565d06ae9986473486` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Audio/BossMusicStarter.cs.meta` | 243 | `1608732c395f8657ffa6718889ddd8798c59eeba35c400f0f89f64ffaebedd11` |
+| `Assets/Scripts/Gameplay/GameplayObjects/Audio/MainMenuMusicStarter.cs.meta` | 243 | `c6ce3c2c2041292dae7e183636cda549ded1cf3956bc9aad8b8e50ed2c4637aa` |
+| `Assets/Scripts/Gameplay/GameplayObjects/AnimationCallbacks/AnimatorTriggeredSpecialFX.cs.meta` | 243 | `5139f8c056ede48b18f9e702d433ef52bf1b18df4cb83511303f2184239f02b3` |
+| `Assets/Scripts/Gameplay/GameplayObjects/AnimationCallbacks/AnimatorFootstepSounds.cs.meta` | 243 | `1cae41d60963b34065244f754b0f51eb56069452ed5e1619d434cec56f50a8c6` |
+| `Assets/Scripts/Gameplay/GameplayObjects/AnimationCallbacks/AnimatorFootstepSounds.cs` | 5661 | `8441d5053bc02c4cff90191b8bc8d166ca7cb4fe2cf49995f12edd19f04d098f` |
+| `Assets/Scripts/Gameplay/GameplayObjects/AnimationCallbacks/AnimatorNodeHook.cs` | 2408 | `aea161669715ef4417ca58a68096781b5db4c9ccceec5ca16581d7550272d009` |
+| `Assets/Scripts/Gameplay/GameplayObjects/AnimationCallbacks/AnimatorNodeHook.cs.meta` | 243 | `887c8c9c71e1cbfe3279defa8f41e87f5a96bf2783c2f8b96829a83fa32904ea` |
+| `Assets/Scripts/Gameplay/GameplayObjects/AnimationCallbacks/BossDeathHelmetHandler.cs` | 1968 | `4a99a4e565fd610ceb07d8b9041f0078b9d7c9e929f293898bf896044bb72de8` |
+| `Assets/Scripts/Gameplay/GameplayObjects/AnimationCallbacks/AnimatorTriggeredSpecialFX.cs` | 18441 | `b4c8a49e95fa04ff22acfd875d098e1025896549e23bd31d8ad1ecfbde39c876` |
+| `Assets/Scripts/Gameplay/GameplayObjects/AnimationCallbacks/BossDeathHelmetHandler.cs.meta` | 243 | `ff2d9c759df0f60c6f11145ba517f90fba7002b0ac574a64c9c8495183f65d2e` |
+| `Assets/Scripts/Gameplay/Configuration/NameGenerationData.cs.meta` | 243 | `7ab54bcbb57eb85f20e5ae5f5074afa211b852c9028ae54d7e2cdc9c6ea3bf4c` |
+| `Assets/Scripts/Gameplay/Configuration/VisualizationConfiguration.cs` | 4555 | `74cab5241ac3d40917ab92ca7a8d12ffa356a081c40bb0f442971cd1629db98f` |
+| `Assets/Scripts/Gameplay/Configuration/AvatarRegistry.cs.meta` | 243 | `a1a7ad41f04eb74b4ca441c0a51a021018fc6b6080b6815b7b68bfb5c9dc36d7` |
+| `Assets/Scripts/Gameplay/Configuration/NameGenerationData.cs` | 1049 | `569fd8beafec5ae872d13d847d75388df6dae3f8ecf7740ebc783dd54986df59` |
+| `Assets/Scripts/Gameplay/Configuration/CharacterClass.cs` | 1918 | `4a717db59496466fc235584d14b9ff9cfa16ef29f550fa69e2520c35a56a0b5c` |
+| `Assets/Scripts/Gameplay/Configuration/VisualizationConfiguration.cs.meta` | 243 | `328e973741d7af2f8ca5c1c06ed36cf37f99050068720d3ad25a659305097b26` |
+| `Assets/Scripts/Gameplay/Configuration/Avatar.cs.meta` | 243 | `4357622a9b0112d9017f3402aee18113d9210061af4b470cff70bd7c94dd9220` |
+| `Assets/Scripts/Gameplay/Configuration/CharacterClass.cs.meta` | 243 | `c5dc12b87491d6dfe640c071fabb55be163fd32df815ec2225ec7010fa1d9c93` |
+| `Assets/Scripts/Gameplay/Configuration/Avatar.cs` | 631 | `517f7250bc0a2efb02de748194df1160b25b4247da74d3feb4054ab398fd5a51` |
+| `Assets/Scripts/Gameplay/Configuration/AvatarRegistry.cs` | 857 | `99f854d700d0d6c05f9f91e65848739a42287aa59f8e8bdcc33e826b3146fe1c` |
+| `Assets/Scripts/ApplicationLifecycle/Unity.BossRoom.ApplicationLifecycle.asmdef.meta` | 166 | `c7a43d49350836b289eaccc18d888aab07a76f8f073e12fa542c924c72c8ecef` |
+| `Assets/Scripts/ApplicationLifecycle/Unity.BossRoom.ApplicationLifecycle.asmdef` | 754 | `770823f76870d5fbed13b8c7c01dcb6127c52f36ea50b7aec18f91bb3c711942` |
+| `Assets/Scripts/ApplicationLifecycle/Messages.meta` | 172 | `c5b6d85299a9acd36c4233b0627a034655382b9170dcc52e431c968afe2dc8bc` |
+| `Assets/Scripts/ApplicationLifecycle/ApplicationController.cs.meta` | 243 | `567a0cb6ce6aad6d2c2fc788fa92e83e7f9a15752bfbb13d92be52b1c850d288` |
+| `Assets/Scripts/ApplicationLifecycle/ApplicationController.cs` | 6586 | `66f169f3f6b5b40f9336437db6e09ef9624e227943145225c2db829e8dc07c6f` |
+| `Assets/Scripts/ApplicationLifecycle/Messages/Unity.BossRoom.ApplicationLifecycle.Messages.asmdef.meta` | 166 | `6b9a92fcf5d63b6036a38f9ae65e5baaf00784bdf8232bd4b17ac47ed4e16615` |
+| `Assets/Scripts/ApplicationLifecycle/Messages/Unity.BossRoom.ApplicationLifecycle.Messages.asmdef` | 377 | `e3ee6ad12384f239972279e9d4bacb38654011df6c94491bf940f0a73e1c3f4b` |
+| `Assets/Scripts/ApplicationLifecycle/Messages/QuitApplicationMessage.cs` | 127 | `e02645b7c0ba71144942849558290247852c46f7c0e8b2b70fd30d93ca527480` |
+| `Assets/Scripts/ApplicationLifecycle/Messages/QuitApplicationMessage.cs.meta` | 83 | `e1be9d719d1c21b500762b9b029966564c0c9e0b5f1d8940f95495ebc425ee00` |
+| `Assets/VFX/Shaders.meta` | 172 | `3df5dbf1bc73cbee8ce25d5725135650ac3e5dd5a17391c782b92a31ef80a28b` |
+| `Assets/VFX/Materials.meta` | 172 | `b826019ec7b1245c4a584ba7262e40400d4d0611595c015329547d138b81093f` |
+| `Assets/VFX/Prefabs.meta` | 172 | `55f6bc348584debfbc706a5e73de6aff925b8cb97eb208976a3694ea465a536d` |
+| `Assets/VFX/Meshes.meta` | 172 | `0e38cc62ac70461124d698a226da44ce61ad9abf73056e91b25903515a037a40` |
+| `Assets/VFX/Textures.meta` | 172 | `c0d544e1c38b2e69f18381964be8acf21ebff748c9f9abc06f90ed5262988361` |
+| `Assets/VFX/Shaders/SG_DissolveSimple.shadergraph.meta` | 285 | `f240663df625cbcc201c5e46e54fc318348f84afdab7ae95e5ede03f6bb8e6f4` |
+| `Assets/VFX/Shaders/SG_AppearGlow.shadergraph.meta` | 285 | `8b9d09442ff14eaa58ef2fd7b045e96115831a2a340f5c537a32e3c468c3048e` |
+| `Assets/VFX/Shaders/SG_Dissolve.shadergraph.meta` | 285 | `7a8d4d644c0a04a250b20a2b9d1f67758f7d2c5f6b4759a5bd3ff57792dee6ac` |
+| `Assets/VFX/Shaders/SG_StylizedFlame.shadergraph.meta` | 285 | `f04b963b48a4f6a7b555bf4a0a3fc1b4d29a72eb2b07a390051080b190a45679` |
+| `Assets/VFX/Shaders/SG_Slash.shadergraph.meta` | 285 | `7d7f7eef49e6e424c2116ba1344f925d48e8e90caefdce08365701115c43c35e` |
+| `Assets/VFX/Shaders/SubGraph_Panner.shadersubgraph` | 17338 | `ef802c973612e8cd0f3c25d8240432dfb6a20dcdac9e1e43cf3d733b729f1a59` |
+| `Assets/VFX/Shaders/SG_AppearGlow.shadergraph` | 165552 | `3b57a6e0ca0cc24e373b9194146ba670e78bf895a06e2805524dc694e1885c81` |
+| `Assets/VFX/Shaders/SG_Slash.shadergraph` | 176637 | `762b3834d0ead717c5b5243c8b261a640b4c8c684e1675699afd446405c2732f` |
+| `Assets/VFX/Shaders/SG_Ice.shadergraph.meta` | 285 | `1a5d648446622c88cc07283321c29d3fea724919a79365c62ef95944ff6444a4` |
+| `Assets/VFX/Shaders/Prewarming.shadervariants` | 28981 | `7c0981c4076152a5f3204a21033c5f4b646e0e45597b7fdf0b880ecd940f05bf` |
+| `Assets/VFX/Shaders/SG_SlashSimple.shadergraph.meta` | 285 | `ee3e8464afd218c410f9a5be85f51bc160c92292c1e80374088fc357f0a6ea30` |
+| `Assets/VFX/Shaders/SG_SlashSimple.shadergraph` | 91237 | `e724f33bc34155922da2e3a70b098b1b847987431d035a3e8972bd8d9eff793a` |
+| `Assets/VFX/Shaders/SG_Dissolve.shadergraph` | 232775 | `1cac112c7adb6d7cc56d706a1469b5b0c32d6baeb28fa09d7f29e50675079fe5` |
+| `Assets/VFX/Shaders/SG_DissolveSimple.shadergraph` | 121471 | `60e8437ea27a8ed05f79d4974c31b1c44d71e7b4162f1c13d904f0c8375a36c7` |
+| `Assets/VFX/Shaders/SG_StylizedFlame.shadergraph` | 239258 | `f5ede62f96757cc0b4e62aef713d89b771280c1facf60690708581fde988881d` |
+| `Assets/VFX/Shaders/SubGraph_Panner.shadersubgraph.meta` | 285 | `978549ca495ebf556ef41cdaa5edd9b9f66895cc435e178af4914b09d423ccaa` |
+| `Assets/VFX/Shaders/SG_TilingTexture.shadergraph.meta` | 285 | `9365878b5033be03d4283d3168c93b603c9c64b8d9113e404baa4b3e5c6a77b3` |
+| `Assets/VFX/Shaders/SG_Ice.shadergraph` | 209169 | `fb93578154de3b51b410060f5ea04538dfb77f0d8b293d5d0a3546b049aac471` |
+| `Assets/VFX/Shaders/SG_Sneaky.shadergraph.meta` | 285 | `85f1a3dbb392b1b74a82a5d42e83501416575e60efba4786d46ca532d6b66172` |
+| `Assets/VFX/Shaders/SG_TilingTexture.shadergraph` | 135583 | `b835a874a67b0452a737f2d0db59133dbf2a5a452e2a6f92f1e5e6943bd60ace` |
+| `Assets/VFX/Shaders/Prewarming.shadervariants.meta` | 189 | `78510b7546d427ade63583eb893c77026095c62d3c559ee3f9b9ee7dd3b63f2f` |
+| `Assets/VFX/Shaders/SG_Unlit.shadergraph` | 107000 | `c4f684ed9d9e3c47d6268517b54900beef2a9b973272fa401b979a19e9039045` |
+| `Assets/VFX/Shaders/SG_Unlit.shadergraph.meta` | 285 | `c025d0bae151f48189ee72edba322d13b3cf25c803b78eadaa97bb62063c783a` |
+| `Assets/VFX/Shaders/SG_Sneaky.shadergraph` | 137077 | `9e3a5fa32f0088dcbcbaecda861f6b8a3a89fcfb4b09f4ccb7944c5f0dd0bdb9` |
+| `Assets/VFX/Meshes/FX_Ms_SlashShape.fbx.meta` | 2603 | `9901c08647877c50be3cdb2dc5c71a3f5ceecd09dd1e7a548c826e6b8f53395a` |
+| `Assets/VFX/Meshes/FX_tank_shield.fbx.meta` | 2609 | `f2872a97cc647abd5bae49b9a164411c5192ce45642e8f5ad001350835f35358` |
+| `Assets/VFX/Meshes/FX_Sphere.fbx.meta` | 2783 | `8428e32bfa1a3e26039c4ac7ace317cfdce3680964a519fcc0dcbab0b683eee2` |
+| `Assets/VFX/Meshes/FX_crystal_fractured.fbx.meta` | 2603 | `9a4000523ceaebaa5ceb6d07e92689418b8ea75540d0f66e09e95451ba727f2e` |
+| `Assets/VFX/Meshes/FX_Ms_Billboard.fbx.meta` | 2603 | `d9c59a287ec74c7380bc83131b812bbd5ab7bbcf5cd758be59824af9b2262127` |
+| `Assets/VFX/Meshes/Ms_HalfSphere.FBX` | 24640 | `773fb6c3e37709afb51c324b37667548c9f41fabd75d9a044303e8f5a3713ba3` |
+| `Assets/VFX/Meshes/FX_Slash.fbx` | 25376 | `d1ed611576e0d5583c877d26fb04e25bff3f4d018147292fdca5fc1295eb39ea` |
+| `Assets/VFX/Meshes/FX_Ms_Ice.fbx` | 825058 | `0c7f5c7ae207e06b72b683d364eed0c6c1487f9ef0abbe8ead9612c6f8c1c3a7` |
+| `Assets/VFX/Meshes/FX_Slash.fbx.meta` | 2603 | `db170659cd64bda0a3f301ce7491e3c3fae9448e8f4a956437663969b1b2ca8a` |
+| `Assets/VFX/Meshes/Ms_HalfSphere.FBX.meta` | 2783 | `cee15a2be99639a950353003ca3a9e690bb1eb4266b11396afa59eb1c2e6f3a1` |
+| `Assets/VFX/Meshes/FX_Sphere.fbx` | 23680 | `ea0cd1db6dd7b34e011a7039b4d0da56f090014d946eee019491f4ac5e6ad5fb` |
+| `Assets/VFX/Meshes/FX_Ms_Billboard.fbx` | 21600 | `eb906d6b99156278bc6ed40fc0ae27fc8895258ce2948c0c691d52dac6f1be75` |
+| `Assets/VFX/Meshes/FX_Ms_Ice.fbx.meta` | 3446 | `ad6d72e95b6486717af577423e7d850f63f9548f0b7c102a528095eee89831d7` |
+| `Assets/VFX/Meshes/FX_tank_shield.fbx` | 18976 | `5f0b71d999755db936bbcb8fd6999632090c063330b4e3166ca63bfa28ca0b7e` |
+| `Assets/VFX/Meshes/FX_crystal_fractured.fbx` | 39904 | `f092b982d5855c1e0299d6650bfb39b83170bc2fc05965b0f74548dbf8ab8762` |
+| `Assets/VFX/Meshes/FX_Ms_SlashShape.fbx` | 24352 | `ce47f9072afd874aa0ffc193d9db24bdcbf4d2c9b89866ec66a826c4754ad067` |
+| `Assets/VFX/Materials/FX_M_TargetReticule_Hostile.mat.meta` | 188 | `623240536e7634e2e55fcebb6afe24a6e1d7b58806adcd7850333438d593daa8` |
+| `Assets/VFX/Materials/FX_M_Snowflake_Additive.mat` | 4323 | `50e144e9c8427b6560be440da0da577f5dbeb6b26442eb1c063923797f09c327` |
+| `Assets/VFX/Materials/FX_M_TorchFire.mat.meta` | 188 | `a5fa5bb11622c0e4360daaaa45dcadcbda22b4497dba2667cd95f1b51aeba097` |
+| `Assets/VFX/Materials/FX_M_Chest.mat.meta` | 182 | `927613ae50033f7ca3071aa1a8d52ae0ad52209c7883bf3265b698991906db97` |
+| `Assets/VFX/Materials/FX_M_Wave_04.mat` | 4426 | `15761786081bb56b5621e5f55d2750db27fa8cf399761f0eb4554884eebddb90` |
+| `Assets/VFX/Materials/FX_M_TargetingSphere_InRange.mat` | 5600 | `d4ef3ce1d60408418286bf809d24832bb00d85013a44f1f0aa6b21e7e72212ab` |
+| `Assets/VFX/Materials/FX_M_Trail_01.mat.meta` | 182 | `e0556c743df35f94c35bbef25b5e91e2e186480f6f2f8d492f2a1c1d77cb18ae` |
+| `Assets/VFX/Materials/FX_M_Circle_Sheet_02.mat` | 4265 | `c693f0bff860f10c133aad5c1213da32fe97fada8842a56ecc75af2fb0ef2db5` |
+| `Assets/VFX/Materials/FX_M_MotionFlash.mat` | 6758 | `38021d1d05a7f2faa3700b22485d01421b71e4fa28503b0470755fdc7678197d` |
+| `Assets/VFX/Materials/FX_M_ShapeSheet.mat` | 4319 | `9dd9397a7bb30fb8dc2f489f442ecce0f759219b2738a5784e7baf1c6b32fee0` |
+| `Assets/VFX/Materials/FX_M_StylizeSmoke_Falldown.mat` | 5669 | `056de98b74dece26e1b0725bab91f56e70c54bf55909c95cc469c3f3dd0d3bcc` |
+| `Assets/VFX/Materials/FX_M_TargetingSphere_OutOfRange.mat.meta` | 188 | `3dbd19e9c39fbe4eb2fb1a344b46390f804b421075c95a78030e2aadaf8fed32` |
+| `Assets/VFX/Materials/FX_M_GroundClick.mat` | 6810 | `07dbaabdc7fd45b80f45b27b5fb5db68019da72db4ecf3161fc7c7c9bf21ff02` |
+| `Assets/VFX/Materials/FX_M_CharaterSneaky.mat.meta` | 188 | `087ecb76b89565f587d97cdae67887b1bbae2d8ef50e8341b23cd99275355032` |
+| `Assets/VFX/Materials/FX_M_TilingTexture_03.mat.meta` | 182 | `7d9e5f24bf1a2b5cf07cb4781d7ddceb76ca8e8d28833e966c1baaa0c79ac884` |
+| `Assets/VFX/Materials/FX_M_Trail_03.mat` | 4298 | `dcfd96b6d886717bc48907ba824614a3825b4fb1d779ddf45ba22b55d58a7f27` |
+| `Assets/VFX/Materials/FX_M_TargetingSphere_InRange.mat.meta` | 188 | `26078eaeb8646337b321ec3db765639440bf172e164280ff6f6ef8a35ca8942c` |
+| `Assets/VFX/Materials/FX_M_Star_02.mat.meta` | 188 | `26a6759bef2132b736505b0fde83c48714e07c4ef9b9dbeecfc41feaf9e5ad9a` |
+| `Assets/VFX/Materials/FX_M_TilingTexture_04.mat` | 4349 | `7d1078ba5c28f9adc4289f4a853539f3af2738fd9b5a92ffadb9943bf63194b7` |
+| `Assets/VFX/Materials/FX_M_MotionFlash.mat.meta` | 188 | `ba510d265ad85b26489d4564436d5f76067fb5e7f36ed10b2e47db93803d39b4` |
+| `Assets/VFX/Materials/FX_M_Wave_04.mat.meta` | 188 | `fe00a26c9dc7685d2c9847b13feb81a924aeb7e70e4e492c88df5977b69f96cf` |
+| `Assets/VFX/Materials/FX_M_Circle_Sheet_02.mat.meta` | 182 | `8f5d564890852b89b86f5f540cb194c458971ebd1de8ab542bb90fe0e3f0b117` |
+| `Assets/VFX/Materials/FX_M_SmokeDissolveMultip.mat.meta` | 188 | `ddacf1cb7c56bd79a936b4e78295ccc971517e744dd514a60e95f140a6f3c700` |
+| `Assets/VFX/Materials/FX_M_SoftParticle_Smoke.mat` | 4375 | `6427c77499ac5d9830c2b1a8240fd494abb3769a1700cd4fe0cf384bb7134e85` |
+| `Assets/VFX/Materials/FX_M_SmokeDissolveMultip.mat` | 5856 | `ae190856ebdeaf9b0909d1621d5c342f597701514ed4cf759acdf783ed6026b5` |
+| `Assets/VFX/Materials/FX_M_Smoke.mat` | 4362 | `be5f5873e83f50a2c8819c1714a1b88c6269dbcb503de9c98f0f255784d9e236` |
+| `Assets/VFX/Materials/FX_M_GroundClick.mat.meta` | 182 | `5b8a897f344936c27178f42570791bffdf22649a9c324fe6adfd126c13233674` |
+| `Assets/VFX/Materials/FX_M_Circle_Sheet_03.mat.meta` | 188 | `7ef5b3a55ecf50244096932c34fa7cad8baab1c4be8aa50f4945c0ca2275ced5` |
+| `Assets/VFX/Materials/FX_M_RotatingSniper_01.mat.meta` | 182 | `6bcb27c7b0978acf9979d43dbf3fca24167ad6fe1b9416dc6c8f33f280775458` |
+| `Assets/VFX/Materials/FX_M_Flash_01.mat` | 4500 | `ae6fef5555ed17a1fe77014c243eb53c2c6c5583e7a04b62ff6cd4a89b0bd846` |
+| `Assets/VFX/Materials/FX_M_Circle_Sheet_01.mat.meta` | 182 | `9341b58272ab44cd0d7d1c7b7ab460ae69462db307fbfc9f0a15c21930d91927` |
+| `Assets/VFX/Materials/FX_M_Shockwave.mat` | 4566 | `77ed537ed982eac3819ea7db6eb3e19398d9839dbd495164e0778ffb281be0e0` |
+| `Assets/VFX/Materials/FX_M_Circle_Sheet_05.mat.meta` | 188 | `ff0f46740dae1a25039527b3d1d33c7723b029b347f3b0aa089f81900e141768` |
+| `Assets/VFX/Materials/FX_M_Glow_NoDepthAlpha_02.mat.meta` | 188 | `0a0593d9a6a41895ef3a6c2e57b2642e3f4e261b3d0434d3fee1208ef2e67ea0` |
+| `Assets/VFX/Materials/FX_M_Hit.mat` | 4715 | `d1a02ebedc3425d9b2f24f2296a72936e854411a6c81ca5db86ee1655626414d` |
+| `Assets/VFX/Materials/FX_M_StylizeSmoke_02.mat` | 6099 | `f9d4d936fb7423821acd065212f80f8a33bbb30d5cddfa27e18ef4f5c02d47e9` |
+| `Assets/VFX/Materials/FX_M_SlashSimple.mat` | 3900 | `ec037c29cb488fcf0490348a753fb58c799a542ae56030bc3e4f4588c6086f5c` |
+| `Assets/VFX/Materials/FX_M_Wave_02_TossedAttack_Display.mat` | 3644 | `b5803cfdcac3ae9a1bfd34ff1e8ca53e939ebc97c20946ce14f9c4de3f1c0f53` |
+| `Assets/VFX/Materials/FX_M_TargetingSphere_OutOfRange.mat` | 4568 | `522cf5f109710e8bee6d574e485aabe449adcd2713006fa5250c155601b5ef8f` |
+| `Assets/VFX/Materials/FX_M_SmokeDissolve_Additive.mat` | 6821 | `7a1c0e17274548b3c5000e8ff5172b191dadef3a581a955b249459bb6385c88c` |
+| `Assets/VFX/Materials/FX_M_Circle_Sheet_04.mat` | 4938 | `eec2d37e3ad10018c8723dfdeec61e4671b13f2b791feacc268ec927d191fbeb` |
+| `Assets/VFX/Materials/FX_M_Glow_UnlitAlpha_01.mat.meta` | 182 | `87bfa6867bba48d44133367ce8efbac7329ce29906756eb76eed7a9550b30b53` |
+| `Assets/VFX/Materials/FX_M_Glow_Additive_01.mat.meta` | 182 | `c2a13ccb887111ae8f44b190160c39dee4960d282e7d96ce10d1e65759ff9058` |
+| `Assets/VFX/Materials/FX_M_Swirls.mat.meta` | 182 | `8bf8ef2fac8a8d5bcb1597d112c0ce320ffecc87709033ed86ca720c83172274` |
+| `Assets/VFX/Materials/FX_M_Wave_02_TossedAttack_Display.mat.meta` | 188 | `c77371d523a997f3d4b2f5141ea36e9516b753c95a80a204255b650158fa56de` |
+| `Assets/VFX/Materials/FX_M_Star_01.mat` | 4391 | `fcdd84206ae8e726047e11a3b614c60a85d102deefc45f8ffdf28a7601638772` |
+| `Assets/VFX/Materials/FX_M_Sparks.mat.meta` | 182 | `995277503f75d8df8d6a35fa33a9b50f3339bd85b4f044cd8ee45bd7eac7df8c` |
+| `Assets/VFX/Materials/FX_M_Shockwave.mat.meta` | 182 | `38df0b8e22725108873ea537c6e0e296a847594067fc5cae914bc933298db060` |
+| `Assets/VFX/Materials/FX_M_Circle_Sheet_03.mat` | 4936 | `78c9ca01fb1b002ebe23ea9b2bbee0db602dae2bff355f93a01afc8f124e079e` |
+| `Assets/VFX/Materials/FX_M_Slash_02.mat.meta` | 188 | `a458a2cbf4c9b2daf3d7c62276fcf4b68f3b7cdfaf43c834368d26dbe08f489b` |
+| `Assets/VFX/Materials/FX_M_Snowflake_Additive.mat.meta` | 182 | `faa6851c9204740d1faa58f3b129749d80b47c2e42e8340be85aa12de261edb6` |
+| `Assets/VFX/Materials/FX_M_ImpExplosionFire.mat.meta` | 182 | `145f5c7322e5610ce48e28a49bdff2a938495c36d4ca6127b479ad235a51d5b1` |
+| `Assets/VFX/Materials/FX_M_RotatingTexture.mat.meta` | 182 | `a9757a2ec280f3863271115b60b4b3edeb4d530aa82ca0012447187614cda13a` |
+| `Assets/VFX/Materials/FX_M_WigglyRing.mat` | 4566 | `7b00ca7975c7638a4d03a125eb6a791bbb0e6b0b921a9accab83866576265f86` |
+| `Assets/VFX/Materials/FX_M_TargetReticule_Hostile.mat` | 4606 | `0d75f4909b5dc4c31706700a451964ea2e8b6001ece6bd8704d2e0d1940557ac` |
+| `Assets/VFX/Materials/FX_M_Flame.mat.meta` | 182 | `b776c1400accb7b52fbc5583e5f132a907d0e1e7d7687151117ce2e1c315989c` |
+| `Assets/VFX/Materials/FX_M_TilingTexture_01.mat.meta` | 182 | `3c2a52828a51d370468c94869ff9778e744765b8b93fcb2c4f2b095fef9bcc7b` |
+| `Assets/VFX/Materials/FX_M_ImpExplosionFire.mat` | 6009 | `7018616722fc915a80de7935d80e4aa5aa795addf91ebf77159865490b2baab8` |
+| `Assets/VFX/Materials/FX_M_Slash_02.mat` | 3031 | `26eb1b8ad445dd2c903c6e20f652068c3d048a980b329886f6aa4ef37d9273bf` |
+| `Assets/VFX/Materials/FX_M_Point.mat.meta` | 182 | `333bee5eadb62133c8d84fd2f53296c3889a5bf59327d758cf858187c16493d6` |
+| `Assets/VFX/Materials/FX_M_Star_03.mat.meta` | 188 | `b5ca5cfae00127c95f91e0a614aaa7631f7e93934b0862ec2fcca2c430f16394` |
+| `Assets/VFX/Materials/FX_M_Slash_01.mat.meta` | 188 | `b753f7e7504ae1f7cb664a0e8c92c6a0b9a4c049e340ad115bb7405333706576` |
+| `Assets/VFX/Materials/FX_M_SmokeDissolve.mat.meta` | 188 | `7b01e1ec604689f33123cb530db2533a8587cb846d12bacf7ba5968f6d769217` |
+| `Assets/VFX/Materials/FX_M_Point.mat` | 4272 | `795fe30d9518cfc4452334b733041faf8dd0d26cf6755f344027923013fd504a` |
+| `Assets/VFX/Materials/FX_M_Glow_Additive_03.mat.meta` | 182 | `61c710a6ee10ba44a829d99404d704cfc2bd09ec6504c7d9f40774ac8c3c31d4` |
+| `Assets/VFX/Materials/FX_M_ShapeSheet.mat.meta` | 182 | `e3d7cf1c45347a064974359f692cdd7330f7e805edc04773aadde0ddbb09d7c4` |
+| `Assets/VFX/Materials/FX_M_SpawnDoor.mat.meta` | 182 | `d4f05d1a89e519589b382da591a424e8b9b07baebb22838532c54eb43aed89ad` |
+| `Assets/VFX/Materials/FX_M_CharaterSneaky_LessSneak.mat.meta` | 188 | `00763729ef0e29756b778743435ea15ba848aedda408a24da546b8188232595a` |
+| `Assets/VFX/Materials/FX_M_Circle_Sheet_01.mat` | 4259 | `ea1ccac269d9441c23a97156a3b824f3fb90bce72a75d223ef2557ffe7dfc5fc` |
+| `Assets/VFX/Materials/FX_M_Hit.mat.meta` | 182 | `e9a2c4b49f93128cae3bbb779366aa63f214a528b2241556de540b521375a416` |
+| `Assets/VFX/Materials/FX_M_Shield.mat` | 4533 | `ce3f704440b774c07ef84c82d63d5976713b43674e2317f18d4c4eb16548f9cd` |
+| `Assets/VFX/Materials/FX_M_Glow_NoDepthAlpha_01.mat` | 5301 | `bb4425410ddb15b31969d276cef5a17573fc3d6c2b4cf81def4a15b591dcb31e` |
+| `Assets/VFX/Materials/FX_M_Glow_Additive_02.mat` | 4322 | `1ab82091bde3723d3aef7a076df78e9e87c49243d75a63d5df8a6f535ae0b7c9` |
+| `Assets/VFX/Materials/FX_M_Glow_UnlitAlpha_02.mat` | 5297 | `d1ca3ac9274e721863a59947ea8bb1d21cb24b32a6f28b36ce605ddcd16ed55b` |
+| `Assets/VFX/Materials/FX_M_StylizeSmoke_01.mat` | 5668 | `36ff52811500d380db59031dd30284f6f04714d6db935a74974267249b5d5733` |
+| `Assets/VFX/Materials/FX_M_Crystal.mat.meta` | 188 | `786d1f943e3a7f237c846c4cbab2c40ed926d053e2c015bf9a5c3bbe15527d82` |
+| `Assets/VFX/Materials/FX_M_RotatingSniper_02.mat` | 4304 | `fa0ccf3d825b0c4fd6e95f736a75e92f130ca0116ab8a358afe50f52c60b2ac3` |
+| `Assets/VFX/Materials/FX_M_SlashSimple.mat.meta` | 182 | `ecd217e8a7f34bf421b5878f0705a701e70bc517a67d0c265fe070dac633846a` |
+| `Assets/VFX/Materials/FX_M_Slash_01.mat` | 3458 | `47a191d516b0279a8586851d0e1942cf63e17efc666336a8923fc4f5aebbf131` |
+| `Assets/VFX/Materials/FX_M_Ice.mat` | 3181 | `ec3319db1f06ea2907c7861da7b97ce9393e449d3ca43e39659a6ad5c6d4bc33` |
+| `Assets/VFX/Materials/FX_M_TilingTexture_05.mat.meta` | 182 | `d0206ed0688554ab45a9638b3dc6239bb8cbb6fd988b2429b029af3b87b3aa22` |
+| `Assets/VFX/Materials/FX_M_SmokeDissolve_Additive.mat.meta` | 188 | `5f8d56ab752fa51ff7a3c848b16159c983ad74aa6b4c88dca871f0c903cf5ee3` |
+| `Assets/VFX/Materials/FX_M_BossCharge.mat` | 2359 | `069875b8e9eaa76df455dad22ed9f23ad5ff91e3ce1c55f330c4d0fc6e79f236` |
+| `Assets/VFX/Materials/FX_M_Chest.mat` | 4499 | `25ff076bae689064b4600e74c454da874e25717ffd4355ad51d189c639dbb312` |
+| `Assets/VFX/Materials/FX_M_Wave_02.mat.meta` | 188 | `d6418a47945de0382b24960971dd0d245f0cb30a35d0be8cc482f5d7598b7ddc` |
+| `Assets/VFX/Materials/FX_M_SpawnDoor.mat` | 6845 | `95165605ea05630b8fc4a70411a53b0d4192e758d6e710a153d9164afdd99f0a` |
+| `Assets/VFX/Materials/FX_M_Wave_01.mat` | 3942 | `1204f8238853080dfde94956e41181266c21820c9fc906af928f2197d0af837c` |
+| `Assets/VFX/Materials/FX_M_MaskedPanner.mat` | 6111 | `dcf84c9eb7a8e2bbc4ea48f418e4b61ca053779391a7a6c6c3723819c0284fee` |
+| `Assets/VFX/Materials/FX_M_StylizeSmoke_Falldown.mat.meta` | 188 | `7e083b162166010525e3849f25f68fd47704e12c1b75ab9625f56cd725235124` |
+| `Assets/VFX/Materials/FX_M_Glow_SoftParticleAlpha_02.mat` | 5353 | `e29b1dc4b39a6e9e2188200db3ed33f4a529fef5ec8210e4d556c4fc0e4a9e70` |
+| `Assets/VFX/Materials/FX_M_Glow_Additive_03.mat` | 3636 | `e5f20e0dee46a301855139dbf857a27c4df4c324781f3975131357cb4a4b731f` |
+| `Assets/VFX/Materials/FX_M_GlowLine.mat.meta` | 182 | `72567565a956077562c5307c1652b505e36aa9587ab212810785c2860fbf6c7e` |
+| `Assets/VFX/Materials/FX_M_Trail_02.mat` | 4292 | `cc725b56db9c504d44ade5caecacae765d155fab72c39b37f9ccacf32f675852` |
+| `Assets/VFX/Materials/FX_M_TargetReticule_Friendly.mat` | 4629 | `617ac2f062d6f2478fe2241c00450f0bd3fff47c5a8671238e7410ac586d323f` |
+| `Assets/VFX/Materials/FX_M_Glow_UnlitAlpha_02.mat.meta` | 188 | `ce72a22f3a822fd9bab7edef3e99fd830e071b33abefc5cc9abc04516758ebbb` |
+| `Assets/VFX/Materials/FX_M_TilingTexture_01.mat` | 4303 | `f87c9162265e365763add9aef7efc1be61c4a364e06cd183f16f04bc216ef652` |
+| `Assets/VFX/Materials/FX_M_Glow_SoftParticleAlpha_02.mat.meta` | 188 | `d1ebd6c56088cf3b1e100030f560494b39a81877bb3a68803686931321cbbe4b` |
+| `Assets/VFX/Materials/FX_M_GlowLine.mat` | 4493 | `d302a0deb805ca5d35a34751c3b39064e967ebb1ee6140334977727b619f2313` |
+| `Assets/VFX/Materials/FX_M_Ice.mat.meta` | 188 | `bf6e5ba9cf00aea8e9bcd6246d6dcbff24e75376ce8e224935a04d4081e4c288` |
+| `Assets/VFX/Materials/FX_M_Wave_03.mat` | 4414 | `53c9f0233b5de00281ecabd179c3a11b909844fc316e6ea04d7ae093b298186d` |
+| `Assets/VFX/Materials/FX_M_Smoke.mat.meta` | 182 | `e6dc2d0baa9fcc48bdffd7762ae2907a3f60e84e6f7704e5804c60e52ef9afc8` |
+| `Assets/VFX/Materials/FX_M_Swirls.mat` | 4563 | `70be96ed4ddc2e3e8c271ead0e927b697bd6fbda02cad331f95afd4f5ab1ef41` |
+| `Assets/VFX/Materials/FX_M_Sparks.mat` | 4423 | `0577cb2017ce59d6cef6f3ec1bc76c6f702c6107e362d5d3d22f5a0134ac16d1` |
+| `Assets/VFX/Materials/FX_M_Wave_03.mat.meta` | 188 | `44ed932bed8f737d4f4eab011bf45930c1b5c560ce320f221216b4424a97b5dc` |
+| `Assets/VFX/Materials/FX_M_Wave_02.mat` | 3605 | `29bc5f9536e5b6533d14d05fed8fe03e08be4518f04601b630eccbd2b3132ce2` |
+| `Assets/VFX/Materials/FX_M_TorchFire.mat` | 7292 | `7100f81a0ebe97529861fcf901a8b898fb0b1c12281c2a63122ecddbe9f93f9a` |
+| `Assets/VFX/Materials/FX_M_GroundCrack_02.mat` | 5666 | `988abfcd736ddba333bed40a6388a0f7171516a9c4a4507833279de19e8b9482` |
+| `Assets/VFX/Materials/FX_M_GroundCrack_01.mat.meta` | 188 | `fa9653189ff21e13abdb8495d7271ce65beafffa58e68504f33904b1f9b702a4` |
+| `Assets/VFX/Materials/FX_M_RotatingTexture.mat` | 4305 | `efc4910bfdaf03965f1d9e835ccc351fff2fb6d0875f1af3a9847f5e727c3ef3` |
+| `Assets/VFX/Materials/FX_M_Glow_Additive_01.mat` | 4344 | `6526118cf607f71a8c99a5ada167b738618c191604d086f74b371cac7f35955a` |
+| `Assets/VFX/Materials/FX_M_StylizeSmoke_02.mat.meta` | 188 | `b560252c5d18907e1286cdaafdc7796396e34e6e292e99b9dc29e2b70ca97e28` |
+| `Assets/VFX/Materials/FX_M_Glow_NoDepthAlpha_02.mat` | 5299 | `be41f96c062550ece76f6553a8384f49f437261beb1c4d8625ac0ef3bc9293e9` |
+| `Assets/VFX/Materials/FX_M_SoftParticle_Smoke.mat.meta` | 188 | `be1403e319fe3aa0cb3314bd771ca682541af4c64b97d9e2623a4d3623be63df` |
+| `Assets/VFX/Materials/FX_M_Glow_UnlitAlpha_01.mat` | 4347 | `6c7731fd06824e5ad2f458bd642d6e8f1f310760a561cc26a1f6bc0739bb593d` |
+| `Assets/VFX/Materials/FX_M_Shield.mat.meta` | 182 | `4a8573d221aa7d1a8789ddcdaf35873fbb2a22c6492b2a300fe9109c2615ac53` |
+| `Assets/VFX/Materials/FX_M_ArcherArrow.mat` | 4233 | `095934af668596716451385bbdad1ad9e5ca1c818426b5083feac7332ee08bc1` |
+| `Assets/VFX/Materials/FX_M_Flare_01.mat.meta` | 182 | `51e91e457a93710252a0af58f8c7b74cc471fc69b9ae6c422fdfdcaa7b9ae193` |
+| `Assets/VFX/Materials/FX_M_Crystal.mat` | 5271 | `b8fc9e389b2e9cd919b42920b19acd497b4c85d85e587077ab6e943dcdadf22c` |
+| `Assets/VFX/Materials/FX_M_Trail_03.mat.meta` | 188 | `46a25ef801f9f31be226209114779e12018c588615c876208505d87ffe5b9dcb` |
+| `Assets/VFX/Materials/FX_M_Crystal_Broken.mat` | 5305 | `ce0043b005f7ef1dc56c680f297183b7be392c7001facbb9ec2b844f154e3398` |
+| `Assets/VFX/Materials/FX_M_TilingTexture_02.mat` | 4303 | `60e72c27017e035e559e01f8928d55dd03469505783f9bfda5594e706287d770` |
+| `Assets/VFX/Materials/FX_M_TilingTexture_03.mat` | 4305 | `67b3865d16049cca13c7fb30d97f8b15b9f9e80b3f5ca6c343fce99bf224bab4` |
+| `Assets/VFX/Materials/FX_M_Circle_Sheet_04.mat.meta` | 188 | `dae20ebcc7f84a155d56420748ddc11fbb3b0779d27cbb819e9d41dad3e6353f` |
+| `Assets/VFX/Materials/FX_M_WigglyRing.mat.meta` | 182 | `d9cddb9e3dcb7731ebe86b07b6f62c9bc0df08eb5a0f3a25751615284167df19` |
+| `Assets/VFX/Materials/FX_M_Star_02.mat` | 4460 | `953208c577158af84dab9bc72fcd86739ed8ab26177d4b5cf013f3d9feadad70` |
+| `Assets/VFX/Materials/FX_M_ArcherArrow.mat.meta` | 182 | `2da17a90d385729c66faad627428195c479dec9830d3500fba6a921a59bfd402` |
+| `Assets/VFX/Materials/FX_M_Trail_02.mat.meta` | 182 | `9d616bb8cedf206b31ea1c1487d733bdee1219746f21f8e48428be964470c1b2` |
+| `Assets/VFX/Materials/FX_M_Wave_01.mat.meta` | 182 | `b02168834368c20d62b962fc55a3eaa769c0e8da4d671f0be5a4fcd372cdab32` |
+| `Assets/VFX/Materials/FX_M_Flame.mat` | 5477 | `facabe6050d94c9ba0627a3d7024ce5799c9a35349cf5743593cdf0ee430b047` |
+| `Assets/VFX/Materials/FX_M_Glow_NoDepthAlpha_01.mat.meta` | 182 | `5dbdf751ba2cc87ae669cb9a0c42eaf152e1b47460c403268b5eb194d27f0679` |
+| `Assets/VFX/Materials/FX_M_MaskedPanner.mat.meta` | 188 | `7b2284513d6a96832532d9c9614354f1dfffee7be7d9f72b1a535885c2e9a42b` |
+| `Assets/VFX/Materials/FX_M_BossCharge.mat.meta` | 188 | `c280c0f33e5b88bed8a44673f8d1b1ee7184420a098e2b622edf2c6af94335c3` |
+| `Assets/VFX/Materials/FX_M_TilingTexture_04.mat.meta` | 182 | `c9ecefca3f842021654cdf933a5e452868cf34c1838996fde43b727b4387a039` |
+| `Assets/VFX/Materials/FX_M_TilingTexture_05.mat` | 4356 | `fb3c2abe3e053cf2a54836a36c81698a1654513388ad82bdaf6f5f6bdf5a1117` |
+| `Assets/VFX/Materials/FX_M_StylizeSmoke_01.mat.meta` | 188 | `8b12e7ce128e680fb4c6c999eb50efa687f49f4949521e1c0370bfd7fa17c81d` |
+| `Assets/VFX/Materials/FX_M_SmokeDissolve.mat` | 5227 | `d110595f0adda9a83899e334ddd2dee42e92572e6bf230b5604c974b6dd6de18` |
+| `Assets/VFX/Materials/FX_M_Circle_Sheet_05.mat` | 4262 | `259673560843a1ed12d6cb89c49acca5447c634096470829e4b337099e84c462` |
+| `Assets/VFX/Materials/FX_M_GroundCrack_02.mat.meta` | 188 | `1e7198d102ed3310c0443b124074dc361f14cc84ad8df60134b480321fed11cd` |
+| `Assets/VFX/Materials/FX_M_Star_03.mat` | 4563 | `78773819acb72bbcad41194dd1a9ad44121843d1118dbb0e7b072be0838bcfc4` |
+| `Assets/VFX/Materials/FX_M_Trail_01.mat` | 4298 | `427fe85b535e1cdfc4f314c9596969d4c60f2b66ef2169dfbcb98959a3842623` |
+| `Assets/VFX/Materials/FX_M_Flash_01.mat.meta` | 182 | `1de2d9fb331f32451d7761b40fa21c3223ce0a875d4fe6d3b8c747b4ceb8bc3e` |
+| `Assets/VFX/Materials/FX_M_GroundCrack_01.mat` | 5706 | `4da74f42ba7b72ed8c3afe83052e10d15f77801ed7505a9f67503b4bf987c21b` |
+| `Assets/VFX/Materials/FX_M_ShapeSheet_Additive.mat.meta` | 188 | `db6e7c3d3a473b22933797a8d14ea7fe2c2afd1dcb76a8374d4520d5ff37473d` |
+| `Assets/VFX/Materials/FX_M_TilingTexture_02.mat.meta` | 182 | `41aefd261ec54a0eebba9c0932cc318228615e1bee99883f69a0ae456ee26252` |
+| `Assets/VFX/Materials/FX_M_RotatingSniper_02.mat.meta` | 182 | `b63385448323f132f4a6fab76ae9dcf333a008e49e20c166687ce064a3d220fb` |
+| `Assets/VFX/Materials/FX_M_CharaterSneaky_LessSneak.mat` | 3205 | `7903df954f6fcc30893601506bfed53d59c02f8654497094f11b0b949ee28673` |
+| `Assets/VFX/Materials/FX_M_TargetReticule_Friendly.mat.meta` | 188 | `1e513b9fd6d6c053f5b631563e798e730aff0e4422efbaf438854280b99342b6` |
+| `Assets/VFX/Materials/FX_M_Crystal_Broken.mat.meta` | 188 | `813c836efd1c430625b377ec349b38c841cd47c688b9e1b0a6f7f0eaaa837904` |
+| `Assets/VFX/Materials/FX_M_Flare_01.mat` | 4283 | `ca1a2a46806b2a1c8eb454f07607d77effdcec425365b6b47010bf829838c56b` |
+| `Assets/VFX/Materials/FX_M_ShapeSheet_Additive.mat` | 4327 | `47019858b7ad9378e124c4e1d6b64214408cf5b22ca47ec6e7422b883b71518c` |
+| `Assets/VFX/Materials/FX_M_Star_01.mat.meta` | 182 | `50649b9efade80390c4dd311405b7f716bb363a47b20c528d11388ffb7ab602f` |
+| `Assets/VFX/Materials/FX_M_Glow_Additive_02.mat.meta` | 182 | `7cb1ffc80165684aba2920a37566223c36f103e25c9e2699dea56d3e11046f56` |
+| `Assets/VFX/Materials/FX_M_RotatingSniper_01.mat` | 4305 | `1c5a56371140602875d797adb58d1a09ee42948cd2110f61433c279df4d8e7b4` |
+| `Assets/VFX/Materials/FX_M_CharaterSneaky.mat` | 3195 | `d6e998233cbd656042c92bdb3f11197a4fa46cb637c280f92253a72fceda8504` |
+| `Assets/VFX/Textures/fx_Tex_glow.png` | 168714 | `7ea3aa00fa35cc85825de495804face79eb72173434831c7d708e5aa417d77d8` |
+| `Assets/VFX/Textures/FX_T_Lense_flare_2.png` | 3405 | `a60b678090db3ff94ca157cfbe2807bfd2cd6bcc9073fae3c1cca538bc7e186c` |
+| `Assets/VFX/Textures/FX_T_StylizedSmoke_02.png` | 28376 | `cdae95841210828a63cd15759cafad9385ceec78bb995c81be059980ec8614ca` |
+| `Assets/VFX/Textures/FX_T_Twirl_7.png` | 21037 | `563734fcf0f5d3d48e34880b6b9f0009ff295cdae6f3be2c196131c81f808743` |
+| `Assets/VFX/Textures/FX_T_StylizedNoise_04.png.meta` | 3098 | `ecb3fdb7cfa8296785d85e6a30e32df3e3c4c05d89e8e24a7478111d5125b876` |
+| `Assets/VFX/Textures/FX_T_Glow_11.png.meta` | 2452 | `7baca6357c33321ff07a3966212e8abc0758525b6e04fc5f559b1c3869315f55` |
+| `Assets/VFX/Textures/FX_T_Noise_11.png.meta` | 3098 | `d7ae0ebb18585e9aadeda791063e70abbbb9e602ca2be8c978833964ca051d14` |
+| `Assets/VFX/Textures/FX_T_Glow_15_star.png` | 4442 | `3fca9ebcfe60a0c64cd3c0112d10e08957299beab86fdffc82fd213430f5a131` |
+| `Assets/VFX/Textures/FX_T_particle_4_cloud.png` | 5607 | `77fefdc365079d89ca867cb6a8fce6cd127afc2424a2d68eac8b48f07a66d250` |
+| `Assets/VFX/Textures/FX_T_Orb.png.meta` | 3098 | `f2eb077c93abbf840012dc423edddeac08ddd1df0674a0617c270b6351d55168` |
+| `Assets/VFX/Textures/FX_T_particle_4_cloud.png.meta` | 2455 | `f073bf0b9373cfcadb124705105bfe5b252341e9ab089778fa1f415e9c3b7841` |
+| `Assets/VFX/Textures/FX_T_Trail_9.png` | 249286 | `baaca01df4743b690570ac5a5c4a496f70ebb3f5a51a0e5d6c5ab54a7dff0fd2` |
+| `Assets/VFX/Textures/FX_Sequ_Circle_01.png.meta` | 2455 | `7752df483a878fbdb97c1e1af376cf6174f3b818e2d22b96ae7bd55b36c4b14d` |
+| `Assets/VFX/Textures/FX_T_NormalMap_01.png.meta` | 2455 | `5fdf90bc0a2a25fc435910cb290903c2a79fccad66112c7e8281d1f1106b7c61` |
+| `Assets/VFX/Textures/groundfx_bosscharge.png.meta` | 2485 | `1edfee59f24c9f0c256696ea8bbecc78133f10e77262bcb99a0647ee20dcfa33` |
+| `Assets/VFX/Textures/FX_T_flash_01.png.meta` | 3098 | `bc9ae83e1e5031e334831d4c16e23178cc33f48efdc7d35a072bafefaaf08778` |
+| `Assets/VFX/Textures/FX_T_Glow_8.png` | 5970 | `1461194fa1444779bf75cbbb682291826920c6caa04dd377dda40dedf46964ed` |
+| `Assets/VFX/Textures/FX_T_Glow_4.png` | 6825 | `29a20067214d8a47550e6f493c9bf26c1366cc0d094373ee45436f993356b601` |
+| `Assets/VFX/Textures/T_CircleSparksSequ_2.png` | 247699 | `2d5be5e98eb357ef3ee6467eb1fa914578e941d3abb0c34ea6ec9aaff7f4dc0e` |
+| `Assets/VFX/Textures/FX_T_StylizedNoise_02.png.meta` | 3098 | `e534d84274ca5b66bcf861a5308d61d3968e5996cd02bf01d9203742f815ef62` |
+| `Assets/VFX/Textures/FX_T_Glow_3.png.meta` | 3374 | `9142642b8efd5308777c95f01f4514cd2f7ea6f5eede9085bcd8ff18b4e44d37` |
+| `Assets/VFX/Textures/FX_T_Twirl_7.png.meta` | 2447 | `70f61e9cac5c6a2d4740d3c62cc20cda54566c0b7f766fdeb71c7f2f5db30abd` |
+| `Assets/VFX/Textures/T_CircleSparksSequ_2.png.meta` | 2124 | `1819d59c88f0cfe1b0c623f45275df60a9e5387ed58a12dee686271610e1d318` |
+| `Assets/VFX/Textures/FX_T_GoundCrack.png.meta` | 3098 | `773ee02edbe6f7a3c863671a017d468e42b65348cd25915fa5a1836cb7c2ae1a` |
+| `Assets/VFX/Textures/FX_T_particle_2_arrow.png` | 3495 | `f4134d013d319c43eb983f9b697cb29a78ddab997d08088755396225d589bec0` |
+| `Assets/VFX/Textures/FX_T_Glow_4.png.meta` | 3374 | `7918d8482a64982a4482960f3cc3ece8fb1f2488e5a95e0ac234b400d8361612` |
+| `Assets/VFX/Textures/FX_T_Shockwave.png` | 276825 | `31c30aa1762bd336d32c283d1e1be5e942d7892b1660c97550bdab926071efab` |
+| `Assets/VFX/Textures/FX_T_Glow_14.png` | 5972 | `010bb056dbee7228d7dc847ffaa324a8f0e27a5d33579fee9a7293043f33491a` |
+| `Assets/VFX/Textures/FX_T_Ice_Mask.png.meta` | 3098 | `0bab4b142d869b901d7be5cb97549759b4b5cf3075e08dfdc95c192f161c9132` |
+| `Assets/VFX/Textures/FX_T_GoundCrack.png` | 234135 | `1b4d3578aa58b96e7a95dfef74004c9f02f5182b44dd7663b3a41fb522ae9c05` |
+| `Assets/VFX/Textures/FX_T_Glow_1.png.meta` | 3437 | `be1b795eeead8e159adc4f1f4efe727ae59a434abf2c039028049a5e9679aa34` |
+| `Assets/VFX/Textures/FX_T_Circle_3.png` | 55232 | `8fefb9f7f2f69514294b18a858f8dd9b46e21a3026101d53e64e2cb342516eb4` |
+| `Assets/VFX/Textures/doorspawn_glow.png` | 72294 | `e75adf2994aeb74244248e914c1965b4293ee8175e3cb73d2b9a042f73f2a85e` |
+| `Assets/VFX/Textures/FX_T_Emissive_Glow.png` | 213408 | `8f4a9d4fc5ab2d2204267588757fb0df18a535149e71a4e3fbc4aaaaee1dd6f1` |
+| `Assets/VFX/Textures/T_Perlin_Noise_M.TGA` | 12582956 | `a37047ec473a95aa0ebdbca49c9eea87f4e47bd327404dc39b8ef18966ecc085` |
+| `Assets/VFX/Textures/FX_T_Emissive_Glow.png.meta` | 3098 | `e68b777e3b84e6fb5739ceaa6e6017e4e381aa120374ff04e0bb5b6860fd69e1` |
+| `Assets/VFX/Textures/FX_T_Glow_3.png` | 6303 | `5e941aa13ac59352604fe9159a9fbbd58bbafbf32f1ad9899c1b2cefcf92f127` |
+| `Assets/VFX/Textures/FX_T_Snowflake.png.meta` | 2124 | `5ce68a0a67b47d0bb284cf691f0fb7485146489eda67b03f055330d23bcb235e` |
+| `Assets/VFX/Textures/FX_T_Snowflake.png` | 33019 | `49e2d8128c6308396ec4d2b58d44e5906d1298d62afde0cb687c2c58639a7a5f` |
+| `Assets/VFX/Textures/FX_T_Noise_54.png` | 376763 | `d901916f5e78ef26f99dcf94a8a133480bfcf6bc9791e29e1a1e4bd56af72a58` |
+| `Assets/VFX/Textures/FX_T_Twirl_6.png.meta` | 2455 | `486cae18e7d2671871d5fef1acec944f5a6db74e7e49f022c41bb96664d28914` |
+| `Assets/VFX/Textures/doorspawn_glow.png.meta` | 3098 | `b522e310f666c73dd512c0557b726801023a7edb2736c839553ead5b2227d139` |
+| `Assets/VFX/Textures/FX_T_trail_6.png` | 27516 | `14c993cf680cf2b9c9d8ec90b8bbabed9f0304806c299062b9ddc7bc186d23b9` |
+| `Assets/VFX/Textures/FX_T_StylizedNoise_02.png` | 335617 | `67a13b8478439bb22054a28338000364fbe3c65271d5caf44e2e6eb61ef254f8` |
+| `Assets/VFX/Textures/FX_T_256_sheet_1.png` | 20616 | `980486c6e6ab927faecc12a2a5568cfaa464a7c20aa1e65c7180ff7435b3b036` |
+| `Assets/VFX/Textures/FX_T_Circle_3.png.meta` | 3822 | `51e243cc11fe9e9021cb17cad37e967f704eae6953eb5e9987c0ba01f4341506` |
+| `Assets/VFX/Textures/FX_T_Ice.png` | 297956 | `fca89712ed186616faeadbdf5cb79d58e1086140b503fb0e7cc1325e65009e32` |
+| `Assets/VFX/Textures/target_player_icon.png` | 41223 | `c07c6e8840a2e44a62d183b99bd2ea75c6f510413612e164d8ed8669f3116f5d` |
+| `Assets/VFX/Textures/FX_T_Noise_01.png.meta` | 3098 | `f867769c0a688f174b975c58c76c5c7e1cb3b8be08fca8747badf9c14015f33e` |
+| `Assets/VFX/Textures/FX_T_NormalMap_02.png.meta` | 2453 | `79e9f310444caebaa97fc894a5cd55cc1cdadc7c1f0fe632706993276edff00c` |
+| `Assets/VFX/Textures/FX_T_Glow_5.png.meta` | 3482 | `fda78b3b0897281764b679a096d3781dbacd97fd02f68cbc3b20a4ecb5aaf5d5` |
+| `Assets/VFX/Textures/FX_T_FlameMask.png` | 147444 | `435357296f27e0de488cf3b09bac93c82c1ee6a1dbf4fdc8704a709198098c11` |
+| `Assets/VFX/Textures/fx_Tex_glowLine.png.meta` | 2085 | `d7fcfdf79a4f3be001667cc0fe101ec3ad31146caa085c80dcd82c498c9c3286` |
+| `Assets/VFX/Textures/fx_Tex_glow.png.meta` | 3098 | `5d13d253c168ccf1027237b2d52a765fb342afc25c07b09d7167c0b32d220c40` |
+| `Assets/VFX/Textures/FX_T_Trail_1.png.meta` | 2124 | `d5733a78fa3cfba7552d0defbe78b8ef1273f8cef484f5ae07bfa5301a057e01` |
+| `Assets/VFX/Textures/FX_T_Glow_15_star.png.meta` | 2455 | `d32e64e0be135dd382bbda493e0a7e673e5aaf069f7f90f5a27bbb20bb1dbadd` |
+| `Assets/VFX/Textures/T_Glow_6.png.meta` | 3437 | `d52b01efda8e9a99d266eb07a977b9ad1ac518b32fdf033cec09b768ca04dd92` |
+| `Assets/VFX/Textures/FX_T_Noise_Cell_2.png.meta` | 3098 | `832b5ef5749af9dc126cba8514140616a55ed5d506c8bdd48747cef86adaac7a` |
+| `Assets/VFX/Textures/FX_T_Ice_Mask.png` | 50312 | `6015ebef7ac227d7fab5f1d711bb08936b623834d11186daece74c5f1ac9eb01` |
+| `Assets/VFX/Textures/FX_T_particle_1.png.meta` | 3433 | `2146a8affab842a7a04b3f11cf4de6b0e4ad123cbd422ed3a2b2d5bf0c0cabd1` |
+| `Assets/VFX/Textures/FX_T_trail_6.png.meta` | 2124 | `5fa9dffd660356aea58687f2e3afe354d5c4d676e5e9c4c1a6dc774930aca2f6` |
+| `Assets/VFX/Textures/FX_T_Sparks.png.meta` | 2453 | `1994a4a62c60f0082c6b24595c76dc9d047182ef75745e4a3f906a2565ce81ac` |
+| `Assets/VFX/Textures/FX_T_Circle_4.png.meta` | 3483 | `24807d357c45669bc56c778154d13aa7fae39ddcbd1019127f429e21d19cce3c` |
+| `Assets/VFX/Textures/FX_T_Wave.png.meta` | 2453 | `0a838674e10c87f96a5ac3470be98bb72d07adb83bc3018dcf3693d86ad30c8c` |
+| `Assets/VFX/Textures/FX_T_Trail_1.png` | 566706 | `2116e666c786c48442bd1f54824579d5eca9dd12190ac0cfb67722984cd070fa` |
+| `Assets/VFX/Textures/FX_T_Trail_9.png.meta` | 2453 | `5ebd5b20868903a4a9002065ac65c21f20652c90b26014f736204281f06bbcdf` |
+| `Assets/VFX/Textures/FX_T_Noise_11.png` | 20706 | `503b06e591c4a1acd1e7403aeaedb3eb07d99a1297b94ea91577a84a42fc38f8` |
+| `Assets/VFX/Textures/T_Ceramic_Tile_M.TGA.meta` | 3437 | `da0d9e3ebc1ddfedb514e264618e5c11c03f004b3fcd14fa28d3d4f23bae5ae9` |
+| `Assets/VFX/Textures/FX_T_Motion_8.png.meta` | 3098 | `367581cb98302ef90e3941696d76b070a7da442806c4df2bb69ca07dd471a4bf` |
+| `Assets/VFX/Textures/FX_T_Orb.png` | 150295 | `f0927da72b986dbfe72cfdbdf6ec4770587e56d75bb96c6100a66fe664ffb6c7` |
+| `Assets/VFX/Textures/FX_T_flash_01.png` | 3409 | `a17bf6c7c0febf7a9fd5afea703c847f6bcde05b542fe02564d1c98994456c64` |
+| `Assets/VFX/Textures/FX_T_StylizedNoise_04.png` | 492473 | `f6f2fee0fb90a38bf56603f70d66a02db7b1bbdf931d7d0f8c233f2ad5a5290e` |
+| `Assets/VFX/Textures/FX_T_FireSequ_01.png` | 28415 | `daab66c349d66adb8423f5bfd00ccf1c1cb4f608db846955925dd1adad8dc722` |
+| `Assets/VFX/Textures/FX_T_particle_1.png` | 2268 | `ed1d860dab820e845427f255d9116c4019cff961dc96ff996f41fed0bbeb18fe` |
+| `Assets/VFX/Textures/groundfx_bosscharge.png` | 116182 | `61e478fa86cd5ec739e4b4e65f9425ac0bad2eb92cf7d01c93e58ec8bf62d1e6` |
+| `Assets/VFX/Textures/T_Perlin_Noise_M.TGA.meta` | 3437 | `469e8a27e502543fd64332572b3af94bd11f38d0c1bd45520473c7209a1fa822` |
+| `Assets/VFX/Textures/FX_twistedDebris_01.png.meta` | 3098 | `895fb697c13c1b3de38c357a7f5f0907f4c4b3dd246b842a9315e43478fc7a64` |
+| `Assets/VFX/Textures/FX_T_Glow_8.png.meta` | 3374 | `97e647459665f42a520277cea85c65b14b261eed1459d9ec0ef0bbc595df6b89` |
+| `Assets/VFX/Textures/FX_T_Motion_8.png` | 3040 | `3cfa3eebdf7a1b991986e84e64a86490831e7bf0e97d1c18613f2e3b7a566a52` |
+| `Assets/VFX/Textures/FX_Sequ_Circle_01.png` | 274511 | `2237ef87b8c2b6785a2a7814066e319ee8fdbef00bab7476c8e942843713f3dc` |
+| `Assets/VFX/Textures/FX_T_StylizedSmoke.png.meta` | 2453 | `87b95012b7d002fc789ab684532af05d3421205e73a604cc339fdd2dc63bfa16` |
+| `Assets/VFX/Textures/FX_T_Shockwave.png.meta` | 2453 | `86665578ff5b8487c91eb6cdbc6cfd6278b69b9f975ff76849cac19900b95087` |
+| `Assets/VFX/Textures/FX_T_Circle_4.png` | 49133 | `59a1b0dd90e1ec115a57b690a80e4da15e7eab8f86260a90903677a4cb961eb2` |
+| `Assets/VFX/Textures/FX_T_Twirl_6.png` | 34154 | `152975bb81b6b357077a020ac9982ec6f64fae6c7ad794c5c0ed76fb71f4b74a` |
+| `Assets/VFX/Textures/FX_T_Noise_Cell_2.png` | 116992 | `82331ddaa3b5ed8408c5a3cd6252fee92619cb6d02c9d0e1740d0dd34904cf4d` |
+| `Assets/VFX/Textures/FX_T_Sparks.png` | 29373 | `f8d12b4c5cd640514ff8dd82314cb2a9f224156fe54e5bd70c1d171ae8a57eb2` |
+| `Assets/VFX/Textures/FX_T_Lense_flare_2.png.meta` | 3374 | `32fa1b9d9005d472491bad10f7b68259873e5be0b2858cbd89e815dec481de2d` |
+| `Assets/VFX/Textures/target_icon.png.meta` | 2124 | `7743877f2fe9b545a7a249a435f65b1c5db65d16a3a00d4a6777d1d4c0021342` |
+| `Assets/VFX/Textures/FX_T_Hit.png.meta` | 2453 | `75bb9c98ba63ac471156a9b7f366561c1c07abf029c47af0d8cbc6211c050599` |
+| `Assets/VFX/Textures/FX_T_GoundCrack_2.png.meta` | 3098 | `3a77aacda4f55c7d0eda91286cf0955d3e015051d817ce64f2e5b2b0630ffeb6` |
+| `Assets/VFX/Textures/FX_twistedDebris_01.png` | 23478 | `92b917583fbb6d4cca19411f9f8ae826362be58d949d44a6ccaf56ff37feed82` |
+| `Assets/VFX/Textures/FX_T_Motion_7.png` | 16146 | `5ee47478af43454d843aac6de96b7c12a54ce508be36122e5bd7b166d32bd58c` |
+| `Assets/VFX/Textures/FX_T_Glow_11.png` | 2274 | `cc4ec8675a735366bbfaed38e988307e2cb14fe61c9581ca59c04d847f95fb4f` |
+| `Assets/VFX/Textures/FX_T_Trail_8.png.meta` | 2453 | `c7a898f26d0ae9b88011badd99dd1656d44c7741406d6cba7faf4c88c925812e` |
+| `Assets/VFX/Textures/FX_T_Glow_14.png.meta` | 2455 | `71dee6dab9051c2cb6e432e93a3fdec6de24ad289ba42cc00f5b0be679fa2292` |
+| `Assets/VFX/Textures/FX_T_StylizedSmoke_02.png.meta` | 2124 | `2fd6138d9304b383eca9c57d403b0768f2da198481ac44ee8e687364623cfeb0` |
+| `Assets/VFX/Textures/FX_T_Glow_10.png.meta` | 2455 | `985865293cb4209a63f1abb64c23b564fb6a65d7ee657c2f25c9722ffb2cfb4a` |
+| `Assets/VFX/Textures/T_Slash_01.png` | 52571 | `8f52fbe33bffc76424434ae0f250fe8a8dc8ea46219294f008d547fc6a890759` |
+| `Assets/VFX/Textures/T_Trail_7.png` | 36029 | `72cf557c9870ce5091eb93d4cb8c35dea49cedbeb350e8e1212ea51b4d790ce7` |
+| `Assets/VFX/Textures/FX_T_Trail_5.png` | 76195 | `4ba36f8cd8c47b6606915777cf178607c89240844c31aca53ad982cfd4baf1f5` |
+| `Assets/VFX/Textures/T_Glow_6.png` | 5169 | `c104d4cefd960017ea47b2480a3270510d59578c82ab4eb31e4b7a63bf578b5b` |
+| `Assets/VFX/Textures/target_icon.png` | 59768 | `66d41b104c5195297fd03c360e5d3ff1f9043138aa41d97f42c6284403cb07d8` |
+| `Assets/VFX/Textures/FX_T_FireSequ_01.png.meta` | 3098 | `629ae31027870f6006de6f06071eb834446dc4d20522d69ac2d9afef2ce9eed0` |
+| `Assets/VFX/Textures/FX_T_Motion_7.png.meta` | 3098 | `c49efc9bd75b5a469e3b70122c2a7ec6c1ba637d854295d79f15c3e203e4cf91` |
+| `Assets/VFX/Textures/FX_T_NormalMap_02.png` | 1351548 | `84257632afc200016a1c8dac121af7f8dc4a7c555046f3af0342d3eb2fbc7d7c` |
+| `Assets/VFX/Textures/T_Slash_01.png.meta` | 3098 | `c7ca495066c8eef937d32812fe6534839c290ca7af6c783d284e86c87051c990` |
+| `Assets/VFX/Textures/FX_T_Twirl_3_00000.png` | 58527 | `188d1ec8d471aaae76a0e25285e06caf970a4cf54d021e53236b1c2c55e29e35` |
+| `Assets/VFX/Textures/fx_Tex_glowLine.png` | 22654 | `1764733beab646a5f3f4763814efbfed10603a7d06fab97292f93158aefc999d` |
+| `Assets/VFX/Textures/FX_T_StylizedSmoke.png` | 85789 | `2468565ddde1adc6f5a5bf94643f4b773e8d710c48c7af9e10eec1be99fded6f` |
+| `Assets/VFX/Textures/T_Trail_7.png.meta` | 3098 | `e2126b71576712a2b99ea98151659212660601a42b00b104093bfd159a58fabc` |
+| `Assets/VFX/Textures/FX_T_Slash_02.png` | 120634 | `924731d3ab8abeaef0174c20997f0d6a1907fe685664dd18e1249fe6648f1c4c` |
+| `Assets/VFX/Textures/FX_T_Twirl_5.png` | 7834 | `894035862bb2c2b58f13248448fad986b89e7a3a1631a4e5d7d26ab5bce85544` |
+| `Assets/VFX/Textures/FX_T_GoundCrack_2.png` | 78831 | `2a6ea15d86880ce5f23b837628f6b6b778e8077324183737bd199bf7f3dc7ee7` |
+| `Assets/VFX/Textures/T_Ceramic_Tile_M.TGA` | 12582956 | `25b686e35b44342b7775f9b99cebe41170856e7a25d7b9a115b75088bcc3a8fc` |
+| `Assets/VFX/Textures/target_player_icon.png.meta` | 2124 | `2a16993bc6e6baacaf2e47e8e1ab196f55366b58a1861817177c2175d57185a2` |
+| `Assets/VFX/Textures/FX_T_Glow_10.png` | 7181 | `0479e0ef2ecf239740a8f7acc344d44ea768652b7382c0d86b770dc1f01ad372` |
+| `Assets/VFX/Textures/FX_T_Twirl_3_00000.png.meta` | 3374 | `4fdd8ddcb42b7c331cb54c520e34f6002eba15a28606f84ef5e0ba360c1c94a1` |
+| `Assets/VFX/Textures/FX_T_256_sheet_1.png.meta` | 2455 | `8d3235665f36de96112da5b6ec2009e3e5decb9383decf32d3bb6e02548f720d` |
+| `Assets/VFX/Textures/FX_T_Trail_5.png.meta` | 3098 | `8a2ed209bd4b60106693b4fdf5ac1a24f935db900758262ec48bb0c6cd6237f8` |
+| `Assets/VFX/Textures/FX_T_Twirl_5.png.meta` | 3374 | `ef29797216af8870d87750fd8d4591d0b467f1a6b6c623fe3d5638dcbff16f41` |
+| `Assets/VFX/Textures/FX_T_256_sheet_2.png` | 12155 | `19f544dd6be0e8d410ed39825b2b36f35b070cd5297ed43e9f21ae7edb2d0c0c` |
+| `Assets/VFX/Textures/FX_T_Glow_1.png` | 6023 | `d207cb05d9dc8efb9fc904a0afdfd612bb002c500fd1e76588dd575ece3979c6` |
+| `Assets/VFX/Textures/FX_T_particle_2_arrow.png.meta` | 3374 | `2e451d7922df4a9ddbcd3cda9923a91abe715fa357132ebe63d0945bcccc4196` |
+| `Assets/VFX/Textures/FX_T_Hit.png` | 223148 | `ef4242a73cfb1a11297e9162e44c7d43fb7a8f1ca6fcbf69b33ddbd1d95d7d98` |
+| `Assets/VFX/Textures/FX_T_Noise_54.png.meta` | 3098 | `2ac48f2c3e0902c849358ea5bbcb91bc87d9993ed187430ac88fe718dcd008d9` |
+| `Assets/VFX/Textures/FX_T_NormalMap_01.png` | 356509 | `6404e59168af487ba757425d1e694304ef393d2d716ce0c9b48da0478e00e93f` |
+| `Assets/VFX/Textures/FX_T_FlameMask.png.meta` | 3437 | `f28f6f06dbf5758213150110d6d4cecb4cdb6da43bed8a5a6a045d3caf110995` |
+| `Assets/VFX/Textures/FX_T_Motion_3.png` | 2021 | `bcb3ef16c6e26580ee75e57812fcf37cf9d8c2d22afd0f30308ba07be8ace572` |
+| `Assets/VFX/Textures/FX_T_Noise_01.png` | 141544 | `5ecaacdfdb4510ed793f7635a9a087bcae23d8500552d0e394ec836966841efc` |
+| `Assets/VFX/Textures/FX_T_Glow_5.png` | 18894 | `1332f2c6c6eda94873b1717adc277622036fc2c9741b9762779c47e0c0efcc2f` |
+| `Assets/VFX/Textures/FX_T_Ice.png.meta` | 3098 | `c8ce8793f316674d43d63ad166b6e8179c811663224c99e9670768a46c5da040` |
+| `Assets/VFX/Textures/FX_T_Wave.png` | 238915 | `6964d66abfba53effc40dbaa606c5b42a8a03cd6f428b4a0146385076b96a52b` |
+| `Assets/VFX/Textures/FX_T_Trail_8.png` | 566706 | `2116e666c786c48442bd1f54824579d5eca9dd12190ac0cfb67722984cd070fa` |
+| `Assets/VFX/Textures/FX_T_256_sheet_2.png.meta` | 2455 | `0af34c276aac15f9ffaa1d27537a982f7f1a48ec4401cecc9f9faf648b85cb7a` |
+| `Assets/VFX/Textures/FX_T_Slash_02.png.meta` | 3098 | `9257753723930059647e335b4e1c901082929764053fbeb1aa34134b4e2a7d94` |
+| `Assets/VFX/Textures/FX_T_Motion_3.png.meta` | 2124 | `fb963b623b49f08d874dcb6ecbda7a2eeded763fe91364485aff1ab3ca3e45aa` |
+| `Assets/VFX/Prefabs/Rogue.meta` | 172 | `a727f58074edcb457dff4fc8d03bd6ca0ead9b92c53b3e30330f5117d4753989` |
+| `Assets/VFX/Prefabs/Environment.meta` | 172 | `21239f53e762192028c300eca56fa8de2081f11268a817e2343807ce4912072c` |
+| `Assets/VFX/Prefabs/Boss.meta` | 172 | `69c0ac6f51c82420e725d98f9f9c7216ced2a2a858a568527ed7e8b82cabee09` |
+| `Assets/VFX/Prefabs/Shared Hero FX.meta` | 172 | `4e7979bc7633446859e7ed7dee15c253c9964ffd4d9f74a969ec3d865a45866b` |
+| `Assets/VFX/Prefabs/UI.meta` | 172 | `4784c6af4368d294f425ea9fbaca1ca2a202ea7b6a55d6773a60c147b2cea3c1` |
+| `Assets/VFX/Prefabs/Archer.meta` | 172 | `0313b11033b3ada30319bf90dc1e1335afe64cdbb3e44a23b3b3534157cddb41` |
+| `Assets/VFX/Prefabs/Caster.meta` | 172 | `19ef7d040a45bcdba1bf16b7c2a5e1d2a4cbcba69123e014619ccf49db84c43b` |
+| `Assets/VFX/Prefabs/Tank.meta` | 172 | `6ceac786f635bccc27050d9d3ac1bb266d907ede69cbf16768178f8f3dc460e8` |
+| `Assets/VFX/Prefabs/Imp.meta` | 172 | `5873934d1de2e9ae220cc8632ea9f1e36ad254e8511528cc9c66cc5285abaacd` |
+| `Assets/VFX/Prefabs/Environment/fx_treasure Chest.prefab.meta` | 154 | `0c0ada7fab6108071ec4f26e14904540db130d1a2252e394be243e22c8cad386` |
+| `Assets/VFX/Prefabs/Environment/FX_Torch_Fire.prefab` | 356923 | `f7af21080119821beb343b0710944681bb0534b77087b7e391c6ad20f9fd1d4f` |
+| `Assets/VFX/Prefabs/Environment/FX_CrystalBreak.prefab` | 592981 | `be20e27a1b280621a53e74a290ee98c32cac95f7c234d19b846bfbeb85e8e1b5` |
+| `Assets/VFX/Prefabs/Environment/FX_Torch_Fire.prefab.meta` | 154 | `a7f0ac95a93bd7800ea81ff0d84f99f524af1e8eaaea82c2bdc63e459aa3b799` |
+| `Assets/VFX/Prefabs/Environment/FX_CrystalBreak.prefab.meta` | 154 | `33dc6d52e274cb15763fdd04eb1f133d4d5ae08de5cbcbb79ab5ea670b56aee0` |
+| `Assets/VFX/Prefabs/Environment/fx_treasure Chest.prefab` | 706495 | `c5c7dccb456da3807a5df6a4092167781138e36f28a9edb4b8a36a4efefd1989` |
+| `Assets/VFX/Prefabs/Environment/fx_ImpSpawner.prefab.meta` | 154 | `6996814721bdfa11610df77a4ad374c52e9cc52bb5ccd1e7ea4bb2cc704b2197` |
+| `Assets/VFX/Prefabs/Environment/fx_ImpSpawner.prefab` | 116477 | `31020ad5fff0be81519aabc28dcb7d2bdf578f603d0906755dcefd1358d65ce2` |
+| `Assets/VFX/Prefabs/UI/fx_GroundClickFX.prefab` | 116249 | `6b2c8c7fde94326e6c6a56d994b22239da969c7b9b440c5149e735b2a91d2a02` |
+| `Assets/VFX/Prefabs/UI/fx_TargetReticule.prefab` | 2379 | `236af92e00fab253c613c7067680955d8584f756f45d3a28bd162b3e72bf58e2` |
+| `Assets/VFX/Prefabs/UI/fx_ui_char_highlight.prefab.meta` | 154 | `b7a8db73f73ce7bd537ddbb9cd75628be7580e7730bc773ed0ee30866c33c885` |
+| `Assets/VFX/Prefabs/UI/fx_GroundClickFX.prefab.meta` | 154 | `69c6fb0df078dcacc27ea70a830cea15cf72a068739ab099334c201ed4185d80` |
+| `Assets/VFX/Prefabs/UI/fx_ui_char_highlight.prefab` | 117460 | `40015914af73fc73f9bd70dfbaa32c48a2c7662556f5fdf0111c861b261ac9e2` |
+| `Assets/VFX/Prefabs/UI/fx_TargetReticule.prefab.meta` | 154 | `192fa8235503fd2fb44da239fab0c452422b45ea12beda4adda853c17a70b2ec` |
+| `Assets/VFX/Prefabs/Imp/FX_ImpDefeat.prefab` | 358262 | `7629ce13ca2b3b7844f2f652a1d345ef0b38b8fc34a7d0f52c659b839aa2f6e8` |
+| `Assets/VFX/Prefabs/Imp/FX_IMP_attack_1_Slash.prefab.meta` | 154 | `033916368217600df4244ad8c6c7b1a2df1009040c5f3232c2a590f067721bd9` |
+| `Assets/VFX/Prefabs/Imp/FX_ImpDefeat.prefab.meta` | 154 | `0106b062fb9fd5c7b4e75a520b55625b0baafe366962c160417eac04c9d76bdd` |
+| `Assets/VFX/Prefabs/Imp/TossAttack.meta` | 172 | `f7508b32076385ab2f4ce44f682d54a602c5fe66ecf60a0113cdc0381fe25e4d` |
+| `Assets/VFX/Prefabs/Imp/FX_IMP_attack_1_Slash.prefab` | 236459 | `355e2ece2d6eebf7b9ccb33824b6c4fb58417b602e61b39fc9692c386558c19c` |
+| `Assets/VFX/Prefabs/Imp/TossAttack/Camera_shake.anim.meta` | 188 | `37bc0c4009db7d9c5ed79740b329845dd007c9cceb678b74f923af6abb22426f` |
+| `Assets/VFX/Prefabs/Imp/TossAttack/FX_IMP_TossAttack_Radius.prefab.meta` | 154 | `e4b2b3aa14d2b1e6710ccec9f10f9b520ccca438b58931584e7d2683139e611e` |
+| `Assets/VFX/Prefabs/Imp/TossAttack/FX_IMP_TossAttack_Impact.prefab` | 944645 | `a9b7facebf440758ac45324c05afe57eca89b1ed6cd0247f16bf2ab100fc4dd2` |
+| `Assets/VFX/Prefabs/Imp/TossAttack/FX_IMP_TossAttack_Sparks.prefab.meta` | 154 | `2ed4ca39858a516f0ad68f13d389d180111b736e1cf25bb8ff8f430aec0c24ea` |
+| `Assets/VFX/Prefabs/Imp/TossAttack/FX_IMP_TossAttack_Glow.prefab` | 120276 | `81ea64bfd4a7961b7bf753ccd495c984b0b6e9f460beeadfb66fc8305b10702e` |
+| `Assets/VFX/Prefabs/Imp/TossAttack/FX_IMP_TossAttack_Glow.prefab.meta` | 154 | `b74c648f26631e683b53fd587af6bc3608596af8cf5674e317a90fdcedd3cbd9` |
+| `Assets/VFX/Prefabs/Imp/TossAttack/FX_IMP_TossAttack_Sparks.prefab` | 466279 | `666d789f00bbe9e5c55694ee2035ddc4a75960ea62bb501345fff6820ee07419` |
+| `Assets/VFX/Prefabs/Imp/TossAttack/FX_IMP_TossAttack_Impact.prefab.meta` | 154 | `fd099a990c36c313350d84b0120657b6e7058a6c4b46a4108a7f41f310f97ba1` |
+| `Assets/VFX/Prefabs/Imp/TossAttack/FX_IMP_TossAttack_Radius.prefab` | 468825 | `7ca6488e975609faea4b76d71b79873e2863d7ceab93777395709b983c34ff8b` |
+| `Assets/VFX/Prefabs/Imp/TossAttack/Camera_shake.anim` | 9199 | `736f495472136935a0ee098499e5120f4c5d1b2fbe5c78f73acca3729431b3d1` |
+| `Assets/VFX/Prefabs/Tank/fx_TankSkill1_fullycharged.prefab` | 358430 | `3cf4fdb01450246fdafcb46c2bae409f34b2a614060856efd0463857ad740962` |
+| `Assets/VFX/Prefabs/Tank/fx_TankAttack1.prefab` | 118304 | `a1629d395dfc1022f57cf9381359671a881ac91e3d1e53a4818b391d1428c175` |
+| `Assets/VFX/Prefabs/Tank/fx_TankSkill1_fullycharged.prefab.meta` | 154 | `0c3ca10143524977149e1978505e52c63c8b65fc2e72f19df0fd0e83bfe5a7db` |
+| `Assets/VFX/Prefabs/Tank/FX_TankSkill2_idle.prefab` | 700826 | `66490059549a5a22d3d412f618b1b7ae7629ea12273eff242127e61fbc5d68d7` |
+| `Assets/VFX/Prefabs/Tank/fx_TankAttack1.prefab.meta` | 154 | `57e2bcd5f90aeda4e220f9fc34833604133fe9ac133373b574ef22f29ddb202b` |
+| `Assets/VFX/Prefabs/Tank/fx_TankSkill1_charging.prefab` | 356467 | `93ac899ee0fa08b4686350ecdd99f92477e27c837d9e12eac4928ba672593ce1` |
+| `Assets/VFX/Prefabs/Tank/FX_TankSkill2_idle.prefab.meta` | 154 | `fadca21b0a3604e1e52cfae043bfd3f6b99b458208cd29b94868839a12ba6656` |
+| `Assets/VFX/Prefabs/Tank/fx_TankSkill1_charging.prefab.meta` | 154 | `a43dc0ec49b58093de77d1f2b1cf563958292280a3d4f2cc6b7cd6dc27a01b2e` |
+| `Assets/VFX/Prefabs/Tank/FX_TankSkill2_hit.prefab.meta` | 154 | `a555ac552a7654556dec24196ea3f5fe2ed850707a1643d8525e178613f084d8` |
+| `Assets/VFX/Prefabs/Tank/FX_TankSkill2_hit.prefab` | 589970 | `d94b79e8a33d606627020e3c2af4a2c012eb985fae5b3a7eadbf0d945d03010c` |
+| `Assets/VFX/Prefabs/Caster/FX_caster_skill_2.prefab` | 356760 | `ce46a244e4b6834594090077ea21ac04dc43e2eb5d6f1317188bee1271280c68` |
+| `Assets/VFX/Prefabs/Caster/FX_Caster_attack1.prefab` | 362240 | `76cffe46b0a7c35a517de43ba28ec488f4c620007cb0ecae642e80c321a872a2` |
+| `Assets/VFX/Prefabs/Caster/FX_Caster_attack1_hit.prefab.meta` | 154 | `5c937d19f830005df739993d66606304a6ef9b04afd463ca81632524344f74d5` |
+| `Assets/VFX/Prefabs/Caster/FX_Caster_attack1_hit.prefab` | 824992 | `7df9d54d85b23019dfb2f6edf7d2e6781ae9f760b184941d4ffcbd38c12570c2` |
+| `Assets/VFX/Prefabs/Caster/FX_Caster_skill1_cast_this_should_be_attached_to_crystal.prefab.meta` | 154 | `19089d84af489ae5a7eaf7361d68e7670ca3bc0d407aa22f778ebd0c7e40e93f` |
+| `Assets/VFX/Prefabs/Caster/FX_Caster_skill1_cast_this_should_be_attached_to_crystal.prefab` | 354112 | `d265be3b0217ff7f9bd1c05541d58fb70d6cc78eab758f83b52d27a3bab62182` |
+| `Assets/VFX/Prefabs/Caster/FX_Caster_skill1_impact.prefab.meta` | 154 | `2bc18e871e07c3b355c0d33641dc0bcdc68dc6375f7e434c669efa2d754458b9` |
+| `Assets/VFX/Prefabs/Caster/fx_magebolt.prefab.meta` | 154 | `92a1ccee31e7ec827e4e13fe60cc5b334358af3387c62660a36ae5f925857670` |
+| `Assets/VFX/Prefabs/Caster/FX_Caster_attack1.prefab.meta` | 154 | `92543cba9bcc3b382f04f6d9144366f3216e4b89d01b9196376ce980a3ed9dfb` |
+| `Assets/VFX/Prefabs/Caster/FX_Caster_skill1_impact.prefab` | 943770 | `04d00a6270ab68612aabd8f11ab4b2f1494d75efd57ebfdbc19ab0cbc9a95c11` |
+| `Assets/VFX/Prefabs/Caster/FX_caster_skill_2.prefab.meta` | 154 | `6b1684e03f871f225d1e8a276ea23465080365db4675999f7d64f392694070d9` |
+| `Assets/VFX/Prefabs/Caster/fx_magebolt.prefab` | 16838 | `f3ff8c4c488176d6a86b358c9e71e5e42a98a5eebe93565e9dd49b4a73989f00` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_DropObjectPoof.prefab` | 238898 | `9c57d4859f0e91431e9bdc7b2077488c7e33110db00b3af4153cf88ba8e0cd56` |
+| `Assets/VFX/Prefabs/Shared Hero FX/Hitreact Critical.prefab` | 707593 | `1556a4add58e5cbc396a9d77b4bdf39638b09a1bbedd723bd2c4926a3f23a119` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_Revive.prefab` | 589147 | `30ac6326d014543940eeb00f48c83ac36f903011c5c59b012fc56d0a8781227f` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_Ice_Pieces.prefab` | 78394 | `7e835009b77d0e60c29f18f2190c217d31cdcaccef0eb9a3a21257b5a0394099` |
+| `Assets/VFX/Prefabs/Shared Hero FX/Hitreact Critical.prefab.meta` | 154 | `02828e51d8437c2690a104b0686cd9a56e4164c66fe1e23789adfae39e74c9ce` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_Buff.prefab.meta` | 154 | `788c789e9bcce6dae4fbabb63b79987820c4017a8b39a72e1602711da06828b5` |
+| `Assets/VFX/Prefabs/Shared Hero FX/Hitreact Minor.prefab` | 588341 | `c64695b08fd74fea4157913d4152fe5e5c03a8553b9a3c3ffe31bed5fbee1e74` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_Ice_Pieces.prefab.meta` | 154 | `1a52d9953fd3ea33eccce23c1150b4b8c7c2cbb5ac2f922ff7ed992e3d775a24` |
+| `Assets/VFX/Prefabs/Shared Hero FX/Hitreact Minor.prefab.meta` | 154 | `1495b60144ccd143d40e64c7dd28cbe2a6e769f80b5d28354260a826d4e8b5e9` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_Ice_Appear.prefab.meta` | 154 | `9ff088eb7333db9c3b6b964326d2a42191cffb6bd194c02b88ddb68bf53f1ff9` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_DropObjectPoof.prefab.meta` | 154 | `ac5519af054be6b849b08b0b4e7d5d86bcc35603db4e366b057dfc95cf59caaf` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_Fall_down_smoke.prefab` | 118287 | `f45061501902e2e43d4a1ed5f588c35343c9081d228c19c31185978fcc52e54a` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_run_smoke.prefab.meta` | 154 | `5d36549f97c0b0d1ff816e6370df5d556a8207d92a86e08372369bb4c5477ef6` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_Fall_down_smoke.prefab.meta` | 154 | `123bfbf16d485edbe3b4a7b8bc47674cf9143c7804fa02d63bed332de9c0d958` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_shared_hero_stunned.prefab.meta` | 154 | `a4d13107dfe1fd08c942e4f45b50da67e63761266fc9fffe4ee95a6e8927c9bf` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_Ice_Break.prefab.meta` | 154 | `714b8f753d648498c44f2f22b10829a989c79178ba2e4197f35dafbcb20beeec` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_Ice_Break.prefab` | 591000 | `2385eacea498c1fce665b94bc1bf1ed523a8e51f62ffb2c58590a9726b9b54a1` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_run_smoke.prefab` | 116877 | `fa26fd3262724cec103bdc4c9265d1057d3785cc44ccecdc34ff599fdf302294` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_Revive.prefab.meta` | 154 | `89a20d8fe1576abc5c816829e292977c31d2bd085c7f8f325fc1418685f05929` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_Ice_Appear.prefab` | 591017 | `85c7b34edf96f876eb3608f726e8498d2ec3ccb4b5b5b885ed203f267a5b5d90` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_shared_hero_stunned.prefab` | 588253 | `754313b9862f155695f47869b9906610566233c133a07bbde1cbeb59c86f7d28` |
+| `Assets/VFX/Prefabs/Shared Hero FX/FX_Buff.prefab` | 356250 | `1285e076e5211a81bff00e43362dfcadcfdd6abe9a9896c4b68314db11a75f50` |
+| `Assets/VFX/Prefabs/Archer/fx_ChargedArrow3Graphics.prefab` | 13536 | `c7b55557cc04d72b49e68bf46e9484f6dc4f2ca0c8de72637fc2a8e30236fcc1` |
+| `Assets/VFX/Prefabs/Archer/fx_ChargedArrow3Graphics.prefab.meta` | 154 | `94c74d502d0b068019ee2275e4c05d72ae65de5a0c946f270cf0b24310c4f4e3` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill1_hit_2.prefab.meta` | 154 | `c97258b31c6b22c3b55cba2706f15d3608230806d0d3668cd5ff161d71acf37f` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill1_hit_3.prefab` | 945477 | `cd272dbe1b472d1ba745eb4f7965e77cee262e72474d66ee29e877afc351d4e7` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill1_hit_2.prefab` | 826328 | `d5e528b116ef491fcabbfb2b48423e30b4f02f75810a7ca63c121dfc717af2a9` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill1_hit_3.prefab.meta` | 154 | `48aadeed44f46766e78359eda29dba26f47a5c48c15b55fcfb863fc9bb853719` |
+| `Assets/VFX/Prefabs/Archer/FX_arrow.prefab.meta` | 154 | `5e44383e5644251427d0edc9757ea3e67715819394378e838123baf99c484b2b` |
+| `Assets/VFX/Prefabs/Archer/fx_ChargedArrow1Graphics.prefab.meta` | 154 | `8dbc1162a0b88a7f7bf0453fb9ad413ff5d50317f61afd0c95bba31c509ac11f` |
+| `Assets/VFX/Prefabs/Archer/fx_ChargedArrow2Graphics.prefab` | 17112 | `c88a318e865febd7452ba21338345d97133ee7dda85b7da109d66f09432e1d42` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill1_cast_3.prefab` | 826514 | `9c249a443c0d80adc7fadba2c4c1012b10b8e14b1dc4630de0ec79442b8f8b7c` |
+| `Assets/VFX/Prefabs/Archer/fx_ChargedArrow2Graphics.prefab.meta` | 154 | `cafa5590dfebbe062a138174e9bdbd21e49198e778c1db028d6cd7831a41712e` |
+| `Assets/VFX/Prefabs/Archer/fx_ArrowGraphics.prefab.meta` | 154 | `69f77f487a5fbbadd1615c35994e319932cc8b1a9493d4a8b434b0cd3a538bf7` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill2_cast_slow.prefab` | 823557 | `1fdf24b3acf5f5492c00d4eca212ba0a27f10f4b94ea13b8ec14880ebd5f23b7` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill1_cast_1.prefab.meta` | 154 | `64e7baa2937d805d95e8ce8fae04adfebbd08bb535034f5eaf63ad375cd1271e` |
+| `Assets/VFX/Prefabs/Archer/fx_ChargingUpArrowFX.prefab` | 9744 | `3b39605388aeb6864031af76f89caa507852507421a6ae7d4928dce1479c99a6` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill1_hit_1.prefab.meta` | 154 | `5a4f1b7313596b89fa7e1ab42df65e82283cfcdf9cebe3b53ddafcbc3a06d2a3` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill3_idle.prefab` | 711475 | `f9a80a66adeb5f185351175ff7a62d5704fa5bd7b5f218c94546aad406d9ddc8` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill3_idle.prefab.meta` | 154 | `f01c135216256944b7e8756e1ee7192b3bed65d5eccb4257d5e82c4154764342` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill3_start.prefab.meta` | 154 | `63fee117488636ea9256c772f898b40a1dfb8a9f79cf289c2d6576cdb37b3614` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill1_cast_3.prefab.meta` | 154 | `1bed245102d52416434fe6af5f94bcbedeb21a57248996ce90038942c72589b3` |
+| `Assets/VFX/Prefabs/Archer/fx_ChargingUpArrowFX.prefab.meta` | 154 | `30e49815ca5906e4878f013a78ad842b866ea68716187648c5f6eef23e2e284a` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill1_cast_2.prefab.meta` | 154 | `6fd52a629fa8a410eeb12ccb52b4d8f764e41aef5ecac3225e4d5785a446f1fe` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill1_cast_1.prefab` | 823584 | `6edb1e0dd84bfb3e6f00dcd7583714542112b6c29cb27338c226f0fd56df03fa` |
+| `Assets/VFX/Prefabs/Archer/FX_arrow.prefab` | 129992 | `15430f3c263d105b840af2c8e72b7a4d204bbb505a870e8e68f9363dcade02f7` |
+| `Assets/VFX/Prefabs/Archer/fx_ChargedArrow1Graphics.prefab` | 17285 | `410f2c96d955197b72dcd9c68841ccece8d7227e22f5ad3da3760dfeab54b291` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill1_cast_2.prefab` | 826195 | `9b704432354bc8afecf4a601a86449f1ef7e79ded85fb1a1a263fd9fb04f58d4` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill2_cast_slow.prefab.meta` | 154 | `94ed2f0e1272a36f1070b2c2465d16cfaa0b46c9103be46fe4fce442c4bacad0` |
+| `Assets/VFX/Prefabs/Archer/fx_ArrowGraphics.prefab` | 6127 | `b049608a41702bc1d42690145bbfa27d112ac3c45d15710a2a4820fe4d6625da` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill1_hit_1.prefab` | 826315 | `8af8d3edf77efb50a41bb0410abe5171e6f90c05221e06784180858422410525` |
+| `Assets/VFX/Prefabs/Archer/FX_Archer_skill3_start.prefab` | 829397 | `eaac49ff2ca46a30101ea2009bfe6394da64ea7c6ddecf8a90f5fe1c4fe93a21` |
+| `Assets/VFX/Prefabs/Boss/FX_Boss_Leap_Ground pound.prefab.meta` | 154 | `553ea1618396308647f9f70e8f484bc37e8d02b334b6df6ae25bf159eb2c2ac6` |
+| `Assets/VFX/Prefabs/Boss/FX_Boss_Charge_Motion.prefab.meta` | 154 | `ce6eba6f7ff165c30708e343d190bd9a8f24d666499800cd96af31f04c2e4dbe` |
+| `Assets/VFX/Prefabs/Boss/FX_Boss_Charge_arrow.prefab` | 119434 | `daafe157d8c185d0320b4fff839c973f8f4cd5bd575ac8a32f786a4aa504d243` |
+| `Assets/VFX/Prefabs/Boss/fx_BossAttack01.prefab.meta` | 154 | `30c6645a87d78ed6afe2dcdab7b59bcd19962e851c71f26dfb45fe5e55eaa934` |
+| `Assets/VFX/Prefabs/Boss/fx_BossAttack01.prefab` | 351208 | `c429cf3ff464d7654d09ff0ff5ed4a9ab36240c1a3eed5022782cb7509cd4bb0` |
+| `Assets/VFX/Prefabs/Boss/FX_Boss_Charge_Motion.prefab` | 702606 | `6e552543e74c310182fd0766a1082894d7b3d484adedb2afafab0b501439c072` |
+| `Assets/VFX/Prefabs/Boss/FX_Boss_Charge_Motion_Hit.prefab` | 1060448 | `042bffcfeba8b8b39ace6f710182c911176800da40cecced85a5f52399c94cb2` |
+| `Assets/VFX/Prefabs/Boss/fx_BossAttack02.prefab` | 351237 | `c061f7f4d9917fd37252fbfd2be1e657c71b09cd780ac592ecc9163fd4167084` |
+| `Assets/VFX/Prefabs/Boss/FX_Boss_Leap_Weapon_Trail.prefab.meta` | 154 | `f5c60616da34daacc142eaea0447e2be3a4d02c34b67f3f7aa0baa6efa98cb63` |
+| `Assets/VFX/Prefabs/Boss/FX_Boss_Charge_Cast(Eye).prefab` | 582699 | `ad466289b5b78c69f6dafda07c46f8668b83edf59a9e5a7dd77454f5b7273692` |
+| `Assets/VFX/Prefabs/Boss/fx_BossAttack02.prefab.meta` | 154 | `eda6dc3332d3efd233c74c201537de79750b1241bef7ed873898482e427b79b7` |
+| `Assets/VFX/Prefabs/Boss/FX_Boss_Leap_Weapon_Trail.prefab` | 119802 | `f8b9b5de44e14c3e0c6d5eae2be8bb593316826a0f1ec04f40c9ec055e15cc4a` |
+| `Assets/VFX/Prefabs/Boss/FX_Boss_Charge_Cast(Eye).prefab.meta` | 154 | `1a86cbd2615dbd7928709aa434052043af76cb7b51813eb6e1bd1387402be0e5` |
+| `Assets/VFX/Prefabs/Boss/FX_Boss_Charge_Motion_Hit.prefab.meta` | 154 | `b32184a230ad05f518086b5c06b062d1f0ce2a314600934638bf1ee56a4cf3a2` |
+| `Assets/VFX/Prefabs/Boss/FX_Boss_Leap_Ground pound.prefab` | 941697 | `7ac91a6ffbd1a76accbdec2e502ea2ae00fed9a09ff608c9eb350c3bbcfce874` |
+| `Assets/VFX/Prefabs/Boss/FX_Boss_Defeat.prefab` | 349804 | `3fbcf1340ecd150da8da78068028fe34ee4aa58b1e234f777d6a677faed26c4c` |
+| `Assets/VFX/Prefabs/Boss/FX_Boss_Defeat.prefab.meta` | 154 | `1e8a676d9c1a5ec03c12ed7b3618df65ac11b4b60a7bfe70809658d74a5a15df` |
+| `Assets/VFX/Prefabs/Boss/FX_Boss_Charge_arrow.prefab.meta` | 154 | `1609a3c515dcbb82d2338b34d9cdebd864b46662405cb1c4932a32ebb69844a6` |
+| `Assets/VFX/Prefabs/Rogue/FX_RogueSkill2_end.prefab.meta` | 154 | `c2f44ed673f0b7952f7c378217ad90959d8343f2110b30a0223a364abe444b04` |
+| `Assets/VFX/Prefabs/Rogue/FX_RogueSkill2_end.prefab` | 825678 | `df16c9b28c9f5dec3b49dde99f2e61e15939b8a385d7e61800b288f97e90f2f1` |
+| `Assets/VFX/Prefabs/Rogue/FX_Rogue_attack_1_Slash.prefab` | 236457 | `0b76bff6b12af3ec5f9f61349b7c5cdaa385156fd65d193247020219e6daf12e` |
+| `Assets/VFX/Prefabs/Rogue/FX_RogueSkill2_loop.prefab` | 583919 | `21420c1aa2a4cf165c1fbe03adc657ccae778964a44d0afb9464756018c5b934` |
+| `Assets/VFX/Prefabs/Rogue/FX_RogueSkill2_Start.prefab.meta` | 154 | `05691f0d481a10be2b10745444ba3e49354a1c7ddaadeca3598569b058712c0d` |
+| `Assets/VFX/Prefabs/Rogue/FX_Rogue_attack_1_Slash.prefab.meta` | 154 | `b5f9b88dab5b9cac83103b6219a858ee295a31072a6e52d25831fff6f4fa3439` |
+| `Assets/VFX/Prefabs/Rogue/FX_RogueSkill2_Start.prefab` | 825137 | `e9e9d05db77226cf0337b12034cee0339617098fef619e396bb4d24377352211` |
+| `Assets/VFX/Prefabs/Rogue/FX_RogueSkill2_loop.prefab.meta` | 154 | `a269971cd4a4bf6d542539bb5602392cf56958e8f104996546a5fb432dcbeae7` |
+| `Assets/TextMesh Pro/Shaders.meta` | 172 | `f8e5c626260cabd271aa660a6c2f303703f19d2d55a6570ed2141be32d4feebd` |
+| `Assets/TextMesh Pro/Fonts.meta` | 172 | `755678b66d44736fab8769c3e40a08263ce8b245acc65d92daf50bff2ac22b8f` |
+| `Assets/TextMesh Pro/Sprites.meta` | 172 | `41e002b97ba2235689fba502d1ee4419f50ea0095cd3632cdc50bc90ca8a94de` |
+| `Assets/TextMesh Pro/Resources.meta` | 172 | `167448559db07c9857b206a0f5a0aedcd6a6dad900d618b35b0702d636573805` |
+| `Assets/TextMesh Pro/Documentation.meta` | 172 | `07a8d45855ad4e331c57cd451654a5a454b001ef9677b725b856810b7d58b77b` |
+| `Assets/TextMesh Pro/Sprites/EmojiOne.png.meta` | 9784 | `eb63c0321658b980b138ce5f675d44689b8c7144df43976931e132e7706d1e1a` |
+| `Assets/TextMesh Pro/Sprites/EmojiOne.png` | 112319 | `a87b965a701de3dc31d7401e542b1fc946587f912c51d7a26e46ade9f098bd1a` |
+| `Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt.meta` | 158 | `9fffc8ac513116b8ac394d86d81ca9ac4ec52ee92c63c114d355808384ea16fc` |
+| `Assets/TextMesh Pro/Sprites/EmojiOne.json.meta` | 177 | `ac2c551b5bc7f7d636d54ded634dfc3493e249567283b2efc06d1299f9360061` |
+| `Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt` | 185 | `4b65f8960e4f4c5c8b35fd139e369265e9bb45667fc16461b2ba01188d464d93` |
+| `Assets/TextMesh Pro/Sprites/EmojiOne.json` | 3966 | `b85c4b3001b6ba82d175f4cd5dab83da467bbc2527d3d447b66919d2d20c4faf` |
+| `Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc.meta` | 204 | `2e16fa15ef884a60a402d8b696f8b09e5315cbb468ba223d256030c7fe2b0667` |
+| `Assets/TextMesh Pro/Shaders/SDFFunctions.hlsl` | 6021 | `88cf0f62e4000b71750c059d0886b19504cd1cf10f39bb61ddc11b77a882d417` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-HDRP UNLIT.shadergraph.meta` | 285 | `8cd498ce8f6ed2e7c0560d605eb912455cd6fdaf09a4d545d9743f63b3426bd0` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader.meta` | 204 | `e3412891b9306b017e60cba4ae4f6d258ee8b161d986dcde9cefb3d60345514d` |
+| `Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader.meta` | 204 | `7430f3e97ae1b46f34e1ca75508705bb7b944307c41dc568ea728011f327086d` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader.meta` | 204 | `1eeca1536c7506f79d4d877b866a5fb88db8f402634e091b6d78aa9d21c9d18b` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader.meta` | 204 | `f2112f50c72762d4e6731391495ea11f76975d677b698e9bcfdd38275ea18f9d` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF.shader` | 11027 | `10efe6d4728474a09970b857faf37913793e168dc13dbd4d7316b54b37615d97` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader` | 12438 | `2a991951b00b0c052363a1025f655450054325437b3d13c2623a987c8ec77c30` |
+| `Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader` | 3836 | `42892a52f22bdde6d482cf2da5f35e4b813063fc6fe42189eee5562080079494` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-HDRP UNLIT.shadergraph` | 279909 | `8a969c2d775079cce4e1c45d5eb6d3964b27d44dc884178363050c74fd5e9742` |
+| `Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc` | 5453 | `d9d43ddd9810476162f21b42477d9ce2cdc4e6cc7571d354c3253aafc6673ead` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile-2-Pass.shader.meta` | 204 | `65ecbce6f1621f2d7ddc5e6004dda5e55e1f58ec6e01178f3691e1e81e01de55` |
+| `Assets/TextMesh Pro/Shaders/TMP_Sprite.shader` | 3446 | `af669bb9ae136c8099f8e0a94a6933fd2f1e1fb0a6842129939a319fab4b8dbb` |
+| `Assets/TextMesh Pro/Shaders/TMPro_Surface.cginc.meta` | 204 | `247746f3a4e39dd24d1ad99e4fae03ae8976586307948b2846529a876dcb0a63` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader` | 3064 | `8b30c140f6af9134392fe6ecf4c0676db73f873489ac52adfb47bbd288cb51b8` |
+| `Assets/TextMesh Pro/Shaders/TMPro.cginc` | 2277 | `14edb7d7b88caf2b82cae68200abe895e5b5b3474c3fffbf0e9b4b09a4e2467e` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader.meta` | 204 | `95aa060f371ee503a22c0a0b018e029c0328bd82b9317feaa784432b0a787343` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-URP Lit.shadergraph` | 283866 | `e0148ce8e5904232a4e711376a45b7af2a007fb9690c5a69c1cb4952a696cdbf` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-URP Unlit.shadergraph` | 277012 | `dc15b6819ad87a4b34ed888ae2c274624efc0ada902d1a9e7752d87922414dcc` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader` | 11054 | `a0d318756cba0f95a7052c387e629d0add3e9a4125c8333f1d1ed591af5f17cb` |
+| `Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader` | 3839 | `1d32f34c71276c1321aa0540a2410e15808743a38b2026923045a4dec4a79b58` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader.meta` | 204 | `fb8fc84b612e19c169cdf3596195b416e68d227a8987a0eaa90d8c137fb69797` |
+| `Assets/TextMesh Pro/Shaders/SDFFunctions.hlsl.meta` | 230 | `e1d0c5347b3c55930759f5bc0985e11611a4b2ff22eef24523eb108687bd1642` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader` | 4353 | `5dadb68b56429547918b392626e9af8fd5173936d20bb43cfca58dfa00947257` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader` | 3523 | `f9fae5906dd37d89298338953294459975de58a5421e68dd9e82a79794b95509` |
+| `Assets/TextMesh Pro/Shaders/TMP_Sprite.shader.meta` | 204 | `9609584c5249687f3765f0018a93dfd6445c7e35d5aee4e87556f111c8852819` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader.meta` | 204 | `42439f5ac7491998f562e8ede73d64c3512953eb99fb1b49e833f5d9999a7660` |
+| `Assets/TextMesh Pro/Shaders/TMPro_Surface.cginc` | 3515 | `244b442520282a66363d121c8d2aeeb30bb1e72cbbadbf41ce68d9100322ade5` |
+| `Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc.meta` | 204 | `edace33591894d86d9a4144466fb3606e538d3341030fe22f908551755120ea5` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader` | 8074 | `44c39aabc7e88e7e1feffc1880df754f4adf86b62e9512aa89e9d2d65171aff4` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader` | 8273 | `41cff58473557bf760d03513a8c098f43a24e4eeb4c8ccd7d828c045a338a9ed` |
+| `Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader.meta` | 204 | `91be1d5618a7da33c878e20cf2be3e13b897d4976c70bde0cda7a67dbd502cd2` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-HDRP LIT.shadergraph.meta` | 285 | `d1b70558e8b974d918e13c010db6d375fef815ba530bc2421ab031aa3a784ee8` |
+| `Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader` | 4071 | `b50afc7edc8a710f8b4159149b2391e7238b5e4076cc0ea2119090ed29e13b4a` |
+| `Assets/TextMesh Pro/Shaders/TMPro.cginc.meta` | 215 | `a9cf9d5431b809e36b8ffff4377b5ebda7d386a36d48838cd134bc09f3caec6c` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-URP Lit.shadergraph.meta` | 285 | `4c36abf5f2611c9d2cb04e7da8c30e42077503a17cb218020e171b6d3ff664f7` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile-2-Pass.shader` | 11795 | `4bc2db64befbd0e37e23539f21096ad2fcd9d61b36d2174d208a7d831a0883f7` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-URP Unlit.shadergraph.meta` | 285 | `f1ef815e2672fd770f47ee424c64f7ecdbdc642b7475828c29db032586aa10b6` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-HDRP LIT.shadergraph` | 287427 | `bf68062f68b38b588abd1c354f64e905f824d9a2c47f92ebdd70a32989eb2097` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader` | 8081 | `fb286386d0592ce6d63eb736f180b4b0f638ec538b0855aa54767a438ebd1173` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF.shader.meta` | 204 | `0897fb06d170043fffa2d28783b347bbaee87a3f09f08374ca44b2c3848697d6` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader.meta` | 204 | `bea74d576f181a8bb04b8cf02eedd0136540325ecb2824928a3aa52c75adcb13` |
+| `Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc` | 2707 | `66db1f03e8d7a413eba79bcb6602fdb2de710b586f34a6f2584ed6f68f028e90` |
+| `Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader.meta` | 204 | `3d462e6f8ba57f45dc5e6000020db066c36ed5a1a24f74f749727812373c2325` |
+| `Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader.meta` | 204 | `3744d078f9a8b6d3c5d9bca51e43f9223544fcafaf9396e121f49ea84a0609d3` |
+| `Assets/TextMesh Pro/Fonts/Bungee-Regular.ttf.meta` | 471 | `ad282ad081653cc1b793c6d2fdf1c0f58ac3d156ded67199051508eba8b846c7` |
+| `Assets/TextMesh Pro/Fonts/Roboto-LICENSE.txt` | 11358 | `cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30` |
+| `Assets/TextMesh Pro/Fonts/Roboto-LICENSE.txt.meta` | 158 | `8595d0f678bbe49609a0c2d6fcb10da064ab49c469c45027f93d984ce45e3cad` |
+| `Assets/TextMesh Pro/Fonts/Bungee-Regular.ttf` | 125120 | `8703e361ba72581826697b737d7d311400867f9d2498018b993c963dc4d1a2f0` |
+| `Assets/TextMesh Pro/Fonts/Bungee-Regular - OFL.txt.meta` | 158 | `980ec9fec5768064c0e52eafb70067ae9ae4e9579e9a76ea5a43cf7cd6a68347` |
+| `Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt` | 4469 | `37f8552e9a874ec10710dc0ede6a9adf168e6609fbd02a507f35629373b85a48` |
+| `Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt.meta` | 177 | `5dbec32c014c17d94674af5f1494d49b42ba00edd50397f895f088c868ccbf86` |
+| `Assets/TextMesh Pro/Fonts/Roboto-Bold.ttf` | 170348 | `c9cc991deb5d27f267830a19f2301eb164d9e61ec08669c1a1a291c5620ff40a` |
+| `Assets/TextMesh Pro/Fonts/Roboto-Bold.ttf.meta` | 471 | `b6ec95ef58c37b04a3a6b66574c7956f4a6074c29fb9310528e8b43950336838` |
+| `Assets/TextMesh Pro/Fonts/LiberationSans.ttf.meta` | 414 | `e2e35a015703584fb119355fa02631764d111c3e112d32519801d46bd697b596` |
+| `Assets/TextMesh Pro/Fonts/LiberationSans.ttf` | 350200 | `e5b0af421ea2bfbc1ac8d251d647268087ae82786234c57f757d1f0b90fa8b49` |
+| `Assets/TextMesh Pro/Fonts/Bungee-Regular - OFL.txt` | 4361 | `5679b74e651bda0b6d71b0781626690977df7f484160684f7f2f73cc1194f3fa` |
+| `Assets/TextMesh Pro/Resources/Style Sheets.meta` | 191 | `1fdf0423552f46284fb97894f36adcd34d32e595aaf5c7cf1ce38a2349faaf89` |
+| `Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt.meta` | 179 | `d5a86d8b7db6aa3ca6f4a63750eb94e0c42a64909b47d8c6c6f2565845534490` |
+| `Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt.meta` | 179 | `6a925814d5e251a0ced6de210db2bacf2de29b4f0dc2991e85c908632e9565e4` |
+| `Assets/TextMesh Pro/Resources/Sprite Assets.meta` | 191 | `5605affac803b81f876f35577f075c9b7e5ea73cf812fdfcc74277bf0f40140e` |
+| `Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt` | 95 | `62d3f4d5f64aaf885692d2d13a8313f6918e6e4c5aeb3990a43f614652bfd89c` |
+| `Assets/TextMesh Pro/Resources/Fonts & Materials.meta` | 191 | `8917470a9265beb1ef55a28c6a3718eb12ec8004554499998cc345056247995f` |
+| `Assets/TextMesh Pro/Resources/TMP Settings.asset` | 1840 | `e5ea5eff255c5094a3e470fc7657400ac632dd5402d65b6de4b5f17dd4e0597e` |
+| `Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt` | 269 | `3a73e5ffe2510756dd3c2e982fdc1218b4be82c6e21abde88070d6860e1bc8e6` |
+| `Assets/TextMesh Pro/Resources/TMP Settings.asset.meta` | 179 | `a65193b095ec3606789a3191751a837704cf52d4f461993ae7903024c6d43f45` |
+| `Assets/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset.meta` | 181 | `b832663ca09ec7af8c8e816fd91a718b2af6c21ab4f126fa818871ad53bce763` |
+| `Assets/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset` | 5539 | `93e073cdb91b7e3d2fa31e2dd13626d7b9d2f327904ba8c3c2b97a3eecfbabac` |
+| `Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat` | 2889 | `25874340976d40e9f9e8abf731b7f32e5a478541dead9288140bd60c7a3287d9` |
+| `Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat.meta` | 179 | `ef2eee63b288d47823da38109e3e8c879f4717a82dc662ac2d5e2460dacde698` |
+| `Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset` | 2264677 | `b28d3683eed292b91e8ab6c352efca7cefb2e57f1e6f9fe8f3ebef544826831f` |
+| `Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat` | 2975 | `b6b65c34e4907dd3006c2217fc8a4cef81b6da24df0a3de8e2288199eb6c5a9d` |
+| `Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset.meta` | 179 | `37233890984555987cb585551bc885069f2849a9b0d1c2191af073b9376aa10f` |
+| `Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat.meta` | 179 | `a8cf0ee9888a163e892368b4660b9c62a7375e7f8afdb8ee02e5c91ca1cdb355` |
+| `Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset` | 9746 | `1ff4ac652c2e66f2de72987ef5b7c49fb532a266591bbf97e932c257497f246f` |
+| `Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset.meta` | 179 | `d6d86504040cf6e736767fda9bdef494afb06d5304384243e2dd703eba3a4a3d` |
+| `Assets/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset` | 13441 | `155fff99f467baa93dd2d0886df466bd242cd5e3c8c60c9d43e9cdad269f7f54` |
+| `Assets/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset.meta` | 179 | `097525b164260b0fb34b4e0c73b3187c693f4dfe2991f475b5b416dbf07dfbbc` |
+| `Assets/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf` | 694398 | `93d6d3ca8a7d8423b01faacd00fa3921fe055fb2187873653a925e4cc1af85c0` |
+| `Assets/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf.meta` | 155 | `942ef57b7129d587bdee03541cc260cf55af7564d9d2d582ea11eacd3de278ca` |
+| `Assets/Textures/Environment.meta` | 172 | `7b18de7b3461fa57935ca59143375aecfdf85edc313d74b0e6cf87fe77eeb334` |
+| `Assets/Textures/Characters.meta` | 172 | `b81f055ec597152bd50dc878f35c2b411fd18e5865e0481cc1bbbdba15939c77` |
+| `Assets/Textures/UI.meta` | 172 | `3814a50f993b9ca4e9db3449c1b7793815c749e3e6062cf83f2dd60c700bba60` |
+| `Assets/Textures/Environment/env_deco_boss_arena_Normal.tga` | 12582956 | `c9086752388717e47459eb7c412a344ac77237dca5db9eac326266eb52779edf` |
+| `Assets/Textures/Environment/env_deco_Normal.tga.meta` | 3120 | `4340dd75ad1234716ca9fb624a5a2c3c7c852893ea557d0afb4dc3c45b42130f` |
+| `Assets/Textures/Environment/env_lava.tga.meta` | 3102 | `cc8a8d566a70d04c46d93debbefc34e461fb276fc6fa01ade9c9ad1ce762f98f` |
+| `Assets/Textures/Environment/env_deco_BaseColor.tga.meta` | 3102 | `c139b46e774250645a5153bd1792a3cb7f740b7df85c1fdec320765870096c4d` |
+| `Assets/Textures/Environment/env_spiderweb.tga.meta` | 3102 | `12afec1b0227f7334bbed7f42f64695560b1799d28e378a8c0c60d5b753146ae` |
+| `Assets/Textures/Environment/env_deco_boss_arena_BaseColor.tga.meta` | 3102 | `57533322d4a23275392e804bd93dcca9d498436e1cb0d903d39738f8e1a53f49` |
+| `Assets/Textures/Environment/env_deco_boss_arena_MetalSmoothEmissive.tga.meta` | 3102 | `793638014aae13a5cee3cce86901f18f27b7c81c4204f411a00786328c712fc3` |
+| `Assets/Textures/Environment/env_deco_boss_arena_BaseColor.tga` | 12582956 | `a961df8e51942cb18c6458724821a0c8863100033ff975f5b92f8741b9952d2a` |
+| `Assets/Textures/Environment/env_deco_MetalSmoothEmissive.tga.meta` | 3102 | `bb45a3d47ad5a6a508f13e063082df07ba291d9bd602f9f08c9cb4e74db1f31f` |
+| `Assets/Textures/Environment/env_deco_boss_arena_Normal.tga.meta` | 2124 | `f94b34be3aafe6b36c3c2e3170c423c49a97bd41ab75110d7d51e6c394de6c8a` |
+| `Assets/Textures/Environment/env_spiderweb.tga` | 786476 | `7609fc65b9d021e6300b6a8b6ef48df2e8d73d1c3dc92b6935cddd4a82d7030d` |
+| `Assets/Textures/Environment/env_deco_BaseColor.tga` | 12582956 | `7afd10e3ffe047babf1278230e3af876f259ec35792d436ec2cffaf9922d2c33` |
+| `Assets/Textures/Environment/env_lava.tga` | 786476 | `3618723caf0298d2dfd69bcb8633f31fd0d5de1f261507fc3728dff44fb2efe2` |
+| `Assets/Textures/Environment/env_deco_MetalSmoothEmissive.tga` | 12582956 | `c1e08d132978a720a7a3383505adec60c99a1626467366191057e5993414bc09` |
+| `Assets/Textures/Environment/env_deco_Normal.tga` | 12582956 | `afb8e6a4e66816e6cd90a32b12409bcd0f3eb5a9d2e4c41adcc22d1a7250c662` |
+| `Assets/Textures/Environment/env_deco_boss_arena_MetalSmoothEmissive.tga` | 12582956 | `8599183c47c563df9abf15a571a31f898e53448b9c6881ef578563aa5730205d` |
+| `Assets/Textures/UI/ui_ptag_1.png` | 18457 | `2f1237b7c7b31392b3f97de69be59506a37ee2affbb22d5ab673a34265bbc19d` |
+| `Assets/Textures/UI/Unity.meta` | 172 | `9b5a1c443141d637dddf78b758c970e9a59012c3ea81a38c89f799fa1605b38c` |
+| `Assets/Textures/UI/ui_char_box_ovr_selected.png` | 28782 | `068939f5fca46b7b80b5f2947c17717e7f426c2f2379a6631aabe0eaac0066d1` |
+| `Assets/Textures/UI/ui_help_imp2.png` | 177580 | `30dd67067f6d0f93bc4ca6d0f34245d2861a937d46c9285d94d8411502de0aeb` |
+| `Assets/Textures/UI/ui_ptag_2.png.meta` | 2485 | `97f015be84a1fb2f7c5978f228c37fb2a4e31c90213f821f30313f24807a34c0` |
+| `Assets/Textures/UI/ui_blurred_square.png.meta` | 3142 | `a832a6448b2e0024b678cb8a17d26c555a5da2d9290d609abd13bb3730051380` |
+| `Assets/Textures/UI/inputfield_Blank.png.meta` | 2485 | `39546e3a9621872f13d6670d87f48fa4b33b56f30f10f4a20fc6ae0d148f8f2c` |
+| `Assets/Textures/UI/ui_portrait_rogueF_active.png` | 64785 | `996030be7271e657af30e0fa72b7fda434039b3547adbf6d483e93a4d7c7f6fb` |
+| `Assets/Textures/UI/ui_action_putdown.png` | 34644 | `c5a3400f38e475b98903aca3b7ece931301ba18f93e7b055258b8fcc39dc6bff` |
+| `Assets/Textures/UI/ui_emote_cheer.png.meta` | 2485 | `f5ff4f232fdad1696367a74d3fbe0c54cc2933705c9c671d8f5f212100203e7a` |
+| `Assets/Textures/UI/ui_portrait_archerF_active.png` | 63982 | `03bdd86ccc9a3e60eef2105172a1a27bc7a0f9bc882e89bb24bc1b0f04e21fec` |
+| `Assets/Textures/UI/ui_action_pickup.png.meta` | 3515 | `4f4a8d8176b4708b6018076675d98d087cc178cc82d05ca2bf85f7ebeaec4a4b` |
+| `Assets/Textures/UI/ui_emote_btn.png.meta` | 2485 | `064ca22f7a0df73591dd6f846934eedcc16d443d254d3e06e2f5fa04e2487e27` |
+| `Assets/Textures/UI/ui_ptag_glow.png` | 14788 | `a74896a730306f026b3e1c37ae0dd0e2629fd599aa81df46396149c01a38d2b5` |
+| `Assets/Textures/UI/ui_rogue_symbol_active.png.meta` | 2485 | `c2d2cfb88dd00d006eb8f2b11140d32adbbadb4e128778c165eca25972091e7c` |
+| `Assets/Textures/UI/ui_dropdown_arrow.png.meta` | 2485 | `c9844544dfd89e092a92e131a4e094386fe54b6fcf595b763e5b90e791a142c3` |
+| `Assets/Textures/UI/ui_emote_sit.png` | 37619 | `55d7ee7c275709ecf059239cadfd8bda0940dac33e109f2cc4392bee40bfe88e` |
+| `Assets/Textures/UI/Room8_logo.png.meta` | 2485 | `f7be4ea4579e755a652c10cb8666c762e6eb32b908a323442ee3a9b76b533e83` |
+| `Assets/Textures/UI/ui_mage_skill2.png` | 37102 | `3224fca2a4de69f872c85ff6809b397549104e53b92d0ba3c519609f81761620` |
+| `Assets/Textures/UI/ui_char_box_ovr_selected.png.meta` | 2485 | `f1725d38452067a60fda3555edf90c4bc4f41a7c4faffa46c3f79bf8490c9382` |
+| `Assets/Textures/UI/ui_portrait_tankF_inactive.png` | 74556 | `6c4707585d6e5cc2fffdaaee3301690854c3e5f8c80194c0068ff1ff1d2beac2` |
+| `Assets/Textures/UI/ui_portrait_mageF_active.png` | 68143 | `41ba13a8f3630b545ae1c39aed014026d00957e51b8968fef4c9ea6f7cf48314` |
+| `Assets/Textures/UI/ui_scroll_frame.png` | 25977 | `5455b733064b32ac248a6e22f39e3f1861e5cbbd528f21c0dd1fe8fca47c076d` |
+| `Assets/Textures/UI/JHayesMnS_logo.png` | 4477876 | `9ff44a16e2c40d20d8d2a447612579b5d07f9b00613f3aafa3839ed7a40373f7` |
+| `Assets/Textures/UI/ui_btn_blank.png.meta` | 2485 | `7703e8fb3430599d1199d5d111a5ac73e62fb815b2ae54a7d2208dfd4336fbcb` |
+| `Assets/Textures/UI/ui_char_box_glow.png` | 24230 | `f80882171142debab01b9e97b73bca8cbadce07f1bf299e6d6c580cb446b273f` |
+| `Assets/Textures/UI/ui_bg_gradient2.png.meta` | 3134 | `b840265a3f975e5388d705d9916b1ec32b7ac4b4bc35bdfb93f247eb6c5deb99` |
+| `Assets/Textures/UI/ui_tank_skill2.png` | 46361 | `634ae4d9e7c87d0985e3c64e22079e1ae5c6299046e33f7ecfa7b0b8797c5208` |
+| `Assets/Textures/UI/ui_portrait_archerM_inactive.png.meta` | 2485 | `4a90a1058931795d8890a298be8aec7cac38e7fe2830b67a0a9903f325660e7b` |
+| `Assets/Textures/UI/Room8_logo.png` | 4481493 | `890bbb314cab5fe1108a6af8c358993c1e3d1e2543d1d11482aeb863420c7f8c` |
+| `Assets/Textures/UI/ui_btn_exit.png` | 12400 | `033c9aced26c2150df2e86c00a2fede7cccc41c7828b2f59af78a866810eccf6` |
+| `Assets/Textures/UI/ui_help_actions.png.meta` | 2485 | `f6f6d9b2ae44472d69b14ce5bcaf69e396c1f47c8e665e18e026ece6bc0335fc` |
+| `Assets/Textures/UI/ui_btn_ready_dwn.png.meta` | 2485 | `7b86f9d18fa0695c71712225cd85966190f216547cd06aa73fa28dc9f720a5db` |
+| `Assets/Textures/UI/ui_ptag_7.png.meta` | 2485 | `1901cca6e7cd31b5c2a9eaf73397e845feae7dd7ed9a7e785133297e783756e3` |
+| `Assets/Textures/UI/ui_help_overlay.png.meta` | 2485 | `92f112f52d352faef9ff15d722d77bce0f84da2dd39f37f5a84cf093212a4a78` |
+| `Assets/Textures/UI/ui_char_info_frame.png` | 19414 | `37bbb2dfe2dd5d2e56291d3a24c146d3f5ffcdf242f4826e24294ade0fe6964d` |
+| `Assets/Textures/UI/ui_archer_skill3.png` | 50182 | `16efb47dfd90348a8ae6b47bec2d68aa2e0b8ac60110134c8929bcc1ef3ab9d8` |
+| `Assets/Textures/UI/ui_portrait_tankM_active.png.meta` | 2485 | `57be33138f3360d86ca9f60cf727cfd779289fab73dbc2a9f20fe2b83ef25f0a` |
+| `Assets/Textures/UI/ui_archer_skill1.png.meta` | 2485 | `cfa640332682de59cb4690d7d58d987c8cb4f35d3e65c0f58b523612945747e1` |
+| `Assets/Textures/UI/ui_rogue_skill1.png.meta` | 2485 | `e45d1268d2c32f27f73d5c9f0da401f0b16af861771ae46519cc73e103ab91c9` |
+| `Assets/Textures/UI/ui_ptag_glow.png.meta` | 2485 | `6ccc63387a5801eda52b4983f0ac22a729c71a07a466af13a08784584edde5b9` |
+| `Assets/Textures/UI/ui_archer_atk.png` | 43516 | `aa6f4bf40708aefbef21d1a791371356df32542e818ed422cda289951aa44b44` |
+| `Assets/Textures/UI/ui_portrait_mageM_active.png` | 69751 | `df256d0e0c0cc5e53f3eeec092ec8c9c1ca9d804c61bb9f1e39a78f718d850d0` |
+| `Assets/Textures/UI/ui_portrait_archerF_active.png.meta` | 2485 | `4ee655a0fb37ce8f4c0ce88c635d7bab3bbd0094a7be83fdc25b9a2145e15f38` |
+| `Assets/Textures/UI/ui_portrait_rogueM_active.png` | 55918 | `131e237a297ae41ba7354ba932e423400e3dccbfe3b986f49fcd1f3c45b35813` |
+| `Assets/Textures/UI/ui_btn_ready_up.png` | 17549 | `6d329a71d6980b90c58fec04933f4ca925b10b475d213f04fb9c2c5b4826e672` |
+| `Assets/Textures/UI/ui_portrait_mageF_inactive.png.meta` | 2485 | `0e74ddebb2d48f4089c1370ded509349f13df6a593e8cb9ceb3994635d9def43` |
+| `Assets/Textures/UI/ui_help_actions.png` | 80002 | `caf8bdb0116c42cf2cd63d6c96b3ba7dfaa68ef58a1d7e36563f9c5d76e1fb3a` |
+| `Assets/Textures/UI/ui_emote_wave.png` | 39722 | `704aaa3334476837697b2944c21c3be4fc0f11f6594d420ad818eacd9d7201d8` |
+| `Assets/Textures/UI/button_Disabled.png` | 14448 | `f98cc414e53fa07fa1bdcd8e4a6b0786cef819545db94deb9f67fd73caeb2601` |
+| `Assets/Textures/UI/ui_portrait_archerM_active.png.meta` | 2485 | `8500a8ccc87e7ed0f553d69cd6390489cd704b0951c89284304b8ff4ef55182a` |
+| `Assets/Textures/UI/ui_checkmark.png.meta` | 2485 | `88e6d95169b96fbb6aef75674359d60c92408408f71fbaa0ad0367f329bee5de` |
+| `Assets/Textures/UI/ui_archer_symbol_active.png.meta` | 2485 | `8e4f0c39f392c855ce607d89282a575333491af7cad0f839698e137db0d1930b` |
+| `Assets/Textures/UI/ui_archer_skill3.png.meta` | 2485 | `6ed39a4bea273d119f6499e239d61003c8e36b96c26d17d5aca77368be90de19` |
+| `Assets/Textures/UI/ui_ptag_1.png.meta` | 2485 | `8d24981bc1cb7dc49583d8e232a75df4ebd6fc6b0c6ce706bb61f814c1b8ff9a` |
+| `Assets/Textures/UI/ui_portrait_mageM_inactive.png.meta` | 2485 | `d8f122a4ac4ad3e45922ffa88bbd8954d9400c933ea59e72017f130102d06469` |
+| `Assets/Textures/UI/ui_emote_cheer.png` | 40763 | `8c425e2475f21ca3d4ec25f5cf7046160341ae195b7fd44306bd8547aab647bc` |
+| `Assets/Textures/UI/ui_help_imp3.png.meta` | 2485 | `e2379dbd78aabe813c6de5067661c80fbd8d8d685faac9f8cb3a2ac42cb3988c` |
+| `Assets/Textures/UI/img_HowToPlay.png.meta` | 2485 | `c41bf8517cbfb692808f7b9cef700d74592414bb49906c03493e571908a6ef7e` |
+| `Assets/Textures/UI/ui_portrait_mageF_active.png.meta` | 2485 | `6be58603bde530455aef2b75f061782587b6d82678dce321a6245071005dff8b` |
+| `Assets/Textures/UI/ui_portrait_tankF_active.png.meta` | 2485 | `932d629f5c9ee91661d9265cdfd82b9538f98c67616b542f9d2d921f3fda6eed` |
+| `Assets/Textures/UI/ui_portrait_tankF_active.png` | 74375 | `e7b55554f4019046cc61cbb7b117beb164ba5656d8680cda461622bf7a81990d` |
+| `Assets/Textures/UI/ui_dialog.png.meta` | 2483 | `655b689cf05d805c28c644178007211d31f8368c80100519a4a56849b970703b` |
+| `Assets/Textures/UI/ui_archer_skill2.png` | 46522 | `8f9a3d6f875ccdc63f146e96c154b8b1915abf80e6a86c6039bfbe350ad0a4d7` |
+| `Assets/Textures/UI/ui_rogue_skill2.png` | 38653 | `f7015a108392018377490853717d429b7937e8744f16b60855073d06d1620024` |
+| `Assets/Textures/UI/ui_tank_symbol_active.png.meta` | 2485 | `eace221dd73cc1229e9419f589d7102a841ac21ffe7c3540d82e13a5889f4df4` |
+| `Assets/Textures/UI/ui_help_imp1.png` | 319068 | `1f05bb835ea1b89fbddc1c8525d099c6a43f41b37f445c4c86c214fe901fd0d4` |
+| `Assets/Textures/UI/ui_portrait_archerF_inactive.png.meta` | 2485 | `b7666e99f6f1d7990d9f7e7f3fa331f7e6a27fadb603d98ca1f37a0639fb233a` |
+| `Assets/Textures/UI/ui_tank_atk.png.meta` | 2485 | `f0e2d2a800bca99ba4876e68ceae697d2a3dc8d072a9e531d0e98d72e9ee705e` |
+| `Assets/Textures/UI/ui_mage_symbol_inactive.png` | 76083 | `178afa3e3662eacb9b4903443c4715b5cef795f436002044b6dd1962514dc756` |
+| `Assets/Textures/UI/ui_rogue_symbol_active.png` | 70446 | `b6e83f25c5672243dd21f671e2a0232a6dcc7cf39c6b0ae0a7b22ca7aa6614ed` |
+| `Assets/Textures/UI/ui_portrait_mageM_inactive.png` | 71205 | `e4711badcf0afe70d95a083fc615c09075e85383d49edee8be937de2b00c1abb` |
+| `Assets/Textures/UI/button_Disabled.png.meta` | 2124 | `4b265ca3763a83d2e09a4b292ec019ad046ab19501584ab829ef39d1e5b84c5e` |
+| `Assets/Textures/UI/ui_scroll_frame.png.meta` | 2485 | `8a5bc41c22236ddf7327ffd5d7d90a8fc1c3492436dc16c8d682ec7ff9ddab5b` |
+| `Assets/Textures/UI/ui_revive.png.meta` | 2485 | `782a3f0a5cbc552443262d3a10a4675004c5b55e0776ec9896992a399f770c5b` |
+| `Assets/Textures/UI/ui_ptag_3.png.meta` | 2485 | `6d65a4b48988f0e969b9cbfa0fd1b09ffe8dbebccafabcda74256287ca8c35e9` |
+| `Assets/Textures/UI/JHayesMnS_logo.png.meta` | 2485 | `36b677f76f3406c052071168b204f78f645547d71179697663d5e3b73c91d61c` |
+| `Assets/Textures/UI/ui_portrait_mageM_active.png.meta` | 2485 | `9bf3a50a6c124a8392579bf7f18c6d014413359e033a9bf2563232476774b159` |
+| `Assets/Textures/UI/ui_bg_gradient2.png` | 55757 | `11446408316ee6051a43b812067ee2dbb7acf706b601f5133cdd2b3fca50cf9e` |
+| `Assets/Textures/UI/ui_tank_skill1.png` | 37137 | `fee7feaa90651d6b2625fa4e19aaedfd4d177efcaab78e8c2399f97d45845e50` |
+| `Assets/Textures/UI/ui_btn_ready_dwn.png` | 19572 | `34f00b029c0248303ab5580913b6421a096185a474a6df4e01e61158824532c2` |
+| `Assets/Textures/UI/ui_emote_dance.png` | 34604 | `fb865b48213bc0822199eb9e2463f181c6c22bd4acee251b92d6ce7b40a64982` |
+| `Assets/Textures/UI/ui_char_select_title2.png.meta` | 3138 | `e3db37a72ff4c4a54560ed3589393501230371719849301783e83a005214f56b` |
+| `Assets/Textures/UI/StormFlag_logo.png` | 23972 | `732728f291a0a7322c16d7c3e5f1281c8e79f6ad3e96f355d8f9eafdb53f7170` |
+| `Assets/Textures/UI/ui_help_imp1.png.meta` | 2485 | `f1c974c3eb3948f0ae31083b6ea6a3ea7c656908ed633019e8dbfa6b7fa7b463` |
+| `Assets/Textures/UI/ui_bg_gradient.png` | 43873 | `59b4f6c288d84072986ed3d80da98ecc137292f93d34b3f38997eccfc65b67cf` |
+| `Assets/Textures/UI/ui_help_move.png.meta` | 2485 | `76f238b120e3af9997c5ca7409be5ee0e6258767ae5d354ac9e8d95d955782ec` |
+| `Assets/Textures/UI/ui_healthbar.png.meta` | 2485 | `c40e98d3bbcb657b3480cd1baee08cf5c9dcf72b93441d3011866f09ccfed7d8` |
+| `Assets/Textures/UI/ui_revive.png` | 47929 | `54b5a1f8b7e64e1a69e234a276cded3fb98f38506b46d50feaf8f4792f77f55e` |
+| `Assets/Textures/UI/ui_ptag_5.png.meta` | 2485 | `fb1a20eb135232014edff6e534ba4495add2c8d69d970a0a0e176cad06feea4f` |
+| `Assets/Textures/UI/ui_ptag_4.png.meta` | 2485 | `0bc6395e04c3e1e58ce5af48c06cd089a2a8ecb19e898a1ad41d2ee9d0b8e2db` |
+| `Assets/Textures/UI/ui_portrait_archerM_active.png` | 67158 | `fda8bd69bfd0bd5665124bc0b238528a584f6e4e8d743c009f6984fd9cfdaf9f` |
+| `Assets/Textures/UI/ui_rogue_skill1.png` | 44384 | `f182bf160dd235fdba91afc8e974092be5a6d2180f91eaf48b9ab3cadb955da9` |
+| `Assets/Textures/UI/ui_portrait_archerF_inactive.png` | 67858 | `91d003f1a1b0aa5d5e73d826cbe05ba94d239a9713e47440467bbdf415886f50` |
+| `Assets/Textures/UI/ui_help_overlay.png` | 61668 | `75ed65b2e44e1783380ce50ae1a2b09a656f8a52fdc525f648541fe29c9460ff` |
+| `Assets/Textures/UI/ui_help_imp3.png` | 275232 | `3fecc7a5901d00fc674c145ceea6f228839bd58f4299f335cab00fe7cd772ed9` |
+| `Assets/Textures/UI/ui_portrait_tankF_inactive.png.meta` | 2485 | `fee256456e2665eae0f4a91269b460f9610468876413151ce16ca99018a1a83b` |
+| `Assets/Textures/UI/ui_transparent.png` | 8239 | `db21c131bfe37532f54738f0cdb02c8c5aaf5141f437a4cde64d338498ed3bf2` |
+| `Assets/Textures/UI/ui_btn_exit.png.meta` | 2485 | `7aa1f4e6e4edf9d364287315d53fe3476d12911f16386d8f519c2b5c918e6c52` |
+| `Assets/Textures/UI/ui_portrait_mageF_inactive.png` | 69396 | `8e280be89083dd6a56feef0d2bbb6e7996f59b07d44cb0fbb7d6604b652cd9ac` |
+| `Assets/Textures/UI/ui_connecting.png` | 12478 | `0e49c59d2cbeabf9b1924ef8eb7416556f48ca6e321bd2fcef969d74ada69940` |
+| `Assets/Textures/UI/ui_rogue_symbol_inactive.png.meta` | 2485 | `70b103ba575fae5f135f5f119c5a0442193c64e2dda1e335b346cc178309dce2` |
+| `Assets/Textures/UI/ui_hero_bg.png.meta` | 2485 | `8c889c1d1f97d70fdc797c259af821255a7a5e3926268155dba6b5a9425c38eb` |
+| `Assets/Textures/UI/ui_portrait_rogueF_inactive.png.meta` | 2485 | `b92967879c60d588ef45560db5c79364d31f2759a5b80e13de43c8a7647f8bb6` |
+| `Assets/Textures/UI/ui_tank_symbol_active.png` | 86721 | `382df2dfd72ce0c9265e5dc98652ed381b7083c74337ac463c09b5d3d53aed65` |
+| `Assets/Textures/UI/ui_btn_ready_up.png.meta` | 2485 | `929a0a23a1eb05c9a9c985e753b4eddf41888536c4281c1b603821490b222d91` |
+| `Assets/Textures/UI/ui_archer_skill1.png` | 41820 | `7ab857971dda8d740fa341f7c6966d80e9fea668ad7861580fca1621aba27772` |
+| `Assets/Textures/UI/ui_char_box_glow.png.meta` | 2485 | `f9fcffa0bfd38683c08796e01eecb0bf425f03890bd3cddf17f34a8a5f7d0b76` |
+| `Assets/Textures/UI/ui_action_putdown.png.meta` | 3515 | `060c11a52acbeafc46c5484a4b6bcbcc7a5bb69ec74dcd69f0fc243dd3612495` |
+| `Assets/Textures/UI/ui_portrait_tankM_inactive.png` | 72652 | `eb7366b41872c051152b81cb3a922d80bce68d1b9b48d85bffe879cb252c8526` |
+| `Assets/Textures/UI/ui_emote_dance.png.meta` | 2485 | `4110d0dae5960096a4f7a1899be41789aad53684f5ac301a821d522becd4477e` |
+| `Assets/Textures/UI/ui_sound_settings.png.meta` | 2485 | `9b7439d611ce513ee9a3f872c978e4cb4e23b737b98963a908d11339ef7dc8cb` |
+| `Assets/Textures/UI/ui_char_select_title2.png` | 49098 | `d8a380db7c025b33c48173a8a98e39232615a0c13bfb263ecfa61b45e4b9532f` |
+| `Assets/Textures/UI/img_HowToPlay.png` | 257085 | `900a6db4873b330b38d72a17324b45bdb6d8f19f0ca0816cf087b318cdb2f8cb` |
+| `Assets/Textures/UI/ui_char_info_frame.png.meta` | 2485 | `81e2f0c527d41001eef4f978691f470e129b288875281b30674314c28200650a` |
+| `Assets/Textures/UI/ui_help_imp2.png.meta` | 2485 | `1b0cbe61bd68457b7c3e9808089ffc3b198bd840ce1ee689b86eb585569aa7ea` |
+| `Assets/Textures/UI/ui_portrait_rogueF_active.png.meta` | 2485 | `070d8e9c2d45fc659907482787a5ae3bd1d6c5b28e9cc5f58c573797b201b3fb` |
+| `Assets/Textures/UI/ui_ptag_4.png` | 18119 | `79e9fe3d876b21e99abcb6465efd8f0d0c15e4391496ea7a42fe3b1d411d2b03` |
+| `Assets/Textures/UI/ui_btn_randomize.png` | 15657 | `e5565a46f8809bda56f21fa749daa4e373f8a77e7b88e7d742ddd494d41169ef` |
+| `Assets/Textures/UI/ui_mage_symbol_inactive.png.meta` | 2485 | `3be60d3b428ed73da0ad04dab7113b5e9072aaf6285dea5b31b415aa46dd44de` |
+| `Assets/Textures/UI/ui_char_box_ovr_avail.png.meta` | 2485 | `fef1d54de40db1067300cc2cdc7cdd2ea0c3df4b9b9906bb186d3eb701f5d964` |
+| `Assets/Textures/UI/ui_sound_settings.png` | 21288 | `7dd2003dbf213c01004bc3255a5602f7d3e45b5c08a3d7fa3cbd310b62012d52` |
+| `Assets/Textures/UI/ui_tank_atk.png` | 34208 | `e3d1ea5495074d8742f00266eb6a87c1f7c53c777fb3e9a7a0fbbe47ed8009cf` |
+| `Assets/Textures/UI/ui_portrait_archerM_inactive.png` | 69510 | `84df12cd36848f7b9041bb6d3b8456774af81ebf0547e5e6dde8945e9c2169a9` |
+| `Assets/Textures/UI/ui_emote_btn.png` | 30112 | `3bb58bb8bbf7c90b03e9ed56ab00ebcee2b7d978eb8e01c522c04137167a5cc2` |
+| `Assets/Textures/UI/ui_portrait_tankM_active.png` | 70646 | `fdb1404417bfdaecf7ae43edd3aea8e1576f7cff3d75c23adf8fe4d79ff0165a` |
+| `Assets/Textures/UI/ui_help_attack.png.meta` | 2485 | `0db1074ceb8358e5c86e9b676b28bd5c2eac1dd3d5b8d17a7930bdc0b82afb31` |
+| `Assets/Textures/UI/ui_char_box_bg_selected.png` | 34199 | `08a5267aac7b8818c853a619e448dbd75029cb7d2dd22e1eff6db7eac14f0a45` |
+| `Assets/Textures/UI/ui_archer_symbol_inactive.png` | 71846 | `70710e071180f37bb966a59ac5020c48927a5781bc1c17b2f5fd53630a6c1bdd` |
+| `Assets/Textures/UI/ui_dialog.png` | 15959 | `f3666be419e8227a710ddbc8298fa5dab4df9c535c56a9986109a31b20bd90ee` |
+| `Assets/Textures/UI/ui_mage_atk.png` | 35087 | `1bee19d16814db94823a75bba8416c1ae254c5a7b60339204121c73c5afc5d0e` |
+| `Assets/Textures/UI/ui_healthbar_bg.png.meta` | 2483 | `e36a0cd3e28388f8766e8c96d0f0cef688a17fdf1811e9cff4a13c14bff392ef` |
+| `Assets/Textures/UI/ui_btn_disabled.png` | 14448 | `f98cc414e53fa07fa1bdcd8e4a6b0786cef819545db94deb9f67fd73caeb2601` |
+| `Assets/Textures/UI/ui_rogue_symbol_inactive.png` | 70288 | `4c1fda595e7ded085834b8a967dab30cf353cd424fa25654a3053d6d750235a9` |
+| `Assets/Textures/UI/ui_ptag_8.png` | 19957 | `2fcc665b147a07adb124ee123e89425b28c5204ae9818ded75a78245946b51d9` |
+| `Assets/Textures/UI/ui_char_box_bg_selected.png.meta` | 2485 | `008062475e0a95538e176e6f8a02cc043e2d3bf53f633c0cf116b28db050703a` |
+| `Assets/Textures/UI/StormFlag_logo.png.meta` | 2485 | `9f5154e833a08ea57fa59f80322dc00426471191cc41d65af549fcd1b7c80148` |
+| `Assets/Textures/UI/ui_healthbar_bg.png` | 9249 | `81b7b930ef98c5cf05ff4e954cbb78a1c40215400a3263451455c18978828e3f` |
+| `Assets/Textures/UI/br_icon.png.meta` | 2124 | `95e64926ddc3bc6432f125537748dd8e93aecd4ddf51a41e26c2608f162bb5d2` |
+| `Assets/Textures/UI/ui_emote_wave.png.meta` | 2485 | `77ea5cd3056458ec926e09eaaf1ff86ab52b2cfd1a138b35f1aa5c7d3d332956` |
+| `Assets/Textures/UI/ui_archer_symbol_active.png` | 74624 | `fdff2aa1078f503b47c974512f3e93deeed7e734748d300e98207368b37efdcd` |
+| `Assets/Textures/UI/ui_tank_skill2.png.meta` | 2485 | `4c50f583a1476446a0b3b226dfff89f074671d9f7ba065d2df14da3989008c90` |
+| `Assets/Textures/UI/ui_mage_skill1.png.meta` | 2485 | `ddbb3c2b4966d535384ed1518d447ad472e614a512be4d601775db5e955c5153` |
+| `Assets/Textures/UI/ui_mage_skill1.png` | 36755 | `65ca306fb48929337bbf5089b6cc908ceaa4b8473cf5ef3a040452410b60cd25` |
+| `Assets/Textures/UI/ui_btn_randomize.png.meta` | 2485 | `c4096a73bbe78b818c8c5d43b7a705ec302d99475790c73d71724ac05764bedd` |
+| `Assets/Textures/UI/ui_char_select_title.png` | 46098 | `4c0681c38c4ffa8f75f3fdadcab6d5947706ed8eb78ab71f971588d091f23d1d` |
+| `Assets/Textures/UI/ui_portrait_rogueM_inactive.png.meta` | 2485 | `beeff61ee29f1b41e059d42414e694c247f53715d0ff0f21997a135db2e19177` |
+| `Assets/Textures/UI/ui_rogue_atk.png.meta` | 2485 | `6bb1bd2772e9bbcd28590954e79697f8ad11da04166eab4bad65c641548cda01` |
+| `Assets/Textures/UI/ui_mage_atk.png.meta` | 2485 | `a06b523c370ad2048278bc04e7bcfb6d50cf755bf3acda3cb1ceb6b5772b00d5` |
+| `Assets/Textures/UI/ui_bg_gradient.png.meta` | 2485 | `0f8d0fd55ee17b99523329e71c3d5d721df51df1bcc904933cd60e3d4d583d2b` |
+| `Assets/Textures/UI/ui_transparent.png.meta` | 2485 | `019c91a68fad490e47bf5ba0fc9552374287ef4189a513996d383b6ba7e2daa1` |
+| `Assets/Textures/UI/ui_dropdown_arrow.png` | 10282 | `60e15ee131dce5ab2a7bb1cf60e53ce0091c9b797a1402b16deb82a24cff79e9` |
+| `Assets/Textures/UI/ui_char_select_title.png.meta` | 2485 | `aa961d6194d657607c736f5846e89a2125ee4ed1a4df3c7adb8740d32585e154` |
+| `Assets/Textures/UI/ui_ptag_5.png` | 19827 | `c24c73108a565c4ef5ada2f4bb8bc17c4c06a49182e08961cebc24df502d0e15` |
+| `Assets/Textures/UI/ui_rogue_skill2.png.meta` | 2485 | `959525e33e9cc4195467a5afa43b96eae3328c99d13ce1b309bc031623cbda2b` |
+| `Assets/Textures/UI/ui_tank_symbol_inactive.png.meta` | 2485 | `9e9bf4a445c9dbb3602d0867bf766cc35e5eee8b19f9a18510bfffa76219f3f3` |
+| `Assets/Textures/UI/ui_action_pickup.png` | 36167 | `60caa76896b549ae9935470e3b4ebc8cccf65e2baceed5e52d373124800e0731` |
+| `Assets/Textures/UI/ui_help_attack.png` | 95166 | `54f94f3326f4731169a2fda8dc9cf9d26c0385e76bf94861710aea21169a4891` |
+| `Assets/Textures/UI/ui_blurred_square.png` | 17373 | `6e0ab31835a41ebcb60f587e937eb97afd546c5af483bab0298734e60f5c389a` |
+| `Assets/Textures/UI/ui_ptag_7.png` | 20257 | `93500046e6a8d2ce9c160d3c796c8ff223dde3fd206498310dc9597298beebb7` |
+| `Assets/Textures/UI/ui_ptag_6.png.meta` | 2485 | `9b1bb14a33256b2f74a5bb2b0bc8c60ef3102daea7469d98007263dd88b8c964` |
+| `Assets/Textures/UI/ui_emote_sit.png.meta` | 2485 | `0e820775a618336e3ad571cc0f7f5dab0a66d03d73de1aaa1f1218b83877089d` |
+| `Assets/Textures/UI/br_icon.png` | 93548 | `57317cdabfeb34d9a907e41ad45eee13550a30985ebabb04d1a1a00ec02c299f` |
+| `Assets/Textures/UI/ui_mage_symbol_active.png` | 80878 | `ce7a5050dbc584f26d6c9d5059124a9608041b772bda24659b4984d5f3694994` |
+| `Assets/Textures/UI/ui_archer_skill2.png.meta` | 2485 | `ca217484f0f7b82d93797efd443970ad6c0954b821ea78612a2d8a0c86aba55b` |
+| `Assets/Textures/UI/ui_portrait_rogueM_active.png.meta` | 2485 | `e9bf9636490c6eedfa256a7b4449e8e06743f6497554b8d2ab317363e4e07f48` |
+| `Assets/Textures/UI/ui_ptag_8.png.meta` | 2485 | `013d264149a3e09abbbfc54bcdd5d2289f6ef5561d0a7ab52c21957db09312fd` |
+| `Assets/Textures/UI/ui_title_logo.png` | 536526 | `d7dbf51d56589e24539ab2b6a2ca8d019bb0cccc98e9b4796a7f1fff0d9fac4a` |
+| `Assets/Textures/UI/ui_ptag_2.png` | 18589 | `e67295a399031370cde662872b7db23ba1ec023cfcd68910208aaa7284b06b50` |
+| `Assets/Textures/UI/ui_ptag_6.png` | 20299 | `619eead8dce3988a7f9e7d76435b63e963f1e2128eaae696d53b2d10d3a46b54` |
+| `Assets/Textures/UI/ui_help_move.png` | 85179 | `d2a6c553ff17b291f7546d8a95e3c5c7b189d4aeddaa27bb176374b7f392bf20` |
+| `Assets/Textures/UI/ui_mage_skill2.png.meta` | 2485 | `f49d51a332ede460ff15699f903bd8566c4e66a89b7cc681efe8874a55eff54b` |
+| `Assets/Textures/UI/ui_healthbar.png` | 9935 | `81984846afb1c4e6bf9c4a6c0c029e09cbb20c4a14524f73e96e7df5adfb2450` |
+| `Assets/Textures/UI/ui_btn_disabled.png.meta` | 2992 | `2f791a9593e78a30022a396dd3f021b4daa8d50ed4f9c30f2a99f796cbde1c3e` |
+| `Assets/Textures/UI/ui_hero_bg.png` | 37544 | `e9b40ba059815019d5a544030b0019d305fe7adf2eb360c3161380fc351741a9` |
+| `Assets/Textures/UI/ui_ptag_3.png` | 20275 | `9e16382b1f4450187995e2f810ac5db5ba870f98b5326762e78bcbcdb0a1d220` |
+| `Assets/Textures/UI/ui_portrait_rogueF_inactive.png` | 70109 | `4a2cc5f3e1fde5108ed907b970034d81b35dbae4b654792e79494eea316a8ff2` |
+| `Assets/Textures/UI/ui_connecting.png.meta` | 2740 | `4c6a7641c8d00ec068b64043e6a172c6aca90b11d25e2752a62e8ab74fab6e24` |
+| `Assets/Textures/UI/ui_char_box_ovr_avail.png` | 29145 | `f2a8ff07525df727a4273f9ede8ffa442a52db2a43871e94f2666f91de50ca26` |
+| `Assets/Textures/UI/ui_checkmark.png` | 14065 | `dd5b153b87fa55513362c416baff048f9063a9c37a95e6d58ec585876547e22b` |
+| `Assets/Textures/UI/inputfield_Blank.png` | 7314 | `487cdbe9f732ccf6eb0088e5a8d26dd7cd377bd59b7d2e7d760c3cafadfea920` |
+| `Assets/Textures/UI/ui_title_logo.png.meta` | 2485 | `f89b01c5a7208116f1ef123a9afc12e9bdd9b16e5850fa8778ef386a036efd1a` |
+| `Assets/Textures/UI/ui_archer_atk.png.meta` | 2485 | `bb6e874263bbad52599bc788a55fbc95e0fa6f21c5d7978e10940b5a2bf64a8d` |
+| `Assets/Textures/UI/ui_portrait_rogueM_inactive.png` | 56232 | `82dac454863448c4f4acca3f881615c3d346ea49125f2bcf33659cf0f317c660` |
+| `Assets/Textures/UI/ui_rogue_atk.png` | 39270 | `00450c54f1fed50d5695ff1d08564fa715eaa54a99f80ad261ea45611420cd3c` |
+| `Assets/Textures/UI/ui_tank_skill1.png.meta` | 2485 | `19b729afb1368e5019f7dc026549a2c7d21c62aeca9c9d0f09c1fc0f46e47b08` |
+| `Assets/Textures/UI/ui_archer_symbol_inactive.png.meta` | 2881 | `ab57795fd8d0d942c63394e008440707b47638e0fa30b2848b1cfb19957b9fda` |
+| `Assets/Textures/UI/ui_btn_blank.png` | 9324 | `19ad15ee7c3dfc83f15f5a4f2c8ea1500f446b4eedfc155ef14f1fb9bcea0c09` |
+| `Assets/Textures/UI/ui_mage_symbol_active.png.meta` | 2485 | `d09102c81ce2a7ac07c84cf8b2519183ebb38fb06c0d06153c5acb7dbe42decb` |
+| `Assets/Textures/UI/ui_tank_symbol_inactive.png` | 81170 | `c537450be1ea6c6679e2e61fd4a6705e940e31c409efb29d098f3b9ad677f33a` |
+| `Assets/Textures/UI/ui_portrait_tankM_inactive.png.meta` | 2485 | `809a57bc3eb79c81b701ebf5b6986c0d8c7d538474e7c05e656a1731b0f26a65` |
+| `Assets/Textures/UI/ERO/ERO_CharacterCreation_Reference.png` | 2194429 | `442a50b7a1fd67ca108d86e04f3d58f8251b4c628b5d412d8709c1c24f14fc62` |
+| `Assets/Textures/UI/ERO/ERO_CharacterCreation_Reference.png.meta` | 398 | `4387853aefaa0a45be765476b9b3db4ee9af2f98dbe44c12bba8c7b07acc6a60` |
+| `Assets/Textures/UI/Unity/U_Logo_T1_LearnWith_White_RGB_resized.png.meta` | 4450 | `8718783b1d82f1bdd3672aed2347f69b77cf6f99b80afdf6fd6f46fbdf8556fb` |
+| `Assets/Textures/UI/Unity/U_Logo_T1_LearnWith_White_RGB_resized.png` | 38663 | `e0f2289653c36c1b68a561f29d219f2d4d9b345f2b7ba849ea869f54c27b4537` |
+| `Assets/Textures/Characters/Enemy_Mouths.png` | 4485641 | `9876b59019d596d7762a3592091139789369001e83d8ebd80dcf4d9dbd6b2f3e` |
+| `Assets/Textures/Characters/Archer_Hair_Girl_CLR.tga.meta` | 2053 | `afcbdff758405dbbd5e3e4ad9e44feb8d993935235d194dbbb8ad36379659480` |
+| `Assets/Textures/Characters/Hero_Eyes.png.meta` | 3150 | `853ea858455619bb2ba25d2a5090b6e05414fd530b064e15c829d75f8ea19643` |
+| `Assets/Textures/Characters/Hero_Eyes.png` | 4538588 | `9643a4689533461481acbf399487bab9b2fa66f7b36925313a168ecf4d78837e` |
+| `Assets/Textures/Characters/Tank_Torso_CLR.tga.meta` | 2053 | `2ee4e4b2553bd33416e7cca81cf89a01a960ab9a817330ca11c33214c2569e5b` |
+| `Assets/Textures/Characters/Archer_Weapons_CLR.tga.meta` | 2053 | `b507341d7962f6112abc551838560c3aaa55f9414b2b2a6bc6188d2bcfc53814` |
+| `Assets/Textures/Characters/Rogue_Head_Girl_CLR.tga.meta` | 2053 | `8cd7e70bd5c7d68d7f77b969935edd9a092a0d2e302fceebd3fe7b8bbdf09de5` |
+| `Assets/Textures/Characters/Tank_Head_Boy_CLR.tga` | 786476 | `d2c155d57ac45375e3338451a90006a12a756da43a8ea5016bbc6be124726aad` |
+| `Assets/Textures/Characters/Enemy_Eyes.png.meta` | 3150 | `c70ccbf82f486d04adf7f3845f988d1578a0739d61a27c9083e8fdc64c413318` |
+| `Assets/Textures/Characters/Imp_Head_CLR.tga.meta` | 2124 | `d7d14f7562272125300b9fd9bac7753d3ce271b6d2f594d1583fa076116d1c0a` |
+| `Assets/Textures/Characters/Mage_Head_Girl_CLR.tga.meta` | 2053 | `81b5f53d537c7750ad70413315988e198833d81b3ccb7c129930151e06e70fb3` |
+| `Assets/Textures/Characters/Mage_Hair_Girl_CLR.tga` | 786476 | `6c3204eeaadaa3876f0c251347da95f433a14909a0f244a8d20ba76945ba5b6e` |
+| `Assets/Textures/Characters/Archer_Head_Boy_CLR.tga.meta` | 2053 | `fc77c8d21d85b8e9d90ba746d2cfac150a7d974064cf7f6e0e4ecc35bcbc8347` |
+| `Assets/Textures/Characters/Tank_Weapon_CLR.tga` | 786476 | `298ae56060716096745470abb523c8666f00f6496a677cb1df9d97c3fe52efc8` |
+| `Assets/Textures/Characters/Rogue_Torso_CLR.tga` | 786476 | `dc176f6b65fe4edd35fc05198db8b6bc64d8b855528604f28f783728b4b44e34` |
+| `Assets/Textures/Characters/Enemy_Mouths.png.meta` | 3150 | `42bf079464fb7427b4cf6bc094b9e8c13f48b1c1878a67dd5fd8ca25eaf36984` |
+| `Assets/Textures/Characters/Imp_Torso_CLR.tga` | 786476 | `d5cab172eb16c9c24d1ef9ffb6c4b3e4123f25db9a4fcb7b652adec7f6248e3c` |
+| `Assets/Textures/Characters/Archer_Hair_Boy_CLR.tga.meta` | 2053 | `80fa12a20c124eb22d07b15e210af08ce397cd9aa9565b486b673d17b8d771df` |
+| `Assets/Textures/Characters/Tank_Hair_Boy_CLR.tga` | 786476 | `030f51a93a4be9ddf42985e5e79413ba054ef7f049439117f885f7afc6dd5d3b` |
+| `Assets/Textures/Characters/Tank_Hair_Boy_CLR.tga.meta` | 2053 | `66899f526e90a05e1453287e052c3bb3a810be8fd2b07820dbd87121fefcbf0d` |
+| `Assets/Textures/Characters/Imp_Helmet_CLR.tga.meta` | 2116 | `2f84520fb93980eb83f978f58eca9dfe4e702440b3419c7344b8f2ad09050829` |
+| `Assets/Textures/Characters/Archer_Weapons_CLR.tga` | 786476 | `ffa9ffd8d97d6c924e6a9725b4b5ce693cfd34a5a9f8289706edb91e0964e717` |
+| `Assets/Textures/Characters/Mage_Head_Boy_CLR.tga` | 786476 | `6a41b0f581c99cb177ab56ff2cc618cd8a6244aaad9251a94c2c8afec851265e` |
+| `Assets/Textures/Characters/Boss_Torso_CLR.tga` | 3145772 | `7a5eee245bc42896d937dc00da2b914220e85e6284f6e4f265a5b4085e5aad66` |
+| `Assets/Textures/Characters/Mage_Torso_CLR_Girl.tga` | 786476 | `7fce724eaedcad1a970cb75583d4aa04418cce02db9ad10e8e8a719f2601c93d` |
+| `Assets/Textures/Characters/Rogue_Head_Girl_CLR.tga` | 786476 | `ad0dde50a85fdacb0675e9278d754c6bc9f4e257da4750cc2ca60279fa089f25` |
+| `Assets/Textures/Characters/Mage_Weapons_CLR.tga.meta` | 2053 | `0f3e9928732ca331156b57dbe92b807f32196077f8d19ddd4ccb4b8adb2bae6e` |
+| `Assets/Textures/Characters/Archer_Hair_Boy_CLR.tga` | 786476 | `f804afaabc8542afd2c7362c2d1b5775bd61b2b511afc37ae1470db0838bc3e9` |
+| `Assets/Textures/Characters/Rogue_Weapon_CLR.tga` | 786476 | `e2082b09c9c82cde60edfd8e4d55514cfe3c8ab1038aa0914dd5be0846789cb5` |
+| `Assets/Textures/Characters/Mage_Hair_Boy_CLR.tga.meta` | 2053 | `b0c2897a9d18642c1cee46fc096089257ed96c1dc0acc2d6a0fde377a3fe4c1f` |
+| `Assets/Textures/Characters/Rogue_Weapon_CLR.tga.meta` | 2053 | `3b2fede2395b9b0b79f2e4fb1d9f6dcbbf6f3f95d8580336caae9b8006afbff5` |
+| `Assets/Textures/Characters/Rogue_Head_Boy_CLR.tga` | 786476 | `0101c50ed4322bc1a87b3cb0e6e3bcaa4305606ef57015f76d6bf88f1d6e1010` |
+| `Assets/Textures/Characters/Imp_Head_CLR.tga` | 786476 | `3f359c61e8f2fae64eb1cf7b064141e207bc49f6d3d88364a64d84dac0f7d346` |
+| `Assets/Textures/Characters/Archer_Torso_CLR.tga.meta` | 2053 | `6b417e308a96f80e3557ec278dc3322b418d8a773688f702980fb09c60ec6ad1` |
+| `Assets/Textures/Characters/Imp_Weapons_CLR.tga.meta` | 2124 | `cd1563c05ae1f74a518a63c8135a862acbde5abc7f57f3c7043934ae5b02bb04` |
+| `Assets/Textures/Characters/Mage_Torso_CLR_Boy.tga` | 786476 | `1b5965918028ce4e266a3ee1b0627039aeba0558c884aea176272a23cd56cfe8` |
+| `Assets/Textures/Characters/Tank_Weapon_CLR.tga.meta` | 2053 | `20aae407c1082f71f566c0b345973026f74546a8346f9331fef4f39f9a74a93e` |
+| `Assets/Textures/Characters/Mage_Weapons_CLR.tga` | 786476 | `b2b42757842df9bc0847547b8e089bc39475eb5d14ed58d15be1c9c123ff30a8` |
+| `Assets/Textures/Characters/Rogue_Hair_Boy_CLR.tga.meta` | 2053 | `2138c7068df49f3367c908c7caf11d3b2b05d00fbdc25efe50522250f4e99afb` |
+| `Assets/Textures/Characters/Tank_Head_Boy_CLR.tga.meta` | 2053 | `4d1356d858658f022caad72f7036e96cd81510da154e60573d199016772c6818` |
+| `Assets/Textures/Characters/VandalImp_Torso_CLR.tga` | 786476 | `7f54bdb6a3c029ab0c1a92f62af19a567ce48445d34d484eb2bdaf51d9174cdb` |
+| `Assets/Textures/Characters/Tank_Hair_Girl_CLR.tga.meta` | 2053 | `0cf5400bdeb83dafcebde263ec46b2b6e68cee2a2142b82ea18d0eac366e3a24` |
+| `Assets/Textures/Characters/Hero_Mouths.png` | 4497365 | `bc9bba3ca6a20816105bc313683c997f94f87e4ae2c45f58413984b6757cb016` |
+| `Assets/Textures/Characters/Hero_Mouths.png.meta` | 3150 | `f828a56be2b3128750bf3e4fc1aca7b535d41fd43b748663705cf083e6100879` |
+| `Assets/Textures/Characters/Mage_Hair_Boy_CLR.tga` | 786476 | `32ff05bb6f506e259bfe76ee9df304bfd8492fcc1f2312a7ddd9b05bf3258d7a` |
+| `Assets/Textures/Characters/Archer_Hair_Girl_CLR.tga` | 786476 | `2b7ab513426d0bf02b0a44a4926225a1714841dd8f349c1995aa571e99d571cf` |
+| `Assets/Textures/Characters/Imp_Helmet_CLR.tga` | 3145772 | `f6758dcad7e36d73c24486b1f60bb8a6578c89bad15297c6523e11a06320ecd1` |
+| `Assets/Textures/Characters/Rogue_Hair_Boy_CLR.tga` | 786476 | `4b21b680d2c273729556f2908e174eee0e22fe3d03efdab0a86b5feebd38bd3a` |
+| `Assets/Textures/Characters/Tank_Torso_CLR.tga` | 786476 | `a5194faab3d257464930b3f66c1e69afc83425118bae20275284aaf7df5c9582` |
+| `Assets/Textures/Characters/VandalImp_Head_CLR.tga` | 786476 | `85ec647c3a1b866a121edde3c28866ec2d4eb8a5c3327a91017f028a38b2a394` |
+| `Assets/Textures/Characters/VandalImp_Torso_CLR.tga.meta` | 2116 | `2a80c56dea69fc1f1b3156fdd8937dacb0b73556752edd6bd5d57411d6722e06` |
+| `Assets/Textures/Characters/Archer_Head_Girl_CLR.tga.meta` | 2053 | `34075b913507a4e651de690db6c8bbdf0b9e3861566c57adca38b6b682391cae` |
+| `Assets/Textures/Characters/Rogue_Torso_CLR.tga.meta` | 2053 | `dfcaa1ad3bd5c2ab6cde31e87987fdbb7bc9bf47077465c22f1e7f0bad557f0e` |
+| `Assets/Textures/Characters/Mage_Head_Girl_CLR.tga` | 786476 | `78e4241355439b0d1ef0b266dd42ac82da44dbfdc9f6463425082f78d1e1cd16` |
+| `Assets/Textures/Characters/Mage_Hair_Girl_CLR.tga.meta` | 2053 | `3312a46ed52bf262f2c50c6664fc91469cd7e41388a16c4bb5ef7abb316ef27a` |
+| `Assets/Textures/Characters/Boss_Torso_CLR.tga.meta` | 2053 | `4d45892be723e2bea7968e675cfdd09eb7076f458b09119202340b1f96383588` |
+| `Assets/Textures/Characters/Archer_Head_Girl_CLR.tga` | 786476 | `235ec6b604c78e76e96f8e05b89b76943b8dfa72b2b8aca4fce57ca2ad922c04` |
+| `Assets/Textures/Characters/Tank_Head_Girl_CLR.tga` | 786476 | `5880613a24051c7434c8b0c3e8e29aaad7be9fa987896103cf9a398271e0f21f` |
+| `Assets/Textures/Characters/Mage_Torso_CLR_Girl.tga.meta` | 2053 | `645b4bd8e9dba57e0c688b06afb8fdaee0089e2b5bbb473226cfe1f572dda048` |
+| `Assets/Textures/Characters/Imp_Torso_CLR.tga.meta` | 2124 | `c3851d60f90918ec241f103d7beb82c1936e4b49a4a63d51cbc5efd79defb4d8` |
+| `Assets/Textures/Characters/Boss_Head_CLR.tga.meta` | 2124 | `be5c7b7d9e567180e4b0b7ebfb92585a76684b7c86c5354a4561ddebfca80fa9` |
+| `Assets/Textures/Characters/Rogue_Hair_Girl_CLR.tga.meta` | 2053 | `1c53599a48477510910bd8fdb648cf5fcc45ee1c3a916eef201f41fc80defc38` |
+| `Assets/Textures/Characters/Archer_Head_Boy_CLR.tga` | 786476 | `e3c0f5b6295bc5183fd8f43ea16d7746e3ce93d0fc2beba34483d3c1ed47ad0e` |
+| `Assets/Textures/Characters/Mage_Head_Boy_CLR.tga.meta` | 2053 | `292247e4334cdfbe520227bbb9a5583c42df685e17c5b08acf88ce8a0a612731` |
+| `Assets/Textures/Characters/Archer_Torso_CLR.tga` | 786476 | `4f37d46562b8dffc4ef21a78833601e508463a220cea1ee82a12388bf80aafaa` |
+| `Assets/Textures/Characters/VandalImp_Head_CLR.tga.meta` | 2116 | `787f7271f1c43a3ccc12ae51f28c3568a0f3f2579ba51565599a6042c80c57c0` |
+| `Assets/Textures/Characters/Boss_Head_CLR.tga` | 786476 | `31863fc760eacb3cba4020e251facd19516d37aaeebbf1de9e99432f7bde2931` |
+| `Assets/Textures/Characters/Rogue_Hair_Girl_CLR.tga` | 786476 | `5a41c4b6250b5a8267e132b7b542ffab9914f0f6dc33961b151b24c0f2ad5c13` |
+| `Assets/Textures/Characters/Imp_Weapons_CLR.tga` | 786476 | `f88756db1e4218008537efd88284ad9852a3ed28a6d0fb9fffb5751f6e48905d` |
+| `Assets/Textures/Characters/Rogue_Head_Boy_CLR.tga.meta` | 2053 | `ea1491ec628eb8ce09319d72dc8dc1b9621d4c34944fbbff03dc658d8185e64d` |
+| `Assets/Textures/Characters/Enemy_Eyes.png` | 4482827 | `c39d80a00bdad2a79740757cf99cff8f55ed1adad8cc3823c9a8bcfbf9b9a76d` |
+| `Assets/Textures/Characters/Tank_Head_Girl_CLR.tga.meta` | 2053 | `e2f0239a23fd73d779426b649d98b1eb1fec704a4f54e0d95960c28123e281d0` |
+| `Assets/Textures/Characters/Mage_Torso_CLR_Boy.tga.meta` | 2053 | `61b679b4ac5820e606b4ef5b3e6d70896941aa131fc7563b38af9f6f1d8e223f` |
+| `Assets/Textures/Characters/Tank_Hair_Girl_CLR.tga` | 786476 | `896eb548d01f3130d6b95df972d0857029503c7734ba404fefe520958251068c` |
+| `Assets/Textures/Characters/.mayaSwatches/Enemy_Mouths.png_hcm.swatch` | 1540 | `342e881a2ec57a996d7ddc1c63a6c834712c18ca33802d1a437d75c7428fc027` |
+| `Assets/Textures/Characters/.mayaSwatches/Hero_Eyes.png_hcm.swatch` | 3528 | `d51ff1f26cd754cc13a751b460104c1b9eccefc90d5890b72a93fabb9e8e261d` |
+| `Assets/Textures/Characters/.mayaSwatches/Hero_Mouths.png_hcm.swatch` | 1360 | `053f1560524345b3da3ecd81e7464b263cdc1ea7a7d4684b31cb2b2cca4bf9a9` |
+| `Assets/Textures/Characters/.mayaSwatches/Enemy_Eyes.png_hcm.swatch` | 1352 | `8e7f7b1794d81850519fc1050846a68117626ceb9fb1a25b78cb6b09450ca15a` |
+| `Assets/Textures/.mayaSwatches/Rogue_Hair_Girl_CLR.tga_hcm.swatch` | 412 | `7a72c18198d5f47d842878e962bb1b60ec27da8e14c7311cf45923dbcf49a0d6` |
+| `Assets/Textures/.mayaSwatches/Tank_Head_Boy_CLR.tga_hcm.swatch` | 412 | `76cc6e73bc889df3947de7a90e4a155a1c2fa27c883d57a3ebedce46429749c0` |
+| `Assets/Textures/.mayaSwatches/Tank_Hair_Boy_CLR.tga_hcm.swatch` | 672 | `8acc8e21df934d931d9f48524dcca5b123aebce267202949e8595b5202f9a3d9` |
+| `Assets/Textures/.mayaSwatches/Mage_Head_Boy_CLR.tga_hcm.swatch` | 412 | `540f796eda1e9beb81407f0906611aa858d6395d819316d544be361058d1ca42` |
+| `Assets/Textures/.mayaSwatches/Rogue_Hair_Boy_CLR.tga_hcm.swatch` | 412 | `de7bb6d40b1e595e4072348a1629a813813a9cb7f446dbb5a8d580c31faf2e71` |
+| `Assets/Textures/.mayaSwatches/Archer_Weapons_CLR.tga_hcm.swatch` | 3904 | `1c96164e9c056953e59342eb8cca283b5100f9277d68e86a0871a2a9e0e9cf15` |
+| `Assets/Textures/.mayaSwatches/Mage_Weapons_NRM.tga_hcm.swatch` | 4976 | `c3b7fd6184f1ea1cc42829f90faca54dcfdf119b8400fef379a5e7f614ba1b3f` |
+| `Assets/Textures/.mayaSwatches/Tank_Head_Girl_NRM.tga_hcm.swatch` | 3408 | `0c871a9331dce5c33d3c87d85f63e76ed167b1fdc4c6ff0014d9e4b902328515` |
+| `Assets/Textures/.mayaSwatches/Rogue_Head_Girl_CLR.tga_hcm.swatch` | 412 | `19feed11a1b09e163e2525f29ccc7734c60241e7c2baca206cd3a4a12b7a84e6` |
+| `Assets/Textures/.mayaSwatches/Archer_Hair_Boy_CLR.tga_hcm.swatch` | 412 | `e22a2ddb4cb18628c5cbf6e23bcfae42bb2c2370377942e3cd3448985d6e7949` |
+| `Assets/Textures/.mayaSwatches/Rogue_Weapon_CLR.tga_hcm.swatch` | 2192 | `8d5024fab652140417b300998fa622f1641a1a511858cab979cd94bf1f2ce3fb` |
+| `Assets/Textures/.mayaSwatches/Tank_Weapon_CLR.tga_hcm.swatch` | 3868 | `0055ff46939bb1bbafff3aba829336eca933221a0f606ab9e7405b15528492af` |
+| `Assets/Textures/.mayaSwatches/Archer_Hair_Girl_CLR.tga_hcm.swatch` | 412 | `d705410fc21d3a10b75b702ba5f2e4fa27952d0ebeb553c18bac7b828effb7ce` |
+| `Assets/Textures/.mayaSwatches/Tank_Hair_Girl_NRM.tga_hcm.swatch` | 7876 | `195443ad2b9113d21bc8e58ae153cd5fd0d83d7852b2d39d9cd08c93e8c31e7b` |
+| `Assets/Textures/.mayaSwatches/Mage_Weapons_CLR.tga_hcm.swatch` | 1484 | `74da2124f2424f5a03ee8cc5ef1362f8ff45c6e829d53e67a1af9a90ee02c78f` |
+| `Assets/Textures/.mayaSwatches/Tank_Hair_girl_CLR.tga_hcm.swatch` | 2916 | `5dc689f8ebd538fa1f44404245293f9217d6410527bf0b02838bded109566d12` |
+| `Assets/Textures/.mayaSwatches/Mage_Hair_Girl_CLR.tga_hcm.swatch` | 412 | `12b24fbc852370213368a75833940e2db69058ee15821dc56503d6ecadbf9ca2` |
+| `Assets/Textures/.mayaSwatches/Mage_Head_Girl_CLR.tga_hcm.swatch` | 412 | `dfe42f5a2845d6e67ec1580df28ed2b15771976a10a22c94d249cab5abe7b19c` |
+| `Assets/Textures/.mayaSwatches/Tank_Head_Girl_CLR.tga_hcm.swatch` | 968 | `ff21bbcd90fe3ffc37b65e8a2ac998467d2522d298c7eea7a75c9fe50d02f542` |
+| `Assets/Textures/.mayaSwatches/Rogue_Head_Boy_CLR.tga_hcm.swatch` | 412 | `a09b57c0384a02dce29172483b4694d331dd558ca957e5e2153b2482eab525d0` |
+| `Assets/Textures/.mayaSwatches/Archer_Head_Boy_CLR.tga_hcm.swatch` | 412 | `f08d4bdb5842d8e35b66d56e5f9b671cdc09114fe0f0c1b655f7918383d3afbe` |
+| `Assets/Textures/.mayaSwatches/Mage_Hair_Boy_CLR.tga_hcm.swatch` | 1244 | `63754ac1d2bf5a807282dbb99dbc18a70bc3cd78c158ac75e860afb3c70e5630` |
+| `Assets/Prefabs/SceneLoader.prefab.meta` | 154 | `206bbe13cf84530104809532ef50fbac09e47734f0f9db639a8c132ed6b0dddb` |
+| `Assets/Prefabs/Menus.meta` | 172 | `f9e4ecc059a06528d15ca529cf3542a5cf96f3a5184ce4a7e229b00d2c25bd1b` |
+| `Assets/Prefabs/GameCam.meta` | 172 | `0686df4415295147f15bb6b0e2eddd647e928efd75c064db280522bdb8edf275` |
+| `Assets/Prefabs/DebugCheatsManager.prefab.meta` | 154 | `50d4f4d5b8e49fb3271c45e3e13598a874feffc13e4635b7c6cc87ff240114e4` |
+| `Assets/Prefabs/UnityLogo.prefab` | 10389 | `b7cf86eb11ecd5130657e31272ba12dc3eab84c84bc084da2ba323fae9c8651c` |
+| `Assets/Prefabs/NetworkingManager.prefab` | 2865 | `d6f7987ddaf88f05119e58405327b2b9ce78990cf10d38e0efce5421b0525806` |
+| `Assets/Prefabs/NetworkingManager.prefab.meta` | 154 | `fe17c2908512dbb5c19fc18ce56a86b43a39c4dd2879d2ee2d15110bc0bc65d8` |
+| `Assets/Prefabs/Shadow.prefab` | 2441 | `1a48a2284ddf83d7944d5139ce04b532a8be6e8e29d73911a5967e7b26e12579` |
+| `Assets/Prefabs/UnityLogo.prefab.meta` | 154 | `b7129c3c748e616f52de97486f03bdc2946e4309589ac9a3a2d2a42a12e72fac` |
+| `Assets/Prefabs/NetworkObjectPool.prefab.meta` | 154 | `7852b2cb42b51908a480ad11e4f30bb36da0b9be030291e41e37b1e069627d8d` |
+| `Assets/Prefabs/Game.meta` | 172 | `849df5c4ce7a12fdb92f7b4d071e2be94caf8acc59264b45a9b26ad791e1970e` |
+| `Assets/Prefabs/Debug Overlay Canvas.prefab` | 4678 | `1ff3889e7c4d62c465e2b6b2735e705648c15c5536dd815a1d51541b98d92004` |
+| `Assets/Prefabs/SceneLoader.prefab` | 2579 | `066f70e0e223a66084c22f3562ff2bac2d23adcdce2ee99d356a04ab71da701e` |
+| `Assets/Prefabs/UI.meta` | 172 | `5c40c2941bd5a44411db881634999a232cde815c11b4b9c58bb8f12100ddb088` |
+| `Assets/Prefabs/NetworkOverlay.prefab` | 1814 | `98eb296dab845ddf50c5424d95dc7123b1a11bf725eb5410774c7d68a27a7fc7` |
+| `Assets/Prefabs/LoadingProgressTracker.prefab` | 1967 | `d3d31e6f23ad3a9e5afa416915b807118681f58a157058983c2f69180db0c9cf` |
+| `Assets/Prefabs/ConnectionManager.prefab.meta` | 154 | `a9f2a3976eb0c080c285073a54f82055f443ad6e2efa5477c8b36adcd2503363` |
+| `Assets/Prefabs/Click_Feedback.prefab.meta` | 154 | `2bff1983007647b8c71a37ee364c3d9e463ec068204386d972b2b7d92b65c899` |
+| `Assets/Prefabs/Actions.meta` | 172 | `5a3055f486e647de77f27b9f36eaa04077e7f400e2f7b7e78d336c4be938aaae` |
+| `Assets/Prefabs/Click_Feedback.prefab` | 3908 | `0ec533d144dc5ea7ec8cd9c3707a13956fd7149779acb3ecfb4dd64f5df53ac0` |
+| `Assets/Prefabs/NetworkOverlay.prefab.meta` | 154 | `4c42237e950e38e4f5975190e11a11d0541f1911c3fa5c7c12caaef539738650` |
+| `Assets/Prefabs/GameDataSource.prefab.meta` | 154 | `0dee0798e20771a5180ee4c56bc5443340847d6464810958e3dd6ebb0bba8542` |
+| `Assets/Prefabs/ConnectionManager.prefab` | 1536 | `1feb5f89b71a6aacc8e50af1b07b9206696b3feafd117c47026b0da4a55ee9bd` |
+| `Assets/Prefabs/State.meta` | 172 | `2882d216fad09964ed8f2ff2ac366461412347be989669ff805467e153f197a5` |
+| `Assets/Prefabs/AdditiveSceneLoader.prefab.meta` | 154 | `fdfb1493236530552923c9fa1177d44170e330c97bcc3bec079a98dcccdcfe78` |
+| `Assets/Prefabs/NetworkObjectPool.prefab` | 2538 | `215bb3ab200a41125dd7bb98867ca7f6022db532e9069e1795773fd5b5b9c76d` |
+| `Assets/Prefabs/CharGFX.meta` | 172 | `f63e4347878b92460adc09ee4a563fc07557f25bd5024793d38c6441134e56fa` |
+| `Assets/Prefabs/Dungeon.meta` | 172 | `5034f5b3ceda49f208d293efe4eed0686945386ee4f0b6586210c153ff24da2a` |
+| `Assets/Prefabs/Character.meta` | 172 | `e7c1bdfe751b36c035b832d57730e1dd04715004c3d6345e231720d4f5046f6d` |
+| `Assets/Prefabs/DebugCheatsManager.prefab` | 2491 | `42fb51f51710f40503ebd9a2a00a52c5f4f9efab3a8d0efb1554045af09c2f5f` |
+| `Assets/Prefabs/Debug Overlay Canvas.prefab.meta` | 154 | `561731700e3e93acb49bf4de8b805b8f4fb65e83778820997342d14e80c3da8d` |
+| `Assets/Prefabs/AdditiveSceneLoader.prefab` | 2599 | `9691d5db05d0eee69f1d44ef3f247484441407ea70c2a59f3d0c635d32efff6d` |
+| `Assets/Prefabs/GameDataSource.prefab` | 3984 | `dcadb6738c96cb38cf4d36aa604a833b5110573925bfdc05137606bb3eddcce5` |
+| `Assets/Prefabs/Shadow.prefab.meta` | 154 | `770621e8a1ebdb5e68ce431ad179bb9a54a955fa20005fc27268c25534ed24b1` |
+| `Assets/Prefabs/LoadingProgressTracker.prefab.meta` | 154 | `2bc8c6f8a0dcb9c9536076218c1456f2007b44092d26e0e234d4c4fce530f215` |
+| `Assets/Prefabs/Dungeon/Entrance.prefab` | 664879 | `4359264a5aafd4421843ca05c0f22d2897dd1f972888cab60b1524cf078cc92b` |
+| `Assets/Prefabs/Dungeon/EnvLighting_RelectionProbes.prefab.meta` | 154 | `287ec1066add4108fdaf7d0a1d04efd1baf9eb80d99cc0f056f7870f8cee74f1` |
+| `Assets/Prefabs/Dungeon/EnvLighting_ForBaking.prefab.meta` | 154 | `d70abf95dac545a1b4d5441fe0ce2402b78767da33f988410566ff4558cccb58` |
+| `Assets/Prefabs/Dungeon/EnvLighting_BakedLavaLights.prefab.meta` | 154 | `377c73e1489f8eb15b62f2d6f4e0d1891f500c73f002860d0e672f218635852a` |
+| `Assets/Prefabs/Dungeon/Dungeon.prefab` | 8604 | `62a02fd9d52708ee32aa398d244d88e2c6066d4c2b57bdcb7fdd57a12d5456e4` |
+| `Assets/Prefabs/Dungeon/EnvLighting_RelectionProbes.prefab` | 6300 | `ec72a6055534e015292a1bba3c36e9cd991a89630bc3cafbec3dedfd8e2ae864` |
+| `Assets/Prefabs/Dungeon/EnvLighting_BakedLavaLights.prefab` | 40136 | `23cb5e5580b051b3dcaa4c241921b1b887f2471293eeac80c6ccbdfd0e5e5af6` |
+| `Assets/Prefabs/Dungeon/EnvLighting_Lightprobes.prefab` | 10229 | `82b75266189cf4b4394943d7d11239311248f13d32a2f398d3efda03bb9df2d9` |
+| `Assets/Prefabs/Dungeon/Dungeon.prefab.meta` | 154 | `32fe0adb783ff67fd5a7606fa0b87b8a455d0804c6122d1308551c5c90e773a0` |
+| `Assets/Prefabs/Dungeon/Entrance.prefab.meta` | 154 | `378874618c57516b2162a8dd21dd072aecf70a8027ad39f45aa1c6f3e779b1c9` |
+| `Assets/Prefabs/Dungeon/TransitionArea.prefab.meta` | 154 | `96eb9a2d2213a27156a67266b678abaa3a799d2dde8f9bd2e32a6c50f20da83e` |
+| `Assets/Prefabs/Dungeon/TransitionArea.prefab` | 295419 | `147474ab168221b5a2b2db005e80bf72fe7d97e298b6ca7180da7f559874b003` |
+| `Assets/Prefabs/Dungeon/BossRoom.prefab.meta` | 154 | `70f0299b95bf880831394ed9eeb0130d9ff878975132b2433fdbfde5e1071fef` |
+| `Assets/Prefabs/Dungeon/EnvLighting_Realtime.prefab.meta` | 154 | `0fa361cd2e682266d9fd6172e659ba46ab3895939a0ff3a68cf2668d7b3c30b9` |
+| `Assets/Prefabs/Dungeon/EnvLighting_Lightprobes.prefab.meta` | 154 | `4d89ceeb622736afb95bd75703ab40f579c6547e76d353eb2852ca4bd77724c8` |
+| `Assets/Prefabs/Dungeon/BossRoom.prefab` | 1254708 | `0c4f62cb04936407905cda982f60ed88ac9b79030a4b78813123c19372be35f1` |
+| `Assets/Prefabs/Dungeon/EnvLighting_Realtime.prefab` | 17185 | `66a4d2634eae0509d8fde22488c4f9b8ffc67299dbf0d9b2b985c2de055c3a1b` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces.meta` | 172 | `dc8daf0933eb464c2faeb6806f70395a41d454a5555e21eb38ff15d159e89b86` |
+| `Assets/Prefabs/Dungeon/EnvLighting_ForBaking.prefab` | 16333 | `d4a74385e3b2466a4393baa7fb4ef215799d72e76edad3151d8cb45be79ef4a2` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_base_diagonal_2.prefab` | 3967 | `cc448505288bf2ec5843533a4b7c8131dd40ea27912664f0c9ebc0a5b5fc8ea6` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_top_straight_1.prefab` | 2383 | `23aff2caf032261b41aacaa2c14542f42116faeaf554b04ab5bb0fbab0ad1800` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor5.prefab.meta` | 154 | `c879c5c7ac73893298466e1a606e03379ea4a29b6186fe1a94d467b2c59f8cc6` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor6.prefab` | 3407 | `3ac17589dc5bed162f4aae87f38410abed3236c76b6301814999993c7c4530d8` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_boss_floor.prefab` | 2425 | `438d89905f7e8dd4c6c9f91671da5a531a6208a98acb154132be78aacadf8c7f` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_torch.prefab.meta` | 154 | `b4dbfde2945297eb00fb5c06cca07ee2123698df32e41e317ff57184934b5015` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor2.prefab` | 3406 | `6d222affb2d6ad65e26b5f736ead7d87630b43822b8f6d3ccb87d5e5554d8298` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_barrier.prefab.meta` | 154 | `47868102c5288d2b1e604dcefbd237838f84cac7177da6024a4740ca4498d636` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_base_straight_3.prefab.meta` | 154 | `06eae01a957807ce7a11b1d62510cf584280dfde363a5fce8d6d8d6274a7dd99` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor4.prefab.meta` | 154 | `a1bbda69a515bec4c779b42672537840f73a1a24ed004a64d49816e055e45050` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_spiderweb_1.prefab.meta` | 154 | `2a4d2ee0ca0833f36646ba4448309c2ed4749a2b7dfd4fabd4026f77312cbeb3` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_spawn_door.prefab` | 15332 | `1c5ccc83cd80d59aabce25bd99219b464f4c5c9f29c5f1b1f2fcbf0e0466c413` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/crystal.meta` | 172 | `9be5a93f9fec60432e3047983781251a39e2498d66a39179105456f255d4e2c4` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_Door.prefab` | 7043 | `c6aaf58254d877194814758b85f84d3be807457a285eda6991c3e6ee0d39ec58` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_lava.prefab` | 2427 | `ba98a5a3dafe0ca67971e572bc1d253397c8629571d5d65cf6e4fe3c831cd5d2` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_top_straight_1.prefab.meta` | 154 | `fea452dff23439e3bda4ce9d78152e3801b2c3776758a8f8385fd75262fb4f0b` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor6.prefab.meta` | 154 | `3c0c8cf47b476e3fd8d6c39f653fcbf80016d51bb0ebd31c756d4043d95ba2c1` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor_grate.prefab` | 3356 | `845b6ff30f5d5972c416f11fbe8a13a8abd842ac3c3b8e45e8b42f1294c29d71` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor3.prefab.meta` | 154 | `da93f10c692bbd3016b7749ae335041f491e5813d7f30b0656ed9780e2c6fc38` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_top_diagonal_1.prefab` | 2387 | `3c50beaa53557527d1c1cd4c78d99fbc4f543c77b653556eb0ccfce9688b9b34` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_barrier.prefab` | 6564 | `80f2481847f4a036945489f219140044b2deb2644a2fe88636b7ae396eb3a5bb` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_base_straight_2.prefab` | 2851 | `76fbe5be4513723be00023b3b80d26cb2211a11de4c4ff8de484cd32aed3a0ee` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_top_diagonal_2.prefab.meta` | 154 | `794fe19f51980a1a443cc95725b10d8f42acd1ba8ba9d92fbcbfd90bb17a3dce` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_spawn_door.prefab.meta` | 154 | `b94ffd53c8e0083e40810ebe7e184d9ccb6b663a8cf807963eb796198886a1aa` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor1.prefab.meta` | 154 | `ca4493d5bfe9656e5f9f733d67f0441b498494be0feeb24268c5af7ecfbbb2c8` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_torch2.prefab.meta` | 154 | `52aba32aaf26e88b7ae12df29210a553116e831d74bcf4f67f346cf6c2be9579` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_top_straight_2.prefab.meta` | 154 | `495ab45e9dba1278e3e7a12c1967208218b7868b21dc625516c912d70ef2a583` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_base_corner_1.prefab` | 3245 | `ee2c6dc05789304f7a1448a0877702928a2c05dfb0eecf6cec6cb25befb73db2` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_door_boss_head.prefab` | 2452 | `53cd68fcfa98353d275c43fc3aefaa804f2734ba4c8c76b16508a31db733fc92` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/pots.meta` | 172 | `59ff8748742524e560a4234b92b6045b634738cfe537f1a98f3142a56e7a862c` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_lava.prefab.meta` | 154 | `8a7330eb93447efa308ac764c4955bdca676d3404f8f38eb3c94acbc12c3872b` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_rock.prefab.meta` | 154 | `4e43f749ff2e4cab6f19e6e38126ef6a5117dec658745908bb37bba98fdf9e0a` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_roots.prefab.meta` | 154 | `d1b141fc81bb2e4b8ca572a50351751009d412c1268d76c947d17a7f8e1dac15` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_base_straight_3.prefab` | 2849 | `b28c9e86876669c712593e51a108a9466e4756461ac8040016b682388098312a` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_torch2.prefab` | 12848 | `dc3fedebffd1d659509373248ec3477129262347a9e894f6dae66ef4ac860a0b` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_top_diagonal_3.prefab.meta` | 154 | `c47c9810f4e8b5ff9b8f0031164f802a738a7fd1ffb0a58b7dace4bff380fea2` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_base_straight_1.prefab.meta` | 154 | `7d068b0a25b2bfa144186f2a9814c060fe6b580de38ff100df8746cba72c3441` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_top_straight_3.prefab` | 2384 | `d798cffbed421f4d091e46efd00a40dfc8b2c06bb9b1a753f50799c89293a3e0` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_boss_floor.prefab.meta` | 154 | `c12b62036f43d00b777a5c5daa0be6153a18ab9f3defafac4e4c0f451ae0dcc3` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_boss_floor_2.prefab` | 2878 | `d0b84b1754af3a9513e57fecb0322f1cb7ff33572fb66014b84e73a20df1aac3` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_top_straight_cap_1.prefab.meta` | 154 | `1631945f1266886ce17264d5a30c66399f608f7481459f77088eb11e287897e7` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_rock.prefab` | 2887 | `11e41233f95894280552563e21a3209b228c51979c09fe5c748fd88061e71006` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor7.prefab` | 3340 | `97c110e066ab0046434614613363e38f905bc44708b094da991ff0f406f60d80` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/ScrollingLava.prefab.meta` | 154 | `11c2d99fc5c650525f7c7f56bf3c3a3c38a7fc95a349766611d049942ee9357b` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_base_diagonal_1.prefab` | 3970 | `c1ccbc192065d54fdad3adfc878cd1e535b077f25fd97b4b89b980b638e1076f` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_top_straight_3.prefab.meta` | 154 | `29588738dc10064b373590e2841462417c74eddb40a22a0a50670d50513c8c05` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_torch.prefab` | 2422 | `0ca25b3c99af871adf63863db04d368946597fdbf28c7d481d51ad87993d7c6e` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor5.prefab` | 3351 | `0b8f620e94b64caae792c58913e29b8af0e3f7d56f7e0bd26823dcac2cf81d2c` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_base_straight_cap_1.prefab` | 2855 | `265cb368f86eac4acdf18954e3d30ea6bfcee259eb086601a48afebf115a59c4` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_top_diagonal_2.prefab` | 2429 | `a31ef9bafd3da46542f4b25dad57a4ce002504f5bd41270eeb96b7406fae4aab` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_top_corner_1.prefab.meta` | 154 | `61cedc2f76b65af219ad78fd30fd26c24e8705d3dd415711952f51fbcca9b7ea` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/ScrollingLava.prefab` | 1415 | `a2795160088f394ab3c751843b3491c452f1df2f29b43f1e33ea109274697696` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_base_straight_cap_1.prefab.meta` | 154 | `34f3856bd99e9f2464a7d4333875aab1de2ccfb9556fdda7b9c7b9f03cca1bad` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_top_diagonal_3.prefab` | 2430 | `d02e7991cb2f6e6e86d7332b08b827f5542da361efdcb0a58930640d3ef5c373` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_base_straight_2.prefab.meta` | 154 | `104621b6933a808cd58cf452a6eae5533ab1c67e84e8e69621b528f10684f9bf` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_Door.prefab.meta` | 154 | `5356502c2bb44a02e6c2347e3e273b4bc76d88a0d2e05fa738ac20ac5dcb6344` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/GroundPlane.prefab` | 2170 | `0ce8df4ffa811a14e6ab983ff441bf6eb4af754c785975e4fc5a2a33200417fe` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_spiderweb_1.prefab` | 2449 | `ee856a9d42eccbd690298000d0e83a18dd245f3f44df0c5b6dbf3d99729cc908` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_base_diagonal_3.prefab.meta` | 154 | `c58c978f2180ad19c77f588e3d4fe2039a6002a4c663bc9cabf7b5e85258f878` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_top_straight_cap_1.prefab` | 2387 | `2eb66e7f978412ee4950f1ab30c288286106a2e25e46cd40ca4563668983d684` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_pebbles.prefab.meta` | 154 | `4c56cbca75a5b5b4c48bb37e3c355eb695cec86274397c7d14479e56c5628cf1` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_base_corner_1.prefab.meta` | 154 | `df394e312aaff3da73520709ca9f3bbf0957f903a7f696e46f8ee3bbbe4b214e` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_top_corner_1.prefab` | 2428 | `52a602502804286b52e3139c0469d898f188f78bd554502d8ec2272b40e756d9` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_base_diagonal_3.prefab` | 3711 | `ed090f7e6e50a2c73e0d7a78b8611571d836d99499f8c49ae24bbba86209ecbf` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/GroundPlane.prefab.meta` | 154 | `3f8ee463c4f347ffb314f7750d6bbfd6acdc9368c1b4abb24f642e9be4cdd6ef` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_top_straight_2.prefab` | 2383 | `a3da6b349a38263822221ed61385dd85c846e537dce736808975279191bfff37` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/pillar.meta` | 172 | `1e9c37174df784a7e82fe3a7914a9d2bac37c3494cc2f43f3f52fe8641e656bf` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor_barrier_1.prefab.meta` | 154 | `e1eea15b7f6bfa769d64640519e2a805b0ce40640d25bcf5e935d07e4da91de4` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor_grate.prefab.meta` | 154 | `53b0b0a28e9564202b71f89b2f00e288889645f834e23286388153c2caa1d032` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_banner.prefab.meta` | 154 | `e1055546de7172792e86837c33187e577fda3b4b204b8c8db833a220b65f4a20` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_base_diagonal_2.prefab.meta` | 154 | `a555858ba57a61ea35bc55ebcc2473e5af971546c2d0b25cbd63f95b31fbbbe0` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_pebbles.prefab` | 2475 | `8bcd64e4ecba06bb3f93d906576e39001f1c08a6eda009674c2246d3b6cbd6a1` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_base_straight_1.prefab` | 2850 | `57a0dcc47f7d74aa4a14495b591ea9fd41f771d0c73f011ad455aa590a5c359d` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_door_crystral_base.prefab` | 2950 | `d2f3a449af86912d756e1a3f6d45003932d15d0a83df665b13806b611e3c6b2c` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_top_diagonal_1.prefab.meta` | 154 | `4bcb4818da959a44c8f54d1605277c7042d524a840bca226072120a8dd2083da` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor_barrier_1.prefab` | 3430 | `3a02314038aaeed7ac17c400a39e80431b9c4fcc492e44d2b7b7788028504724` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor7.prefab.meta` | 154 | `493860273f1b6f076d271b8a2ab658fab47f020d2c0cd8c290fba11819029a79` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_wall1_base_diagonal_1.prefab.meta` | 154 | `7db9f91e2ad94b34a1f7507670a4c0fd4cadd4f67cf59eac495f9974ef50e6fd` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_door_boss_head.prefab.meta` | 154 | `877107fb10467b721d8fac91de3ef827f80f2fdee448444d92581a7694688da4` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_roots.prefab` | 5639 | `ec3a9856159e0d76b47534a4b3c9cdfe4f21bb455a5583956f38c87a51933710` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor2.prefab.meta` | 154 | `400cc7229cc382f4d813fbebdadef8d2c94c5b7824d0abdba72bb693d8aab835` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor4.prefab` | 3349 | `30b9e2b7282be144af84dbcdae7b03247027fd33ef66b811457ba82e1a991428` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_door_crystral_base.prefab.meta` | 154 | `b214858b93f7050ed23d46893ebf0a59cbeca4a7f715ac8e0a13db5742cec366` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor1.prefab` | 3409 | `38044809dd37aef4ab32d63d54a3a3f608b00fd36ed6ca6d67885c89c27e3c9b` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_banner.prefab` | 5659 | `eba0e166c308d275858c8ed583f32a2dcf7ff003c951aeade581cb63c29f0fa5` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_floor3.prefab` | 3344 | `c77063e44812679e58e29d003004bf454465a2cfa21b811ee8ea38850494959f` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/env_boss_floor_2.prefab.meta` | 154 | `2278d2cf40f4afac4b77a398d92adcd855fc2a5518170fcb34deaf6d92d2452b` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/animated.meta` | 172 | `caa480c6a11fcbc0092ba93501a05bbd3617bd7d1addcc860a1ae4ae44a22604` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/pillar/env_pillar2_break_parent.prefab` | 77843 | `2fce042177f7ea8070648345a7ef05a6a1a1958b001cc801438f9cbf49cb3815` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/pillar/env_pillar.prefab.meta` | 154 | `22df527a872f70a806ee97efc8b615848a621bef4fefaa227762af0988b2ed4a` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/pillar/env_pillar2_break_parent.prefab.meta` | 154 | `a590dbf842a44d974c51ee7903a4b0e674052b6cca1be5204eb548e2c718b2f0` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/pillar/env_pillar2.prefab` | 6643 | `380742f0e6fd851e2e043dcb9cb5a6bb0233b71aacae08c796fa667b8c08c14c` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/pillar/env_pillar.prefab` | 7579 | `fd8cd08ef30d2c766b6fffa5b605aa5477ca4b8c034070e39097be2f562e4c11` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/pillar/env_pillar2.prefab.meta` | 154 | `145f907ed783c2ca167c375e8ebe3a769489e700716711cd92d1a1e08c66373d` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/crystal/DestroyedCrystal.prefab.meta` | 154 | `438f43f54f26b8b28b642429ce5f64ef44d854e6594980df71d33519d5015047` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/crystal/DestroyedCrystal.prefab` | 14120 | `36dc075508b769b9d9ff31516b671d9aaa34071bc19402d467c98f38134fb1a5` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/pots/env_pot_heavy.prefab.meta` | 154 | `d25908e410172d711314217dbf3edffbbee0ecd458e74c39528baace8902b573` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/pots/env_pot_heavy.prefab` | 6570 | `ea3ca2186e4e3b79c51c528f9906ab58b6238017772e2d498e180a24f4d85655` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/pots/env_pot_break_parent.prefab` | 44093 | `95177a718e7c47695f6653857b4d82def633495ede9bc68361ac8781b0df93a5` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/pots/env_pot.prefab` | 5658 | `8a9355750d000e8114f3f867c872778b87cb60a770f0cf23d2ad785fadb32a01` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/pots/env_pot.prefab.meta` | 154 | `9934e89737dd5a91ff5a3829b6765a0730b3a212049499893c05967b203d2552` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/pots/env_pot_break_parent.prefab.meta` | 154 | `d0e62198fc5e1ebab4b29a03f815703b7ba380f69ddbfa99781ae1bf6f81167f` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/animated/env_floor_switch_interactive.prefab` | 5566 | `820107e34fe10760a5a11bf45eb2575b632f297196f31ab3b280d286ae55e94e` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/animated/env_floor_switch_glow.prefab` | 2434 | `bf613f46c5ded46d74993cab3c1434f8d6a8f0ab679c19e264611192186cff8a` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/animated/env_floor_switch_glow.prefab.meta` | 154 | `f02aa55864238bc85b79064f3774540613426f2e328262ba586b9a15420a7375` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/animated/env_door_gears_ani.prefab` | 2804 | `dbcc7f3651a45516e38c13049613a0f25707c6d5e356101095aa1cbbe2805f71` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/animated/env_door_boss_ani.prefab.meta` | 154 | `1106823fbe9ce6cbd04ccc9b25fbf81f1f154e74da56b8aaa584269d6db6369a` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/animated/env_door_boss_ani.prefab` | 3260 | `a56f853b734b6892f03900dd002b361147173c281e4ac635a6ad6a252d15f7bc` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/animated/env_door_gears_ani.prefab.meta` | 154 | `d0202e82a5d518171782841b5379e18be392579bbfec82e086ae37ef9ea41e92` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/animated/env_floor_switch_interactive.prefab.meta` | 154 | `1a9fbf31b4753e3f7a08ad424ae86f0a066658f3c88f8c6fb04219c1185a62f8` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/animated/env_treasure_chest_ani.prefab` | 3399 | `06bbe826cfdcac67044a06bd57e5349784e386d4ba3e56cf8abb5c34459d0cfd` |
+| `Assets/Prefabs/Dungeon/Dungeon Pieces/animated/env_treasure_chest_ani.prefab.meta` | 154 | `6647ff5f0b3e2dc69413de2374e164cf7246c3cc69900fd66b8255512d43fca6` |
+| `Assets/Prefabs/UI/SettingsPanelCanvas.prefab` | 75005 | `283fe820dc5f43cbf1dd6d7496d658a2e7df11757c77bbc3f08cec16940ae543` |
+| `Assets/Prefabs/UI/ConnectionToggleGroup.prefab` | 18297 | `6a6fa7de799c3ca4501f8dadf248bfc4832389522d8324649f50f4d852a36c17` |
+| `Assets/Prefabs/UI/AllyHUD.prefab` | 20445 | `9c89bdfa9ab9f716d669655ad883db9fbc1f462c8df342f00bef7e34485f8648` |
+| `Assets/Prefabs/UI/MainMenu UI Canvas.prefab` | 81174 | `005c247f68ace64694762655f658631f1ced8cef03141f0f2192845344d7d4d3` |
+| `Assets/Prefabs/UI/PostGameUICanvas.prefab.meta` | 154 | `d12f203ab91a1d180d261a5693c301fbf58902f2bfeb248e21bf177a29434759` |
+| `Assets/Prefabs/UI/BossRoomHudCanvas.prefab` | 103937 | `8d0c0bb9f83200a5434c34a576ee7d6e0d04e74e117c3a81fc05e244d73a2308` |
+| `Assets/Prefabs/UI/MenuBtn.prefab` | 8081 | `93fd0ad6948a1a172e579d1e64563d7157cdce5bf363555c8cd739b5c80d5304` |
+| `Assets/Prefabs/UI/IPPopup.prefab.meta` | 154 | `61ac1be0a7d80aeb2baec126bc78f5f3c2aab78afa938a251a7a933ad58b917e` |
+| `Assets/Prefabs/UI/UIRadioButton.prefab.meta` | 154 | `f254bf3293a85c55a1a3236d780ed0a36dd3bb0b71806299eb8684660dd4bad4` |
+| `Assets/Prefabs/UI/PartyHUD.prefab` | 86455 | `f7e762b17177f92f7e374694cf5f8ba6ccf260dcd0b287c7ae27fd750fbcd66e` |
+| `Assets/Prefabs/UI/CharSel_Background.prefab.meta` | 154 | `99b36c745c5fc0234430224aa60baccf35301378d86ab64bb74436db110e49ca` |
+| `Assets/Prefabs/UI/PopupPanel.prefab` | 22943 | `c94fd2f19b9a60df1cd632566659413114551d3174e1929255fd3a906bddcfa4` |
+| `Assets/Prefabs/UI/MenuBtn.prefab.meta` | 154 | `46756fa3cd992a3ddfa1ef075ef6ca0c196767c42e6616aed6ade19fd57052ee` |
+| `Assets/Prefabs/UI/IPPopup.prefab` | 164712 | `ca21250144d1269842b9d312f7ea94ebc7af9b6820746a7b9173ae9b651e213a` |
+| `Assets/Prefabs/UI/MessageSlot.prefab.meta` | 154 | `30731e13c002e99dceda0a070f9fb682eca1a4a861391ccb750b2e8007f7f376` |
+| `Assets/Prefabs/UI/Hero Action Bar.prefab` | 39204 | `69c44bc90b45c07bcb34d8701fc2b0b4c3b7cbdff2c08ff98d3e96d32d7475f5` |
+| `Assets/Prefabs/UI/PopupPanelsCanvas.prefab.meta` | 154 | `c156cce9b10adcc7b063b758e3e351e8cd37e19406f2fb78a175da021ba6f5be` |
+| `Assets/Prefabs/UI/ProfilePopup.prefab.meta` | 154 | `0b337f23a8fa34103cff4aa3ada5677ce3e8c59de06567e17d66103994957a98` |
+| `Assets/Prefabs/UI/UIHealth.prefab.meta` | 154 | `da397fa90a583f6a00c8af30a2340bf0fbd06aa0bc9b7d8da35f66e81904f38a` |
+| `Assets/Prefabs/UI/MessageSlot Variant.prefab` | 5015 | `3c43904007c231ddfb366c36d0689b1479e3911a1f1fb7a0be8f83fa4671cbb4` |
+| `Assets/Prefabs/UI/AllyHUD.prefab.meta` | 154 | `67ed73bde02cadadc616e92d7178fe52d047392bb2788a2c8c0bb09dd88ce3fb` |
+| `Assets/Prefabs/UI/ConnectionToggleGroup.prefab.meta` | 154 | `58ca4c936e49737d133f942fac995ee47a2476f4e5c7741dc912021a1333e26f` |
+| `Assets/Prefabs/UI/PopupPanel.prefab.meta` | 154 | `b14b11536e86e5151dddbfea3aabb7b07716be3077d4d57171bc028e4795fa0f` |
+| `Assets/Prefabs/UI/CharacterSelectCanvas.prefab` | 197429 | `dd183f7f496999442d306032e78157018934919894f3eb24b9bc18f620c6be97` |
+| `Assets/Prefabs/UI/UIName.prefab` | 5694 | `8b96642049378ebf4f66105a6af9e4a00971d90b204ad1970a4599251f5c4781` |
+| `Assets/Prefabs/UI/CheatButton.prefab` | 8104 | `0cd34c831e3b89be7505ee5c8b8efe0be921ad24f737dfe46e086ce896df14b8` |
+| `Assets/Prefabs/UI/PostGameUICanvas.prefab` | 40240 | `15227cfe7cd13a3bf94518dca5d406508032b97d7fc059862e3b7f314ceaf2e8` |
+| `Assets/Prefabs/UI/PartyHUD.prefab.meta` | 154 | `822c281b99f4440bcef87aa092e5e5699dd57068a16c5bc070b9cf3ee2df5362` |
+| `Assets/Prefabs/UI/UIStateDisplay.prefab.meta` | 154 | `609654033f875afe1ef00e1bd8eeeba4b98de8482b8437ecfd26b81136a02f52` |
+| `Assets/Prefabs/UI/LoadingScreen.prefab` | 100457 | `92e4f4769bd208aa23ee24ca146bb7ed87635f6ca467b5fce2a85a1de6bfaa93` |
+| `Assets/Prefabs/UI/LoadingSpinner.prefab.meta` | 154 | `dde22d41b9d92a264bdb3a902c9efd015954a64acd4a6a2fcead3e8045b92afd` |
+| `Assets/Prefabs/UI/CheatsPopupPanel.prefab.meta` | 154 | `88ed56227caf1a4a933ec5c70fc8e872469c6e8db11ece8e9e92cb671c3cf318` |
+| `Assets/Prefabs/UI/Hero Action Bar.prefab.meta` | 154 | `60cd17a379720e5a7af13477cd4b4c25a330fb511f22df415c9453ee2b1249b1` |
+| `Assets/Prefabs/UI/ProfilePopup.prefab` | 70146 | `151b41e9762b6aab9b1ac29485bfe3adb456a4223eacf0df8032b382f77f0f95` |
+| `Assets/Prefabs/UI/Hero Emote Bar.prefab.meta` | 154 | `947a817e13bd4ab018a3725ad6aa79f7b11580320088f456f796ed62989b8ce9` |
+| `Assets/Prefabs/UI/UIName.prefab.meta` | 154 | `cc31019626f8115e4a9c3dad77f068ecb12fa864061a0069d57e24e1e3592035` |
+| `Assets/Prefabs/UI/NetworkSimulator.prefab.meta` | 154 | `ee40d6d6812934dc132a04379284990ad0e7261016c95e2eac73445fb0fe6ce8` |
+| `Assets/Prefabs/UI/SettingsPanelCanvas.prefab.meta` | 154 | `c588d717249060ca29f3b9f5c216f8842c8e0f620b8edd1841b9c0764df94563` |
+| `Assets/Prefabs/UI/LoadingScreen.prefab.meta` | 154 | `2a205f10a7fb4dd25b8fd20e91b2a4518796c429b0378999581eb7e0462a4168` |
+| `Assets/Prefabs/UI/UIStateDisplay.prefab` | 12561 | `09e5b9bdcc8bfd3f38d0e414509bb28f881b2ade1dc62744114c9e7d598b8407` |
+| `Assets/Prefabs/UI/UIHealth.prefab` | 8579 | `326883b96cca8f39eedf7d3d11e2a3b5a623eda2b79101a4722545f3a4a84bf8` |
+| `Assets/Prefabs/UI/PopupPanelsCanvas.prefab` | 4583 | `adb8c3808d53304674ec1acf6166d84627969ee0212c1b0584bace6aa83d0428` |
+| `Assets/Prefabs/UI/LoadingSpinner.prefab` | 2664 | `63701e7290dfefb1690e8d65ef97911f6142061ec1c2973cde5f268aed1e4edd` |
+| `Assets/Prefabs/UI/MainMenu UI Canvas.prefab.meta` | 154 | `09c609f886667622f2cf5692f4c395fd74dc8aa87b2aa51e83a5968d8ef8465d` |
+| `Assets/Prefabs/UI/SessionUI.prefab.meta` | 154 | `28a2f48f06d4af13f6c1c72c011cd5a9c9d4ae617ebf2f31a73dcf9b5db1e0b2` |
+| `Assets/Prefabs/UI/UIRadioButton.prefab` | 13270 | `8dfe49a61d3addb3723ac9e01b248bbda279cded7b43f6af5ec4c12950086467` |
+| `Assets/Prefabs/UI/MessageWindow.prefab` | 8649 | `a5a9f61a6b7de4b71255420a3640d03c62430f5d023aab8b9a8fd3bd86bc6636` |
+| `Assets/Prefabs/UI/CheatButton.prefab.meta` | 154 | `ec2639d239e13c7f60565dc2d013698d89e8e35422d3c493d4c5d227133fef41` |
+| `Assets/Prefabs/UI/PlayerSeatTemplate.prefab` | 39011 | `78db665848f9bc5bcdbb24214eeca080f5b50f6c49596e259e53e0b26165146d` |
+| `Assets/Prefabs/UI/PlayerSeatTemplate.prefab.meta` | 154 | `b01c46e2492fc30e0a5d1609ccfb18f9edff2a3c9d12f2a525d5513b98abf44a` |
+| `Assets/Prefabs/UI/MessageSlot Variant.prefab.meta` | 154 | `da256e1d7a4495fafb8dc3f7afb94ed32e766a51a3a2409a613fccb81bda2f14` |
+| `Assets/Prefabs/UI/MessageWindow.prefab.meta` | 154 | `11152459f41f42a1ba3589b17ce005334b54c2fc5631a428a6ded6867c1ac8cc` |
+| `Assets/Prefabs/UI/CharSel_Background.prefab` | 402857 | `93984ee828d05ad71eea4f4ac392b6c649aacece90af3668f8437a1c44581924` |
+| `Assets/Prefabs/UI/BossRoomHudCanvas.prefab.meta` | 154 | `c652aa01dfe5177b28228193327846033be4b8f5d4112ab340b20f23e715bc71` |
+| `Assets/Prefabs/UI/MessageSlot.prefab` | 8371 | `b258f8d9145afb30098f07db206e7fdba661f4826221de0ff800782ef40d8a6e` |
+| `Assets/Prefabs/UI/SessionUI.prefab` | 178182 | `cc6a7f902f4fe1f964227c3399e0a93d429bf3122ab3ea48f560c4c16c3bc655` |
+| `Assets/Prefabs/UI/NetworkSimulator.prefab` | 167177 | `f1d114f1f7b81c06e73899347d9e7a4146a10a24d5aa9c9d7b7657a0027eb63b` |
+| `Assets/Prefabs/UI/CharacterSelectCanvas.prefab.meta` | 154 | `e0296ac315e1b7a0f3c1464eee614ea3cd449d3d9c745d90e6d6e55937fc5632` |
+| `Assets/Prefabs/UI/CheatsPopupPanel.prefab` | 76529 | `805a42c2df85446e25fea7803c4551790dc9e32e35c78c88bd1df666e57fe629` |
+| `Assets/Prefabs/UI/Hero Emote Bar.prefab` | 38371 | `2a4bd42384d00a08bc9a338d8d30c910e18a0e9d6fdc52167763fe59cd88e121` |
+| `Assets/Prefabs/State/PostGameState.prefab` | 3091 | `82ac272161710aff45ab4b1024ccb9179e9b8791592982f0655a6770fa1fb074` |
+| `Assets/Prefabs/State/BossRoomState.prefab.meta` | 154 | `49d6d76d87a184bda7d5baceb12dc03acf51c34a804aff3198fb89566b792e6d` |
+| `Assets/Prefabs/State/PostGameState.prefab.meta` | 154 | `b4f968733c155da54eeeacdfe376ac47dd6c5d0fa5ef5db150500d0d4b693a60` |
+| `Assets/Prefabs/State/CharSelectState.prefab.meta` | 154 | `66f2b915537bafa20a8d547911b547a934451b592d5b8e6a754653736819a08f` |
+| `Assets/Prefabs/State/BossRoomState.prefab` | 10284 | `1193bdebfff22cc56170e71dd50d17f3950eac511d1200bb33cec30794bf9b0b` |
+| `Assets/Prefabs/State/CharSelectState.prefab` | 5966 | `7bd367f1dcac6b21a620e2a24221b8636c45cd885c41373be2bfad0e62beded8` |
+| `Assets/Prefabs/State/MainMenuState.prefab` | 3797 | `af8931649f61ea6f01d0b8c053faa93d5f78a34c32230a255fa0e226af9434d1` |
+| `Assets/Prefabs/State/MainMenuState.prefab.meta` | 154 | `6c8a9c2b5ae9d9d106221b070f966d5eb24f4e3ac699aaec7b2e60defcb28db2` |
+| `Assets/Prefabs/Actions/ChargeUpInput.prefab.meta` | 154 | `a63c305f9145a86270db7bf015b4bcfff53f44c79851c6acafa61154587a3e3c` |
+| `Assets/Prefabs/Actions/AoeActionVisualization.prefab` | 3634 | `ca4666a04f27fcba0a8066a57fe5c8a084c6e6418236b1baed9be610d281a637` |
+| `Assets/Prefabs/Actions/ClientAoeInput.prefab.meta` | 154 | `ffeb60f3f071c4d1b80d1635dc22a7d7a14fdb811806b8bb9283fac8c1b4d198` |
+| `Assets/Prefabs/Actions/ClientAoeInput.prefab` | 6739 | `dc2a13001c172f87525179795a8e20b73ccd131581b1a67591e19113c70c3afa` |
+| `Assets/Prefabs/Actions/AoeActionVisualization.prefab.meta` | 154 | `86cebae5b21e0cfe42953220c37ccaef8d355f6cd59a6e61345874d462e991c3` |
+| `Assets/Prefabs/Actions/ChargeUpInput.prefab` | 1293 | `0e075b555f339089caad8f1d976e9713b0fe6f2a63b9eec67c7ef623ef3a3456` |
+| `Assets/Prefabs/CharGFX/Gear_LS_Tank_ShoulderPad_Boy.prefab` | 2421 | `38ae3a58e83e277f46c6ccf3f7f8d9e1192caa95f651bf0fc9c241d044adc315` |
+| `Assets/Prefabs/CharGFX/Mage_Torso_Girl.prefab` | 2584 | `388a7eb14acac4abba5db7a80e0a03e0d086e4d4f452a4c5f2f5ba8bf44922b9` |
+| `Assets/Prefabs/CharGFX/Archer_Hand_Lt_Girl.prefab` | 2391 | `d39b4c320098b6405ee4810f7d414665f513a351786d936704bda3376939893e` |
+| `Assets/Prefabs/CharGFX/Mage_Hand_Rt_Girl.prefab` | 2405 | `3fb9006aad33023e125613843a8fd1c78426c6da2778460c74e0a934b64ba588` |
+| `Assets/Prefabs/CharGFX/Rogue_Hand_Rt_Boy.prefab.meta` | 154 | `9db4022c3dc0902d05eddced6518696365525cfd57e0d99b4e630b2692c559f4` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_RS_Slot_Mage_Boy.prefab.meta` | 154 | `e90a78c4fa0d2d0b506491691d422618c0899a99d714fabf221b3860c0d3a93d` |
+| `Assets/Prefabs/CharGFX/Archer_weapon_Boy.prefab` | 2407 | `2dead3b631bc9249f41cfcefebb283dd7cabc9ffd4a18950807edf1314024e54` |
+| `Assets/Prefabs/CharGFX/Rogue_Weapon_Girl.prefab.meta` | 154 | `4d9d84c4cafd3dcd411340f5e2805bfe50902380671a550fd37ada0a8c272d2f` |
+| `Assets/Prefabs/CharGFX/Gear_LS_Tank_ShoulderPad_Boy.prefab.meta` | 154 | `b1d747ee824d5eb99352210ef17549a7bb033dc78c9ee4ce9927c4ccfc29be12` |
+| `Assets/Prefabs/CharGFX/Mage_Hand_Rt_Boy.prefab` | 2404 | `8dfc531c869b61bbbaa243f509d4e1c41383e6394cdc8e5573dd85c4a1fbe87c` |
+| `Assets/Prefabs/CharGFX/Rogue_Torso_Girl.prefab.meta` | 154 | `74ff8a860f4690008d7887dfb303debe0403c8d6c25f4309706e78169b404f9b` |
+| `Assets/Prefabs/CharGFX/Mage_Torso_Boy.prefab.meta` | 154 | `a202bb308fc11f0992006fbfe78ac24d94c41f33e59b1fb58d6050b76b68aa6a` |
+| `Assets/Prefabs/CharGFX/Tank_Shield_Girl.prefab.meta` | 154 | `50b10f8367ea4be689098dcc924bf38a38b1fd1caa5c87613063edbcf3210a59` |
+| `Assets/Prefabs/CharGFX/Tank_Torso_Boy.prefab` | 2581 | `1cd2b2e6a54fbaf03aa26cffa0a49e778fb8f39848c1eac376c12ec05c2fafc9` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_RS_Slot_Archer_Boy.prefab` | 958 | `177db208f2d9be605c10cb4b02347b16d0907e4a1d8216db0b9658753d9f308a` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LH_Slot_Mage_Girl.prefab` | 929 | `e06ad0641e916252593526c483ce69337346f31cdd657dec40541c3415d858ee` |
+| `Assets/Prefabs/CharGFX/Gear_RS_Tank_ShoulderPad_Girl.prefab.meta` | 154 | `76efa10e87188790d7bd0d723810cead72d62f335983335cc8428fc430e2a5f1` |
+| `Assets/Prefabs/CharGFX/PlayerGraphics.prefab` | 13485 | `5b27f32ef8016abd30752819f855e01f5f5c6f945998eb1ce833308e8238ed5a` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LH_Slot_Archer_Boy.prefab.meta` | 154 | `37ac00a2b56379a3673227fdbf8fdb3ae196ffa89c6db6cbd6547babb083626a` |
+| `Assets/Prefabs/CharGFX/Archer_Hand_Rt_Girl.prefab.meta` | 154 | `47d3ffb38cb27cd94b6edf7b835fa052634855b742ccb62a0e8b13ea3f9a37dc` |
+| `Assets/Prefabs/CharGFX/Archer_Hand_Rt_Boy.prefab.meta` | 154 | `aaeaf34e6c2d8b0632f8263658008a2370deb19848b639d266258d214e9d6d18` |
+| `Assets/Prefabs/CharGFX/Rogue_Weapon_Boy.prefab.meta` | 154 | `f0e54f22ee5f3e8078980434cf161918a1d00bb854213d8093be37cb802dcc62` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LS_Slot_Rogue_Girl.prefab.meta` | 154 | `86fcb53ae2aab108fbb617c9c3200d1db92de6c4d56b59121ecd8e64541603f4` |
+| `Assets/Prefabs/CharGFX/Mage_Hand_Lt1_Girl.prefab.meta` | 154 | `ea73d84758e37cdd09cb2b7f6ae0eb1f503f6b9a2526a9bc88504448a64a051e` |
+| `Assets/Prefabs/CharGFX/Archer_weapon_Girl.prefab` | 2410 | `6c391cf7a7919d5db105bcbbb7964308f115fa76f781fab5a9266a3b322df540` |
+| `Assets/Prefabs/CharGFX/BossGraphics.prefab` | 99147 | `9e1f882ae2fb8eb84a83d78d5c5a36dfaaf3eccde254d9e7d1acef3583fd293e` |
+| `Assets/Prefabs/CharGFX/Archer_Hand_Lt_Boy.prefab` | 2394 | `a87344409bad06ce0e8fe652873487808b0eacbf520c7b6c43a7f63c0c986186` |
+| `Assets/Prefabs/CharGFX/Archer_Hand_Lt_Boy.prefab.meta` | 154 | `86d87ee7caa0df2689c3d10536ae37f54597931d58cbe12e94ea3dbd73839dde` |
+| `Assets/Prefabs/CharGFX/Gear_LS_Tank_ShoulderPad_Girl.prefab.meta` | 154 | `e951b5b929f653cd24707b6b89238d3c1178ca0b07df08b056f0269fbca4de89` |
+| `Assets/Prefabs/CharGFX/PlayerGraphics_Tank.prefab` | 11285 | `b7df2b07391deb7b42c6c2bcd384490e2a11e0362b7d2b359f77f3421e173889` |
+| `Assets/Prefabs/CharGFX/Rogue_Torso_Boy.prefab` | 2583 | `51833148783e79e8351cb9fd15cc4931e74029e98a14b9f59848c0f49a063591` |
+| `Assets/Prefabs/CharGFX/PlayerGraphics_Archer.prefab.meta` | 154 | `705e6c756fd5c6e030b1acd6abea5fcd2e5b6f351b89d58925158152840215e5` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LH_Slot_Mage_Girl.prefab.meta` | 154 | `93c401f66966628d6df0625fb831fe218abef8ed067b054b41f678e1177e5354` |
+| `Assets/Prefabs/CharGFX/Mage_Hand_Rt_Girl.prefab.meta` | 154 | `4e40510c2b3b2e18750b47a805ed7fc88dd1cd5313829f3c5d2d977db061655d` |
+| `Assets/Prefabs/CharGFX/BossGraphics.prefab.meta` | 154 | `3f4256d113bd1b660233480c459e3cb4ae7c80a95ba6a70fbdc6b0a9b946c7be` |
+| `Assets/Prefabs/CharGFX/Rogue_Hand_Rt_Boy.prefab` | 2411 | `236bdf43edf3badb11dbd4fbca98c21e19a2c0dc1c50a919a251dbf3faffa5c8` |
+| `Assets/Prefabs/CharGFX/PlayerGraphics_Archer.prefab` | 11928 | `3658917782975e9417633853f29b7a2dc63a1cb778e033dd1790e05edff94895` |
+| `Assets/Prefabs/CharGFX/Tank_Glove_Lt_Boy.prefab.meta` | 154 | `03d14c9b5d5478cca5a8dab5dfda59ed3b48e494b1d8ea5673278f1e16c8fa67` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LH_Slot_Rogue_Boy.prefab` | 929 | `3604df4f14d74c38caf31ddb8365df8eaba23d62769901bfb5a1909a57dcf54e` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LH_Slot_Rogue_Girl.prefab.meta` | 154 | `76b2e689c5c437dde4bb81b09a786f78d78d9994f37555988835c3bbebd265de` |
+| `Assets/Prefabs/CharGFX/Mage_Weapon_Girl.prefab` | 2401 | `349899fac20efbc3f6c4f3bbd4762597b0d1e7ded8d2ba7526f1848adb16029d` |
+| `Assets/Prefabs/CharGFX/ImpGraphics.prefab.meta` | 154 | `b62c7ce0360f0541b5e0d0fc63c94da972978a235d523f6aa9d39738ceabd297` |
+| `Assets/Prefabs/CharGFX/Rogue_Torso_Girl.prefab` | 2583 | `c1c3a6a63038e1ba83461b609983f3015e3c876d335ed1ba85c5e2f650b48cf1` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LH_Slot_Rogue_Girl.prefab` | 930 | `4e0fe3e659f7ac725ea341853bf20a40980f42ef2acd0344b0797f5c5258f7a5` |
+| `Assets/Prefabs/CharGFX/Tank_Shield_Boy.prefab` | 2402 | `28ef8568605129c1695ec446b6029e8031965bb25a5e04c598af3d5248e37554` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_RS_Slot_Rogue_Boy.prefab` | 953 | `ca9b7a292c5ba0dbdce9309589d89db5c3d850c4b526559ab27166625fef16be` |
+| `Assets/Prefabs/CharGFX/Mage_Hand_Lt1_Boy.prefab.meta` | 154 | `27a47b2252421c4a89434c5b305fdf07421bb8470b0a869083fed4b32217e027` |
+| `Assets/Prefabs/CharGFX/VandalImpGraphics.prefab` | 69039 | `fe25830b39d82d0c094e77108c366b6a4b71ab80f2fe148f66fb64ab34693570` |
+| `Assets/Prefabs/CharGFX/Mage_Torso_Boy.prefab` | 2579 | `bda5972748aba6476dbe46ec76aac53363aed533828f7ae0561aa440f33c875b` |
+| `Assets/Prefabs/CharGFX/Tank_Torso_Girl.prefab.meta` | 154 | `59c3423e0b542e3f0abb01385d98f08a1114983639e3d73863715e890f3af9e5` |
+| `Assets/Prefabs/CharGFX/Tank_Shield_Girl.prefab` | 2401 | `d57976ef01108fa87f68bdacbe01d159bd083fecd848b3ee1cd7a1432d9ebc42` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LS_Slot_Mage_Girl.prefab.meta` | 154 | `8a985448fbf48496a4c90a520d80ed67f314f78fcc4aa20f30952a23debce430` |
+| `Assets/Prefabs/CharGFX/PlayerGraphics_Rogue.prefab` | 11973 | `11c1412556aab754642729d80cb0b9ffbbfe826c3bf4376a57943d20dc162629` |
+| `Assets/Prefabs/CharGFX/Mage_Weapon_Boy.prefab.meta` | 154 | `6a786f3d57c046a312b6ab87d9f47f505778f95b1930cdd28d94353e6583fedd` |
+| `Assets/Prefabs/CharGFX/Rogue_Weapon_Boy.prefab` | 2404 | `ca61907d9477eda6d74a747ed34e818e9eef6d7248ccfa1c3a817e02137a20ea` |
+| `Assets/Prefabs/CharGFX/Gear_LS_Archer_Quiver_Girl.prefab` | 2429 | `a5170a8723c26d93e5ec24a865b8570677838b32f266b6927d8f828270904bda` |
+| `Assets/Prefabs/CharGFX/Rogue_Hand_Rt_Girl.prefab` | 2409 | `4b9923228a12caaa57f449f2fee90dfa1477dcc43b42ae0c3c886e37d859923b` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_RS_Slot_Rogue_Girl.prefab` | 954 | `0fcd85201eab3cdc4a15363d3b9add9ec539e8b27524c94b33a08eb5d2fcd481` |
+| `Assets/Prefabs/CharGFX/Archer_Hand_Rt_Boy.prefab` | 2407 | `7fadff5c01c1dbafe8718153df609351400ca7b53bc74297e4810cf7de35f7e0` |
+| `Assets/Prefabs/CharGFX/PlayerGraphics_Rogue.prefab.meta` | 154 | `4cc9c65eb7f6c8ecff7e388c35813d99dff1854d7c5793909fca1791755d8437` |
+| `Assets/Prefabs/CharGFX/Archer_Torso_Girl.prefab.meta` | 154 | `ae4b46f9d6e242e8c455b2744eda9ad1eac9f01fee6f5d10e365a2407e7c7121` |
+| `Assets/Prefabs/CharGFX/Tank_Weapon_Boy.prefab.meta` | 154 | `0d865688f056913c8b2a0e0ee539a3d2ae363accb7c764b1811c13f3c815d596` |
+| `Assets/Prefabs/CharGFX/Archer_Torso_Boy.prefab` | 2586 | `2579556f402a52a23e48afe08b13fcaf98c8ffdb087aa236d03aa6e58bd909aa` |
+| `Assets/Prefabs/CharGFX/Archer_Torso_Girl.prefab` | 2585 | `e2ae40fe1f66fd841f58d68ed519632cd3adaa712edea82b6738b834b459c8d3` |
+| `Assets/Prefabs/CharGFX/Mage_Weapon_Girl.prefab.meta` | 154 | `199dc76b9c4f511bfad1e4d7a627d6576240b5ba2948ac82166f023952887839` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_RS_Slot_Archer_Girl.prefab.meta` | 154 | `a5244bd3abf1b3d03165139addfbfe21ea085249a118a71d28db663194a22d30` |
+| `Assets/Prefabs/CharGFX/Tank_Weapon_Boy.prefab` | 2452 | `5de10ed733816cb4d45001b8f68207b13209d481f254faa01614f9e8891b554f` |
+| `Assets/Prefabs/CharGFX/Tank_Weapon_Girl.prefab` | 2453 | `d9111a86e0ef401848e12b5b71feb5a5c58faf00285174f6252c2554d4782ec7` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_RS_Slot_Mage_Girl.prefab` | 957 | `e9038bdd7223bcaddb37b1ff401b2b3475f955b315129a505c98a8f58e753a81` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LS_Slot_Rogue_Boy.prefab.meta` | 154 | `bb85908f9d089adf53c5645c42fc26a69741b698c8ab565fd521ec110b7b2386` |
+| `Assets/Prefabs/CharGFX/Tank_Glove_Rt_Girl.prefab.meta` | 154 | `05d2dde34852459b84a737e031406227662bbcd1abdec79189877be53a169e6b` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LH_Slot_Archer_Boy.prefab` | 930 | `c5c8fabd58f71861cdfd0e1c5b1d4030f1b4f3f246f5c72f048baa54d1e47bf3` |
+| `Assets/Prefabs/CharGFX/Rogue_Hand_Lt_Boy.prefab.meta` | 154 | `5a495656399ea56f636e9f93fc66ef5232afaf69e6b18397e9694c485c71d735` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_RS_Slot_Mage_Boy.prefab` | 956 | `9ae8dbf71065506d3b8689e3606ed39fab33c49f002f1c5b94567a83090ca37f` |
+| `Assets/Prefabs/CharGFX/Rogue_Hand_Lt_Boy.prefab` | 2393 | `af16b7d4b42e3f5e4aa70619f16afd374869c69831eaa3a74195c9c9e8a63b6d` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LS_Slot_Mage_Boy.prefab.meta` | 154 | `59fa5c79a4f522818a637f1cd6e92c6dd81005b3b76aa1fe6bbfd6f4ea485f3c` |
+| `Assets/Prefabs/CharGFX/Mage_Torso_Girl.prefab.meta` | 154 | `bff1ea84ebd0dabf37d81701a8a330f91b2d117a17d00d2800517bce872edfa8` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LH_Slot_Rogue_Boy.prefab.meta` | 154 | `fa0a06dbd7abf60480175d6a073cbd11ccf71e0573b32bc50b0c09a258d19ea8` |
+| `Assets/Prefabs/CharGFX/Gear_LS_Tank_ShoulderPad_Girl.prefab` | 2423 | `30075359b543ac32cae0aee98099d1b32c8f05d8ecd62317c9c724e3ddca1f33` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LH_Slot_Mage_Boy.prefab` | 928 | `2f4e63fa30c44ada755ae74e1ea1fd52ed34d8410792f1935deb00b3a1da4ba3` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LH_Slot_Mage_Boy.prefab.meta` | 154 | `0fa1c769c9063cc19bcb6ad0491bc8857825f8af85d412e4f981809f43ffa6d4` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LH_Slot_Archer_Girl.prefab` | 931 | `a9bd2f4d7afee0edeb8ed5b07b2f4bee7b8401f7305d6ba1ab2cf06fa9fa6718` |
+| `Assets/Prefabs/CharGFX/Mage_Hand_Rt_Boy.prefab.meta` | 154 | `b75699831baa7331fa2614eb928c01a6309262533ada69e3616b16303bbff0a9` |
+| `Assets/Prefabs/CharGFX/Rogue_Hand_Lt_Girl.prefab` | 2395 | `34191c167e0727dfc2def6d0563779d552c8e971d70bd9eb6192cd6ef8d63cc3` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_RS_Slot_Rogue_Boy.prefab.meta` | 154 | `c721415283e10d5e9c56fc23a6b4ab6a097b5323d40f8525c1a0c9228b738596` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LS_Slot_Mage_Boy.prefab` | 928 | `32fc7cf2e52dfe1bf9245877e5840acd5f6b4ea9a8095e0250a8091e0bde43f1` |
+| `Assets/Prefabs/CharGFX/Gear_LS_Archer_Quiver_Boy.prefab.meta` | 154 | `cacffae869b01ac82f75c1ddc9c88fc88d7bb510c9511e7d36ebb9639b74e8ad` |
+| `Assets/Prefabs/CharGFX/Tank_Torso_Girl.prefab` | 2579 | `51b0628306de109e5c617af15cf7e58548a59e66914e94046aab8b45c10dd901` |
+| `Assets/Prefabs/CharGFX/Archer_weapon_Boy.prefab.meta` | 154 | `4922b8c99153f025cd230e9f108f7695c32e4cf2091dcdd3ae695050477b4ed1` |
+| `Assets/Prefabs/CharGFX/Tank_Glove_Rt_Boy.prefab.meta` | 154 | `41533d75aafbd17b2e0b5e3077cf3fe326e2cd96a304b4955d8a322a300a9051` |
+| `Assets/Prefabs/CharGFX/Head.meta` | 172 | `ba3f33c28b40a578aebe0a8afd923224f317d17d1c9759636d4d1e0443bc69da` |
+| `Assets/Prefabs/CharGFX/Tank_Glove_Lt_Girl.prefab` | 2389 | `eeac7237d3ba74b8bee7492ee116480b58445d342190d8bd5146d22b24e6974d` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LS_Slot_Rogue_Girl.prefab` | 930 | `379283c07dfaf104504c11dd0bb6b7a947c68c3b3c08892a4c558b50bc02bdfb` |
+| `Assets/Prefabs/CharGFX/Tank_Glove_Rt_Boy.prefab` | 2406 | `b198d765746399f37675fa93d8712c2b6bc50fad1efd79bba43ceddf6698eb54` |
+| `Assets/Prefabs/CharGFX/Archer_weapon_Girl.prefab.meta` | 154 | `42715b4c334ee8b67e558e862313cc56fdeaa613899d7f93d6711442640ad8c6` |
+| `Assets/Prefabs/CharGFX/Mage_Weapon_Boy.prefab` | 2399 | `0679e4ab02c9a59555b4e25dcc7d23b95ec5b679b51f2bd2ac1b0b0bfb5a6dc4` |
+| `Assets/Prefabs/CharGFX/Tank_Weapon_Girl.prefab.meta` | 154 | `44a37ecd2ab54aeac7c435da9c95a0fc6003128df6dc8822761b1d6f22fa6f3e` |
+| `Assets/Prefabs/CharGFX/Tank_Torso_Boy.prefab.meta` | 154 | `849640af7fb8a7c95dda84998ea24e99e7644ee7cec231f7aa151376263ffe06` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics.meta` | 172 | `493b2ca860a71c1bdcf34355f6c67a8a200ee3d59262ae803c3d4b5548e0eb76` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LS_Slot_Mage_Girl.prefab` | 929 | `a0db2d8536f4c67c9f840c0b8d6b8fd3d4c4578329cabaf7d6e90f3efffa56a5` |
+| `Assets/Prefabs/CharGFX/Gear_RS_Tank_ShoulderPad_Boy.prefab.meta` | 154 | `fc107a34eda00e51f66be127b75963d828ff4c5427e0a9ccb8f42c22ceb1c9f9` |
+| `Assets/Prefabs/CharGFX/PlayerGraphics_Mage.prefab` | 10965 | `dc6a7ec7dc9720cec36d10e64afead6443564500f489bc455a8ca347995fe8cc` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_RS_Slot_Archer_Girl.prefab` | 959 | `e6dc21487f5ef85c5b9394b02557b55bec397d256a06c4d9a1082d3718519713` |
+| `Assets/Prefabs/CharGFX/Gear_RS_Tank_ShoulderPad_Boy.prefab` | 2450 | `3c856f6dfa1ca43281ec6131160e448fb7a2ef49ce03c662f08ed37ce279005f` |
+| `Assets/Prefabs/CharGFX/Rogue_Hand_Rt_Girl.prefab.meta` | 154 | `37632d5e5d0b493c3aad33fd897cd7e85933ea4fb62b0374b3ce4093247fff77` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_RS_Slot_Rogue_Girl.prefab.meta` | 154 | `c3554b0ff9eeee9aa71d2c1c2bee8471ccbe69cec409a6b4148a1a3f988bc779` |
+| `Assets/Prefabs/CharGFX/Tank_Glove_Lt_Girl.prefab.meta` | 154 | `2253b0b0c3ba8514a7e0506d3ad5fa153220135c30fa3dc884ef730310a34a8a` |
+| `Assets/Prefabs/CharGFX/PlayerGraphics.prefab.meta` | 154 | `d7136534f44a25b3eb0aa92d1df13e4e247555bb875c4cd71ea575e2a16f25ce` |
+| `Assets/Prefabs/CharGFX/Gear_LS_Archer_Quiver_Girl.prefab.meta` | 154 | `2da0f4febdd55aa65319cc145726e440c5657abf49a20ea83f805611594762a8` |
+| `Assets/Prefabs/CharGFX/Mage_Hand_Lt1_Girl.prefab` | 2406 | `112aa791c003fbfc1e2158db46ecec11ddda3c57924187306a450c110c615e4c` |
+| `Assets/Prefabs/CharGFX/Tank_Glove_Rt_Girl.prefab` | 2407 | `b8ee8f7ea6820aba8264afb7b63c80da1f457d240c9086d9dbec520ab0f1eab9` |
+| `Assets/Prefabs/CharGFX/Gear_LS_Archer_Quiver_Boy.prefab` | 2426 | `70d4fb1efbf478fa33563f109d4183bab2731ccd76eed07784bb6ec215f3e541` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_RS_Slot_Mage_Girl.prefab.meta` | 154 | `5e0480225b15e1c669e57d715208b55a59692882c29a17d853c42c6bb030bd43` |
+| `Assets/Prefabs/CharGFX/PlayerGraphics_Mage.prefab.meta` | 154 | `eacc3d2e86ed7a15927c983cd37049c8e03b5e9bee1c9348e908c53ce802cd02` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_RS_Slot_Archer_Boy.prefab.meta` | 154 | `fba67490f07761aa5b3c3b3dcd67b474c4262f3d265e31ee39004c914511b0cb` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LH_Slot_Archer_Girl.prefab.meta` | 154 | `6e58071c29fe6bca776268297b3b07bbf4a478d7a047140fed196c3b20dfa0ff` |
+| `Assets/Prefabs/CharGFX/Rogue_Torso_Boy.prefab.meta` | 154 | `290fae8b3da515366416760de525d6a3906409677402a164c92c8a1f53d7ecb9` |
+| `Assets/Prefabs/CharGFX/Tank_Shield_Boy.prefab.meta` | 154 | `743acc20a895d6d20fcba6a87bc34fe6eb7c6203083a9edf79e07a445fdd6bc7` |
+| `Assets/Prefabs/CharGFX/Empty_Gear_LS_Slot_Rogue_Boy.prefab` | 929 | `1d9161df2706cd63fa7d436bf81bc34eb19cdc665cfe870f1d842314db6b435c` |
+| `Assets/Prefabs/CharGFX/Mage_Hand_Lt1_Boy.prefab` | 2407 | `011c9ab3cb3e356b398df9fa4207009b32c2ed44aa1341a063bcbc90355ee150` |
+| `Assets/Prefabs/CharGFX/PlayerGraphics_Tank.prefab.meta` | 154 | `b32d07769f0b3fc5fc3cb26d3b5197f6b3c71456cf2421982fc74c95ada22340` |
+| `Assets/Prefabs/CharGFX/Archer_Hand_Rt_Girl.prefab` | 2411 | `c81bf654180c29a3dc223026921cc80416ee1f9b4bc71c7ab5bae4f625128f9c` |
+| `Assets/Prefabs/CharGFX/Tank_Glove_Lt_Boy.prefab` | 2393 | `1a3517f14feca3ab0c462402c4afc9990ef2f0981976573f4f7dc106f0c3bc45` |
+| `Assets/Prefabs/CharGFX/Archer_Torso_Boy.prefab.meta` | 154 | `452ec7879c8ac299a0a1eb28e01fbdb2ecdbf42bbfa08e522f197e2481d6f260` |
+| `Assets/Prefabs/CharGFX/Rogue_Hand_Lt_Girl.prefab.meta` | 154 | `ba6c509ff44b68252d83e91b38a82ff3905689288dd2baa6896f31ff746d83a4` |
+| `Assets/Prefabs/CharGFX/Archer_Hand_Lt_Girl.prefab.meta` | 154 | `48baa9179120dee1c4641665306ee78c2199a5e733a8b1d99dd61685dca91d03` |
+| `Assets/Prefabs/CharGFX/Rogue_Weapon_Girl.prefab` | 2402 | `b3434870c5889b3d37f5aba64a92cbe915d8a764393ab2c2a3c05345ed0e9891` |
+| `Assets/Prefabs/CharGFX/Gear_RS_Tank_ShoulderPad_Girl.prefab` | 2454 | `2cc5c8551f1b99cc62bb4194ad428b4412a9386e50d4fad377a2d1c3b9d08670` |
+| `Assets/Prefabs/CharGFX/VandalImpGraphics.prefab.meta` | 154 | `7cd9ee06ee99a6b076013a6eaddddbfae119792d24c5ba9291f4bd5bf51593b3` |
+| `Assets/Prefabs/CharGFX/ImpGraphics.prefab` | 63175 | `b8bfb15c071f6f0a2a78337cd5fcc07cb4bbcab2f5b7a7bf8cf5d4a1771a4aa3` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/PlayerGraphics_Rogue_Boy.prefab` | 69279 | `0bfbc898839bf48695005592b62bd918b3736e6dd1c646f9d94d17aa700b1366` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/PlayerGraphics_Rogue_Boy.prefab.meta` | 154 | `4385930e395e0bfee650748f744956f0fff5955f717a0548a62d71cb5e7dbd26` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/PlayerGraphics_Rogue_Girl.prefab` | 69477 | `86f72f9cf379ac02ae5e58dec9bb540e78f470f282a36a123ede726a96677b2a` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect.meta` | 172 | `5a4a0d37a3b89bd2c5040ed867c7517ba13bd8999c6cd2b00ee2cb5053154ffc` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/PlayerGraphics_Archer_Boy.prefab.meta` | 154 | `5a6fee15a3a2b9598411d90d3695af614b066df8b511161e87ac78b75121c095` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/PlayerGraphics_Tank_Girl.prefab.meta` | 154 | `9ff5fb06309fdb1127c7fd294ef6c515c7d35f65aab04b3dda39f5bc31b2c03d` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/PlayerGraphics_Mage_Girl.prefab` | 70831 | `b470d00f57f11a158495db744f220b0ef893d7abb7fc22f5eb67615bfdb4b6bd` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/PlayerGraphics_Tank_Boy.prefab.meta` | 154 | `fc0581d597b35a57a19c84580184a7ca972504ed6cab8564797354e5c1133c1a` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/PlayerGraphics_Archer_Boy.prefab` | 69086 | `f48cac95d500a6a5bdb5d5a1771fd78787fde0d40c43ecca2b73ca4dd18214d6` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/PlayerGraphics_Archer_Girl.prefab` | 69071 | `3b84bde18089cac4d902912245a2d4c79f4df6051f0a8127b52275f133b140b8` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/PlayerGraphics_Rogue_Girl.prefab.meta` | 154 | `35396a761007d93b02f3a42d584bcf144867fe89964608ab1db8fa2ac94a4aee` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/PlayerGraphics_Mage_Girl.prefab.meta` | 154 | `fa19c34414c52a701a67422a2490ff1701785ee911cbbd39a00c09e1e162373f` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/PlayerGraphics_Mage_Boy.prefab.meta` | 154 | `f714307da937b80555a1031a34f8f0dcca5d125373362a3f16487e29711344fc` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/PlayerGraphics_Tank_Girl.prefab` | 69058 | `a2d8eea3fd8745227d548f37c4cea6be69f04c671b549c1cd2a22ed8bb011c69` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/PlayerGraphics_Tank_Boy.prefab` | 69049 | `eaa7bf09f2f0c0bad03e8799b78c84b8b3a736fd61146f282c57102bca05aeb2` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/PlayerGraphics_Archer_Girl.prefab.meta` | 154 | `824ed35d79c80f80c940d5de6725b87cdd1704d5f3d099c5d4b838315eb6fadd` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/PlayerGraphics_Mage_Boy.prefab` | 70350 | `b54f7e1c43643b0a02f2654a5620a5e84885e6fe8a7bd465d4c36e6b18735e79` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect/PlayerGraphics_Tank_Girl_CharacterSelect.prefab.meta` | 154 | `3511386cd62b2a0d72a75f2c755ffb535551f6fe171b4f4486ce97c1855f39e0` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect/PlayerGraphics_Rogue_Girl_CharacterSelect.prefab.meta` | 154 | `490d438e6fbbe3a34689f95f876d71115ec616051d0de42767c54b23971686de` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect/PlayerGraphics_Rogue_Boy_CharacterSelect.prefab.meta` | 154 | `6d52934efe8620c27effcc194482043b11df862f2bef378fe1155790f683b069` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect/PlayerGraphics_Mage_Girl_CharacterSelect.prefab` | 4752 | `809fe547fde49fe9cfb2c9a67ff198586aef1ae084f434191c5c86d0156cab0c` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect/PlayerGraphics_Mage_Boy_CharacterSelect.prefab.meta` | 154 | `f66b3bf6ee5d121a74e85ef0575e9c5c958099612c4029b244b920bd85d7747b` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect/PlayerGraphics_Tank_Boy_CharacterSelect.prefab.meta` | 154 | `fbce699d217c33b4f8c52fde675e814e11f9011a2f61d92343c616e7296a7c30` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect/PlayerGraphics_Rogue_Girl_CharacterSelect.prefab` | 4751 | `72c2a2dd5a0aa3475a52435a66630e813fb4ca64ebc5b47e243b95a322cae6e7` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect/PlayerGraphics_Mage_Boy_CharacterSelect.prefab` | 4752 | `a7e0250f2750b982f35c2292643102b6d45f892b1f603da643dd2bd710bc1720` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect/PlayerGraphics_Archer_Boy_CharacterSelect.prefab` | 4753 | `6373d4dd1c90a15a6d9e70f673e0cbf7db46731a21baac2b96b286571e878a4d` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect/PlayerGraphics_Mage_Girl_CharacterSelect.prefab.meta` | 154 | `b0eb2aa8ea982008d20e4b91d08c5dc133bc5426fb8d95d4aa595b8ab3d1572a` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect/PlayerGraphics_Archer_Girl_CharacterSelect.prefab.meta` | 154 | `5d6f73912524affa0ab21a4642b89b14a2382b2baba721ec3880a240053bde8e` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect/PlayerGraphics_Archer_Girl_CharacterSelect.prefab` | 4755 | `8412054598176e2ad16a7a3094dbf4885a6a376f06efeade0a38e00dcfa97b2d` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect/PlayerGraphics_Rogue_Boy_CharacterSelect.prefab` | 4749 | `c91dd8b2a9bcb1b98a9532e29a28fd547958350d7de80c681680963b94ec6eb7` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect/PlayerGraphics_Tank_Girl_CharacterSelect.prefab` | 4750 | `9d623a0a5fc890b8da17261c7ddf0088dcd55253395144943f71741b2922285a` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect/PlayerGraphics_Archer_Boy_CharacterSelect.prefab.meta` | 154 | `60c2ccda31fd856ccbd09c9b3ea756460e0899d60b9dd944166ba5fa4a57b0d3` |
+| `Assets/Prefabs/CharGFX/CharacterGraphics/CharacterSelect/PlayerGraphics_Tank_Boy_CharacterSelect.prefab` | 4749 | `bbc5cfacfd7a9d118ab11f2ebc73571b4756c86a6078523c32f585f52f780995` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Eyes_Boy.prefab.meta` | 154 | `1cae9e1da928d9a441f1bdb6a0e00eed6b2fe913a30c9c84e1fb70acb446f615` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Hair_Boy.prefab.meta` | 154 | `3788b2ddc9cdd363c104adf1fcb4ab5f390e5708873e41836ed7a9dc1546f139` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Hair_Boy.prefab.meta` | 154 | `156fecd223da61c660311bb8aa818b985b9f8f12509083ebee39a8e997e8941e` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Eyes_Boy.prefab` | 2407 | `4d158d110d612bbb67fd9e49de4d4ae3e4c0491ec26fe2f65018ce9b645b3dae` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Eyes_Girl.prefab.meta` | 154 | `ade07971211ca47a59c5ecf7310305e61edf7f662721950c891a1d738f64b874` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Head_Boy.prefab` | 2377 | `5ae2ad24c9e0938a696ebfece101aba21d52b4f14193b31c8ec0fb3aae07174d` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Hair_Girl.prefab.meta` | 154 | `d653b6b6d62f312f1419bdfaad4d7f404535e0d32efd6c375d9be7dbc683df58` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Eyes_Girl.prefab.meta` | 154 | `a1e7cf72e46153bfcb8f274177bc7ea8bbdd6583964e232e46fd27f9cd83b9b3` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Head_Girl.prefab` | 2378 | `24ed643c16d29362441b3f80929c34d151c39ef772024eaec226bf9502480641` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Head_Boy.prefab` | 2374 | `af411d2e1e9f57489279db429839051c0951199cf608354d9f5028cbaeccc5d6` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Hair_Girl.prefab.meta` | 154 | `70d9c7266067b32490cac88baacea3c17c793d39be8c6af0d519d26684635050` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Eyes_Girl.prefab` | 2406 | `a84307a278078775563ad1622517a503747bc9b72f3a657779eaade1b05a23d8` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Head_Boy.prefab.meta` | 154 | `174aaf67c24ea9bdda7e73bf0890212da7dfdfcd828d10f92e4013da0ced427d` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Mouth_Boy.prefab.meta` | 154 | `607c1c7002e0d75a8abfe025c34c404e9211a28af27ae913589540ed7820a16a` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Ears_Boy.prefab` | 2408 | `d322de3e3fdaa8f52a5d1481a4a4a880c49daa400c9b5903994b3578ef2fc6ff` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Head_Boy.prefab` | 2379 | `5387377a03fe8311f4fbe5794efd7cefd0d5157dd2428c4635af2943110c441a` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Head_Girl.prefab.meta` | 154 | `80981aa38c3113e891b4144b8bd726b7a89bfb88f91fd43e0c1a65fc465c74b2` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Ears_Girl.prefab.meta` | 154 | `378879eee566c19236ed671a43ea89b181cde8f0ae951632af4c69ba17d9a4e6` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Head_Boy.prefab.meta` | 154 | `e9808613929fcd308a556db06990c089a55b16cbd5321731fa8b8d6d07369996` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Eyes_Boy.prefab.meta` | 154 | `c2b2f42356e484c6876afd1eae94c5315ed810407b886c849bb1b05ed9147d9d` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Mouth_Girl.prefab.meta` | 154 | `74b98e1692d6d79b4073b6195685a31f6ffa51b4576779bc4501ab5acaf32eac` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Ears_Girl.prefab.meta` | 154 | `5c2d3f082a377436947e461ce94d45e4f93d9be11e599848df7a19c3fe6bd473` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Eyes_Boy.prefab.meta` | 154 | `bc8a90a4217fbc80867e181c203c331e0d6264098bdc3a03282e8a6cec0094c0` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Hair_Boy.prefab.meta` | 154 | `9170d5275ac8b89b30c57aed0014ba5c52504e90bc8461011980d3a745c6ef64` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Ears_Boy.prefab.meta` | 154 | `94fb30ade20229fb3bf737426e7120993cd43230431984c5ab6698c1a33fe1d0` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Hair_Girl.prefab.meta` | 154 | `d9e2c6afcbe844c5259f9259eed763fe7b415abfe66916c5c1d0a836569b4eaf` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Mouth_Girl.prefab` | 2409 | `5282f1b34b16ee8d084f3863f3097b7b1f73dfd91ae4aacb2d1d61cbfc445c8b` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Hair_Boy.prefab` | 2369 | `74db412d10e7fec9d997f537fc3a9638c8a4be4b319c73db1bac0bdeaca495d8` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Hair_Boy.prefab.meta` | 154 | `d2e69a79a3922901bad0b45749ab121752302652701ada3f86cb04d8e306ebae` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Head_Boy.prefab.meta` | 154 | `c73a53d4e95c6c46b4d2b25d8169eb2fc341e4b5bd68f0bb262a3da2da1bba5c` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Eyes_Girl.prefab.meta` | 154 | `a94d82df3cd2f7e032c3ee1b385cfc9edb105a0635f99c067f3afe365daaafed` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Eyes_Girl.prefab.meta` | 154 | `c4d3194554e1ab7d2313d376546c40fc79808eb3731350e810e708c15f06377d` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Hair_Girl.prefab` | 2408 | `1352ff5c7011c0f50e4989d9fe6cac1fe2f45d5908d341dd8be051209a7455c6` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Ears_Boy.prefab` | 2429 | `09d94030942346e8e1d55097af08dca3942ed63c8eb2c47e25320f0bb1a85184` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Mouth_Girl.prefab` | 2406 | `03ca598b8226c0cbec1819ef85601d410dbea7da1b2a37c9d67df815ba2bde83` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Mouth_Boy.prefab` | 2407 | `56f03a4a60d731c3466c3d50b91241f28f2f6027c909541079b961b20b67724d` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Eyes_Boy.prefab` | 2407 | `e951ad976bc17b7f7bbfbba0c2ec304ba19ca3159daf99694bfd4a40ab976f4b` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Head_Girl.prefab.meta` | 154 | `ddb818a97c3420a88e6b8cacb4cdbb873b176f8f67fd34b895cab42f670c8dbf` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Hair_Girl.prefab.meta` | 154 | `f2b9dd39d2f1b078f3b78efe0dd26e0a930166151438fef7a0d8f0c05973c618` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Mouth_Boy.prefab.meta` | 154 | `f5ec722507091103422aff02c5d021a416a1e4d54d08c09d20e209315ef6cd8f` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Ears_Girl.prefab` | 2428 | `eea3251cc47c8aa25ca16375856964de5dce32bce490436ccfcc3d76f212173b` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Eyes_Girl.prefab` | 2404 | `a4a180dbcb71e995395acc0011a39d7f0b42c9edfbfdb243e71d830c40ca4d9a` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Hair_Girl.prefab` | 2409 | `5bbb45ddf39d78ccb248de624f2e2d16c66f931f0daa48b00a70d1549e996aa4` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Ears_Girl.prefab` | 2425 | `5cb93b181384dc73304c220f6008bba5dcb15a26b41226eb467a4803f10c72a2` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Hair_Girl.prefab` | 2407 | `e89486c95eb124b9ce2837ed79837c92680c73b48c5248bc7156aa72a7a57435` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Head_Girl.prefab` | 2377 | `6a550157eb6846a3d52a8ceb17b96b457c3a35e609286469a67dd10aec2c1624` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Mouth_Boy.prefab` | 2406 | `fbc0190370473112fc88951b0fa0ee00e2a860e4f0bcc6bcb326a33315c66ef5` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Eyes_Boy.prefab` | 2402 | `f78db6954ab378ef09242a78ff6914a923948c179caacc22d271f4a8c7a9d926` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Mouth_Girl.prefab.meta` | 154 | `84ed88fd4cfa4acbb5717e62dcd212a1b8ed83c100ae0bbe45a7862b31200e09` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Ears_Boy.prefab` | 2399 | `c0be38280d419be7f9f2a9737b2d31695f4a5accacb241e65dbe0abde7a6d19a` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Ears_Girl.prefab.meta` | 154 | `f1971cf923b9a045179067434aeb5c91da7074ce34274a1da0abbd1a159e1753` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Head_Girl.prefab.meta` | 154 | `dac0cb5386269726fd0057542af79350988db88136f39c987dce9c3054e2de9b` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Ears_Boy.prefab.meta` | 154 | `5007cd7396530a7e9acce3e266556914e7eb9bbac12a1363fecde3438f659972` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Hair_Boy.prefab` | 2415 | `baed22d5e68eea54dd6845062f251e4e0788dfee0644d3354e33677ad4c9a0e7` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Mouth_Girl.prefab` | 2406 | `6bf7aea308a1407bf68a78c37c544e504202514d0d0339e819006205f24a004b` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Ears_Boy.prefab.meta` | 154 | `8113e8a4971b865078e067188c1e0e39119c54dd21e45bb5f5bad71fc85addd3` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Mouth_Boy.prefab` | 2406 | `2e78a9a28d775eada90bdf2b715199c99d7c15fa993b1cc061bac79c2f40d8d3` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Head_Boy.prefab` | 2374 | `fe67302cdbc5af7328e9cb659755956f09de2ad1e310d9fce339c227851219db` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Ears_Boy.prefab` | 2424 | `71997d3cfb2fa2ae8aeb7715422f562359189dcb36ce77aeb0f9f340331c5c9c` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Mouth_Boy.prefab.meta` | 154 | `6e198081f6ffd36c3169de068dc44b42492e0aa350698efdd65bc17e41325c65` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Mouth_Girl.prefab.meta` | 154 | `0bf2fe597c829bf2fd4bafb4088051e6a8fde3732322e3451fff0d65bd60dcc1` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Eyes_Girl.prefab` | 2407 | `a5fc3cb2ce347c68661c7e54b549c3731be360c118725f7c7981a3c693184be0` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Hair_Girl.prefab` | 2408 | `62fb1f9d662d4d1fdd94338bf7788de154a2a72c9cc1c5480dd3e9952b7d76fe` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Hair_Boy.prefab` | 2421 | `a063d7f14f90d567c003e0a46f6ef79b6356dbd3c970da62e2ba6a19017d561f` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Mouth_Boy.prefab` | 2409 | `c1fb4beac949063232cbfe8917377f78b08fe3bf2d5bf70b03c3b87d5f768c37` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Head_Boy.prefab.meta` | 154 | `2f706b078f507ce764c01828011c2a4d081263160644416061ceed803666b246` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Head_Girl.prefab.meta` | 154 | `0c4ae3256baefed70f187b34aa34739ab701d1fb337cd9569ca0910b123e11e4` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Head_Girl.prefab` | 2376 | `ed434929ebc9b0d14176cf883c4781b9ad0cf53372eb77ef53673f0658b6989c` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Hair_Boy.prefab` | 2404 | `5bf8a95399ea4a72bd545bda91d74c5638fab4b61119f2bb58bdcb1e06b36581` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Ears_Girl.prefab` | 2427 | `f87a16bc0ad82f03262520ebd53e338f1eef893fddee4329981913f2b1119a9c` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Mouth_Girl.prefab.meta` | 154 | `22ec63f48bdd3aa785caf6f2f88bccaa58b977d779d5dcb9acf2bf3c78abcf15` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Mouth_Girl.prefab` | 2395 | `8b1c1a2db1d5778ae603ad73c557ac8c5834b9362960832e1ffd95a50aaf8539` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Ears_Boy.prefab.meta` | 154 | `51c46d658600774c581bde93ad44e9c36e2825c1a803fb3cfcdce112b431f3c9` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Ears_Girl.prefab.meta` | 154 | `b24958e1474c28403212e1c2d936b736d82f2f3542f674a0f82ff93bf5bc904c` |
+| `Assets/Prefabs/CharGFX/Head/Tank_Eyes_Boy.prefab` | 2406 | `f2b95ae5ed562c8a217cf15a37d25bbaed8064abc9145a45e04da90f4f8f50df` |
+| `Assets/Prefabs/CharGFX/Head/Mage_Eyes_Boy.prefab.meta` | 154 | `8013323fa4f872b75b979a7ab0ac9e295306db1ce695ad973c21264d27db0f93` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Ears_Girl.prefab` | 2409 | `eb88c3dcf56a6c883b4a0d1752e5e3e9f48b721cb88748b6cf68cef86b68f29e` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Eyes_Girl.prefab` | 2409 | `064699004589e10ee9b81dbd04586baba30f104bf558a9cfb02991f665849f3f` |
+| `Assets/Prefabs/CharGFX/Head/Archer_Head_Girl.prefab` | 2380 | `84a1751788225eab0e53e89eba53b49e24dd873bf570c4fc61f29d15c059f2fb` |
+| `Assets/Prefabs/CharGFX/Head/Rogue_Mouth_Boy.prefab.meta` | 154 | `a09063474e6e3c3964c0a0fae64569461b09862ff69a2a26cbcb33b967d6bf03` |
+| `Assets/Prefabs/Character/ImpBoss.prefab` | 15062 | `73d23d907aa0362089bbb67ec10889ddf2803f5fa2b02e93d8378a2fe59a39c2` |
+| `Assets/Prefabs/Character/PlayerAvatar.prefab` | 25322 | `aa01965013f85b62fd5a87d4c02701bfbe1fa1808501647ffb1171491ac273b3` |
+| `Assets/Prefabs/Character/PersistentPlayer.prefab` | 3101 | `a67e67cdf66130dbb0709a28956fd6b152ea092a0d1b74c80a030cbde6c28605` |
+| `Assets/Prefabs/Character/Character.prefab` | 8094 | `5e4a0496facab80666b146614b31cd1b712695163705cb21118f91031ab2b377` |
+| `Assets/Prefabs/Character/VandalImp.prefab` | 10090 | `bd40071e11915b546648db65aa4448fd4adc56afa6fc6b9d72bdc98f87e144de` |
+| `Assets/Prefabs/Character/VandalImp.prefab.meta` | 154 | `f466e305c0546222e18416651a090f6ffec1a77352620e6c5a110f0a297d65e8` |
+| `Assets/Prefabs/Character/Character.prefab.meta` | 154 | `db5403384ea11faf5043ee42164a1363c0fe599298aefef13541af8de65cbfc2` |
+| `Assets/Prefabs/Character/ImpBoss.prefab.meta` | 154 | `68f084b7e634e782f8d7262e58b16ca5d4a2d7c522cfad1a58960a25beebdad6` |
+| `Assets/Prefabs/Character/Enemy.prefab` | 3492 | `bc2b2fd96504cded1b3b79356ddf4ef3a7612a5c408a3268b6c36adb11423f37` |
+| `Assets/Prefabs/Character/PlayerAvatar.prefab.meta` | 154 | `8681b1502ddd964a1fbaa07baf5abf6f2e26eb40454568d5437b027a303a7ed4` |
+| `Assets/Prefabs/Character/Enemy.prefab.meta` | 154 | `1c9a9ab5e2510d2e91a88e54b665a187f08473c43274d19e9a25d9c0450529d1` |
+| `Assets/Prefabs/Character/Imp.prefab.meta` | 154 | `1076f46e52afd3509f948b7434433e31d0f54017242ca6b4eda55344ccd01648` |
+| `Assets/Prefabs/Character/Imp.prefab` | 14630 | `6fe4fbdb1e5866b2fd37c560d5ecc52df7a462660036526cda0135bb33bc5f3b` |
+| `Assets/Prefabs/Character/PersistentPlayer.prefab.meta` | 154 | `f4d3a3bcd1862582f4943532d1287de53e5a41656e0cea8ebac9a7b6481870cf` |
+| `Assets/Prefabs/Menus/EnvLighting_ForBaking.prefab.meta` | 154 | `9cd64bb3e0e338b0ff1c1cc3571bc9c2cf02627c2b06c5af25c6bde459bc950a` |
+| `Assets/Prefabs/Menus/EnvLighting_Realtime.prefab.meta` | 154 | `fc4f6720d4379c602a8460b2f3899a45e5dd5a2061f2fec395a24a8fa9256ee9` |
+| `Assets/Prefabs/Menus/EnvLighting_Realtime.prefab` | 17467 | `292178e2af95b7a01663a08b3e879c524549e607a31cf27650987bd80f07a191` |
+| `Assets/Prefabs/Menus/EnvLighting_ForBaking.prefab` | 14844 | `4cc50a10bd48c1d0159d0a2db3506d32cb96e6e13999f710c635b8834973fe5f` |
+| `Assets/Prefabs/GameCam/CMCameraPrefab.prefab.meta` | 154 | `7ff96f338636b890464b72271f56c87254ea61d7533a4a82651efbfc8c0e0d0b` |
+| `Assets/Prefabs/GameCam/MenuCamera.prefab` | 3615 | `4da0a5d3bd698ec4711bf5b66f4fd9d8c040ee94ab7a7337a6818e4f9268c679` |
+| `Assets/Prefabs/GameCam/CMCameraPrefab.prefab` | 9221 | `594761848c7eb803f1b4db140436bfe6998133e664015447899877704ae9a0b0` |
+| `Assets/Prefabs/GameCam/Main Camera.prefab.meta` | 154 | `2f0a216db83647a7cf91e6e27c7ef40c4b9a49143d6e906d3ce997b03f4ed9e9` |
+| `Assets/Prefabs/GameCam/Main Camera.prefab` | 4065 | `626a2fa5e4f683c4a03165c47e0bdc77f33d900323a0ff18caac29fb2dd5e00e` |
+| `Assets/Prefabs/GameCam/MenuCamera.prefab.meta` | 154 | `a1946d5d6a88194a138397c10df3ac829dfd0ec206e881cb91b20a7aa3b2d88e` |
+| `Assets/Prefabs/Game/PickUpPot.prefab.meta` | 154 | `f3813970a59801b8c43316883253845a3051ae9a3cbb56847ed89a9a791351ac` |
+| `Assets/Prefabs/Game/ImpTossedItemGraphics.prefab.meta` | 154 | `f21bb9b5487ac27d4a10494d75f205653d82bbacbe9fe8f45e7a34e5d2a44102` |
+| `Assets/Prefabs/Game/PickUpPot.prefab` | 15713 | `08f6ac72860bab0e78c693a71af9e46cde289047561ff62169ce539395f29024` |
+| `Assets/Prefabs/Game/ChargedArrow1.prefab` | 6536 | `e36233e60100b0340f3f8cc93c44b18888ce1ecca20a23d9ebd519c018a94855` |
+| `Assets/Prefabs/Game/Arrow.prefab.meta` | 154 | `e9aeb33880520de52d10b8f25e5a97cfb615ca25f382818b70bbcef8723b3388` |
+| `Assets/Prefabs/Game/BreakablePillar.prefab` | 7803 | `37cb0c7f0510ee00501770d56010f4100b846730a54c4236fb9491c74d5ffc74` |
+| `Assets/Prefabs/Game/ImpTossedItemGraphics.prefab` | 8072 | `323851bf5511f9169a513f283531a6ea290cae706b02f42cb1f5455a371ed662` |
+| `Assets/Prefabs/Game/BreakableCrystal.prefab.meta` | 154 | `672d67aa1f90a2c62ef1115eae619cec3d88a61c6c5a5b3f6dcd7a707b234193` |
+| `Assets/Prefabs/Game/InteractiveFloorSwitch.prefab` | 10972 | `4e6394362ca862e90670c8ba52000a29e6bcd27b9dac919931b28564c468e598` |
+| `Assets/Prefabs/Game/EnemySpawner.prefab.meta` | 154 | `5dfafebc4012f5f04d352154f7687eb65a5b45055c6d8453ed21b23161a5ed17` |
+| `Assets/Prefabs/Game/ImpTossedItemExplosion.prefab.meta` | 154 | `150478e607d6ddef2d285f5d7b0e286f065a55cf4214f0d3eaebf6b040aaea37` |
+| `Assets/Prefabs/Game/BreakablePot.prefab.meta` | 154 | `221d17ee8339441640b9acb12d367691d58ff088108f414ddf4d9eea2f23ce6f` |
+| `Assets/Prefabs/Game/BreakablePillar.prefab.meta` | 154 | `446b8066d367dbc6dbeaf55b5e21ef1a7d23eb762886a4902678ba27056f8ce1` |
+| `Assets/Prefabs/Game/Arrow.prefab` | 7894 | `d512df62f257c35d21939693969a451bf47731ed14bcadf0a6a03884af4874a2` |
+| `Assets/Prefabs/Game/ChargedArrow3.prefab.meta` | 154 | `aadc9773e96025a49a86d1527fbf0c788b716d4920b65916050f7e9d81b20fbb` |
+| `Assets/Prefabs/Game/InteractiveBossDoor.prefab` | 15793 | `8cf81a47aea911f707fded852cb58a1203bd6177451925d1533ee0c74f6337d2` |
+| `Assets/Prefabs/Game/ImpTossedItemExplosion.prefab` | 8737 | `88c8a20b91fee1f5f3c07d171fb846b3f9580a3d50858e5459af20d70825463f` |
+| `Assets/Prefabs/Game/BreakablePot.prefab` | 7339 | `00db9e30663aab195337d79d11fe8d7cf157638be8916facb46bc86db3402bd1` |
+| `Assets/Prefabs/Game/ChargedArrow3.prefab` | 6458 | `9e4d2f55332e6d27ce5758beff902cfec9722612d93474d500e4410b48b664eb` |
+| `Assets/Prefabs/Game/InteractiveFloorSwitch.prefab.meta` | 154 | `a314593afff5d31b69b94148bae684ddbfcca5eceb236f617d96729d90531779` |
+| `Assets/Prefabs/Game/ImpTossedItem.prefab` | 15686 | `668cbc3c7e88b8dacac46824931e1ce11556ab1a5d5eddeed2024e36c64dd8b2` |
+| `Assets/Prefabs/Game/ChargedArrow2.prefab` | 6540 | `7b0fe0868f18f0707cdf798b2b643e5c8292daf97ad04d35aa9a9aa0410823f5` |
+| `Assets/Prefabs/Game/BreakableCrystal.prefab` | 8914 | `31ef4dc54460c177a5d9152460efb17cb215b4b72c8822a382d2394a768d3bfb` |
+| `Assets/Prefabs/Game/ChargedArrow1.prefab.meta` | 154 | `a53b2407cc217eea797ac694fe8713edecc8f63b03495bbb490e196f6b023967` |
+| `Assets/Prefabs/Game/NetworkObjectSpawner.prefab.meta` | 154 | `2d59855d7005b4b0614b2a418a9bc9553e967dc1f28052111600d4922870115f` |
+| `Assets/Prefabs/Game/ImpTossedItem.prefab.meta` | 154 | `629a68751709f7caf2400a4a5de5a169ce60ce6bea3a9fc759682af1ea6e11aa` |
+| `Assets/Prefabs/Game/StaticNetworkObjects.meta` | 172 | `bbf7e69151990843c6446d3484581ee1c94390b310f5618b9d1a75930fa3e454` |
+| `Assets/Prefabs/Game/ChargedArrow2.prefab.meta` | 154 | `5753aa495eecf418b4f5dbf7cbd8196e5e52c1dff95b112cc7e292ef0981600b` |
+| `Assets/Prefabs/Game/EnemySpawner.prefab` | 25423 | `8984dfb45aa93fc37fee5af038c24079eb8c5340797634334ee4e60ab76775ad` |
+| `Assets/Prefabs/Game/PrebrokenPot.prefab` | 44288 | `2601a7227aed1d46828c2a8e5ca02fc76afe0c4a7dff4304961eff7c4cb946f5` |
+| `Assets/Prefabs/Game/InteractiveBossDoor.prefab.meta` | 154 | `5b9cec73924b91b98edd2874972b0af98f88dceae84063150c670cf6d14a17d2` |
+| `Assets/Prefabs/Game/PrebrokenPot.prefab.meta` | 154 | `2bbefd3c398a28327a7be772524592f1e2a62e7493586d534cba3755b2b3d0c2` |
+| `Assets/Prefabs/Game/NetworkObjectSpawner.prefab` | 1427 | `22e1f6af94dd5acf0520849b120339010eccc99f8a159c7b2d374aef6eb9cd7b` |
+| `Assets/Prefabs/Game/StaticNetworkObjects/TransitionAreaStaticNetworkObjects.prefab` | 62548 | `c3fd67070cdebabdad23f6fae147d57f296ebabc45ea2cf2e5fe1d9bb71fe5c1` |
+| `Assets/Prefabs/Game/StaticNetworkObjects/BossRoomStaticNetworkObjects.prefab.meta` | 154 | `ffb23f05c7e84d148f476c2dd89658275f750afec6075dd78be97da0504e6abf` |
+| `Assets/Prefabs/Game/StaticNetworkObjects/TransitionAreaStaticNetworkObjects.prefab.meta` | 154 | `9442c563a02e4e8fb99ec27b66ee86fa6a0d2d7509ca0e82c9e54857fd5671f0` |
+| `Assets/Prefabs/Game/StaticNetworkObjects/EntranceStaticNetworkObjects.prefab` | 143058 | `86ea2fdc690788ed2a1134c34f912c39754f42d080f34755a809c95fb1fa704d` |
+| `Assets/Prefabs/Game/StaticNetworkObjects/EntranceStaticNetworkObjects.prefab.meta` | 154 | `4307cecd196495a14f0c30e919ff8995d11f1d6014e4b8de0690f3e8e9966dbe` |
+| `Assets/Prefabs/Game/StaticNetworkObjects/BossRoomStaticNetworkObjects.prefab` | 133326 | `11f1855a5641523f789a416f5d83d9665448aa7f65b172ebd5a7807d1371aa8c` |
+| `Assets/InputSystem/PlayerActions.inputactions.meta` | 376 | `73f82ae6a0b3b96a338cd9167ed83f52d985289b80361eda6cb3575d2899f3ab` |
+| `Assets/InputSystem/PlayerActions.inputactions` | 38617 | `6fb11d861e4e3514f263df0bf5091f7dfc8fae9ead37a55a127992af0ff7f36e` |
+| `Assets/ERO/V535VisualWorld.cs.disabled` | 13418 | `a4b2a579786c384207dd5a3f7da7f25f619476048016b672d4fa0ef42db93f7f` |
+| `Assets/ERO/V509.meta` | 167 | `0b9fbbe1ce8885c265a62119a4594dcf0e3abad2e792706916e4d63cb62e5d84` |
+| `Assets/ERO/README.txt` | 442 | `8b3d22e949f31f4d420ebe8c4a82da479f3c2a71b31dcce961684515fe61942a` |
+| `Assets/ERO/ERORiftGlow.shader` | 1273 | `f348d7d696d2024cb79fc6f21a6593e7f3a9706980ca41e33ca7b776639fb67f` |
+| `Assets/ERO/V533_README.md` | 1898 | `e451cf9e2ecfcc12b39ca3737d599f2d1651620b053a316117249172c7954546` |
+| `Assets/ERO/ERO_V501_SecurityUpdate.cs` | 411 | `33d6aad18bed83c25e3fb6058b9acd5c53d7820af3bc9c528a97e4d2bb58075d` |
+| `Assets/ERO/V516.meta` | 170 | `54c491ca51b6a1908c197733bf4d1dde59ab07e01c58a2440db53ff0fcb5ce65` |
+| `Assets/ERO/ERORiftGlow.shader.meta` | 60 | `d5a4a0ed0fbd0e53458653515e7509ca82761504e5cc84ca98dedd3ebd961e23` |
+| `Assets/ERO/ERO_V500_FoundationInfo.cs` | 750 | `4c9f34b211dec0aec1a924cbfbbf6ff019544bec94ecb36a4a17db413790df84` |
+| `Assets/ERO/V523_placeholder.tmp` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+| `Assets/ERO/V537_FINAL_ART_DIRECTION.md` | 235 | `54234622ddf006878fe136d6df9a7c6b7f21b3ee6bc53ed5c23959e8dbcfa85a` |
+| `Assets/ERO/V535_README.md` | 395 | `20fd10138a1ff612ed091a0c4cf9ee27b2ffd43c596bc3922b89e704e549304b` |
+| `Assets/ERO/V533.cs.disabled` | 41860 | `462d5a260807dac9cbd0c9faa74222666657473c19845dd7ec0b22b9b449974f` |
+| `Assets/ERO/V516/EROCharSelectPresentationV516.cs.meta` | 243 | `c402c239a04fea05fe5b060974b8fdbd71e0355ca5849b0eb5e75afc25a58f5c` |
+| `Assets/ERO/V516/EROCharSelectPresentationV516.cs.disabled` | 14142 | `cd03f5287a4df22f1f145bf7dabb4c29fcc40165ef13ac6e812df215172d351a` |
+| `Assets/ERO/V509/EROAvatarReferenceRepairV509.cs.disabled` | 2497 | `d2a3cd36a16560fc9d7666f42340a47507581e058d034ab8508ba769b6913bbc` |
+| `Assets/ERO/V509/README.md` | 491 | `a73b84aa112307acfa16d9230351d781f682ab9f5195e40d09dd75eaec3bd257` |
+| `Assets/ERO/V509/EROLanguageSelectorV509.cs.disabled` | 3707 | `c9e3b1ebfc20ba35617b9b5dcdd4a260a86d1076cad61fbbd3b9b25ea107e37f` |
+| `Assets/ERO/V509/EROLocalizedCharSelectV509.cs.disabled` | 2035 | `664a363ac96bf21125cb294e6316813cc438b5fdc79e29ac8da89dfcdf1e7f73` |
+| `Assets/ERO/Core/EROGameRoot.cs` | 698 | `7a60dc90268e79439f10493c0508de7d2af2793a4c55b6467c87f6b8431b9724` |
+| `Assets/ERO/Core/EROSystems.cs` | 988 | `074560087cb97c642b077a2374e2fc06d23a02da0326393874731c786d3d5721` |
+| `Assets/ERO/UI/EROUIFacade.cs` | 763 | `ecd18000e93c7eb24f2a43a6a07930b26152782fc2a7489ebe9b10665d070503` |
+| `Assets/ERO/ArtDirection/README_FINAL_ART_DIRECTION.md` | 708 | `8a160440dbc64fff142534e9a7725add71e0bc587a71768acae3a2fcd9c66113` |
+| `Assets/ERO/ArtDirection/ERO_CharacterCreation_MasterReference.png.meta` | 0 | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+| `Assets/ERO/ArtDirection/ERO_CharacterCreation_MasterReference.png` | 2194429 | `442a50b7a1fd67ca108d86e04f3d58f8251b4c628b5d412d8709c1c24f14fc62` |
+| `Assets/ERO/Content/World/README.md` | 148 | `b61abc003b66c18a7b5b456c1cadec22bebdc81707f91bc129fdb973e5d0e46a` |
+| `Assets/ERO/Content/Raids/README.md` | 148 | `2fd7b8e8d1e72f5ce75f03eabe3889299e9d9ffc1c2c8e61234eb49d3372d2c8` |
+| `Assets/ERO/Content/UI/README.md` | 145 | `237a7eb198d34fe267db1f7fc869c9897612e4f645c7c7d5d055bf60d4806593` |
+| `Assets/ERO/Content/Monsters/README.md` | 151 | `08fb13dff661bec0f48c097578e7250493f909e176815fc78071e158efce6413` |
+| `Assets/ERO/Content/Dungeons/README.md` | 151 | `a5ef74c90a34acd1f92ed82709b2d92f5936d45eba182e8d6e9133f2a962722e` |
+| `Assets/ERO/Content/Characters/README.md` | 153 | `d455dc75637d3047e67e7c002608a2841154f84678a2c0017401f4e92451f29c` |
+| `Assets/ERO/Content/Bosses/README.md` | 149 | `d610a720f82a80a5ca32298f763320c79d1477cb2062ddf99d87ae9dd1d77c4b` |
+| `Assets/ERO/Content/Equipment/README.md` | 152 | `48ae27d50505ca8c2426d4c986c7405f0a67fbf14e0636ceedb3ba6ce7bd96f2` |
+| `Assets/ERO/Content/Localization/README.md` | 155 | `68bee4606fe60e1471af48df9f887fff08d71915dc2dae4d1cf1d7bc9eb182ef` |
+| `Assets/ERO/Content/VFX/README.md` | 146 | `3de53c8b3b476af87ec9a47fba5eab8fe1b5d4253ad13ed6888382c0a4a1c2a3` |
+| `Assets/ERO/Content/Audio/README.md` | 148 | `7ff147f780ec2bc2f68b19f359f3b90ce1a50b42c985246f31fac6b7fa4fe60f` |
+| `Assets/ERO/Content/GvG/README.md` | 146 | `62d91f975efe0f6fc2e66b6e62a5b781ff81dd39a2b6ef108c381fa0c2e6b9d9` |
+| `Assets/ERO/Content/PvP/README.md` | 146 | `8d1e1174459a54f082540409da8abe265f019be0751f1db775a772c545aefbdd` |
+| `Assets/ERO/V531/README.md` | 634 | `e7e1b87caf31d1817c2e8b6adf836acb9904e9ae7c306eb3d5b9ad0ee88fdbfd` |
+| `Assets/ERO/V531/EROFullPresentationV531.cs.disabled` | 17305 | `16c6a95b45d10bfbe85b70dbfc44770cc6f153483fda8c97e95c29f78fce59e3` |
+| `Assets/ERO/V507/README.md` | 420 | `94fb81a99a97165bf4d671e980ad8d6eb4d573748a80e5ecebef294c5bee92ea` |
+| `Assets/ERO/V502/README.md` | 906 | `0ff84aa17ebb0116d1baa349c0ea7303dbab77864090c9518b643d50719443ad` |
+| `Assets/ERO/V502/EROPlayerProfileV502.cs` | 2113 | `0fac0c87a2d346046441431227d9a9078336618159e0a9b928c6b98800eca325` |
+| `Assets/ERO/V502/EROInventoryV502.cs` | 1315 | `be050155fb36e6c75504c09bcb8e8e64e13da20a3d488e1b9ba91f2e2a8347ef` |
+| `Assets/ERO/V502/EROClassDatabaseV502.cs` | 8922 | `3b7cd6f1682f0b44860c75b54994391bddf6adf17b1b0c8c2a521b1e5bf22c7d` |
+| `Assets/ERO/V502/EROSystemBootstrapV502.cs` | 2465 | `a40e54e7fe73930e278021a3aa3733b27371f8686801dccf8b8ced2a5eb959e0` |
+| `Assets/ERO/V502/EROAccountV502.cs` | 1335 | `73638e70e8fba51ba64aaa307a42bf15fa30a5d6f52136a9610765f92de49d04` |
+| `Assets/ERO/V539/EROWorldPresentationV539.cs.meta` | 242 | `3bfe9935c7bef2d460231b30c818dce9a867308c43a23e0f275614079a995b36` |
+| `Assets/ERO/V539/EROWorldPresentationV539.cs` | 1579 | `5f63d9fcdceaa23ce38afa8b7627f31ec8e95223295f915147d28856400f3ee9` |
+| `Assets/ERO/V539/README.md` | 336 | `6407bc4b31fed2aa9ef2ad825acc881505bf1c979ec63314da824acd668bf80f` |
+| `Assets/ERO/V539/EROFinalQualityBootstrapV539.cs.meta` | 244 | `a5621a8a8918cc3c72db1f29b7ea3a7efa8c9cc1c133b1fd4f8d4e00a16cab13` |
+| `Assets/ERO/V539/EROFinalQualityBootstrapV539.cs` | 1760 | `edf16302318d6c1210076fe7cd974bfeda0080d85172ef0b189b1d5e1acc5240` |
+| `Assets/ERO/V523/EROMainMenuPresentationV523.cs.meta` | 243 | `a0c47395b58b5dc453095b7dcd77b6735c51d5a4e36983e568a003d084a29e3e` |
+| `Assets/ERO/V523/README.md` | 607 | `64bcdd2af6ad5638fd0fb953a745fdb437ab593b352896328395eb84bb37e2f5` |
+| `Assets/ERO/V523/EROBootPresentationV523.cs.meta` | 243 | `339239798cc39eb478c9a0ff5a328e313101f1a6946d2939b4baecd264daf351` |
+| `Assets/ERO/V523/EROBootPresentationV523.cs.disabled` | 2529 | `89397783bd283ce1a0b4802ab95c891f2f35c25afb1c82b4d4c7a3b458afb9ae` |
+| `Assets/ERO/V523/EROMainMenuPresentationV523.cs.disabled` | 2741 | `17590fd3be212cfd72c5ec5c2ac7424002a2284bdf42855aa5b0805d8ce36a72` |
+| `Assets/ERO/V505/EROCharacterCreationV505.cs.disabled` | 15781 | `d50a5d9151d30e8a51c050a5d99ffb92fedec2f5222bd534e1dde90b0373655e` |
+| `Assets/ERO/V527/EROMasterInterfaceV527.cs.disabled` | 29017 | `b7c99b74b03bf84f9be5fb0dc60f677eeb5f5326cd38a8e8cbbe0cfea9a29eef` |
+| `Assets/ERO/V538/EROLoadingScreenV538.cs` | 6579 | `46e2bc0ee62be9d157d93f4d84d889469ff52044f11f3178e8dec1785f7c9049` |
+| `Assets/ERO/V538/README.md` | 491 | `72484e4b46f70e0504711fa65b0d8e66d556938365a513c81c49ba01827dd3b3` |
+| `Assets/ERO/Shaders/ERO_Dissolve.shader` | 990 | `52de5e234ecfb8f43b995a4510f3bb14aeae98233d6b1d7ed1d45c3139b57854` |
+| `Assets/ERO/Shaders/ERO_UI_Glow.shader` | 801 | `773e6f7baf7f13cbab0904a028d8ee9ee108e8c34dca5451df20fe906c511842` |
+| `Assets/ERO/Shaders/ERO_Holographic.shader` | 1239 | `84d416abf789c7626a73da6caaeacd9913a8247583c504a7f34c53b57ff8f117` |
+| `Assets/ERO/Shaders/ERO_Water.shader` | 874 | `7c32a19b619d7834e564ccc89308a4e05a180bd52d1704f9f4bdfa1037a5d331` |
+| `Assets/ERO/Shaders/ERO_Rift.shader` | 892 | `eb9ba0343933cb5afc6f584704153b5bc46eac71ca3055815eea4dfb767e1b82` |
+| `Assets/ERO/Production/ERO_V539_PRODUCTION_ROADMAP.md` | 848 | `31bbaea04abfba13effaf0c6e87b4364f0011214674902cc5821c92a6afeec7a` |
+| `Assets/ERO/V508/README.md` | 216 | `c043ef031c27db70bc6fe4dfbd6c11e70dac09f0b03a664682e29d7620688da0` |
+| `Assets/ERO/V508/EROLocalizationV508.cs` | 32795 | `01ac40e339fd6d7ccf1ec68c3528cda02d5adce1088f0ca1e6b8ff916ad1f7b4` |
+| `Assets/ERO/V508/EROBilingualUIV508.cs` | 818 | `50766b0f6628bc344fdf0c493b7e0468e345fce6dbe3f2c4fb04795104c5aaae` |
+| `Assets/ERO/V508/EROWorldSystemsV508.cs` | 2260 | `e5a93a16fe240ac1a134a2d6546933f2db2966d427bf628ca3512e15e7b5a56e` |
+| `Assets/ERO/Full/Runtime/EROWorldContent.cs` | 2341 | `76d41bc9be2a851b0e2b757c99e4f0574b76b0cf986023f2cd4e8852d2f261e5` |
+| `Assets/ERO/Full/Runtime/EROUIBridge.cs` | 974 | `713caf3a106bf1f64387d11a6cfd538f5559afc4f8c3e44d03078fe6e43f0137` |
+| `Assets/ERO/Full/Runtime/EROFullGame.cs` | 15720 | `2ad0b672296b7a56cc4c0a64460fe199c4e4de5d46764e806def36df6c105cbd` |
+| `Assets/ERO/Full/Editor/EROFullContentMenu.cs` | 788 | `f315f959b9bd6e4dcd2d0b3debeae060d6826271f11a6168821cdd5d5d59dba3` |
+| `Assets/ERO/V522/EROCharacterModelResolverV522.cs` | 1725 | `56ec70a818e1248a9d1edeca0bf7245c0090c6e9d86d0e1343b3c929cd4d920b` |
+| `Assets/ERO/V522/EROCJKFontRuntimeV522.cs` | 2723 | `b2d96dddd8c4f7ce7c07989128f0cdc80e1e8b394545746a6e26d0dafe488b40` |
+| `Assets/ERO/V522/EROCharacterPreviewV523.cs.meta` | 243 | `959446a5bc1506307f3f26ae269aebc95b47fda5a3f5af7aba1291e6179e019a` |
+| `Assets/ERO/V522/EROCharacterPreviewV523.cs` | 4882 | `f6fb2e5549366e93841a75865ec04a7514823e43b38538c8596ce9f2a751b775` |
+| `Assets/ERO/V522/EROV522Foundation.cs` | 235 | `3a50b3cef4fe3105c2781c1706b53d99885aa14c9de373eade94700c01750a90` |
+| `Assets/ERO/V540/EROAccessibilityAndQualityV540.cs` | 753 | `e96dc7ee0dd94dde3e18a8472d65980cc9821c5e88f5702369f2ac55ffd48f88` |
+| `Assets/ERO/V540/README.md` | 985 | `48c075c9402202e57264df5793d14b66a1f7b5eed4ddd77740215bf7fb21e684` |
+| `Assets/ERO/V540/EROFinalFeatureMenuV540.cs` | 4322 | `c55d70cf49bf99214548683702cc7d171a476047e6ee882594a334970cee2cf8` |
+| `Assets/ERO/V540/EROFeatureHubV540.cs` | 9912 | `0b1c3c1d2a6d8d4976df21b4a815f12ea82862413467adf698277be4db23a189` |
+| `Assets/ERO/V540/EROProgressionAndContentV540.cs` | 4251 | `a40e31e28e6735eda7f1a1838e37fa3ac9d312330ca6a69786571f0b2a813f7a` |
+| `Assets/ERO/Editor/EROProjectAudit.cs` | 512 | `c7077917f639cc5d409a06d9bc2de1e073a6da3b81f9770f12a6957a14f1f215` |
+| `Assets/ERO/V518/EROCharacterVisualAssemblerV518.cs` | 5526 | `f1b784e1b22b50226e466855bcd29d473c8f51a5e78ec73baa65ff9bb7f0670c` |
+| `Assets/ERO/V518/EROCharacterVisualAssemblerV518.cs.meta` | 243 | `a18056a3ee8e806871c095d019c6db3f683e36350b430051d39f5e56b1a2c695` |
+| `Assets/ERO/V528/README.md` | 405 | `03976f09cc418e5266ad390529bd199954a9ebe8df2579ceb0113add0cc7ef2e` |
+| `Assets/ERO/V528/EROMasterInterfaceV528.cs.disabled` | 30514 | `67a65688b7af7288525b18b3e67cee41b00096450ee0953bc190d3fe3f948067` |
+| `Assets/ERO/Documentation/ERO_V540_FINAL_SCOPE.md` | 1629 | `19444a71e1f48b8083d65672c162511f8d7386da2568db32c6537611098ebbec` |
+| `Assets/ERO/Documentation/ERO_V539_COMMERCIAL_ASSET_MANIFEST.md` | 1296 | `ef57f9326e8f9a9e815a5c81d1c14d6214e96614a47f75058c655609681c6251` |
+| `Assets/ERO/V532/README.md` | 590 | `033f5a71b869b50d5c13763822e40a52be04aa3ce54c38595ac8b7034517c944` |
+| `Assets/ERO/V532/TEST_PLAN.md` | 756 | `eda765a4233722eccd181f1a579f863f0460564d50bd0eb5626ea3b9cd1cfdd2` |
+| `Assets/ERO/V532/EROPlayableRuntimeV532.cs.disabled` | 23032 | `6a35d9661a3f8eb46419a7cb870fb6c9e8bd1c46c5a476e87801c22048ccfe7a` |
+| `Assets/ERO/V532/EROPlayableRuntimeV532.cs.meta` | 243 | `b315b4d823ed2704762d88ab152795833f82dc52607d62638299d811be1602a8` |
+| `Assets/ERO/V536/EROFinalPresentationV536.cs` | 40793 | `a564d0583188b3e6ad357afba55d8371be4306ceced8eabb765ac2c1780d82d3` |
+| `Assets/ERO/V536/README.md` | 852 | `dc71aa3d19e0945e0e62a6fd56154af1347ba17f25f503068b489aa7371c326a` |
+| `Assets/ERO/V536/V536ProceduralAnimator.cs.meta` | 60 | `773ca3f091b895e262e374994a9b228bf8b65acaca8ab3cf3319959f7663ee36` |
+| `Assets/ERO/V536/EROStylizedGlow.shader` | 1215 | `ff657d5d917a413134a44ca2c0c8b656eec3de45c386d1431a609c62e4de7151` |
+| `Assets/ERO/V536/V536ProceduralAnimator.cs` | 1407 | `4f9692f18f9459ea7354e78e4ecca8adf8c9bc1b577d283c2d504ad72bdc27de` |
+| `Assets/ERO/V536/EROFinalPresentationV536.cs.meta` | 60 | `f54a329044c3cedc173c8ee858d0298063247b5e73577b7400f4bad0fc44dba4` |
+| `Assets/ERO/V536/README.md.meta` | 60 | `926799f37039df3f3c1328ddc515a6be83f67ae04141faedd35ef19074d325a2` |
+| `Assets/ERO/V536/EROStylizedGlow.shader.meta` | 60 | `bb3d0b1fbfa4e7d436d0c32e012ab97b689dc2ba9063454683e9fe136abb899a` |
+| `Assets/ERO/Systems/SocialSystem.cs` | 528 | `89b7e4024a3c599817e2169b94d9ab03c430b2f57cc6aa29dad3fa604a333e9a` |
+| `Assets/ERO/Systems/InventorySystem.cs` | 602 | `7f1f52c751d7723bcd772209b5d49a2c718d19b81ea3d5cb65841c00ff42d41a` |
+| `Assets/ERO/Systems/LocalizationSystem.cs` | 1274 | `2d5a4a8e7d786abe7cd765940f35fa4c76253812cfe7dff13448d572284b2bfe` |
+| `Assets/ERO/Systems/CombatSystem.cs` | 399 | `b7d0fff0ee47d989c5d6d78565ba2f4b602256be14f2791aca456dd364545c7c` |
+| `Assets/ERO/Systems/CharacterSystem.cs` | 687 | `10fcd7ffa20268a87e087399dc7e0e49f46df4a78c926a202ad2fe9668bd3752` |
+| `Assets/ERO/Systems/SaveSystem.cs` | 492 | `0e058aa26354a1a8e16e60f70bdff7f9bed0985bba7376f7624e2d9883f0d623` |
+| `Assets/ERO/Systems/EconomySystem.cs` | 587 | `2edbfc649ea4b51388a6797d8564b8c7ad7af8d0a93d87a52546f60dc68093a1` |
+| `Assets/ERO/Systems/QuestSystem.cs` | 547 | `3f0d2e2db9a2f9400fcc63664ca883086a6f9a721a9333655c213e59a43ac74f` |
+| `Assets/ERO/Systems/ProgressionSystem.cs` | 539 | `e3ee588a6d9cee6bf92cf0cff42af13984bac3471675fbeb60f4c01888f9195a` |
+| `Assets/ERO/Systems/WorldSystem.cs` | 1696 | `bab039c41aa99abc27b8038595d26bdcd6c3104248fbf6f7a2a42f32f210e5d7` |
+| `Assets/ERO/Data/EROData.cs` | 1439 | `e9a2e4b0df70cecccedcfdf2c0d5538919569378174f949fe5c42cd79ba3159e` |
+| `Assets/ERO/Legal/MASTER_ART_DIRECTION.md` | 1229 | `c64214fddef9f18a8b341f68c1d9b42871d5910000c6063b6e04a083436c985f` |
+| `Assets/ERO/Legal/LICENSE_COMPLIANCE_CHECKLIST.md` | 773 | `2803e753df7dbd8b6cb0c67d58a93d3af5e2cba89ac6edd09eff44c63c6d2ced` |
+| `Assets/ERO/Legal/COMMERCIAL_READINESS.md` | 753 | `a8b4690d5e75c021928da71a0e8c1bfb869c568ed233ccf24eb3e1bae5c1788c` |
+| `Assets/ERO/Legal/DO_NOT_SHIP/README.md` | 543 | `6765cdd889b161b239b896736733a9dbf8b9a489718173c8255aca5446769ab6` |
+| `Assets/ERO/Legal/SOURCES/ASSET_SOURCE_REGISTER.md` | 2766 | `0629fa517560d3317b93c17b20fed28f243b1e2947f4b276542cc14f8e9befa2` |
+| `Assets/ERO/V506/README.md` | 409 | `9f1dfd0d88dc595bcba21485ae9a387ce5828b3932f6c6df8e1dfe480165ee43` |
+| `Assets/Animations/UI.meta` | 172 | `055f6a2fa3ebba699056062b986f6697ad4be069b118cc52b8d2b78508de44bf` |
+| `Assets/Animations/UI/Anim_UI_Message_Idle.anim` | 4657 | `009d9ad15faada4d667615b6a913c8cf2a238b30ec7ac242b8036ce62574de53` |
+| `Assets/Animations/UI/Anim_UI_Message_Hide.anim` | 7466 | `ed064ddeba020284574428a887d944842f4384771f3c0759e5031d3cbf9cfda2` |
+| `Assets/Animations/UI/Anim_UI_Message_Slide.anim` | 6963 | `33d8792a05a32a459c94f76fba36280cf7b5bfe897bc05cfc27eb14011e36352` |
+| `Assets/Animations/UI/Anim_UI_Message_Hide.anim.meta` | 182 | `0cc55b74c4ee6e75e3ad08114288c6335f82b35ad77dbf03f4dc9268b85b071f` |
+| `Assets/Animations/UI/AnimController_UI_Message.controller` | 5819 | `bfd2d9f90cdac34562231a37780daaa271b3abce35691befcde02248075ca4ae` |
+| `Assets/Animations/UI/Anim_UI_Message_Slide.anim.meta` | 188 | `7c06b09f6b4af26edab27799456338cc807431e24f92f5b1245873996f6d6c08` |
+| `Assets/Animations/UI/Anim_UI_Message_Idle.anim.meta` | 188 | `034a3a1b7a08154c22ead14d17ac16bb3129d17f695b389dc3b3405f570f0c7d` |
+| `Assets/Animations/UI/AnimController_UI_Message.controller.meta` | 188 | `80b62382070c2fd9d269121681c9df4dab08b69c2650adea5ddc9f35ae116e07` |
+| `Assets/GameData/GameEvents.meta` | 172 | `0395c2ff8afa8c79a1a8d9b82aa614649170b8d4f097b58dc69d26a95f8a9f2e` |
+| `Assets/GameData/Collections.meta` | 172 | `648229d33adf2ca876b47276672aa0224f18d1ef1f15c23c28581bf61f342aa1` |
+| `Assets/GameData/Game.meta` | 172 | `df0c32e269a3712677f7e8d198ca26ed0276e4b40656803123b0b405027bbbd3` |
+| `Assets/GameData/Shared.meta` | 172 | `948336790b6c78df9f3cb461102731eeacb2d14b39dd1a6dd505e5027319a4c2` |
+| `Assets/GameData/UI.meta` | 172 | `94e420e853c01261bf38c3aaf0c579f4d9fe80be0b49c69d0b17fcb3c3017f28` |
+| `Assets/GameData/Action.meta` | 172 | `138b686e749dc8d0a6abab77beea59b4b77c78dbc9ed195f1a9ea3ac438b358c` |
+| `Assets/GameData/Avatars.meta` | 172 | `8034bc32bb9d6f8431beacb488c7dd4694e8af5371f26327334e0d77fa6be7a0` |
+| `Assets/GameData/Character.meta` | 172 | `6c59bd52412a53924edc1994ec2f81bb9852a919b13b3dc4681421cc9bbff1c0` |
+| `Assets/GameData/Systems.meta` | 172 | `588cf56df48e489f8c0a9d092501962234ef414a8038a144ed7d52c3611a8e21` |
+| `Assets/GameData/NetworkPrefabs.asset.meta` | 189 | `174a3d8d2339ecfc3c4dfe9dcf0de0ca115505f306539f55b67cd2f0ca2ac443` |
+| `Assets/GameData/NetworkPrefabs.asset` | 2790 | `f1602e4cff482bcacf4eaac104fe12fe5d46e71c871a94415b96ada086f44e71` |
+| `Assets/GameData/Avatars/ArcherBoy.asset.meta` | 189 | `ba92bc740684bb8b3e9f2604da58604a90511e77d9c8766e1135dd03a26fc66d` |
+| `Assets/GameData/Avatars/MageGirl.asset` | 803 | `e9894c0f34321981d97a0b0f2296d5a4225a6afd35dba81ee4c53e9a3acce1f5` |
+| `Assets/GameData/Avatars/TankGirl.asset` | 803 | `6d0fd93dc8d4705ab75af50e95480719a2242a19752924e763a6d142c898dddf` |
+| `Assets/GameData/Avatars/RogueGirl.asset` | 804 | `266fef9a3bd43a91f226f9673a64fc7ecd85f19d4afb01f80b4b66868e5f2ed2` |
+| `Assets/GameData/Avatars/MageBoy.asset.meta` | 189 | `17e616d26bcb862065a681aeb7fed5a7ce62fb68a7b0f288035173633cfd52fc` |
+| `Assets/GameData/Avatars/RogueGirl.asset.meta` | 189 | `9b9f788b42619603f92a47a479c5d8c9a641bfff12ed4ef4f64e325ac541363e` |
+| `Assets/GameData/Avatars/TankBoy.asset` | 802 | `ecadea837a943dcf52bc709f66fb06a75d72ea1bab0e5ccaa7611baf59c754db` |
+| `Assets/GameData/Avatars/ArcherBoy.asset` | 804 | `1f77e4aeb21765f6c1a01ca112273863b640be9682046614a6f917275d4db7e8` |
+| `Assets/GameData/Avatars/ArcherGirl.asset.meta` | 189 | `892b3cde558fa9f094963c4c2b753c12f7a8b06f7d0244cb11db3a019030627d` |
+| `Assets/GameData/Avatars/TankGirl.asset.meta` | 189 | `3ec22f73f4c38a79972448391f7629dee64f6f1729358760ed6556068ed68fb3` |
+| `Assets/GameData/Avatars/RogueBoy.asset.meta` | 189 | `eeb713fe92a9b61eb77b6f52dafec4edf4f303fdba9e5a5f01ce86b05abf6442` |
+| `Assets/GameData/Avatars/ArcherGirl.asset` | 805 | `ab16731450a520a2f47535685b74294b482c723908c1f446e8231ed97e64ae4b` |
+| `Assets/GameData/Avatars/RogueBoy.asset` | 802 | `7cb9419a86685b6a8bbf7d27fc2ee2afac69434310f1689af89419f27c6edc0c` |
+| `Assets/GameData/Avatars/MageBoy.asset` | 802 | `285973ae176bcf292b795c61f96bd26c3e774e69c198174fb8f6a041fe7a02d9` |
+| `Assets/GameData/Avatars/MageGirl.asset.meta` | 189 | `5bd80690a361585a04bdb8c20cfae7a6f77c878c6925135e91b6d1ec74347752` |
+| `Assets/GameData/Avatars/TankBoy.asset.meta` | 189 | `fe3a4ec76b17c58eb74e5e39a8199470a92f87e2acef2447e9ae0adb39dcb3c3` |
+| `Assets/GameData/Shared/SharedVisualizationConfiguration.asset` | 1348 | `a51d0e32207e798331f880e3a4344c614307a9a9ce46f3d32b502e57a1280de1` |
+| `Assets/GameData/Shared/SharedVisualizationConfiguration.asset.meta` | 189 | `32657b558c9d1fda32a1540ece05d602d3e5fe20eaa56e723893a45547ebfea9` |
+| `Assets/GameData/UI/NameGenerationData.asset` | 856 | `743c11546a071b73074493c5b945fdaa0b63730b6fb11547e08bfbf41e558fc4` |
+| `Assets/GameData/UI/NameGenerationData.asset.meta` | 189 | `3f9fceccba885ce9a5417fc84c0b3b015af6362146d68639c82da4ea625f35d5` |
+| `Assets/GameData/Collections/ClientPlayerAvatars.asset` | 420 | `814959bc6d927de4ae9803d968d3f21e42fb5e8e93714192695a9bbdebaf98c5` |
+| `Assets/GameData/Collections/PersistentPlayers.asset.meta` | 189 | `ede3fb8d20b6f28c0d54fbdbd35e8e0fde7e9b0178cf51fa6e387701eadfe849` |
+| `Assets/GameData/Collections/ClientPlayerAvatars.asset.meta` | 189 | `fc74123f4def02164151e03f5576917454451df345de5fec5f63de05e4ab28b6` |
+| `Assets/GameData/Collections/PersistentPlayers.asset` | 418 | `07ee87b3a88737f941419a8d9b30b4a28715782897fffa300a3bb9cd43d6161a` |
+| `Assets/GameData/Character/ImpBoss.meta` | 172 | `3bf6103ce45c3668fe408f791ef13ff1cac69336f9d19b6cbe315942c137bbb0` |
+| `Assets/GameData/Character/Rogue.meta` | 172 | `8c3afb41e991f2b3b5a794df49f297939e7ac6fe9833fe14e80529b6b0603a04` |
+| `Assets/GameData/Character/VandalImp.meta` | 172 | `59a5e248f44de0a743d230af100e04c363ebef7e57223ddeba28900a445d8525` |
+| `Assets/GameData/Character/Archer.meta` | 172 | `44c5e1a5537e4de98a4b39eb9f6774ccc5a3ec4efbda9d4d31f2a985d5d30904` |
+| `Assets/GameData/Character/Tank.meta` | 172 | `ff0316e642041b683b6b8013beafb93359132e1b85cad3b3c5d72d1fd39aa5a8` |
+| `Assets/GameData/Character/Mage.meta` | 172 | `b0643a47599a624e18fb986a9f78ce7d3927543857920a9657256ecd91f2b541` |
+| `Assets/GameData/Character/Imp.meta` | 172 | `5b7d431c1a337e2b5daff0848e326a4a761cdbce4a644ede7b545dccafc9ecd3` |
+| `Assets/GameData/Character/Imp/BaseHP.asset` | 407 | `46a8e2e8fb6d9aba96926eac75b370a627d5357e7bd74e282cf472a6d418e63e` |
+| `Assets/GameData/Character/Imp/BaseHP.asset.meta` | 189 | `f36c8f280144d5da07322e320430a6d67b53179d037d31a1eee9ab4a8e75e864` |
+| `Assets/GameData/Character/Imp/Imp.asset.meta` | 189 | `805f549b644dc6f53b156d146d745f7ca501fb8581a4c7aafe0ff0db5080dfff` |
+| `Assets/GameData/Character/Imp/Imp.asset` | 745 | `ed7d2e5258588d2a39e38e5e8374699291caafa6d226d4203d0a1619b2f8840c` |
+| `Assets/GameData/Character/Tank/Tank.asset` | 918 | `2381354147f58b49e3c37273e34db142f03e3321fddb7217c62584a9c298645f` |
+| `Assets/GameData/Character/Tank/Tank.asset.meta` | 189 | `c7caf8168c65152517a0aaecd7eae4be68fd445ff446dfedece0857044764c04` |
+| `Assets/GameData/Character/Tank/BaseHP.asset` | 409 | `cc67fef6d2eb6288121c99ea839bbb9eecc210b04d816fc6a4991bc963fcf582` |
+| `Assets/GameData/Character/Tank/BaseHP.asset.meta` | 189 | `30ca3cddad3ca222dcde37b2c23e03fb132c043b9fa9c84e211dac3e76a799c9` |
+| `Assets/GameData/Character/ImpBoss/ImpBoss.asset.meta` | 189 | `f59ee97cd4c343720a2df541c64e39715a5fee319635cb38e26ab8594d9d67cb` |
+| `Assets/GameData/Character/ImpBoss/BaseHP.asset` | 408 | `3f23e373a8da8a047b40e3f0d5e09e0130980cfcffd405342431bbf7d8e12dcf` |
+| `Assets/GameData/Character/ImpBoss/ImpBoss.asset` | 807 | `9d6d4491082dc0840ab95389e58e42bf0495be5c6e1e57dc587014098b3c1d96` |
+| `Assets/GameData/Character/ImpBoss/BaseHP.asset.meta` | 189 | `f9fa903fa50f6eca22e8196b83966d2637ea01f7a6c8e22d0731359025ad0c08` |
+| `Assets/GameData/Character/Archer/BaseHP.asset` | 408 | `418b230d2311083e7f724f5dd54910f6e1ecf17fba715d00046852c7e653176d` |
+| `Assets/GameData/Character/Archer/Archer.asset.meta` | 189 | `eaa7ce7504675ec1c29bc609f1b18dac344515483ee0fd09299a72c53409a6f0` |
+| `Assets/GameData/Character/Archer/Archer.asset` | 978 | `5c03582d7b930a297d36646d4623d9db14a707c0f438821172b69c4c7d63e2d0` |
+| `Assets/GameData/Character/Archer/BaseHP.asset.meta` | 189 | `dbac12b5d7da14f9fc7ced647913cac0246ae30b32fe343a216b74a41e4c4fce` |
+| `Assets/GameData/Character/VandalImp/BaseHP.asset` | 408 | `f657f7081f4fb2c005104ef7612e7c8816ac8ce2aa6485b146767190c7264841` |
+| `Assets/GameData/Character/VandalImp/VandalImp.asset.meta` | 189 | `f0df3caf58e4f171309be478e7e79b87b06109c7505efe73c7ec1c58e0b495b1` |
+| `Assets/GameData/Character/VandalImp/VandalImp.asset` | 751 | `7026fabc76f3420eca1d4619f17c66d3e67b35f831eed55cf1ca9e31f7b792d1` |
+| `Assets/GameData/Character/VandalImp/BaseHP.asset.meta` | 189 | `3b95435243c75d5cf4399f19dabd44a7c2264637ba640a5dcf8796502aba3bd1` |
+| `Assets/GameData/Character/Mage/Mage.asset.meta` | 189 | `c7e1775eea754098c8e54a249968e68c1eca878517f9a344974bde3fd3b1fec4` |
+| `Assets/GameData/Character/Mage/BaseHP.asset` | 408 | `73217a0eec3c137007cc538f288bd1e04df93245a38b2a3cf5a7cbb108fc608c` |
+| `Assets/GameData/Character/Mage/BaseHP.asset.meta` | 189 | `abfe694280abbd472e3382039cebbab95f290b2a6e1e60389525dbdae487aa44` |
+| `Assets/GameData/Character/Mage/Mage.asset` | 918 | `73d22b4f8764ea3696a72b9b569b5417dc98bc40dc3f36e53a110e63f3dfac8b` |
+| `Assets/GameData/Character/Rogue/Rogue.asset` | 976 | `6597b8feafa5b3308373594eefcc2fca40bc5c6001d6c3e989b324a1e5c2f070` |
+| `Assets/GameData/Character/Rogue/BaseHP.asset` | 409 | `4b1abe9ff9316465882e6c802ca70f2e3e5abb36c21fe75c1514ddae61445148` |
+| `Assets/GameData/Character/Rogue/BaseHP.asset.meta` | 189 | `072d1b4962f1aeed4d3dc94585eec95ff74d47afc46ceb95cea10f1c42c155f3` |
+| `Assets/GameData/Character/Rogue/Rogue.asset.meta` | 189 | `eccd7f4647a7c5302c33703e064a68aee10456d7616aac8febedc14191809b08` |
+| `Assets/GameData/Action/Rogue.meta` | 172 | `f98bd86a91424fdeb61519493b892fb8e1cea1279c988bc5ca4d1cf2a9c73de9` |
+| `Assets/GameData/Action/VandalImp.meta` | 172 | `37721c4682c677773852f664d87e35d72df3a5df8fbf25d6e9e8e45baebfd331` |
+| `Assets/GameData/Action/Boss.meta` | 172 | `b42fe89e044d030379bca46c71566514f80363dbd7d889b48783bcd08be329b6` |
+| `Assets/GameData/Action/Archer.meta` | 172 | `55023c9636fb3fb2c2b81e248d63733fe33957795e2da31ab7f16fa4382c5243` |
+| `Assets/GameData/Action/General.meta` | 172 | `11ed6cf65463e41bd2d454285561fc7633a175175ab404b9a776d5ae7f0db74f` |
+| `Assets/GameData/Action/Tank.meta` | 172 | `c15d959373997ce988897c5cf01d5bbb2e1eaced51b0f71be10b73157abc93a9` |
+| `Assets/GameData/Action/Mage.meta` | 172 | `d12134ae9e2c45f022320012211e6bb98fcccdb5bd4bd0379a4b1b4f3cef11a6` |
+| `Assets/GameData/Action/Imp.meta` | 172 | `c0d43e0488a007076aeb32d3e85946fc9647b6be295b68f444caf95080d824fc` |
+| `Assets/GameData/Action/General/Revive.asset.meta` | 189 | `0ef3e42cd6043317f247f8645da805bc76cf43fe050c34a65345c6ab15f02559` |
+| `Assets/GameData/Action/General/Stunned.asset` | 955 | `5b7e5338c3dffbaff39c04eb1ef35292213cce875d539d97bb99a86ebd3d8155` |
+| `Assets/GameData/Action/General/Drop.asset` | 1048 | `46f9a98acaad8c1c8971a4368ec05d3b4df0aa0ba82315ed4b75a696ffef4370` |
+| `Assets/GameData/Action/General/Emote1.asset` | 943 | `ea7a0a1435120992f5e6eef6a6d3ab6c8613e7939750f307d647c5478148d123` |
+| `Assets/GameData/Action/General/Emote4.asset` | 943 | `f23fe02507a4c8e83853014239bbbe7348ec29ad4cda5db6fd91cc409c7e42cc` |
+| `Assets/GameData/Action/General/Pick Up.asset` | 1134 | `170b97ed4fe9995d89adf4855ca0f8e1726ac108d513f44f88f0ae95cc6f1511` |
+| `Assets/GameData/Action/General/Target.asset` | 938 | `c39ea99c05bd73ad0a72e6a9a08edd412820d693ca3c1ae830046bbf07c58c08` |
+| `Assets/GameData/Action/General/Revive.asset` | 1048 | `c715449ada5e9579ef7709c0642f8e23a0cdd8f6cb852d9cedb6617ec85667af` |
+| `Assets/GameData/Action/General/Stunned.asset.meta` | 189 | `fa153cee48df543cff4b3175d45ea74c29b830c1d405b9a3709b03ff3dcbf4fa` |
+| `Assets/GameData/Action/General/Emote3.asset` | 947 | `ae455e238cf8a2dd70d34c10c593ffc29024b1deded22d1e460210935fd7712d` |
+| `Assets/GameData/Action/General/Chase.asset.meta` | 189 | `b00621ef7163facd8e153ee2b35ac90991b1ae797521eb0d5829977dc57aca80` |
+| `Assets/GameData/Action/General/Drop.asset.meta` | 189 | `ac42b834bfd5f00f088e2d11c63deb83c27dc9ebd96ad178f3def128ddcbbbaa` |
+| `Assets/GameData/Action/General/Emote3.asset.meta` | 189 | `4abc40e34d3c29716a1f68e6019fad18d60c0861e30fcaac25c865f25e5def2f` |
+| `Assets/GameData/Action/General/Emote4.asset.meta` | 189 | `e286405cdbab4bac460459804ea0ddc021b7093db537a2aa307c06964a25f04f` |
+| `Assets/GameData/Action/General/Pick Up.asset.meta` | 189 | `437ff95d735e2296cf536153df641da3376cbf38ad7e8a64236db44a5fe093ca` |
+| `Assets/GameData/Action/General/Chase.asset` | 936 | `94472ef1de73836dfe813ec348fee9cfe8b847e686051943821ab845f326a5bd` |
+| `Assets/GameData/Action/General/Emote2.asset` | 947 | `72c7e58434927e475198c58c5b0836f964a0d1e13d9ed1f03a85c873030c3d85` |
+| `Assets/GameData/Action/General/Emote2.asset.meta` | 189 | `910f7cb5a6c1cf71efcc0975117553e0321e4baabdbc08e9205822d455f1ad8c` |
+| `Assets/GameData/Action/General/Target.asset.meta` | 189 | `335a6de0401decedf75a3703a04f5e253f1f437c40ef174dc78a71ae46d0b2f2` |
+| `Assets/GameData/Action/General/Emote1.asset.meta` | 189 | `03b03e26c686cfe3fcacc05615b3d25209cea02ac3ff2258e5f1e007447d1c78` |
+| `Assets/GameData/Action/Imp/ImpBaseAttack.asset` | 957 | `2a2b666de83998dd62c12a12de7f3875e373a21c17f5e69d751e7e4ab935e1ac` |
+| `Assets/GameData/Action/Imp/ImpBaseAttack.asset.meta` | 189 | `d1aa73ed5b067dd22f1bf14dd74915ac09941eeec1922d7cde5ff29fc9537db2` |
+| `Assets/GameData/Action/Tank/TankShieldBuff.asset.meta` | 189 | `c3ab679d2fad9b0d2c4565fcdb87b6f569ab7b440f6cbb45d56e8621c855e053` |
+| `Assets/GameData/Action/Tank/TankShieldRush.asset.meta` | 189 | `3aa9848c843596cc60ab88ab2bbf41f15d69377fa5d33ebc8ef273bdcd028aa2` |
+| `Assets/GameData/Action/Tank/TankShieldBuff.asset` | 1444 | `9d624e9a34d75bc544bd662ffd2d3404d4d8c4367d40bf2feb3aa0ac9497668d` |
+| `Assets/GameData/Action/Tank/TankTestAoeAttack.asset.meta` | 189 | `202ac4a696726811878e28c2dc8413f223731628a42061b62b4d714e3a59a01d` |
+| `Assets/GameData/Action/Tank/TankTestAoeAttack.asset` | 1119 | `128831c2653da234d73871d4c35a362c211877c49fd1e34a506698d6f9b44ea6` |
+| `Assets/GameData/Action/Tank/TankShieldRush.asset` | 1111 | `56c52cddc9d762301fab1e85c7ff4c2a2a823c1923e443b79c4393dc567f93f6` |
+| `Assets/GameData/Action/Tank/TankBaseAttack.asset` | 1078 | `5a81dd6c61c12fb973a505b7d68f14437567fa1826ad7c6cc8b7c90dde50a689` |
+| `Assets/GameData/Action/Tank/TankBaseAttack.asset.meta` | 189 | `e9d3d17cff126d85362a0c9f8c031d562d67f09b399cd66cf029f9d48668cdcd` |
+| `Assets/GameData/Action/Archer/ArcherBaseAttack.asset` | 1244 | `88c1c6a212f87c7bddb294289cc6f3350d5550701def4ad1628167418b3c0eec` |
+| `Assets/GameData/Action/Archer/ArcherVolley.asset.meta` | 189 | `7dff79b6cf55692bccb190dbfd41031a415e3a877c1ed9ee1fcac8cffb94e982` |
+| `Assets/GameData/Action/Archer/ArcherChargedShot.asset` | 1824 | `a900c47508ea00231c47ff48371dc4eee2c1fd8db31926b33863f3a7a8953d7c` |
+| `Assets/GameData/Action/Archer/ArcherBaseAttack.asset.meta` | 189 | `83a6eeb8154a98da321037895ff3f94d11f1cdfc5cea69852ec6eada30e1ae5d` |
+| `Assets/GameData/Action/Archer/ArcherChargedShot.asset.meta` | 189 | `1ca85dc4e4656a39787e96d22f9bb563b92fbf0cbaed33b36af15464222af152` |
+| `Assets/GameData/Action/Archer/ArcherVolley.asset` | 1242 | `604af17f516fded57742eca6457cba98500bab260d9e0eecc3d7b0c598021f4d` |
+| `Assets/GameData/Action/Boss/BossImpTrampleAttack.asset` | 1155 | `45ac5d33a2b653e0dd477fec29018c546426a038822c46e88f7b8c6754f0e200` |
+| `Assets/GameData/Action/Boss/BossImpBaseAttack.asset` | 960 | `d3a38414ebe044808dcfd275de756dc2a09af6ef96a0f5f5c8acb29458f4691b` |
+| `Assets/GameData/Action/Boss/BossImpTrampleAttack.asset.meta` | 189 | `e7de971b983f3150df06e0f1433f5bbc67e0657524ec228a0623e0d0dea3b926` |
+| `Assets/GameData/Action/Boss/BossImpBaseAttack.asset.meta` | 189 | `523d3583f6783765763653208039db7e8a4360408c2f1d866f92531f2107abf5` |
+| `Assets/GameData/Action/VandalImp/ImpToss.asset` | 1126 | `823bcb4f8d8f3ff3d52fadd9fc83db58bcd2be00d286f49c335da89d3ebe3394` |
+| `Assets/GameData/Action/VandalImp/ImpToss.asset.meta` | 189 | `3538a95cfcfe06f09de392062772b5ce9373e73f7591ddca0463c7f0aefd510d` |
+| `Assets/GameData/Action/Mage/MageBaseAttack.asset` | 1296 | `b8c89967778813e15e562f2748e3d309dedbf5b603cc8cf48b7574c5957322c0` |
+| `Assets/GameData/Action/Mage/MageBaseAttack.asset.meta` | 189 | `ec9df0c613a20a9344aed10439229e04f09ab63aeac8c28d26ee8e27d5072d2b` |
+| `Assets/GameData/Action/Mage/MageHeal.asset` | 1185 | `5f28c042dceb2a438a0faec834feaf3b3470fc34629e4ab5e489af33b780ed32` |
+| `Assets/GameData/Action/Mage/MageHeal.asset.meta` | 189 | `9934cc8997349f1e4f46e11c50013b094c2d88ae76cda441ccbf96451ff9f1eb` |
+| `Assets/GameData/Action/Rogue/RogueStealthMode.asset.meta` | 189 | `d19d0c77d07e1523aeab45ddc6e222606c892873612a9d13139ce8a701e2884d` |
+| `Assets/GameData/Action/Rogue/RogueDashAttack.asset` | 1150 | `6626f105bfbe98eca1f6834c43b202c328a51dc0b49a93590e1d3271efb63928` |
+| `Assets/GameData/Action/Rogue/RogueBaseAttack.asset.meta` | 189 | `2071e3a2d405b937e3c2381c45bf33f7d12176d4df7901919aade9d95f49ed57` |
+| `Assets/GameData/Action/Rogue/RogueBaseAttack.asset` | 1085 | `bc443643406b521dbe4d65d18709d16cab16611425761abbd2745c74b7b348f4` |
+| `Assets/GameData/Action/Rogue/RogueStealthMode.asset` | 1115 | `a68c50011f0973e6fd8a2a13d9450a711500698c812d390992dafcebb424794d` |
+| `Assets/GameData/Action/Rogue/RogueDashAttack.asset.meta` | 189 | `c98a6c112341ffee568878fb9746444a1168b1b1337ba8924a25e8c10d0fbc39` |
+| `Assets/GameData/Game/SpawnedEnemy.meta` | 172 | `6cb9e680048417efa7bdd34dd547e9481735f066d421b5abfbaba87c79ff8a4a` |
+| `Assets/GameData/Game/BreakableCrystal.meta` | 172 | `b891f13c0181feb31fecaa8a1f5ed17b2299a43bdc6a18e351e27f653495a882` |
+| `Assets/GameData/Game/ImpTossPhysics.physicMaterial` | 331 | `b23140fdb65d95df8cf2279c1eaf41824b9aa0997b0419ac1f16585757885811` |
+| `Assets/GameData/Game/BreakablePillar.meta` | 172 | `2363bca61e8522eb1b526e396cd1b92ef98ddc3e975455e286be5c09ba785ed5` |
+| `Assets/GameData/Game/EnemySpawner.meta` | 172 | `cfd3ca70d6c9420e8f857bd7b7d79ae0b791c1bb2b30c3bc3274289e03c16f62` |
+| `Assets/GameData/Game/ImpTossPhysics.physicMaterial.meta` | 189 | `f1fc3d63cd2874a7ca9d928aa6a3215d6a9ca836cbc781c42f6bcb17c720117d` |
+| `Assets/GameData/Game/BreakablePot.meta` | 172 | `f3161a681fc854ec454eaef03dab70ad6b5b70e864ac44be6759a92001e745fb` |
+| `Assets/GameData/Game/SpawnedEnemy/BaseHP.asset` | 407 | `91d0103ab97ba1ce721cb53fb473898e223278cd299827570eb2ec9d344f163a` |
+| `Assets/GameData/Game/SpawnedEnemy/BaseHP.asset.meta` | 189 | `a7414333185af2a9c15aa05a99e99316f4e8442bd1faa0dc987be5b7c95f75e5` |
+| `Assets/GameData/Game/BreakablePillar/BaseHP.asset` | 406 | `94d6f2f66c38f80b44fb3c2451fc2120736b8685ed93b3223eb6b1545380f727` |
+| `Assets/GameData/Game/BreakablePillar/BaseHP.asset.meta` | 189 | `9dc59ae6cbcafbeea2a2775ae24a64bfcf23162d3e504ea37176e7b2072b9bc1` |
+| `Assets/GameData/Game/BreakablePot/BaseHP.asset` | 406 | `e4ee715ca09c30156b890781af1d726fce76d34784a8b9bd62e84572dc13663c` |
+| `Assets/GameData/Game/BreakablePot/BaseHP.asset.meta` | 189 | `79d6a0690298e3d5afa7bdc72dd520713ecb3541a70f1081aec511c35e5d3395` |
+| `Assets/GameData/Game/BreakableCrystal/BaseHP.asset` | 407 | `91d0103ab97ba1ce721cb53fb473898e223278cd299827570eb2ec9d344f163a` |
+| `Assets/GameData/Game/BreakableCrystal/BaseHP.asset.meta` | 189 | `7ff581a78ff30d16718ce4e2b8ba28764cba653560a530c3db91c1b19115fa1b` |
+| `Assets/GameData/Game/EnemySpawner/BaseHP.asset` | 406 | `94d6f2f66c38f80b44fb3c2451fc2120736b8685ed93b3223eb6b1545380f727` |
+| `Assets/GameData/Game/EnemySpawner/BaseHP.asset.meta` | 189 | `814209e1157351718d7ee8ce466e8876af624058d9aa2813fe41815439204979` |
+| `Assets/GameData/GameEvents/BossDefeated.asset.meta` | 189 | `121f111313743b6be50b3e9254267b6e082cd81fa48cb3e011a6f06534576b9c` |
+| `Assets/GameData/GameEvents/BossDefeated.asset` | 401 | `8385af2b9f27b8260282cdabdf9b36e785c068d193bab419847566bc292b26f9` |
+| `Assets/GameData/Systems/AvatarRegistry.asset.meta` | 189 | `72d6f1af53c7e52048fc551cf93be1a2a721c7329b493cd1cd1e8e241ff42904` |
+| `Assets/GameData/Systems/AvatarRegistry.asset` | 992 | `1b58f33f08023a72371ecf98234cec1a8f3c4b54ab0a36a2e5e6f5116a2e4966` |

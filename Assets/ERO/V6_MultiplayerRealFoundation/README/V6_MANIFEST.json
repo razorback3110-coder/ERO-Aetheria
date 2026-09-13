@@ -1,0 +1,12 @@
+{
+  "version": "V6 Multiplayer Real Foundation",
+  "base": "ERO_V5_MMO_ARCHITECTURE_PUSH.zip",
+  "unity": "6000.0.67f1",
+  "features": [
+    "dedicated-server build entry",
+    "connection state machine",
+    "interest management",
+    "test matrix"
+  ],
+  "note": "Static foundation; Unity runtime execution still requires the Unity editor/build environment."
+}

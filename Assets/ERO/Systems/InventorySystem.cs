@@ -1,0 +1,3 @@
+using System.Collections.Generic; using UnityEngine; using ERO.Data;
+namespace ERO.Systems { public sealed class InventorySystem:MonoBehaviour { public readonly List<ItemData> Items=new List<ItemData>(); public int Capacity=100; public bool Add(ItemData i){if(i==null||Items.Count>=Capacity)return false;Items.Add(i);return true;} public bool Remove(string id,int count=1){for(int n=Items.Count-1;n>=0;n--){if(Items[n].id==id){if(Items[n].quantity>count){Items[n].quantity-=count;}else Items.RemoveAt(n);return true;}}return false;} public ItemData Find(string id){return Items.Find(x=>x.id==id);} }
+}

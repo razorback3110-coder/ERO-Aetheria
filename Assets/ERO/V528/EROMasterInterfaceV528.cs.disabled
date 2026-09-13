@@ -1,0 +1,366 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using EternalRealmsOnline.V508;
+
+namespace EternalRealmsOnline.V528
+{
+    /// <summary>
+    /// ERO master presentation layer. Replaces the Boss Room presentation without replacing
+    /// Boss Room networking/game state. The visual layer is deliberately self-contained so
+    /// the underlying multiplayer systems remain untouched.
+    /// </summary>
+    public sealed class EROMasterInterfaceV528 : MonoBehaviour
+    {
+        static EROMasterInterfaceV528 instance;
+        Canvas canvas;
+        GameObject modelRoot;
+        GameObject languagePanel;
+        TMP_Text languageButtonText;
+        TMP_Text classTitle, classDescription, roleText, weaponText, evo18Text, evo40Text, evo75Text;
+        TMP_Text genderTitle, faceTitle, hairTitle, hairColorTitle, eyeColorTitle, skinTitle, gearTitle, chooseTitle, evolutionTitle;
+        TMP_Text createButtonText, backButtonText, nameLabel, nameInputText, statusText;
+        TMP_InputField nameInput;
+        Button maleButton, femaleButton;
+        readonly List<Button> classButtons = new List<Button>();
+        readonly List<TMP_Text> classButtonTexts = new List<TMP_Text>();
+        readonly List<TMP_Text> allTexts = new List<TMP_Text>();
+        readonly List<Button> optionButtons = new List<Button>();
+        readonly Dictionary<TMP_Text,string> keys = new Dictionary<TMP_Text,string>();
+
+        readonly string[] classes = {"Knight","Assassin","Ranger","Mage","Priest","Monk","Summoner","Paladin"};
+        readonly string[] classKeys = {"class.knight","class.assassin","class.ranger","class.mage","class.priest","class.monk","class.summoner","class.paladin"};
+        readonly string[] modelNames = {"Knight","Assassin","Ranger","Mage","Priest","Monk","Summoner","Paladin"};
+        readonly string[] portraitNames = {"ui_portrait_tankM_active","ui_portrait_rogueM_active","ui_portrait_archerM_active","ui_portrait_mageM_active","ui_portrait_mageF_active","ui_portrait_rogueF_active","ui_portrait_mageM_active","ui_portrait_tankM_active"};
+        readonly EROLanguage[] languages = { EROLanguage.French, EROLanguage.English, EROLanguage.German, EROLanguage.Spanish, EROLanguage.Italian, EROLanguage.Dutch, EROLanguage.Portuguese, EROLanguage.Japanese, EROLanguage.Korean, EROLanguage.ChineseSimplified };
+        readonly string[] languageNames = {"Français","English","Deutsch","Español","Italiano","Nederlands","Português","日本語","한국어","简体中文"};
+        bool male = true;
+        int classIndex;
+        int faceIndex, hairIndex, hairColorIndex, eyeColorIndex, skinIndex, gearIndex;
+        GameObject[] classModels = new GameObject[8];
+        Vector2 lastPointer;
+        bool dragging;
+
+        static readonly Color Gold = new Color(.88f,.70f,.36f,1);
+        static readonly Color GoldBright = new Color(1f,.84f,.48f,1);
+        static readonly Color Blue = new Color(.12f,.32f,.66f,1);
+        static readonly Color Panel = new Color(.018f,.028f,.052f,.94f);
+        static readonly Color PanelSoft = new Color(.025f,.045f,.075f,.78f);
+        static readonly Color TextWhite = new Color(.94f,.95f,1f,1);
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void Boot()
+        {
+            if (instance != null) return;
+            var go = new GameObject("ERO_V528_Presentation");
+            DontDestroyOnLoad(go);
+            instance = go.AddComponent<EROMasterInterfaceV528>();
+        }
+
+        void Awake()
+        {
+            if (instance != null && instance != this) { Destroy(gameObject); return; }
+            instance = this;
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            var loc = EROLocalizationV508.Instance;
+            if (loc != null) loc.LanguageChanged += OnLanguageChanged;
+        }
+
+        void Start() { OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single); }
+
+        void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            var loc = EROLocalizationV508.Instance;
+            if (loc != null) loc.LanguageChanged -= OnLanguageChanged;
+        }
+
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            StopAllCoroutines();
+            HideLegacyPresentation(scene);
+            if (canvas != null) Destroy(canvas.gameObject);
+            if (scene.name == "Startup") StartCoroutine(BuildStartup());
+            else if (scene.name == "MainMenu") StartCoroutine(BuildMainMenu());
+            else if (scene.name == "CharSelect") StartCoroutine(BuildCharacterCreator());
+        }
+
+        void HideLegacyPresentation(Scene scene)
+        {
+            foreach (var root in scene.GetRootGameObjects())
+            {
+                if (root == gameObject) continue;
+                foreach (var c in root.GetComponentsInChildren<Canvas>(true)) c.enabled = false;
+                foreach (var mb in root.GetComponentsInChildren<MonoBehaviour>(true))
+                {
+                    if (mb == null) continue;
+                    var n = mb.GetType().Name;
+                    if (n.IndexOf("NetworkSimulatorUIMediator", StringComparison.OrdinalIgnoreCase) >= 0) mb.enabled = false;
+                }
+            }
+        }
+
+        IEnumerator BuildStartup()
+        {
+            yield return null;
+            CreateCanvas(4000);
+            var bg = MakeImage(canvas.transform, "Backdrop", new Color(.006f,.008f,.016f,1));
+            Stretch(bg.rectTransform);
+            var glow = MakeImage(canvas.transform, "Glow", new Color(.10f,.20f,.42f,.18f));
+            SetRect(glow.rectTransform,.20f,.20f,.80f,.82f);
+            var title = MakeText(canvas.transform,"Title","ETERNAL REALMS ONLINE",46,GoldBright,TextAlignmentOptions.Center); SetRect(title.rectTransform,.15f,.50f,.85f,.66f);
+            var sub = MakeText(canvas.transform,"Subtitle","AETHERIA  •  THE ETERNAL RIFT",16,new Color(.58f,.68f,.84f),TextAlignmentOptions.Center); SetRect(sub.rectTransform,.20f,.45f,.80f,.51f);
+            var line = MakeImage(canvas.transform,"Line",Gold); SetRect(line.rectTransform,.36f,.43f,.64f,.435f);
+            yield return new WaitForSecondsRealtime(.8f);
+            var cg = canvas.GetComponent<CanvasGroup>(); cg.alpha = 0;
+            for(float t=0;t<.45f;t+=Time.unscaledDeltaTime){cg.alpha=t/.45f;yield return null;}
+            yield return new WaitForSecondsRealtime(.7f);
+            for(float t=0;t<.4f;t+=Time.unscaledDeltaTime){cg.alpha=1f-t/.4f;yield return null;}
+        }
+
+        IEnumerator BuildMainMenu()
+        {
+            yield return null;
+            CreateCanvas(4000);
+            BuildReferenceBackdrop();
+            var veil=MakeImage(canvas.transform,"MenuVeil",new Color(.005f,.008f,.018f,.50f));Stretch(veil.rectTransform);
+            var logo=MakeText(canvas.transform,"Logo","ETERNAL REALMS\nONLINE",42,GoldBright,TextAlignmentOptions.Left);SetRect(logo.rectTransform,.055f,.82f,.38f,.96f);
+            var sub=MakeText(canvas.transform,"Sub","AETHERIA • THE ETERNAL RIFT",13,new Color(.66f,.72f,.84f),TextAlignmentOptions.Left);SetRect(sub.rectTransform,.058f,.80f,.40f,.84f);
+            MakeMenuButton("JOUER","menu.play",.37f,.53f,.63f,.61f,()=>SceneManager.LoadScene("CharSelect"));
+            MakeMenuButton("PARAMÈTRES","menu.settings",.37f,.43f,.63f,.51f,()=>{});
+            MakeMenuButton("QUITTER","menu.exit",.37f,.33f,.63f,.41f,()=>Application.Quit());
+            BuildLanguageButton(.78f,.90f,.95f,.955f);
+            yield return null;
+        }
+
+        IEnumerator BuildCharacterCreator()
+        {
+            yield return null;
+            CreateCanvas(5000);
+            BuildReferenceBackdrop();
+            BuildCharacterViewport();
+            // Cover the baked-in reference controls while preserving its scenery and lighting.
+            var leftCover=MakeImage(canvas.transform,"LeftCover",PanelSoft);SetRect(leftCover.rectTransform,.00f,.10f,.25f,.86f);
+            var rightCover=MakeImage(canvas.transform,"RightCover",PanelSoft);SetRect(rightCover.rectTransform,.64f,.10f,.82f,.86f);
+            var bottomCover=MakeImage(canvas.transform,"BottomCover",new Color(.008f,.012f,.024f,.96f));SetRect(bottomCover.rectTransform,.00f,.00f,1f,.11f);
+            var topCover=MakeImage(canvas.transform,"TopCover",new Color(.006f,.009f,.018f,.82f));SetRect(topCover.rectTransform,.00f,.86f,1f,1f);
+
+            BuildHeader();
+            BuildClassColumn();
+            BuildClassInfo();
+            BuildCustomizer();
+            BuildBottomBar();
+            BuildLanguageButton(.80f,.915f,.975f,.97f);
+            EnsureEventSystem();
+            SelectClass(0);
+            RefreshLanguage();
+        }
+
+        void BuildCharacterViewport()
+        {
+            var go = new GameObject("CharacterViewport");
+            go.transform.SetParent(canvas.transform, false);
+            characterViewport = go.AddComponent<RawImage>();
+            characterViewport.color = Color.white;
+            characterViewport.raycastTarget = false;
+            SetRect(characterViewport.rectTransform, .245f, .11f, .645f, .875f);
+            characterViewport.transform.SetAsLastSibling();
+            var stage = GetStage();
+            var cam = stage.GetComponentInChildren<Camera>(true);
+            if (cam != null)
+            {
+                var rt = new RenderTexture(900, 900, 24, RenderTextureFormat.ARGB32);
+                rt.name = "ERO_V528_CharacterPreview_RT";
+                rt.Create();
+                cam.targetTexture = rt;
+                cam.clearFlags = CameraClearFlags.SolidColor;
+                cam.backgroundColor = new Color(0,0,0,0);
+                characterViewport.texture = rt;
+            }
+        }
+
+        void BuildReferenceBackdrop()
+        {
+            var tex = Resources.Load<Texture2D>("ERO/ERO_CharacterCreation_Reference");
+            if (tex != null)
+            {
+                var raw = canvas.gameObject.AddComponent<RawImage>(); raw.texture=tex; raw.color=Color.white; raw.raycastTarget=false; Stretch(raw.rectTransform); raw.transform.SetAsFirstSibling();
+            }
+            else
+            {
+                var bg=MakeImage(canvas.transform,"FallbackBG",new Color(.006f,.009f,.018f,1));Stretch(bg.rectTransform);
+            }
+        }
+
+        void BuildHeader()
+        {
+            var logo=MakeText(canvas.transform,"Logo","ETERNAL REALMS\nONLINE",28,GoldBright,TextAlignmentOptions.Left);SetRect(logo.rectTransform,.025f,.905f,.34f,.985f);
+            var sub=MakeText(canvas.transform,"LogoSub","AETHERIA • THE ETERNAL RIFT",9,new Color(.62f,.70f,.82f),TextAlignmentOptions.Left);SetRect(sub.rectTransform,.027f,.895f,.35f,.915f);
+            string[] nav={"ACCUEIL","CRÉATION","MONDE","HISTOIRE"}; float[] xs={.36f,.48f,.60f,.71f};
+            for(int i=0;i<nav.Length;i++){var b=MakeButton(canvas.transform,"Nav"+i,nav[i],13,i==1?GoldBright:TextWhite);SetRect(b.GetComponent<RectTransform>(),xs[i],.925f,xs[i]+.09f,.965f);}
+        }
+
+        void BuildClassColumn()
+        {
+            chooseTitle=MakeText(canvas.transform,"Choose","CHOISISSEZ VOTRE CLASSE",12,GoldBright,TextAlignmentOptions.Left);SetRect(chooseTitle.rectTransform,.028f,.83f,.22f,.87f);
+            for(int i=0;i<8;i++)
+            {
+                float y=.73f-i*.075f;
+                var b=MakeImage(canvas.transform,"ClassCard"+i,new Color(.018f,.03f,.055f,.93f));SetRect(b.rectTransform,.018f,y,.235f,y+.066f);
+                var button=b.gameObject.AddComponent<Button>(); StyleButton(button); int idx=i; button.onClick.AddListener(()=>SelectClass(idx)); classButtons.Add(button);
+                var portrait=Resources.Load<Sprite>("Textures/UI/"+portraitNames[i]); if(portrait!=null){var im=MakeImage(b.transform,"Portrait",Color.white);im.sprite=portrait;SetRect(im.rectTransform,.015f,.08f,.28f,.92f);im.raycastTarget=false;}
+                var t=MakeText(b.transform,"Name",classes[i].ToUpperInvariant(),12,TextWhite,TextAlignmentOptions.Left);SetRect(t.rectTransform,.31f,.15f,.96f,.85f);classButtonTexts.Add(t);allTexts.Add(t);
+            }
+        }
+
+        void BuildClassInfo()
+        {
+            classTitle=MakeText(canvas.transform,"ClassTitle","CHEVALIER",28,GoldBright,TextAlignmentOptions.Left);SetRect(classTitle.rectTransform,.26f,.70f,.62f,.79f);
+            var sub=MakeText(canvas.transform,"ClassSub","UN REMPART FACE AUX TÉNÈBRES",12,new Color(.72f,.77f,.88f),TextAlignmentOptions.Left);SetRect(sub.rectTransform,.26f,.67f,.61f,.71f);
+            classDescription=MakeText(canvas.transform,"Desc","",13,TextWhite,TextAlignmentOptions.Left);classDescription.textWrappingMode=TextWrappingModes.Normal;SetRect(classDescription.rectTransform,.26f,.54f,.61f,.66f);
+            roleText=MakeText(canvas.transform,"Role","",12,TextWhite,TextAlignmentOptions.Left);SetRect(roleText.rectTransform,.26f,.49f,.61f,.53f);
+            weaponText=MakeText(canvas.transform,"Weapon","",12,TextWhite,TextAlignmentOptions.Left);SetRect(weaponText.rectTransform,.26f,.455f,.61f,.49f);
+            evolutionTitle=MakeText(canvas.transform,"Evolution","ÉVOLUTION",14,GoldBright,TextAlignmentOptions.Left);SetRect(evolutionTitle.rectTransform,.26f,.38f,.60f,.42f);
+            evo18Text=MakeText(canvas.transform,"E18","Niv. 18",12,TextWhite,TextAlignmentOptions.Left);SetRect(evo18Text.rectTransform,.28f,.335f,.59f,.37f);
+            evo40Text=MakeText(canvas.transform,"E40","Niv. 40",12,TextWhite,TextAlignmentOptions.Left);SetRect(evo40Text.rectTransform,.28f,.285f,.59f,.32f);
+            evo75Text=MakeText(canvas.transform,"E75","Niv. 75",12,TextWhite,TextAlignmentOptions.Left);SetRect(evo75Text.rectTransform,.28f,.235f,.59f,.27f);
+            allTexts.Add(classTitle);allTexts.Add(sub);allTexts.Add(classDescription);allTexts.Add(roleText);allTexts.Add(weaponText);allTexts.Add(evolutionTitle);allTexts.Add(evo18Text);allTexts.Add(evo40Text);allTexts.Add(evo75Text);
+        }
+
+        void BuildCustomizer()
+        {
+            var title=MakeText(canvas.transform,"CustomTitle","PERSONNALISATION",15,GoldBright,TextAlignmentOptions.Left);SetRect(title.rectTransform,.66f,.83f,.80f,.87f);
+            genderTitle=MakeText(canvas.transform,"Gender","GENRE",10,new Color(.70f,.76f,.88f),TextAlignmentOptions.Left);SetRect(genderTitle.rectTransform,.66f,.785f,.79f,.815f);
+            maleButton=MakeOption("MALE",.66f,.735f,.73f,.78f,()=>SetGender(true)); femaleButton=MakeOption("FEMALE",.74f,.735f,.81f,.78f,()=>SetGender(false));
+            faceTitle=MakeText(canvas.transform,"Face","VISAGE",10,new Color(.70f,.76f,.88f),TextAlignmentOptions.Left);SetRect(faceTitle.rectTransform,.66f,.695f,.79f,.72f); BuildChoices(4,.66f,.65f,()=>{faceIndex++;});
+            hairTitle=MakeText(canvas.transform,"Hair","COIFFURE",10,new Color(.70f,.76f,.88f),TextAlignmentOptions.Left);SetRect(hairTitle.rectTransform,.66f,.60f,.79f,.625f); BuildChoices(4,.66f,.555f,()=>{hairIndex++;});
+            hairColorTitle=MakeText(canvas.transform,"HairColor","COULEUR DES CHEVEUX",10,new Color(.70f,.76f,.88f),TextAlignmentOptions.Left);SetRect(hairColorTitle.rectTransform,.66f,.505f,.80f,.53f); BuildColorChoices(new[]{new Color(.06f,.04f,.03f),new Color(.55f,.42f,.30f),new Color(.72f,.66f,.56f),new Color(.15f,.10f,.08f),new Color(.35f,.16f,.12f),new Color(.75f,.75f,.78f)},.66f,.46f,()=>{hairColorIndex++;});
+            eyeColorTitle=MakeText(canvas.transform,"EyeColor","COULEUR DES YEUX",10,new Color(.70f,.76f,.88f),TextAlignmentOptions.Left);SetRect(eyeColorTitle.rectTransform,.66f,.415f,.80f,.44f);BuildColorChoices(new[]{Color.cyan,new Color(.18f,.55f,.34f),new Color(.45f,.28f,.12f),Color.gray,new Color(.65f,.12f,.12f),new Color(.55f,.25f,.85f)},.66f,.37f,()=>{eyeColorIndex++;});
+            skinTitle=MakeText(canvas.transform,"Skin","TEINT DE PEAU",10,new Color(.70f,.76f,.88f),TextAlignmentOptions.Left);SetRect(skinTitle.rectTransform,.66f,.325f,.80f,.35f);BuildColorChoices(new[]{new Color(.93f,.74f,.63f),new Color(.82f,.60f,.48f),new Color(.68f,.44f,.32f),new Color(.50f,.30f,.20f),new Color(.35f,.20f,.14f)},.66f,.28f,()=>{skinIndex++;});
+            gearTitle=MakeText(canvas.transform,"Gear","APERÇU ÉQUIPEMENT",10,new Color(.70f,.76f,.88f),TextAlignmentOptions.Left);SetRect(gearTitle.rectTransform,.66f,.235f,.82f,.26f);BuildChoices(4,.66f,.185f,()=>{gearIndex++;});
+            allTexts.Add(genderTitle);allTexts.Add(faceTitle);allTexts.Add(hairTitle);allTexts.Add(hairColorTitle);allTexts.Add(eyeColorTitle);allTexts.Add(skinTitle);allTexts.Add(gearTitle);allTexts.Add(title);
+        }
+
+        void BuildBottomBar()
+        {
+            backButtonText=MakeText(canvas.transform,"Back","RETOUR",13,TextWhite,TextAlignmentOptions.Center);var back=MakeButton(canvas.transform,"BackBtn","",TextWhite);SetRect(back.GetComponent<RectTransform>(),.015f,.025f,.14f,.09f);backButtonText.transform.SetParent(back.transform,false);Stretch(backButtonText.rectTransform,0);
+            nameLabel=MakeText(canvas.transform,"NameLabel","NOM DU PERSONNAGE",11,new Color(.72f,.78f,.88f),TextAlignmentOptions.Right);SetRect(nameLabel.rectTransform,.31f,.047f,.43f,.075f);
+            nameInput=MakeInput(canvas.transform,.44f,.035f,.64f,.085f);nameInputText=nameInput.textComponent;nameInput.text="Aetherian";
+            createButtonText=MakeText(canvas.transform,"Create","CRÉER LE PERSONNAGE  »",15,GoldBright,TextAlignmentOptions.Center);var create=MakeButton(canvas.transform,"CreateBtn","",GoldBright);SetRect(create.GetComponent<RectTransform>(),.70f,.025f,.985f,.09f);createButtonText.transform.SetParent(create.transform,false);Stretch(createButtonText.rectTransform,0);create.onClick.AddListener(CreateCharacter);
+            allTexts.Add(backButtonText);allTexts.Add(nameLabel);allTexts.Add(createButtonText);
+        }
+
+        void BuildLanguageButton(float a,float b,float d,float e)
+        {
+            var bgo=MakeImage(canvas.transform,"LanguageButton",new Color(.015f,.025f,.045f,.95f));SetRect(bgo.rectTransform,a,b,d,e);var btn=bgo.gameObject.AddComponent<Button>();StyleButton(btn);btn.onClick.AddListener(ToggleLanguagePanel);
+            languageButtonText=MakeText(bgo.transform,"Language","Français",11,TextWhite,TextAlignmentOptions.Center);Stretch(languageButtonText.rectTransform,4);
+            BuildLanguagePanel();
+        }
+
+        void BuildLanguagePanel()
+        {
+            languagePanel=MakeImage(canvas.transform,"LanguagePanel",new Color(.008f,.015f,.03f,.98f)).gameObject;SetRect(languagePanel.GetComponent<RectTransform>(),.73f,.35f,.97f,.90f);languagePanel.SetActive(false);
+            for(int i=0;i<languages.Length;i++){int idx=i;var b=MakeButton(languagePanel.transform,"Lang"+i,languageNames[i],12,TextWhite);SetRect(b.GetComponent<RectTransform>(),.05f,.92f-i*.085f,.95f,.985f-i*.085f);b.onClick.AddListener(()=>SetLanguage(idx));}
+        }
+
+        void ToggleLanguagePanel(){if(languagePanel!=null)languagePanel.SetActive(!languagePanel.activeSelf);}
+        void SetLanguage(int idx){var loc=EROLocalizationV508.Instance;if(loc!=null)loc.SetLanguage(languages[idx]);if(languagePanel!=null)languagePanel.SetActive(false);RefreshLanguage();}
+        void OnLanguageChanged(EROLanguage language) { RefreshLanguage(); }
+
+        void RefreshLanguage()
+        {
+            var loc=EROLocalizationV508.Instance;if(loc==null)return;
+            foreach(var kv in new Dictionary<TMP_Text,string>(keys)){if(kv.Key!=null)kv.Key.text=loc.Get(kv.Value);}
+            if(languageButtonText!=null)languageButtonText.text=LanguageDisplay(loc.CurrentLanguage);
+            UpdateClassInfo();
+        }
+
+        string LanguageDisplay(EROLanguage l){for(int i=0;i<languages.Length;i++)if(languages[i]==l)return languageNames[i];return "Français";}
+
+        void SelectClass(int idx){classIndex=Mathf.Clamp(idx,0,7);for(int i=0;i<classButtons.Count;i++){var c=classButtons[i].targetGraphic as Image;if(c!=null)c.color=i==classIndex?new Color(.10f,.28f,.55f,.98f):new Color(.018f,.03f,.055f,.93f);}UpdateClassInfo();SpawnCharacter();}
+        void UpdateClassInfo()
+        {
+            var loc=EROLocalizationV508.Instance;
+            if(loc==null)return;
+            string k=classKeys[classIndex];
+            if(classTitle!=null)classTitle.text=ClassName(classIndex,loc);
+            if(classDescription!=null)classDescription.text=loc.Get(k+".description");
+            if(roleText!=null)roleText.text=loc.Get(k+".role");
+            if(weaponText!=null)weaponText.text=loc.Get(k+".weapon");
+            if(evo18Text!=null)evo18Text.text=loc.Get("progress.branch")+" • Niv. 18 • "+loc.Get(k+".evolution");
+            if(evo40Text!=null)evo40Text.text=loc.Get("progress.evolution")+" • Niv. 40 • "+loc.Get(k+".evolution");
+            if(evo75Text!=null)evo75Text.text=loc.Get("progress.final")+" • Niv. 75 • "+loc.Get(k+".evolution");
+            if(genderTitle!=null)genderTitle.text=loc.Get("charcreate.gender");
+            if(faceTitle!=null)faceTitle.text=loc.Get("charcreate.face");
+            if(hairTitle!=null)hairTitle.text=loc.Get("charcreate.hair");
+            if(hairColorTitle!=null)hairColorTitle.text=loc.Get("charcreate.haircolor");
+            if(eyeColorTitle!=null)eyeColorTitle.text=loc.Get("charcreate.eyecolor");
+            if(skinTitle!=null)skinTitle.text=loc.Get("charcreate.skin");
+            if(gearTitle!=null)gearTitle.text=loc.Get("charcreate.gear");
+            if(createButtonText!=null)createButtonText.text=loc.Get("charselect.create");
+            if(nameLabel!=null)nameLabel.text=loc.Get("charselect.name");
+            if(chooseTitle!=null)chooseTitle.text=loc.Get("charselect.choose");
+            if(evolutionTitle!=null)evolutionTitle.text=loc.Get("progress.evolution").ToUpperInvariant();
+            for(int i=0;i<classButtonTexts.Count;i++) if(classButtonTexts[i]!=null) classButtonTexts[i].text=ClassName(i,loc).ToUpperInvariant();
+            if(maleButton!=null) SetButtonText(maleButton,loc.Get("charselect.male"));
+            if(femaleButton!=null) SetButtonText(femaleButton,loc.Get("charselect.female"));
+        }
+        string ClassName(int idx,EROLocalizationV508 loc){string[] names={"class.knight","class.assassin","class.ranger","class.mage","class.priest","class.monk","class.summoner","class.paladin"};return loc.Get(names[idx]);}
+
+        void SetButtonText(Button b,string value){if(b==null)return;var t=b.GetComponentInChildren<TMP_Text>();if(t!=null)t.text=value;}
+
+        void SetGender(bool value){male=value;SpawnCharacter();UpdateOptionVisuals();}
+        void UpdateOptionVisuals(){if(maleButton!=null)SetButtonSelected(maleButton,male);if(femaleButton!=null)SetButtonSelected(femaleButton,!male);}
+        void SetButtonSelected(Button b,bool on){var img=b.targetGraphic as Image;if(img!=null)img.color=on?new Color(.10f,.34f,.72f,.98f):new Color(.025f,.045f,.075f,.98f);}
+
+        void SpawnCharacter()
+        {
+            if(modelRoot!=null)Destroy(modelRoot);
+            string path="EROCharacters/"+modelNames[classIndex]+(male?"_Male":"_Female");
+            GameObject prefab=Resources.Load<GameObject>(path);
+            if(prefab==null)
+            {
+                if(statusText!=null) statusText.text = "ERO model unavailable";
+                return;
+            }
+            modelRoot=Instantiate(prefab);
+            modelRoot.name="EROCharacterPreview";
+            modelRoot.transform.SetParent(null,false);
+            PrepareModel(modelRoot);
+            var stage=GetOrCreateStage();modelRoot.transform.SetParent(stage,false);modelRoot.transform.localPosition=Vector3.zero;modelRoot.transform.localRotation=Quaternion.Euler(0,180,0);modelRoot.transform.localScale=Vector3.one;
+        }
+
+        Transform GetOrCreateStage()
+        {
+            var go=GameObject.Find("ERO_V528_ModelStage");if(go==null){go=new GameObject("ERO_V528_ModelStage");var cam=new GameObject("ERO_V528_ModelCamera");cam.transform.SetParent(go.transform);cam.transform.localPosition=new Vector3(0,1.10f,-5.8f);cam.transform.localRotation=Quaternion.identity;var c=cam.AddComponent<Camera>();c.fieldOfView=34;c.clearFlags=CameraClearFlags.SolidColor;c.backgroundColor=new Color(0,0,0,0);c.depth=50;var light=new GameObject("ERO_V528_KeyLight");light.transform.SetParent(go.transform);light.transform.localPosition=new Vector3(-2,3,-3);var l=light.AddComponent<Light>();l.type=LightType.Directional;l.intensity=1.6f;l.color=new Color(1f,.86f,.68f);light.transform.rotation=Quaternion.Euler(35,-25,0);var fill=new GameObject("ERO_V528_FillLight");fill.transform.SetParent(go.transform);fill.transform.localPosition=new Vector3(2,2,-2);var fl=fill.AddComponent<Light>();fl.type=LightType.Point;fl.range=7;fl.intensity=5;fl.color=new Color(.25f,.45f,1f);}return go.transform; }
+
+        void PrepareModel(GameObject root)
+        {
+            foreach(var col in root.GetComponentsInChildren<Collider>(true))Destroy(col);
+            foreach(var r in root.GetComponentsInChildren<Renderer>(true)){var mats=r.materials;for(int i=0;i<mats.Length;i++){var mat=mats[i];if(mat==null)continue;var n=mat.name.ToLowerInvariant();var semantic=n.Contains("skin")||n.Contains("hair")||n.Contains("metal");var col=n.Contains("skin")?SkinColor():n.Contains("hair")?HairColor():n.Contains("metal")?new Color(.68f,.72f,.80f):ClassAccent();if(semantic || mat.GetTexture("_BaseMap")==null){if(mat.HasProperty("_BaseColor"))mat.SetColor("_BaseColor",col);if(mat.HasProperty("_Color"))mat.color=col;}}r.materials=mats;}
+        }
+        Color ClassAccent(){return new[]{new Color(.25f,.42f,.75f),new Color(.52f,.18f,.65f),new Color(.18f,.58f,.38f),new Color(.38f,.20f,.72f),new Color(.78f,.60f,.22f),new Color(.78f,.26f,.18f),new Color(.60f,.18f,.75f),new Color(.80f,.50f,.18f)}[classIndex];}
+        Color HairColor(){return new[]{new Color(.08f,.05f,.04f),new Color(.45f,.25f,.12f),new Color(.70f,.62f,.52f),new Color(.15f,.10f,.08f),new Color(.50f,.16f,.12f),new Color(.72f,.72f,.75f)}[hairColorIndex%6];}
+        Color SkinColor(){return new[]{new Color(.93f,.74f,.63f),new Color(.82f,.60f,.48f),new Color(.68f,.44f,.32f),new Color(.50f,.30f,.20f),new Color(.35f,.20f,.14f)}[skinIndex%5];}
+
+        void BuildChoices(int count,float x,float y,Action action){for(int i=0;i<count;i++){int idx=i;var b=MakeButton(canvas.transform,"Choice",(i+1).ToString(),10,TextWhite);SetRect(b.GetComponent<RectTransform>(),x+i*.037f,y,x+.032f+i*.037f,y+.038f);b.onClick.AddListener(()=>{action();SpawnCharacter();});optionButtons.Add(b);}}
+        void BuildColorChoices(Color[] colors,float x,float y,Action action){for(int i=0;i<colors.Length;i++){var go=MakeImage(canvas.transform,"Color",colors[i]);SetRect(go.rectTransform,x+i*.037f,y,x+.032f+i*.037f,y+.038f);var b=go.gameObject.AddComponent<Button>();StyleButton(b);b.onClick.AddListener(()=>{action();SpawnCharacter();});}}
+        Button MakeOption(string label,float a,float b,float d,float e,UnityEngine.Events.UnityAction action){var bt=MakeButton(canvas.transform,"Option",label,10,TextWhite);SetRect(bt.GetComponent<RectTransform>(),a,b,d,e);bt.onClick.AddListener(action);optionButtons.Add(bt);return bt;}
+        void MakeMenuButton(string text,string key,float a,float b,float d,float e,UnityEngine.Events.UnityAction action){var bt=MakeButton(canvas.transform,"Menu",text,15,GoldBright);SetRect(bt.GetComponent<RectTransform>(),a,b,d,e);bt.onClick.AddListener(action);}
+        Button MakeButton(Transform parent,string name,string text,float size,Color color){var go=new GameObject(name);go.transform.SetParent(parent,false);var im=go.AddComponent<Image>();im.color=new Color(.015f,.03f,.055f,.90f);var b=go.AddComponent<Button>();StyleButton(b);var t=MakeText(go.transform,"Text",text,size,color,TextAlignmentOptions.Center);Stretch(t.rectTransform,3);return b;}
+        void StyleButton(Button b){var colors=b.colors;colors.normalColor=new Color(1,1,1,.98f);colors.highlightedColor=new Color(1,1,1,1);colors.pressedColor=new Color(.75f,.85f,1,1);colors.selectedColor=new Color(.8f,.9f,1,1);b.colors=colors;}
+        GameObject MakeImage(Transform p,string n,Color c){var g=new GameObject(n);g.transform.SetParent(p,false);var im=g.AddComponent<Image>();im.color=c;return g;}
+        TMP_Text MakeText(Transform p,string n,string value,float size,Color c,TextAlignmentOptions a){var g=new GameObject(n);g.transform.SetParent(p,false);var t=g.AddComponent<TextMeshProUGUI>();t.text=value;t.fontSize=size;t.color=c;t.alignment=a;t.raycastTarget=false;t.textWrappingMode=TextWrappingModes.Normal;allTexts.Add(t);return t;}
+        TMP_InputField MakeInput(Transform p,float a,float b,float d,float e){var bg=MakeImage(p,"NameInput",new Color(.025f,.04f,.07f,.98f));SetRect(bg.GetComponent<RectTransform>(),a,b,d,e);var input=bg.AddComponent<TMP_InputField>();var t=MakeText(bg.transform,"InputText","",14,TextWhite,TextAlignmentOptions.Left);Stretch(t.rectTransform,10);input.textComponent=t;return input;}
+        void CreateCanvas(int order){var root=new GameObject("ERO_V528_Interface");root.transform.SetParent(transform,false);canvas=root.AddComponent<Canvas>();canvas.renderMode=RenderMode.ScreenSpaceOverlay;canvas.sortingOrder=order;var scaler=root.AddComponent<CanvasScaler>();scaler.uiScaleMode=CanvasScaler.ScaleMode.ScaleWithScreenSize;scaler.referenceResolution=new Vector2(1920,1080);scaler.matchWidthOrHeight=.5f;root.AddComponent<GraphicRaycaster>();root.AddComponent<CanvasGroup>();}
+        void SetRect(RectTransform r,float a,float b,float d,float e){r.anchorMin=new Vector2(a,b);r.anchorMax=new Vector2(d,e);r.offsetMin=r.offsetMax=Vector2.zero;}
+        void Stretch(RectTransform r){SetRect(r,0,0,1,1);} void Stretch(RectTransform r,float margin){r.anchorMin=Vector2.zero;r.anchorMax=Vector2.one;r.offsetMin=new Vector2(margin,margin);r.offsetMax=new Vector2(-margin,-margin);}
+        void EnsureEventSystem(){if(EventSystem.current!=null)return;var go=new GameObject("ERO_V527_EventSystem");DontDestroyOnLoad(go);go.AddComponent<EventSystem>();go.AddComponent<StandaloneInputModule>();}
+        void CreateCharacter(){string n=nameInput!=null?nameInput.text:"Aetherian";if(string.IsNullOrWhiteSpace(n))n="Aetherian";PlayerPrefs.SetString("ERO_CHARACTER_NAME",n);PlayerPrefs.SetInt("ERO_CHARACTER_CLASS",classIndex);PlayerPrefs.SetInt("ERO_CHARACTER_MALE",male?1:0);PlayerPrefs.Save();}
+    }
+}

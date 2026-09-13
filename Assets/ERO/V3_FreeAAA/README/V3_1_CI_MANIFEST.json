@@ -1,0 +1,19 @@
+{
+  "version": "V3.1",
+  "purpose": "GitHub + Unity automatic validation",
+  "unity": "6000.0.67f1",
+  "workflow": ".github/workflows/unity-ci.yml",
+  "required_secrets": [
+    "UNITY_EMAIL",
+    "UNITY_PASSWORD"
+  ],
+  "security": "credentials are never stored in project files",
+  "checks": [
+    "project structure",
+    "Unity version",
+    "secret scan",
+    "Unity tests",
+    "validation build",
+    "artifact upload"
+  ]
+}

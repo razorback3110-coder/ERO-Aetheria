@@ -1,0 +1,261 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace EternalRealmsOnline.V535
+{
+    public sealed class V535VisualWorld : MonoBehaviour
+    {
+        private static readonly string[] Zones = {
+            "GREENHAVEN", "EVERWOOD", "ELYNDOR", "FROSTFALL", "SUNSCAR",
+            "SYLVARIS", "ABYSSIA", "THE RIFT", "ETERNAL RIFT", "ENDLESS ABYSS"
+        };
+        private static readonly Color[] ZoneColors = {
+            new Color(0.18f,0.42f,0.22f), new Color(0.10f,0.28f,0.16f), new Color(0.18f,0.25f,0.42f),
+            new Color(0.35f,0.48f,0.62f), new Color(0.56f,0.30f,0.12f), new Color(0.18f,0.38f,0.30f),
+            new Color(0.25f,0.08f,0.16f), new Color(0.12f,0.10f,0.25f), new Color(0.10f,0.07f,0.18f), new Color(0.04f,0.025f,0.07f)
+        };
+        private Transform worldRoot;
+        private Material[] terrainMaterials;
+
+        private void Start()
+        {
+            BuildWorld();
+            BuildAtmosphere();
+        }
+
+        private void BuildWorld()
+        {
+            if (GameObject.Find("ERO_V535_VisualWorld") != null) return;
+            var root = new GameObject("ERO_V535_VisualWorld");
+            worldRoot = root.transform;
+            terrainMaterials = new Material[Zones.Length];
+            for (int i = 0; i < Zones.Length; i++)
+            {
+                float x = (i % 5) * 38f - 76f;
+                float z = (i / 5) * 38f - 19f;
+                CreateZone(i, new Vector3(x, 0, z));
+            }
+            CreateRoad(new Vector3(-76,0,-19), new Vector3(76,0,-19));
+            CreateRoad(new Vector3(-76,0,19), new Vector3(76,0,19));
+            CreateRoad(new Vector3(0,0,-19), new Vector3(0,0,19));
+            CreateRoad(new Vector3(38,0,-19), new Vector3(38,0,19));
+            CreateRoad(new Vector3(-38,0,-19), new Vector3(-38,0,19));
+            CreateRiftCenter();
+        }
+
+        private void CreateZone(int index, Vector3 center)
+        {
+            var zone = new GameObject("Zone_" + Zones[index]);
+            zone.transform.SetParent(worldRoot);
+            zone.transform.position = center;
+
+            var ground = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            ground.name = Zones[index] + "_Ground";
+            ground.transform.SetParent(zone.transform);
+            ground.transform.localPosition = Vector3.zero;
+            ground.transform.localScale = new Vector3(18f, 0.25f, 18f);
+            terrainMaterials[index] = MakeMaterial(Zones[index] + " Surface", ZoneColors[index], 0.15f, 0.0f);
+            ground.GetComponent<Renderer>().sharedMaterial = terrainMaterials[index];
+
+            for (int p = 0; p < 8; p++)
+            {
+                float a = p * Mathf.PI * 2f / 8f;
+                float r = 10.5f + (p % 2) * 2.5f;
+                Vector3 pos = center + new Vector3(Mathf.Cos(a) * r, 0.7f, Mathf.Sin(a) * r);
+                CreateLandmark(index, pos, p);
+            }
+
+            var title = CreateWorldLabel(Zones[index] + "  •  Lv " + (index * 10 + 1) + "–" + ((index + 1) * 10), center + Vector3.up * 3.8f);
+            title.transform.SetParent(zone.transform);
+
+            if (index == 0) CreateVillage(center);
+            if (index == 2 || index == 5 || index == 6) CreateGate(center);
+            if (index >= 7) CreateRiftObelisk(center);
+            SpawnVisualMobs(index, center);
+        }
+
+        private void CreateLandmark(int zoneIndex, Vector3 pos, int p)
+        {
+            if (zoneIndex <= 4 && p % 2 == 0)
+            {
+                var trunk = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                trunk.transform.position = pos;
+                trunk.transform.localScale = new Vector3(0.35f, 2.0f, 0.35f);
+                trunk.GetComponent<Renderer>().sharedMaterial = MakeMaterial("Tree Trunk", new Color(0.18f,0.10f,0.06f), 0.2f, 0);
+                var crown = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                crown.transform.position = pos + Vector3.up * 2.4f;
+                crown.transform.localScale = Vector3.one * 2.2f;
+                crown.GetComponent<Renderer>().sharedMaterial = MakeMaterial("Tree Crown", Color.Lerp(ZoneColors[zoneIndex], Color.white, 0.18f), 0.25f, 0);
+                return;
+            }
+            var rock = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            rock.transform.position = pos;
+            float s = 0.8f + (p % 3) * 0.35f;
+            rock.transform.localScale = new Vector3(s, s * 0.65f, s * 0.85f);
+            rock.GetComponent<Renderer>().sharedMaterial = MakeMaterial("Ancient Stone", Color.Lerp(ZoneColors[zoneIndex], Color.black, 0.38f), 0.55f, 0);
+        }
+
+        private void CreateVillage(Vector3 center)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                float a = i * 1.256f;
+                Vector3 pos = center + new Vector3(Mathf.Cos(a)*5f, 1.2f, Mathf.Sin(a)*5f);
+                var house = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                house.transform.position = pos;
+                house.transform.localScale = new Vector3(3.5f, 2.4f, 3f);
+                house.GetComponent<Renderer>().sharedMaterial = MakeMaterial("Greenhaven Timber", new Color(0.28f,0.20f,0.14f), 0.4f, 0);
+                var roof = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                roof.transform.position = pos + Vector3.up * 1.7f;
+                roof.transform.localScale = new Vector3(2.7f,0.5f,2.7f);
+                roof.GetComponent<Renderer>().sharedMaterial = MakeMaterial("Greenhaven Roof", new Color(0.12f,0.08f,0.10f), 0.35f, 0);
+            }
+        }
+
+        private void CreateGate(Vector3 center)
+        {
+            for (int side = -1; side <= 1; side += 2)
+            {
+                var pillar = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                pillar.transform.position = center + new Vector3(side*3.2f, 2.8f, 0);
+                pillar.transform.localScale = new Vector3(1.1f, 2.8f, 1.1f);
+                pillar.GetComponent<Renderer>().sharedMaterial = MakeMaterial("Gate Stone", new Color(0.18f,0.19f,0.24f), 0.75f, 0);
+            }
+            var beam = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            beam.transform.position = center + Vector3.up * 5.3f;
+            beam.transform.localScale = new Vector3(8f,0.9f,1f);
+            beam.GetComponent<Renderer>().sharedMaterial = MakeMaterial("Gate Metal", new Color(0.05f,0.08f,0.12f), 0.85f, 0.2f);
+        }
+
+        private void CreateRiftObelisk(Vector3 center)
+        {
+            var obelisk = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            obelisk.transform.position = center + Vector3.up * 3f;
+            obelisk.transform.rotation = Quaternion.Euler(0, 45, 0);
+            obelisk.transform.localScale = new Vector3(2f,6f,2f);
+            obelisk.GetComponent<Renderer>().sharedMaterial = MakeMaterial("Rift Crystal", new Color(0.12f,0.02f,0.28f), 0.35f, 0.8f);
+            var light = obelisk.AddComponent<Light>();
+            light.type = LightType.Point;
+            light.range = 12f;
+            light.intensity = 5f;
+            light.color = new Color(0.28f,0.35f,1f);
+        }
+
+        private void SpawnVisualMobs(int zoneIndex, Vector3 center)
+        {
+            string prefabName = zoneIndex < 6 ? "Imp" : "VandalImp";
+            GameObject mobPrefab = Resources.Load<GameObject>("ERO_Mobs/" + (prefabName == "Imp" ? "ImpGraphics" : "VandalImpGraphics"));
+            for (int i = 0; i < 3; i++)
+            {
+                Vector3 pos = center + new Vector3(-6f + i*6f, 1f, 4f + (i%2)*2f);
+                GameObject mob = null;
+                if (mobPrefab != null) mob = Instantiate(mobPrefab, pos, Quaternion.identity);
+                else
+                {
+                    mob = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+                    mob.transform.position = pos;
+                    mob.transform.localScale = Vector3.one * 1.15f;
+                    mob.GetComponent<Renderer>().sharedMaterial = MakeMaterial("Mob Skin", new Color(0.32f,0.12f,0.18f), 0.5f, 0);
+                }
+                mob.name = Zones[zoneIndex] + "_Mob_" + i;
+                mob.transform.SetParent(worldRoot);
+                if (mob.GetComponent<V535Wander>() == null) mob.AddComponent<V535Wander>();
+            }
+        }
+
+        private void CreateRiftCenter()
+        {
+            var center = new GameObject("Eternal_Rift_Hub");
+            center.transform.SetParent(worldRoot);
+            center.transform.position = Vector3.zero;
+            var ring = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            ring.transform.SetParent(center.transform);
+            ring.transform.localScale = new Vector3(7f,0.15f,7f);
+            ring.GetComponent<Renderer>().sharedMaterial = MakeMaterial("Rift Hub", new Color(0.06f,0.02f,0.15f), 0.2f, 0.6f);
+            var core = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            core.transform.SetParent(center.transform);
+            core.transform.localPosition = Vector3.up * 2.4f;
+            core.transform.localScale = Vector3.one * 2.5f;
+            core.GetComponent<Renderer>().sharedMaterial = MakeRiftMaterial();
+            var l = core.AddComponent<Light>(); l.type = LightType.Point; l.range = 18f; l.intensity = 8f; l.color = new Color(0.25f,0.35f,1f);
+            CreateWorldLabel("THE ETERNAL RIFT", center.transform.position + Vector3.up * 5f).transform.SetParent(center.transform);
+        }
+
+        private void CreateRoad(Vector3 a, Vector3 b)
+        {
+            var road = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            road.name = "Aetheria_Road";
+            road.transform.SetParent(worldRoot);
+            road.transform.position = (a+b)*0.5f - Vector3.up*0.15f;
+            Vector3 d = b-a; road.transform.localScale = new Vector3(Mathf.Max(3f, d.magnitude), 0.15f, 3f);
+            road.transform.rotation = Quaternion.LookRotation(d, Vector3.up);
+            road.GetComponent<Renderer>().sharedMaterial = MakeMaterial("Aetheria Road", new Color(0.07f,0.075f,0.09f), 0.9f, 0);
+        }
+
+        private GameObject CreateWorldLabel(string text, Vector3 pos)
+        {
+            var go = new GameObject("Label_" + text);
+            go.transform.position = pos;
+            var tm = go.AddComponent<TextMesh>();
+            tm.text = text; tm.fontSize = 42; tm.characterSize = 0.08f; tm.anchor = TextAnchor.MiddleCenter;
+            tm.color = new Color(0.82f,0.9f,1f); tm.fontStyle = FontStyle.Bold;
+            go.AddComponent<V535Billboard>();
+            return go;
+        }
+
+        private Material MakeMaterial(string name, Color baseColor, float smoothness, float emission)
+        {
+            var shader = Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard");
+            var m = new Material(shader) { name = "ERO_" + name };
+            if (m.HasProperty("_BaseColor")) m.SetColor("_BaseColor", baseColor);
+            if (m.HasProperty("_Color")) m.SetColor("_Color", baseColor);
+            if (m.HasProperty("_Smoothness")) m.SetFloat("_Smoothness", smoothness);
+            if (m.HasProperty("_Metallic")) m.SetFloat("_Metallic", Mathf.Clamp01(smoothness));
+            if (emission > 0 && m.HasProperty("_EmissionColor")) { m.EnableKeyword("_EMISSION"); m.SetColor("_EmissionColor", baseColor * emission); }
+            return m;
+        }
+
+
+        private Material MakeRiftMaterial()
+        {
+            var shader = Shader.Find("ERO/RiftGlow") ?? Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard");
+            var m = new Material(shader) { name = "ERO_Rift_Core_Glow" };
+            if (m.HasProperty("_BaseColor")) m.SetColor("_BaseColor", new Color(0.12f,0.22f,1f,0.9f));
+            if (m.HasProperty("_Glow")) m.SetFloat("_Glow", 3.2f);
+            if (m.HasProperty("_Pulse")) m.SetFloat("_Pulse", 1.5f);
+            return m;
+        }
+
+        private void BuildAtmosphere()
+        {
+            RenderSettings.fog = true;
+            RenderSettings.fogMode = FogMode.ExponentialSquared;
+            RenderSettings.fogDensity = 0.0035f;
+            RenderSettings.fogColor = new Color(0.035f,0.045f,0.08f);
+            RenderSettings.ambientIntensity = 0.9f;
+            var sky = new GameObject("ERO_V535_Sun");
+            var light = sky.AddComponent<Light>(); light.type = LightType.Directional; light.intensity = 1.25f; light.shadows = LightShadows.Soft;
+            light.transform.rotation = Quaternion.Euler(42,-28,0);
+        }
+    }
+
+    public sealed class V535Wander : MonoBehaviour
+    {
+        private Vector3 origin;
+        private float seed;
+        private void Start() { origin = transform.position; seed = UnityEngine.Random.Range(0f,100f); }
+        private void Update()
+        {
+            Vector3 p = origin + new Vector3(Mathf.Sin(Time.time*0.35f+seed)*2.2f,0,Mathf.Cos(Time.time*0.28f+seed)*2.2f);
+            transform.position = Vector3.Lerp(transform.position,p,Time.deltaTime*0.8f);
+            if (p != transform.position && p != origin) transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(p-transform.position), Time.deltaTime*4f);
+        }
+    }
+
+    public sealed class V535Billboard : MonoBehaviour
+    {
+        private void LateUpdate() { if (Camera.main) transform.forward = Camera.main.transform.forward; }
+    }
+}

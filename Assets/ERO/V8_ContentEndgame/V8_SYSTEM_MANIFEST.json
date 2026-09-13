@@ -1,0 +1,21 @@
+{
+  "version": "V8",
+  "systems": [
+    "party",
+    "guild",
+    "chat",
+    "quests",
+    "dungeons",
+    "mvp",
+    "world_boss",
+    "pvp",
+    "economy",
+    "seasons",
+    "mail",
+    "trade",
+    "rankings",
+    "events"
+  ],
+  "source": "ERO_V7_REAL_MMO_PLAYABLE",
+  "runtime_tested": false
+}

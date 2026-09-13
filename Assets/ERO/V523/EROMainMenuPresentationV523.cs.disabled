@@ -1,0 +1,25 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
+
+namespace EternalRealmsOnline.V523
+{
+    public sealed class EROMainMenuPresentationV523 : MonoBehaviour
+    {
+        static EROMainMenuPresentationV523 instance; Canvas canvas;
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void Boot(){if(instance!=null)return;var go=new GameObject("ERO_V523_MainMenuPresentation");DontDestroyOnLoad(go);instance=go.AddComponent<EROMainMenuPresentationV523>();}
+        void Awake(){SceneManager.sceneLoaded+=OnLoaded;}
+        void OnDestroy(){SceneManager.sceneLoaded-=OnLoaded;}
+        void OnLoaded(Scene scene,LoadSceneMode mode){if(scene.name=="MainMenu")StartCoroutine(Build());else if(canvas!=null)canvas.gameObject.SetActive(false);}
+        IEnumerator Build(){yield return null;yield return new WaitForSeconds(.12f);if(canvas!=null)Destroy(canvas.gameObject);var root=new GameObject("ERO_V523_MainMenuCanvas");canvas=root.AddComponent<Canvas>();canvas.renderMode=RenderMode.ScreenSpaceOverlay;canvas.sortingOrder=80;var s=root.AddComponent<CanvasScaler>();s.uiScaleMode=CanvasScaler.ScaleMode.ScaleWithScreenSize;s.referenceResolution=new Vector2(1920,1080);
+            var header=Box(root.transform,"Header",new Color(.008f,.010f,.020f,.86f),.025f,.87f,.975f,.985f);Text(header.transform,"ETERNAL REALMS ONLINE",34,Color.white,TextAlignmentOptions.Left,.03f,.30f,.65f,.95f);Text(header.transform,"AETHERIA • THE ETERNAL RIFT",12,new Color(.55f,.62f,.78f),TextAlignmentOptions.Left,.032f,.05f,.65f,.35f);
+            var badge=Box(root.transform,"Badge",new Color(.30f,.08f,.42f,.18f),.73f,.91f,.975f,.97f);Text(badge.transform,"ONLINE WORLD",12,Color.white,TextAlignmentOptions.Center,.05f,.1f,.95f,.9f);
+            Box(root.transform,"FrameL",new Color(.25f,.07f,.38f,.12f),.025f,.10f,.028f,.84f);Box(root.transform,"FrameR",new Color(.25f,.07f,.38f,.12f),.972f,.10f,.975f,.84f);
+        }
+        GameObject Box(Transform p,string n,Color c,float a,float b,float d,float e){var g=new GameObject(n);g.transform.SetParent(p,false);g.AddComponent<Image>().color=c;var r=g.GetComponent<RectTransform>();r.anchorMin=new Vector2(a,b);r.anchorMax=new Vector2(d,e);r.offsetMin=r.offsetMax=Vector2.zero;return g;}
+        void Text(Transform p,string v,float size,Color c,TextAlignmentOptions al,float a,float b,float d,float e){var g=new GameObject("Text");g.transform.SetParent(p,false);var t=g.AddComponent<TextMeshProUGUI>();t.text=v;t.fontSize=size;t.color=c;t.alignment=al;t.raycastTarget=false;var r=t.rectTransform;r.anchorMin=new Vector2(a,b);r.anchorMax=new Vector2(d,e);r.offsetMin=r.offsetMax=Vector2.zero;}
+    }
+}

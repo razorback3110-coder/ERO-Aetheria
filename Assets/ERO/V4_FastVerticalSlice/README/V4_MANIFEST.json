@@ -1,0 +1,24 @@
+{
+  "version": "V4 Fast Vertical Slice",
+  "strategy": "complete one playable loop before broadening content",
+  "unity": "6000.0.67f1",
+  "slice": [
+    "Greenhaven",
+    "character",
+    "movement",
+    "combat",
+    "enemy",
+    "loot",
+    "inventory",
+    "Rift dungeon",
+    "Rift Guardian",
+    "return"
+  ],
+  "new_files": [
+    "Assets/ERO/V4_FastVerticalSlice/Runtime/EROV4VerticalSliceBootstrap.cs",
+    "Assets/ERO/V4_FastVerticalSlice/Runtime/EROV4VerticalSliceLoop.cs",
+    "Assets/ERO/V4_FastVerticalSlice/Production/FAST_TRACK_PLAN.md",
+    "Assets/ERO/V4_FastVerticalSlice/Production/SLICE_ACCEPTANCE.md",
+    "Assets/ERO/V4_FastVerticalSlice/README/README_V4_FAST.md"
+  ]
+}

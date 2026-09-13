@@ -1,0 +1,55 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using EternalRealmsOnline.V508;
+
+namespace EternalRealmsOnline.V509
+{
+    /// <summary>Small production-safe language selector for the ERO CharSelect presentation.</summary>
+    public sealed class EROLanguageSelectorV509 : MonoBehaviour
+    {
+        static EROLanguageSelectorV509 instance;
+        Canvas canvas;
+        Dropdown dropdown;
+        Text label;
+        readonly EROLanguage[] languages = (EROLanguage[])System.Enum.GetValues(typeof(EROLanguage));
+        readonly string[] displayNames = { "Français", "English", "Deutsch", "Español", "Italiano", "Nederlands", "Português", "日本語", "한국어", "简体中文" };
+
+        // Disabled in V516: replaced by EROCharSelectPresentationV516.
+        static void Boot()
+        {
+            if (instance != null) return;
+            var go = new GameObject("ERO_V509_LanguageSelector");
+            DontDestroyOnLoad(go);
+            instance = go.AddComponent<EROLanguageSelectorV509>();
+        }
+        void Awake() => SceneManager.sceneLoaded += OnSceneLoaded;
+        void OnDestroy() => SceneManager.sceneLoaded -= OnSceneLoaded;
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name == "CharSelect") StartCoroutine(Build());
+            else if (canvas != null) canvas.gameObject.SetActive(false);
+        }
+        IEnumerator Build()
+        {
+            yield return null; yield return new WaitForSeconds(0.25f);
+            if (canvas != null) Destroy(canvas.gameObject);
+            var root = new GameObject("ERO_V509_LanguageSelector");
+            canvas = root.AddComponent<Canvas>(); canvas.renderMode = RenderMode.ScreenSpaceOverlay; canvas.sortingOrder = 700;
+            var scaler = root.AddComponent<CanvasScaler>(); scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize; scaler.referenceResolution = new Vector2(1920,1080);
+            root.AddComponent<GraphicRaycaster>();
+            var panel = new GameObject("LanguagePanel"); panel.transform.SetParent(root.transform,false); var img=panel.AddComponent<Image>(); img.color=new Color(.015f,.02f,.035f,.95f);
+            SetRect(panel.GetComponent<RectTransform>(), new Vector2(.79f,.91f), new Vector2(.975f,.975f));
+            label = MakeText(panel.transform,"LANGUAGE",13,TextAnchor.MiddleLeft); SetRect(label.rectTransform,new Vector2(.03f,.5f),new Vector2(.32f,1));
+            var dgo=new GameObject("LanguageDropdown"); dgo.transform.SetParent(panel.transform,false); dropdown=dgo.AddComponent<Dropdown>(); dropdown.options.Clear();
+            for(int i=0;i<languages.Length;i++) dropdown.options.Add(new Dropdown.OptionData(displayNames[i]));
+            SetRect(dropdown.GetComponent<RectTransform>(),new Vector2(.32f,.08f),new Vector2(.98f,.92f));
+            var loc=EROLocalizationV508.Instance; int current=loc==null?1:(int)loc.CurrentLanguage; dropdown.SetValueWithoutNotify(Mathf.Clamp(current,0,languages.Length-1));
+            dropdown.onValueChanged.AddListener(i=>{ if(EROLocalizationV508.Instance!=null) EROLocalizationV508.Instance.SetLanguage(languages[i]); });
+        }
+        Text MakeText(Transform parent,string value,int size,TextAnchor anchor){var go=new GameObject("Text");go.transform.SetParent(parent,false);var t=go.AddComponent<Text>();t.font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");t.text=value;t.fontSize=size;t.alignment=anchor;t.color=Color.white;return t;}
+        void SetRect(RectTransform r,Vector2 min,Vector2 max){r.anchorMin=min;r.anchorMax=max;r.offsetMin=Vector2.zero;r.offsetMax=Vector2.zero;}
+    }
+}

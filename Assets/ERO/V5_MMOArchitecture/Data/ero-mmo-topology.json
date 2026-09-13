@@ -1,0 +1,24 @@
+{
+  "roles": [
+    "client",
+    "gateway",
+    "master",
+    "world"
+  ],
+  "flow": "client -> gateway -> master -> world",
+  "world_instances": true,
+  "private_instances": true,
+  "interest_management": true,
+  "target_zones": [
+    "Greenhaven",
+    "Everwood",
+    "Elyndor",
+    "Frostfall",
+    "Sunscar",
+    "Sylvaris",
+    "Abyssia",
+    "Rift",
+    "Eternal Rift"
+  ],
+  "note": "Architecture is ERO-authored and platform-neutral. It is inspired by common MMO service patterns; it does not copy third-party game assets."
+}

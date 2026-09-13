@@ -1,0 +1,250 @@
+using System;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+namespace EternalRealmsOnline.V531
+{
+    public sealed class EROFullPresentationV531 : MonoBehaviour
+    {
+        static EROFullPresentationV531 instance;
+        Canvas canvas;
+        GameObject root;
+        GameObject content;
+        readonly Dictionary<string, GameObject> windows = new Dictionary<string, GameObject>();
+        readonly List<TMP_Text> texts = new List<TMP_Text>();
+        TMP_Text notification;
+        float notificationUntil;
+        int selectedClass;
+        int selectedTab;
+
+        static readonly Color Gold = new Color(.92f,.73f,.35f,1);
+        static readonly Color Gold2 = new Color(1f,.86f,.52f,1);
+        static readonly Color Ink = new Color(.006f,.009f,.018f,1);
+        static readonly Color Panel = new Color(.012f,.022f,.042f,.96f);
+        static readonly Color Panel2 = new Color(.025f,.045f,.075f,.96f);
+        static readonly Color Text = new Color(.92f,.94f,1f,1);
+        static readonly Color Muted = new Color(.58f,.66f,.80f,1);
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void Boot()
+        {
+            if (instance != null) return;
+            var go = new GameObject("ERO_V531_FullPresentation");
+            DontDestroyOnLoad(go);
+            instance = go.AddComponent<EROFullPresentationV531>();
+        }
+
+        void Awake()
+        {
+            if (instance != null && instance != this) { Destroy(gameObject); return; }
+            instance = this;
+            SceneManager.sceneLoaded += SceneLoaded;
+        }
+
+        void Start() { SceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single); }
+
+        void OnDestroy() { SceneManager.sceneLoaded -= SceneLoaded; }
+
+        void SceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (root != null) Destroy(root);
+            HideLegacy(scene);
+            CreateCanvas();
+            if (scene.name.Equals("Startup", StringComparison.OrdinalIgnoreCase)) BuildStartup();
+            else if (scene.name.Equals("MainMenu", StringComparison.OrdinalIgnoreCase)) BuildMainMenu();
+            else if (scene.name.Equals("CharSelect", StringComparison.OrdinalIgnoreCase)) BuildCharacterCreator();
+            else BuildGameHUD();
+        }
+
+        void HideLegacy(Scene scene)
+        {
+            foreach (var r in scene.GetRootGameObjects())
+            {
+                if (r == gameObject) continue;
+                foreach (var c in r.GetComponentsInChildren<Canvas>(true)) c.enabled = false;
+                foreach (var mb in r.GetComponentsInChildren<MonoBehaviour>(true))
+                {
+                    if (mb == null) continue;
+                    var n = mb.GetType().Name;
+                    if (n.IndexOf("NetworkSimulatorUIMediator", StringComparison.OrdinalIgnoreCase) >= 0) mb.enabled = false;
+                }
+            }
+        }
+
+        void CreateCanvas()
+        {
+            root = new GameObject("ERO_V531_UI");
+            root.transform.SetParent(transform, false);
+            canvas = root.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.sortingOrder = 8000;
+            var scaler = root.AddComponent<CanvasScaler>();
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1920,1080);
+            scaler.matchWidthOrHeight = .5f;
+            root.AddComponent<GraphicRaycaster>();
+            EnsureEventSystem();
+        }
+
+        void BuildBackdrop(bool reference = true)
+        {
+            if (reference)
+            {
+                var tex = Resources.Load<Texture2D>("ERO/ERO_CharacterCreation_Reference");
+                if (tex != null)
+                {
+                    var raw = MakeRaw(canvas.transform, "ERO_Background", tex);
+                    Stretch(raw.rectTransform); raw.transform.SetAsFirstSibling();
+                }
+            }
+            var veil = MakeImage(canvas.transform,"ERO_Veil",new Color(0,0,0,.42f)); Stretch(veil.rectTransform); veil.transform.SetAsFirstSibling();
+        }
+
+        void BuildStartup()
+        {
+            var bg=MakeImage(canvas.transform,"StartupBG",Ink);Stretch(bg.rectTransform);
+            var glow=MakeImage(canvas.transform,"StartupGlow",new Color(.08f,.17f,.35f,.18f));SetRect(glow.rectTransform,.18f,.18f,.82f,.82f);
+            Label("ETERNAL REALMS ONLINE",46,Gold2,TextAlignmentOptions.Center,.15f,.51f,.85f,.61f);
+            Label("AETHERIA  •  THE ETERNAL RIFT",16,Muted,TextAlignmentOptions.Center,.22f,.45f,.78f,.50f);
+            Label("INITIALISATION DES ROYAUMES…",11,Text,TextAlignmentOptions.Center,.28f,.38f,.72f,.42f);
+            var b=Button("CONTINUER",15,Gold2,.38f,.27f,.62f,.34f); b.onClick.AddListener(()=>Load("MainMenu"));
+        }
+
+        void BuildMainMenu()
+        {
+            BuildBackdrop(true);
+            Label("ETERNAL REALMS\nONLINE",40,Gold2,TextAlignmentOptions.Left,.055f,.79f,.40f,.95f);
+            Label("AETHERIA • THE ETERNAL RIFT",12,Muted,TextAlignmentOptions.Left,.058f,.76f,.40f,.80f);
+            MenuButton("JOUER",.36f,.54f,.64f,.62f,()=>Load("CharSelect"));
+            MenuButton("PERSONNAGE",.36f,.45f,.64f,.53f,()=>Open("character"));
+            MenuButton("MONDE",.36f,.36f,.64f,.44f,()=>Open("world"));
+            MenuButton("CLASSEMENT",.36f,.27f,.64f,.35f,()=>Open("ranking"));
+            MenuButton("PARAMÈTRES",.36f,.18f,.64f,.26f,()=>Open("settings"));
+            MenuButton("QUITTER",.36f,.09f,.64f,.17f,()=>Application.Quit());
+            BuildWindow("character","PERSONNAGE",new[]{"Profil","Équipement","Stats","Collection","Awakening"});
+            BuildWindow("world","MONDE D'AETHERIA",new[]{"Carte","Zones","Donjons","World Boss","Événements"});
+            BuildWindow("ranking","CLASSEMENTS",new[]{"Niveau","PvP","GvG","Guildes","MVP"});
+            BuildWindow("settings","PARAMÈTRES",new[]{"Graphismes","Audio","Contrôles","Langue","Réseau"});
+        }
+
+        void BuildCharacterCreator()
+        {
+            BuildBackdrop(true);
+            Label("CRÉATION DE PERSONNAGE",27,Gold2,TextAlignmentOptions.Left,.025f,.90f,.40f,.97f);
+            Label("CHOISISSEZ VOTRE DESTIN",11,Muted,TextAlignmentOptions.Left,.027f,.875f,.40f,.90f);
+            string[] classes={"KNIGHT","ASSASSIN","RANGER","MAGE","PRIEST","MONK","SUMMONER","PALADIN"};
+            for(int i=0;i<classes.Length;i++)
+            {
+                int idx=i; float y=.78f-i*.085f;
+                var b=Button(classes[i],12,Text,.025f,y,.22f,y+.065f); b.onClick.AddListener(()=>{selectedClass=idx; Notify(classes[idx]+" sélectionné");});
+            }
+            Label("APERÇU DU HÉROS",15,Gold2,TextAlignmentOptions.Left,.26f,.80f,.60f,.84f);
+            Label("Le modèle 3D connecté au système de personnage sera utilisé en jeu.",12,Text,TextAlignmentOptions.Left,.26f,.74f,.61f,.80f);
+            Label("PERSONNALISATION",15,Gold2,TextAlignmentOptions.Left,.67f,.80f,.94f,.84f);
+            string[] opts={"Genre","Visage","Coiffure","Couleur cheveux","Yeux","Teint","Équipement"};
+            for(int i=0;i<opts.Length;i++)
+            {
+                float y=.72f-i*.065f; Label(opts[i],10,Muted,TextAlignmentOptions.Left,.67f,y+.03f,.82f,y+.06f);
+                var minus=Button("‹",11,Text,.67f,y,.71f,y+.035f); var plus=Button("›",11,Text,.88f,y,.92f,y+.035f);
+                int k=i; minus.onClick.AddListener(()=>Notify(opts[k]+" précédent")); plus.onClick.AddListener(()=>Notify(opts[k]+" suivant"));
+            }
+            Label("NOM",10,Muted,TextAlignmentOptions.Right,.38f,.06f,.45f,.10f);
+            var input=MakeInput(.46f,.05f,.66f,.105f,"Aetherian");
+            var create=Button("CRÉER LE PERSONNAGE  »",15,Gold2,.70f,.045f,.98f,.11f); create.onClick.AddListener(()=>{PlayerPrefs.SetString("ERO_CHARACTER_NAME",input.text);PlayerPrefs.SetInt("ERO_CHARACTER_CLASS",selectedClass);PlayerPrefs.Save();Load("BossRoom");});
+            var back=Button("RETOUR",12,Text,.02f,.045f,.16f,.105f); back.onClick.AddListener(()=>Load("MainMenu"));
+            BuildWindow("inventory","INVENTAIRE",new[]{"Équipement","Consommables","Matériaux","Quête","Favoris"});
+        }
+
+        void BuildGameHUD()
+        {
+            BuildBackdrop(false);
+            // Top status / target
+            PanelBox("TopStatus",.02f,.89f,.34f,.98f);
+            Label("AETHERIAN",14,Gold2,TextAlignmentOptions.Left,.035f,.94f,.22f,.97f);
+            Label("Lv. 1  •  KNIGHT",11,Text,TextAlignmentOptions.Left,.035f,.905f,.25f,.935f);
+            Bar(.035f,.925f,.31f,.94f,.78f,new Color(.55f,.10f,.12f,1),"HP  1000 / 1000");
+            Bar(.035f,.895f,.31f,.91f,.62f,new Color(.12f,.32f,.70f,1),"MP  400 / 400");
+            PanelBox("Minimap",.78f,.72f,.98f,.98f); Label("MINI-MAP",12,Gold2,TextAlignmentOptions.Center,.80f,.94f,.96f,.97f); Label("◉  GREENHAVEN\n   ────◇────\n      ▲",20,Text,TextAlignmentOptions.Center,.80f,.75f,.96f,.94f);
+            // bottom action bar
+            PanelBox("ActionBar",.27f,.02f,.73f,.15f);
+            string[] skills={"Ⅰ","Ⅱ","Ⅲ","Ⅳ","Ⅴ","Ⅵ","Ⅶ","Ⅷ","⚡"};
+            for(int i=0;i<skills.Length;i++){float x=.30f+i*.047f; var b=Button(skills[i],20,Gold2,x,.045f,x+.042f,.105f); int k=i; b.onClick.AddListener(()=>Notify("Compétence "+(k+1)+" utilisée")); Label((i+1).ToString(),8,Muted,TextAlignmentOptions.Center,x,.025f,x+.042f,.045f);}
+            Button("AUTO",10,Text,.66f,.045f,.72f,.105f).onClick.AddListener(()=>Notify("Mode Auto activé/désactivé"));
+            // left quick menu
+            string[] tabs={"🎒","⚔","📜","👥","🏰","🐾","🏠","🏪"};
+            for(int i=0;i<tabs.Length;i++){float y=.60f-i*.065f; var b=Button(tabs[i],17,Gold2,.02f,y,.07f,y+.055f); int k=i; b.onClick.AddListener(()=>OpenTab(k));}
+            // right combat info
+            PanelBox("Target",.76f,.56f,.98f,.69f); Label("CIBLE",10,Muted,TextAlignmentOptions.Left,.78f,.65f,.94f,.68f); Label("Slime des bois",15,Text,TextAlignmentOptions.Left,.78f,.61f,.94f,.65f); Bar(.78f,.585f,.96f,.605f,.44f,new Color(.65f,.12f,.12f,1),"HP");
+            BuildWindow("inventory","INVENTAIRE",new[]{"Équipement","Consommables","Matériaux","Quêtes","Favoris"});
+            BuildWindow("character","PERSONNAGE",new[]{"Profil","Stats","Équipement","Compétences","Awakening"});
+            BuildWindow("quest","QUÊTES",new[]{"Actives","Principales","Secondaires","Terminées"});
+            BuildWindow("social","SOCIAL",new[]{"Amis","Party","Groupe","Messages","Bloqués"});
+            BuildWindow("guild","GUILDE",new[]{"Accueil","Membres","Guerre de guilde","Quêtes","Banque"});
+            BuildWindow("pet","PETS & MONTURES",new[]{"Pets","Montures","Collection","Évolution"});
+            BuildWindow("housing","HOUSING",new[]{"Maison","Décoration","Stockage","Visiteurs"});
+            BuildWindow("shop","MARCHÉ & BOUTIQUE",new[]{"Marketplace","Trade","Cristaux ERO","Événements","Récompenses"});
+            BuildWindow("map","CARTE D'AETHERIA",new[]{"Greenhaven","Everwood","Elyndor","Frostfall","Sunscar","Sylvaris","Abyssia","The Rift","Eternal Rift","Endless Abyss"});
+            BuildWindow("pvp","PvP / GvG / RAIDS",new[]{"PvP","Ranked","GvG","Raids","MVP","World Boss"});
+            BuildWindow("settings","PARAMÈTRES",new[]{"Graphismes","Audio","Contrôles","Langue","Réseau"});
+            BuildWindow("menu","MENU",new[]{"Personnage","Inventaire","Carte","Quêtes","Guilde","Paramètres"});
+            Button("☰",18,Gold2,.945f,.04f,.98f,.095f).onClick.AddListener(()=>Open("menu"));
+        }
+
+        void OpenTab(int k)
+        {
+            string[] ids={"inventory","character","quest","social","guild","pet","housing","shop"};
+            if(k<ids.Length) Open(ids[k]);
+        }
+
+        void BuildWindow(string id,string title,string[] tabs)
+        {
+            var p=MakeImage(canvas.transform,"Window_"+id,new Color(.006f,.012f,.026f,.985f));
+            SetRect(p.rectTransform,.20f,.16f,.80f,.84f); p.gameObject.SetActive(false); windows[id]=p.gameObject;
+            LabelOn(p.transform,title,22,Gold2,TextAlignmentOptions.Left,.04f,.90f,.70f,.97f);
+            var close=ButtonOn(p.transform,"×",24,Gold2,.93f,.90f,.98f,.98f); close.onClick.AddListener(()=>p.gameObject.SetActive(false));
+            for(int i=0;i<tabs.Length;i++)
+            {
+                float x=.04f+i*Mathf.Min(.15f, .90f/Mathf.Max(1,tabs.Length));
+                var b=ButtonOn(p.transform,tabs[i],10,Text,x,.82f,Mathf.Min(.18f,x+.14f),.875f);
+                int k=i; b.onClick.AddListener(()=>Notify(title+" • "+tabs[k]));
+            }
+            LabelOn(p.transform,"Système ERO prêt • données synchronisées avec le profil local",11,Muted,TextAlignmentOptions.Left,.05f,.18f,.94f,.23f);
+            LabelOn(p.transform,"▣  ─────────────────────────────────────────────────────────────\n\n  Sélectionnez une section pour continuer.\n\n  Les données de jeu seront reliées aux systèmes PvE / PvP / Guild / Economy.",14,Text,TextAlignmentOptions.Left,.05f,.28f,.94f,.78f);
+        }
+
+        void Open(string id)
+        {
+            foreach(var kv in windows) kv.Value.SetActive(false);
+            GameObject w; if(windows.TryGetValue(id,out w)) w.SetActive(true); else Notify("Interface "+id+" bientôt disponible");
+        }
+
+        void Notify(string msg)
+        {
+            if(notification==null){notification=Label("",12,Gold2,TextAlignmentOptions.Center,.35f,.17f,.65f,.215f);}
+            notification.text=msg; notificationUntil=Time.unscaledTime+2.2f; notification.gameObject.SetActive(true);
+        }
+
+        void Update(){ if(notification!=null && Time.unscaledTime>notificationUntil) notification.gameObject.SetActive(false); }
+
+        void Load(string scene){ if(!string.IsNullOrEmpty(scene)) SceneManager.LoadScene(scene); }
+
+        Button MenuButton(string t,float a,float b,float c,float d,UnityEngine.Events.UnityAction act){var x=Button(t,15,Gold2,a,b,c,d);x.onClick.AddListener(act);return x;}
+        GameObject PanelBox(string n,float a,float b,float c,float d){var g=MakeImage(canvas.transform,n,Panel);SetRect(g.rectTransform,a,b,c,d);return g.gameObject;}
+        void Bar(float a,float b,float c,float d,float fill,Color color,string label){var bg=MakeImage(canvas.transform,"BarBG",new Color(.02f,.03f,.05f,.9f));SetRect(bg.rectTransform,a,b,c,d);var fg=MakeImage(bg.transform,"Fill",color);SetRect(fg.rectTransform,0,0,fill,1);LabelOn(bg.transform,label,8,Text,TextAlignmentOptions.Center,0,0,1,1);}
+        TMP_InputField MakeInput(float a,float b,float c,float d,string value){var bg=MakeImage(canvas.transform,"Input",Panel2);SetRect(bg.rectTransform,a,b,c,d);var input=bg.gameObject.AddComponent<TMP_InputField>();var t=LabelOn(bg.transform,"Text",14,Text,TextAlignmentOptions.Left,.04f,.05f,.96f,.95f);input.textComponent=t;input.text=value;return input;}
+
+        Button Button(string t,float size,Color color,float a,float b,float c,float d){return ButtonOn(canvas.transform,t,size,color,a,b,c,d);}
+        Button ButtonOn(Transform p,string t,float size,Color color,float a,float b,float c,float d){var g=MakeImage(p,"Button",new Color(.018f,.038f,.068f,.96f));SetRect(g.rectTransform,a,b,c,d);var bt=g.gameObject.AddComponent<Button>();var cb=bt.colors;cb.normalColor=Color.white;cb.highlightedColor=new Color(1,1,1,.96f);cb.pressedColor=new Color(.72f,.82f,1,1);bt.colors=cb;var tx=LabelOn(g.transform,t,size,color,TextAlignmentOptions.Center,0,0,1,1);tx.raycastTarget=false;return bt;}
+        TMP_Text Label(string t,float size,Color color,TextAlignmentOptions align,float a,float b,float c,float d){return LabelOn(canvas.transform,t,size,color,align,a,b,c,d);}
+        TMP_Text LabelOn(Transform p,string t,float size,Color color,TextAlignmentOptions align,float a,float b,float c,float d){var g=new GameObject("Text");g.transform.SetParent(p,false);var tx=g.AddComponent<TextMeshProUGUI>();tx.text=t;tx.fontSize=size;tx.color=color;tx.alignment=align;tx.textWrappingMode=TextWrappingModes.Normal;tx.raycastTarget=false;SetRect(tx.rectTransform,a,b,c,d);texts.Add(tx);return tx;}
+        Image MakeImage(Transform p,string n,Color c){var g=new GameObject(n);g.transform.SetParent(p,false);var i=g.AddComponent<Image>();i.color=c;return i;}
+        RawImage MakeRaw(Transform p,string n,Texture2D tex){var g=new GameObject(n);g.transform.SetParent(p,false);var r=g.AddComponent<RawImage>();r.texture=tex;r.raycastTarget=false;return r;}
+        void SetRect(RectTransform r,float a,float b,float c,float d){r.anchorMin=new Vector2(a,b);r.anchorMax=new Vector2(c,d);r.offsetMin=r.offsetMax=Vector2.zero;}
+        void Stretch(RectTransform r){SetRect(r,0,0,1,1);}
+        void EnsureEventSystem(){if(EventSystem.current!=null)return;var go=new GameObject("ERO_V531_EventSystem");DontDestroyOnLoad(go);go.AddComponent<EventSystem>();go.AddComponent<StandaloneInputModule>();}
+    }
+}

@@ -1,0 +1,238 @@
+Assets/ERO/Legal/LICENSES/Engine/Unity-BossRoom-Companion-License-NOTICE.md
+Assets/ERO/Legal/LICENSES/Fonts/NotoSansCJK-OFL-1.1.txt
+Assets/ERO/Legal/LICENSES/Fonts/Roboto-Apache-2.0.txt
+Assets/Editor/Tutorials/UnityIcon.png
+Assets/Editor/Tutorials/UnityIcon.png.meta
+Assets/Fonts/Bungee-Regular SDF.asset
+Assets/Fonts/Bungee-Regular SDF.asset.meta
+Assets/Fonts/Bungee-Regular SDF02.mat
+Assets/Fonts/Bungee-Regular SDF02.mat.meta
+Assets/Fonts/Bungee-Regular SDF05.mat
+Assets/Fonts/Bungee-Regular SDF05.mat.meta
+Assets/Fonts/Bungee-Regular SDF09.mat
+Assets/Fonts/Bungee-Regular SDF09.mat.meta
+Assets/Fonts/Roboto-Bold SDF.asset
+Assets/Fonts/Roboto-Bold SDF.asset.meta
+Assets/Prefabs/Dungeon/BossRoom.prefab
+Assets/Prefabs/Dungeon/BossRoom.prefab.meta
+Assets/Prefabs/Game/StaticNetworkObjects/BossRoomStaticNetworkObjects.prefab
+Assets/Prefabs/Game/StaticNetworkObjects/BossRoomStaticNetworkObjects.prefab.meta
+Assets/Prefabs/State/BossRoomState.prefab
+Assets/Prefabs/State/BossRoomState.prefab.meta
+Assets/Prefabs/UI/BossRoomHudCanvas.prefab
+Assets/Prefabs/UI/BossRoomHudCanvas.prefab.meta
+Assets/Prefabs/UnityLogo.prefab
+Assets/Prefabs/UnityLogo.prefab.meta
+Assets/Resources/Fonts/CJK/NotoSansCJK-JP.ttf
+Assets/Resources/Fonts/CJK/NotoSansCJK-KR.ttf
+Assets/Resources/Fonts/CJK/NotoSansCJK-SC.ttf
+Assets/Scenes/BossRoom.meta
+Assets/Scenes/BossRoom.unity
+Assets/Scenes/BossRoom.unity.meta
+Assets/Scenes/BossRoom/BossroomLightprobes.prefab
+Assets/Scenes/BossRoom/BossroomLightprobes.prefab.meta
+Assets/Scenes/BossRoom/DungeonBossRoom.unity
+Assets/Scenes/BossRoom/DungeonBossRoom.unity.meta
+Assets/Scenes/BossRoom/DungeonEntrance.unity
+Assets/Scenes/BossRoom/DungeonEntrance.unity.meta
+Assets/Scenes/BossRoom/DungeonTransition.unity
+Assets/Scenes/BossRoom/DungeonTransition.unity.meta
+Assets/Scenes/BossRoom/FastBaking.lighting
+Assets/Scenes/BossRoom/FastBaking.lighting.meta
+Assets/Scenes/BossRoom/GoodBaking.lighting
+Assets/Scenes/BossRoom/GoodBaking.lighting.meta
+Assets/Scenes/BossRoom/LightingData.asset
+Assets/Scenes/BossRoom/LightingData.asset.meta
+Assets/Scenes/BossRoom/Lightmap-0_comp_light.exr
+Assets/Scenes/BossRoom/Lightmap-0_comp_light.exr.meta
+Assets/Scenes/BossRoom/Lightmap-1_comp_light.exr
+Assets/Scenes/BossRoom/Lightmap-1_comp_light.exr.meta
+Assets/Scenes/BossRoom/Lightmap-2_comp_light.exr
+Assets/Scenes/BossRoom/Lightmap-2_comp_light.exr.meta
+Assets/Scenes/BossRoom/Lightmap-3_comp_light.exr
+Assets/Scenes/BossRoom/Lightmap-3_comp_light.exr.meta
+Assets/Scenes/BossRoom/Lightmap-4_comp_light.exr
+Assets/Scenes/BossRoom/Lightmap-4_comp_light.exr.meta
+Assets/Scenes/BossRoom/Lightmap-5_comp_light.exr
+Assets/Scenes/BossRoom/Lightmap-5_comp_light.exr.meta
+Assets/Scenes/BossRoom/NavMesh-DungeonNavMesh.asset
+Assets/Scenes/BossRoom/NavMesh-DungeonNavMesh.asset.meta
+Assets/Scenes/BossRoom/ReflectionProbe-0.png
+Assets/Scenes/BossRoom/ReflectionProbe-0.png.meta
+Assets/Scenes/BossRoom/ReflectionProbe-1.png
+Assets/Scenes/BossRoom/ReflectionProbe-1.png.meta
+Assets/Scenes/BossRoom/ReflectionProbe-2.png
+Assets/Scenes/BossRoom/ReflectionProbe-2.png.meta
+Assets/Scenes/BossRoom/ReflectionProbe-3.exr
+Assets/Scenes/BossRoom/ReflectionProbe-3.exr.meta
+Assets/Scenes/CharSelect.unity
+Assets/Scenes/CharSelect.unity.meta
+Assets/Scenes/ERO/ERO_Playable.unity
+Assets/Scenes/ERO/ERO_Playable.unity.meta
+Assets/Scenes/MainMenu.unity
+Assets/Scenes/MainMenu.unity.meta
+Assets/Scenes/PostGame.unity
+Assets/Scenes/PostGame.unity.meta
+Assets/Scenes/Startup.unity
+Assets/Scenes/Startup.unity.meta
+Assets/Scripts/ApplicationLifecycle/Messages/Unity.BossRoom.ApplicationLifecycle.Messages.asmdef
+Assets/Scripts/ApplicationLifecycle/Messages/Unity.BossRoom.ApplicationLifecycle.Messages.asmdef.meta
+Assets/Scripts/ApplicationLifecycle/Unity.BossRoom.ApplicationLifecycle.asmdef
+Assets/Scripts/ApplicationLifecycle/Unity.BossRoom.ApplicationLifecycle.asmdef.meta
+Assets/Scripts/Audio/Unity.BossRoom.Audio.asmdef
+Assets/Scripts/Audio/Unity.BossRoom.Audio.asmdef.meta
+Assets/Scripts/CameraUtils/Unity.BossRoom.CameraUtils.asmdef
+Assets/Scripts/CameraUtils/Unity.BossRoom.CameraUtils.asmdef.meta
+Assets/Scripts/ConnectionManagement/Unity.BossRoom.ConnectionManagement.asmdef
+Assets/Scripts/ConnectionManagement/Unity.BossRoom.ConnectionManagement.asmdef.meta
+Assets/Scripts/Editor/Unity.BossRoom.Editor.asmdef
+Assets/Scripts/Editor/Unity.BossRoom.Editor.asmdef.meta
+Assets/Scripts/Gameplay/DebugCheats/Unity.BossRoom.DebugCheats.asmdef
+Assets/Scripts/Gameplay/DebugCheats/Unity.BossRoom.DebugCheats.asmdef.meta
+Assets/Scripts/Gameplay/GameState/ServerBossRoomState.cs
+Assets/Scripts/Gameplay/GameState/ServerBossRoomState.cs.meta
+Assets/Scripts/Gameplay/UI/ClientBossRoomLoadingScreen.cs
+Assets/Scripts/Gameplay/UI/ClientBossRoomLoadingScreen.cs.meta
+Assets/Scripts/Gameplay/UI/UnityServicesUIHandler.cs
+Assets/Scripts/Gameplay/UI/UnityServicesUIHandler.cs.meta
+Assets/Scripts/Gameplay/Unity.BossRoom.Gameplay.asmdef
+Assets/Scripts/Gameplay/Unity.BossRoom.Gameplay.asmdef.meta
+Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/Editor/Unity.BossRoom.Infrastructure.ScriptableObjectArchitecture.Editor.asmdef
+Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/Editor/Unity.BossRoom.Infrastructure.ScriptableObjectArchitecture.Editor.asmdef.meta
+Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/UnityEventGameEventListener.cs
+Assets/Scripts/Infrastructure/ScriptableObjectArchitecture/UnityEventGameEventListener.cs.meta
+Assets/Scripts/Infrastructure/Unity.BossRoom.Infrastructure.asmdef
+Assets/Scripts/Infrastructure/Unity.BossRoom.Infrastructure.asmdef.meta
+Assets/Scripts/Navigation/Unity.BossRoom.Navigation.asmdef
+Assets/Scripts/Navigation/Unity.BossRoom.Navigation.asmdef.meta
+Assets/Scripts/UnityServices.meta
+Assets/Scripts/UnityServices/Auth.meta
+Assets/Scripts/UnityServices/Auth/AuthenticationServiceFacade.cs
+Assets/Scripts/UnityServices/Auth/AuthenticationServiceFacade.cs.meta
+Assets/Scripts/UnityServices/Infrastructure.meta
+Assets/Scripts/UnityServices/Infrastructure/Messages.meta
+Assets/Scripts/UnityServices/Infrastructure/Messages/UnityServiceErrorMessage.cs
+Assets/Scripts/UnityServices/Infrastructure/Messages/UnityServiceErrorMessage.cs.meta
+Assets/Scripts/UnityServices/Infrastructure/RateLimitCooldown.cs
+Assets/Scripts/UnityServices/Infrastructure/RateLimitCooldown.cs.meta
+Assets/Scripts/UnityServices/Sessions.meta
+Assets/Scripts/UnityServices/Sessions/LocalSession.cs
+Assets/Scripts/UnityServices/Sessions/LocalSession.cs.meta
+Assets/Scripts/UnityServices/Sessions/LocalSessionUser.cs
+Assets/Scripts/UnityServices/Sessions/LocalSessionUser.cs.meta
+Assets/Scripts/UnityServices/Sessions/Messages.meta
+Assets/Scripts/UnityServices/Sessions/Messages/SessionListFetchedMessage.cs
+Assets/Scripts/UnityServices/Sessions/Messages/SessionListFetchedMessage.cs.meta
+Assets/Scripts/UnityServices/Sessions/MultiplayerServicesFacade.cs
+Assets/Scripts/UnityServices/Sessions/MultiplayerServicesFacade.cs.meta
+Assets/Scripts/UnityServices/Sessions/MultiplayerServicesInterface.cs
+Assets/Scripts/UnityServices/Sessions/MultiplayerServicesInterface.cs.meta
+Assets/Scripts/UnityServices/Unity.BossRoom.UnityServices.asmdef
+Assets/Scripts/UnityServices/Unity.BossRoom.UnityServices.asmdef.meta
+Assets/Scripts/Utils/Unity.BossRoom.Utils.asmdef
+Assets/Scripts/Utils/Unity.BossRoom.Utils.asmdef.meta
+Assets/Scripts/VisualEffects/Unity.BossRoom.VisualEffects.asmdef
+Assets/Scripts/VisualEffects/Unity.BossRoom.VisualEffects.asmdef.meta
+Assets/Sounds/BossRoomMixer.mixer
+Assets/Sounds/BossRoomMixer.mixer.meta
+Assets/Tests/Runtime/Unity.BossRoom.Tests.Runtime.asmdef
+Assets/Tests/Runtime/Unity.BossRoom.Tests.Runtime.asmdef.meta
+Assets/TextMesh Pro.meta
+Assets/TextMesh Pro/Documentation.meta
+Assets/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf
+Assets/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf.meta
+Assets/TextMesh Pro/Fonts.meta
+Assets/TextMesh Pro/Fonts/Bungee-Regular - OFL.txt
+Assets/TextMesh Pro/Fonts/Bungee-Regular - OFL.txt.meta
+Assets/TextMesh Pro/Fonts/Bungee-Regular.ttf
+Assets/TextMesh Pro/Fonts/Bungee-Regular.ttf.meta
+Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt
+Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt.meta
+Assets/TextMesh Pro/Fonts/LiberationSans.ttf
+Assets/TextMesh Pro/Fonts/LiberationSans.ttf.meta
+Assets/TextMesh Pro/Fonts/Roboto-Bold.ttf
+Assets/TextMesh Pro/Fonts/Roboto-Bold.ttf.meta
+Assets/TextMesh Pro/Fonts/Roboto-LICENSE.txt
+Assets/TextMesh Pro/Fonts/Roboto-LICENSE.txt.meta
+Assets/TextMesh Pro/Resources.meta
+Assets/TextMesh Pro/Resources/Fonts & Materials.meta
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat.meta
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset.meta
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat.meta
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset.meta
+Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt
+Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt.meta
+Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt
+Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt.meta
+Assets/TextMesh Pro/Resources/Sprite Assets.meta
+Assets/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset
+Assets/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset.meta
+Assets/TextMesh Pro/Resources/Style Sheets.meta
+Assets/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset
+Assets/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset.meta
+Assets/TextMesh Pro/Resources/TMP Settings.asset
+Assets/TextMesh Pro/Resources/TMP Settings.asset.meta
+Assets/TextMesh Pro/Shaders.meta
+Assets/TextMesh Pro/Shaders/SDFFunctions.hlsl
+Assets/TextMesh Pro/Shaders/SDFFunctions.hlsl.meta
+Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader
+Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader.meta
+Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader
+Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader.meta
+Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader
+Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader.meta
+Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader
+Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader.meta
+Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader
+Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader.meta
+Assets/TextMesh Pro/Shaders/TMP_SDF-HDRP LIT.shadergraph
+Assets/TextMesh Pro/Shaders/TMP_SDF-HDRP LIT.shadergraph.meta
+Assets/TextMesh Pro/Shaders/TMP_SDF-HDRP UNLIT.shadergraph
+Assets/TextMesh Pro/Shaders/TMP_SDF-HDRP UNLIT.shadergraph.meta
+Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader
+Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader.meta
+Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader
+Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader.meta
+Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader
+Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader.meta
+Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile-2-Pass.shader
+Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile-2-Pass.shader.meta
+Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader
+Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader.meta
+Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader
+Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader.meta
+Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader
+Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader.meta
+Assets/TextMesh Pro/Shaders/TMP_SDF-URP Lit.shadergraph
+Assets/TextMesh Pro/Shaders/TMP_SDF-URP Lit.shadergraph.meta
+Assets/TextMesh Pro/Shaders/TMP_SDF-URP Unlit.shadergraph
+Assets/TextMesh Pro/Shaders/TMP_SDF-URP Unlit.shadergraph.meta
+Assets/TextMesh Pro/Shaders/TMP_SDF.shader
+Assets/TextMesh Pro/Shaders/TMP_SDF.shader.meta
+Assets/TextMesh Pro/Shaders/TMP_Sprite.shader
+Assets/TextMesh Pro/Shaders/TMP_Sprite.shader.meta
+Assets/TextMesh Pro/Shaders/TMPro.cginc
+Assets/TextMesh Pro/Shaders/TMPro.cginc.meta
+Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc
+Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc.meta
+Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc
+Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc.meta
+Assets/TextMesh Pro/Shaders/TMPro_Surface.cginc
+Assets/TextMesh Pro/Shaders/TMPro_Surface.cginc.meta
+Assets/TextMesh Pro/Sprites.meta
+Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt
+Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt.meta
+Assets/TextMesh Pro/Sprites/EmojiOne.json
+Assets/TextMesh Pro/Sprites/EmojiOne.json.meta
+Assets/TextMesh Pro/Sprites/EmojiOne.png
+Assets/TextMesh Pro/Sprites/EmojiOne.png.meta
+Assets/Textures/UI/Unity.meta
+Assets/Textures/UI/Unity/U_Logo_T1_LearnWith_White_RGB_resized.png
+Assets/Textures/UI/Unity/U_Logo_T1_LearnWith_White_RGB_resized.png.meta
+Assets/UI Toolkit/UnityThemes.meta
+Assets/UI Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss
+Assets/UI Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss.meta
