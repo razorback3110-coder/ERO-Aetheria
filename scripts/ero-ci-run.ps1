@@ -25,13 +25,20 @@ switch ($Action) {
         Write-Host 'Secret scan: OK'
     }
     'resolve-unity' {
+        # A runner-level ERO_UNITY_EXE may be configured, but reject malformed values such as
+        # a drive root (for example, 'C') which Test-Path considers valid but is not Unity.exe.
         $candidates = @(
             $env:ERO_UNITY_EXE,
             'C:\Program Files\Unity\Hub\Editor\6000.0.67f1\Editor\Unity.exe'
-        ) | Where-Object { $_ -and (Test-Path $_) }
-        if (!$candidates) { throw 'Unity 6000.0.67f1 executable not found. Set ERO_UNITY_EXE or install the editor at the standard Unity Hub path.' }
-        "UNITY_EXE=$($candidates[0])" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-        Write-Host "Using Unity: $($candidates[0])"
+        ) | Where-Object {
+            $_ -and
+            $_ -match '(?i)(^|[\\/])Unity\.exe$' -and
+            (Test-Path -LiteralPath $_ -PathType Leaf)
+        }
+        if (!$candidates) { throw 'Unity 6000.0.67f1 executable not found. Set ERO_UNITY_EXE to the full path of Unity.exe or install the editor at the standard Unity Hub path.' }
+        $unityExe = [System.IO.Path]::GetFullPath($candidates[0])
+        "UNITY_EXE=$unityExe" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        Write-Host "Using Unity: $unityExe"
     }
     'stop-processes' {
         Get-Process Unity,UnityHub,BeeBackend -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
