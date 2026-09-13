@@ -73,13 +73,33 @@ jobs:
           $p = Start-Process -FilePath "$env:ERO_UNITY_EXE" -ArgumentList $args -Wait -PassThru
           if ($p.ExitCode -ne 0) { Get-Content "$env:GITHUB_WORKSPACE\Builds\Logs\windows.log" -Tail 500; throw "Windows build failed with exit code $($p.ExitCode)" }
 
+      - name: Prepare Unity Bee cache for Linux Server build
+        shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
+        timeout-minutes: 10
+        run: |
+          $ErrorActionPreference = "Stop"
+          Write-Host "Stopping any leftover Unity/Bee processes before Linux build..."
+          Get-Process Unity,UnityPackageManager,Bee,bee_backend,UnityShaderCompiler -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+          Start-Sleep -Seconds 3
+          $bee = Join-Path $env:GITHUB_WORKSPACE "Library\Bee"
+          if (Test-Path $bee) {
+            Write-Host "Removing persistent Library/Bee cache: $bee"
+            attrib -R "$bee\*" /S /D 2>$null
+            Remove-Item -LiteralPath $bee -Recurse -Force -ErrorAction Stop
+          }
+          New-Item -ItemType Directory -Force -Path $bee | Out-Null
+          Write-Host "Library/Bee is clean and ready for the Linux Server build."
+
       - name: Build Linux Dedicated Server
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
         timeout-minutes: 120
         run: |
-          $args = @("-batchmode","-accept-apiupdate","-nographics","-projectPath","$env:GITHUB_WORKSPACE","-buildTarget","StandaloneLinux64","-executeMethod","EternalRealmsOnline.CI.EROBuildAutomation.BuildLinuxDedicatedServer","-quit","-logFile","$env:GITHUB_WORKSPACE\Builds\Logs\linux-server.log")
+          $ErrorActionPreference = "Stop"
+          $log = "$env:GITHUB_WORKSPACE\Builds\Logs\linux-server.log"
+          $args = @("-batchmode","-accept-apiupdate","-nographics","-projectPath","$env:GITHUB_WORKSPACE","-buildTarget","Linux64","-standaloneBuildSubtarget","Server","-executeMethod","EternalRealmsOnline.CI.EROBuildAutomation.BuildLinuxDedicatedServer","-quit","-logFile",$log)
           $p = Start-Process -FilePath "$env:ERO_UNITY_EXE" -ArgumentList $args -Wait -PassThru
-          if ($p.ExitCode -ne 0) { Get-Content "$env:GITHUB_WORKSPACE\Builds\Logs\linux-server.log" -Tail 500; throw "Linux Dedicated Server build failed with exit code $($p.ExitCode)" }
+          Write-Host "Linux Dedicated Server exit code: $($p.ExitCode)"
+          if ($p.ExitCode -ne 0) { if (Test-Path $log) { Get-Content $log -Tail 600 }; throw "Linux Dedicated Server build failed with exit code $($p.ExitCode)" }
 
       - name: Verify outputs
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}

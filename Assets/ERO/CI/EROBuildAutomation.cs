@@ -33,6 +33,8 @@ namespace EternalRealmsOnline.CI
         public static void BuildLinuxDedicatedServer()
         {
             ValidateProject();
+            // Unity 6 Dedicated Server: Linux64 + StandaloneBuildSubtarget.Server.
+            // The workflow also selects the same target/subtarget before the editor loads.
             var report = BuildPipeline.BuildPlayer(CreateOptions(BuildTarget.StandaloneLinux64, "Builds/LinuxServer/ERO-WorldServer.x86_64", StandaloneBuildSubtarget.Server));
             EnsureSucceeded(report, "Linux Dedicated Server");
             EditorApplication.Exit(0);
