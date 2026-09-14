@@ -3,11 +3,7 @@ using System.Collections.Generic;
 
 namespace ERO.Systems
 {
-    public enum EROTowerShopCurrency
-    {
-        TowerCoins,
-        TowerShards
-    }
+    public enum EROTowerShopCurrency { TowerCoins, TowerShards }
 
     [Serializable]
     public class EROTowerShopOffer
@@ -23,10 +19,20 @@ namespace ERO.Systems
         public bool premiumRecommended;
     }
 
-    /// <summary>
-    /// Seasonal exchange attached to the active Tower season. The shop creates a
-    /// long-term reason to keep climbing after the Season Pass is completed.
-    /// </summary>
+    [Serializable]
+    public class EROTowerSeasonWallet
+    {
+        public string seasonId;
+        public int towerCoins;
+        public int towerShards;
+        public int towerKeys;
+        public int gemDust;
+        public int runeFragments;
+        public int transcendenceEssence;
+        public int cosmeticTokens;
+    }
+
+    /// <summary>Season-specific exchange and reward routing for the Tower.</summary>
     public static class EROTowerSeasonShopSystem
     {
         public static List<EROTowerShopOffer> CreateDefaultShop()
@@ -43,27 +49,50 @@ namespace ERO.Systems
             };
         }
 
-        public static bool TryPurchase(EROTowerSeasonProgress progress, EROTowerShopOffer offer)
-        {
-            if (progress == null || offer == null || offer.purchased >= offer.purchaseLimit)
-                return false;
+        public static EROTowerSeasonWallet CreateWallet(string seasonId)
+            => new EROTowerSeasonWallet { seasonId = seasonId };
 
+        public static bool ApplyReward(EROTowerSeasonWallet wallet, EROTowerReward reward)
+        {
+            if (wallet == null || reward == null || string.IsNullOrEmpty(wallet.seasonId)) return false;
+            switch (reward.resource)
+            {
+                case EROTowerResourceType.TowerCoins: wallet.towerCoins += reward.amount; break;
+                case EROTowerResourceType.TowerShards: wallet.towerShards += reward.amount; break;
+                case EROTowerResourceType.TowerKeys: wallet.towerKeys += reward.amount; break;
+                case EROTowerResourceType.GemDust: wallet.gemDust += reward.amount; break;
+                case EROTowerResourceType.RuneFragments: wallet.runeFragments += reward.amount; break;
+                case EROTowerResourceType.TranscendenceEssence: wallet.transcendenceEssence += reward.amount; break;
+                case EROTowerResourceType.CosmeticToken: wallet.cosmeticTokens += reward.amount; break;
+                default: return false;
+            }
+            return true;
+        }
+
+        public static bool TryPurchase(EROTowerSeasonWallet wallet, EROTowerShopOffer offer)
+        {
+            if (wallet == null || offer == null || offer.purchased >= offer.purchaseLimit) return false;
             if (offer.currency == EROTowerShopCurrency.TowerCoins)
             {
-                if (progress.towerCoins < offer.cost) return false;
-                progress.towerCoins -= offer.cost;
+                if (wallet.towerCoins < offer.cost) return false;
+                wallet.towerCoins -= offer.cost;
             }
             else
             {
-                if (progress.towerShards < offer.cost) return false;
-                progress.towerShards -= offer.cost;
+                if (wallet.towerShards < offer.cost) return false;
+                wallet.towerShards -= offer.cost;
             }
-
             offer.purchased++;
             return true;
         }
 
-        /// <summary>Extra catch-up resources for players who start a season late.</summary>
+        public static bool ApplyPurchasedReward(EROTowerSeasonWallet wallet, EROTowerShopOffer offer)
+        {
+            if (wallet == null || offer == null || offer.purchased <= 0) return false;
+            return ApplyReward(wallet, new EROTowerReward { resource = offer.reward, amount = offer.amount });
+        }
+
+        /// <summary>Late starters earn more Tower resources from eligible activities, without selling catch-up power.</summary>
         public static int GetCatchUpMultiplier(int daysSinceSeasonStart)
         {
             if (daysSinceSeasonStart < 7) return 1;
@@ -72,25 +101,16 @@ namespace ERO.Systems
             return 4;
         }
 
-        /// <summary>Optional weekly activity bonus, encouraging play rather than purchases.</summary>
         public static int GetWeeklyTowerResourceBonus(int completedRuns)
-        {
-            if (completedRuns < 5) return 0;
-            return Math.Min(100, 10 + (completedRuns / 5) * 5);
-        }
+            => completedRuns < 5 ? 0 : Math.Min(100, 10 + (completedRuns / 5) * 5);
 
         private static EROTowerShopOffer Offer(string id, string name, EROTowerShopCurrency currency,
             int cost, EROTowerResourceType reward, int amount, int limit, bool premiumRecommended)
         {
             return new EROTowerShopOffer
             {
-                id = id,
-                displayName = name,
-                currency = currency,
-                cost = cost,
-                reward = reward,
-                amount = amount,
-                purchaseLimit = limit,
+                id = id, displayName = name, currency = currency, cost = cost,
+                reward = reward, amount = amount, purchaseLimit = limit,
                 premiumRecommended = premiumRecommended
             };
         }
