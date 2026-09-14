@@ -5,10 +5,7 @@ using ERO.Data;
 
 namespace ERO.World
 {
-    /// <summary>
-    /// Playable vertical slice and deterministic world-streaming fallback.
-    /// Generated geometry is explicitly a development fallback; production art must come from approved CC0 assets.
-    /// </summary>
+    /// <summary>Playable vertical slice and deterministic streaming fallback.</summary>
     public sealed class EROPlayableVerticalSlice : MonoBehaviour
     {
         private const int ChunkSize = 48;
@@ -21,11 +18,11 @@ namespace ERO.World
         private CharacterController controller;
         private Transform player;
         private Camera playerCamera;
+        private Transform enemy;
         private float pitch;
         private float enemyRespawnAt;
         private int enemyHealth;
         private int enemyMaxHealth;
-        private Transform enemy;
         private string status = "Welcome to Eternal Realms Online";
         private GUIStyle titleStyle;
         private GUIStyle panelStyle;
@@ -36,7 +33,7 @@ namespace ERO.World
             EnsureCharacter();
             CreatePlayer();
             CreateLighting();
-            UpdateStreaming(true);
+            UpdateStreaming();
             CreateEnemy();
             LockCursor(true);
         }
@@ -46,9 +43,8 @@ namespace ERO.World
             if (player == null) return;
             HandleLook();
             HandleMovement();
-            UpdateStreaming(false);
+            UpdateStreaming();
             UpdateEnemy();
-
             if (Input.GetKeyDown(KeyCode.Escape)) LockCursor(Cursor.lockState != CursorLockMode.Locked);
             if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) Attack();
         }
@@ -87,7 +83,6 @@ namespace ERO.World
             playerCamera.fieldOfView = 70f;
             playerCamera.nearClipPlane = 0.05f;
             playerCamera.farClipPlane = 600f;
-            playerCamera.transform.localRotation = Quaternion.identity;
         }
 
         private void CreateLighting()
@@ -106,10 +101,8 @@ namespace ERO.World
         private void HandleLook()
         {
             if (Cursor.lockState != CursorLockMode.Locked) return;
-            float yaw = Input.GetAxis("Mouse X") * MouseSensitivity;
-            float vertical = Input.GetAxis("Mouse Y") * MouseSensitivity;
-            player.Rotate(0f, yaw, 0f);
-            pitch = Mathf.Clamp(pitch - vertical, -70f, 70f);
+            player.Rotate(0f, Input.GetAxis("Mouse X") * MouseSensitivity, 0f);
+            pitch = Mathf.Clamp(pitch - Input.GetAxis("Mouse Y") * MouseSensitivity, -70f, 70f);
             playerCamera.transform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
         }
 
@@ -125,30 +118,20 @@ namespace ERO.World
             controller.Move(velocity * Time.deltaTime);
         }
 
-        private void UpdateStreaming(bool force)
+        private void UpdateStreaming()
         {
             Vector2Int center = WorldToChunk(player.position);
-            if (!force && chunks.ContainsKey(center))
-            {
-                // Streaming still runs every frame; the dictionary prevents duplicate generation.
-            }
-
             var needed = new HashSet<Vector2Int>();
             for (int z = -StreamRadius; z <= StreamRadius; z++)
+            for (int x = -StreamRadius; x <= StreamRadius; x++)
             {
-                for (int x = -StreamRadius; x <= StreamRadius; x++)
-                {
-                    var coord = new Vector2Int(center.x + x, center.y + z);
-                    needed.Add(coord);
-                    if (!chunks.ContainsKey(coord)) chunks.Add(coord, GenerateChunk(coord));
-                }
+                var coord = new Vector2Int(center.x + x, center.y + z);
+                needed.Add(coord);
+                if (!chunks.ContainsKey(coord)) chunks.Add(coord, GenerateChunk(coord));
             }
 
             var remove = new List<Vector2Int>();
-            foreach (var pair in chunks)
-            {
-                if (!needed.Contains(pair.Key)) remove.Add(pair.Key);
-            }
+            foreach (var pair in chunks) if (!needed.Contains(pair.Key)) remove.Add(pair.Key);
             foreach (var coord in remove)
             {
                 if (chunks[coord] != null) Destroy(chunks[coord]);
@@ -160,7 +143,6 @@ namespace ERO.World
         {
             var root = new GameObject("WorldChunk_" + coord.x + "_" + coord.y);
             root.transform.position = new Vector3(coord.x * ChunkSize, 0f, coord.y * ChunkSize);
-
             var ground = GameObject.CreatePrimitive(PrimitiveType.Cube);
             ground.name = "Terrain_DebugFallback";
             ground.transform.SetParent(root.transform);
@@ -218,15 +200,32 @@ namespace ERO.World
             if (Cursor.lockState != CursorLockMode.Locked || enemy == null || enemyHealth <= 0) return;
             Vector3 toEnemy = enemy.position - playerCamera.transform.position;
             if (toEnemy.magnitude > 16f || Vector3.Angle(playerCamera.transform.forward, toEnemy) > 24f) return;
-            var character = EROGameRoot.Instance.Systems.Character.Active;
-            int damage = EROGameRoot.Instance.Systems.Combat.CalculateDamage(character, 35 + character.level * 3, 8);
+            var root = EROGameRoot.Instance;
+            var character = root.Systems.Character.Active;
+            var stats = EROCombatSystem.BuildStats(character);
+            var skill = new EROSkillDefinition
+            {
+                id = "basic_attack",
+                classId = character.classId,
+                damageType = character.classId == EROClass.Mage || character.classId == EROClass.Priest || character.classId == EROClass.Invocateur ? ERODamageType.Magical : ERODamageType.Physical,
+                requiredLevel = 1,
+                powerBasisPoints = 10000,
+                criticalBonusBasisPoints = 0,
+                accuracyBonusBasisPoints = 0,
+                cooldownMilliseconds = 500,
+                resourceCost = 0,
+                areaOfEffect = false
+            };
+            var combatEvent = EROCombatSystem.ResolveAttack(stats, stats, skill, 0, Random.Range(0, 10000), 10000);
+            if (combatEvent.result == EROCombatResult.Miss) { status = "Attack missed"; return; }
+            int damage = Mathf.Max(1, (int)Mathf.Min(int.MaxValue, combatEvent.mitigatedDamage));
             enemyHealth = Mathf.Max(0, enemyHealth - damage);
-            status = "Hit for " + damage + " damage";
+            status = (combatEvent.critical ? "Critical! " : "Hit for ") + damage + " damage";
             if (enemyHealth == 0)
             {
                 enemy.gameObject.SetActive(false);
                 enemyRespawnAt = Time.time + 3f;
-                EROGameRoot.Instance.Systems.Progression.AddXP(character, 150);
+                root.Systems.Progression.AddXP(character, 150);
                 character.credits += 25;
                 AddLoot(character, "loot_ember_shard", "Ember Shard");
                 status = "Enemy defeated • +150 XP • +25 Credits";
@@ -248,9 +247,9 @@ namespace ERO.World
             titleStyle ??= new GUIStyle(GUI.skin.label) { fontSize = 22, fontStyle = FontStyle.Bold };
             panelStyle ??= new GUIStyle(GUI.skin.box) { alignment = TextAnchor.UpperLeft, fontSize = 14 };
             textStyle ??= new GUIStyle(GUI.skin.label) { fontSize = 14 };
-            var character = EROGameRoot.Instance != null && EROGameRoot.Instance.Systems != null ? EROGameRoot.Instance.Systems.Character.Active : null;
+            var root = EROGameRoot.Instance;
+            var character = root != null && root.Systems != null ? root.Systems.Character.Active : null;
             if (character == null) return;
-
             GUI.Box(new Rect(18, 18, 350, 170), GUIContent.none, panelStyle);
             GUI.Label(new Rect(32, 28, 320, 30), "ETERNAL REALMS ONLINE", titleStyle);
             GUI.Label(new Rect(32, 64, 320, 24), character.name + " • " + character.classId, textStyle);
@@ -258,7 +257,6 @@ namespace ERO.World
             GUI.Label(new Rect(32, 112, 320, 24), "Inventory: " + (character.inventory == null ? 0 : character.inventory.Count) + " stacks", textStyle);
             GUI.Label(new Rect(32, 136, 320, 24), "WASD Move • Shift Sprint • Mouse Look • LMB/Space Attack", textStyle);
             GUI.Label(new Rect(32, 160, 320, 24), status, textStyle);
-
             if (enemy != null && enemyHealth > 0)
             {
                 GUI.Box(new Rect(Screen.width * 0.5f - 120f, 34, 240, 42), GUIContent.none, panelStyle);
