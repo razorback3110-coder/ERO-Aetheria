@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ERO.Data
@@ -34,6 +35,7 @@ namespace ERO.Data
         public string id; public string name; public EROClass classId; public int level = 1; public long xp; public long overflowXp;
         public Appearance appearance = new Appearance(); public EROStatAllocation stats = new EROStatAllocation(); public int unspentStatPoints;
         public long credits; public long eroCrystals; public long guildTokens; public long arenaTokens; public long dungeonStones; public long mvpTokens; public long eventTokens;
+        public List<ItemData> inventory = new List<ItemData>();
     }
     [Serializable] public class SummonerPactData { public string id; public string name; public SummonerPactRole role; public bool primary; public int maxActiveSummons = 1; public SummonerSkillMode specialization = SummonerSkillMode.SingleTarget; }
     [Serializable] public class ItemData { public string id; public string name; public Rarity rarity; public int level; public int quantity = 1; public bool equipped; public string setId; public EROElement element = EROElement.Arcane; public EROTranscendenceData transcendence = new EROTranscendenceData(); public EROEquipmentSocket[] sockets = Array.Empty<EROEquipmentSocket>(); }
