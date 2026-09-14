@@ -30,6 +30,8 @@ namespace ERO.Systems
         public int runeFragments;
         public int transcendenceEssence;
         public int cosmeticTokens;
+        public int gemChests;
+        public int runeChests;
     }
 
     /// <summary>Season-specific exchange and reward routing for the Tower.</summary>
@@ -61,6 +63,8 @@ namespace ERO.Systems
                 case EROTowerResourceType.TowerKeys: wallet.towerKeys += reward.amount; break;
                 case EROTowerResourceType.GemDust: wallet.gemDust += reward.amount; break;
                 case EROTowerResourceType.RuneFragments: wallet.runeFragments += reward.amount; break;
+                case EROTowerResourceType.GemChest: wallet.gemChests += reward.amount; break;
+                case EROTowerResourceType.RuneChest: wallet.runeChests += reward.amount; break;
                 case EROTowerResourceType.TranscendenceEssence: wallet.transcendenceEssence += reward.amount; break;
                 case EROTowerResourceType.CosmeticToken: wallet.cosmeticTokens += reward.amount; break;
                 default: return false;
