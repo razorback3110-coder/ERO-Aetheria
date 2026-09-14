@@ -36,7 +36,15 @@ switch ($Action) {
             (Test-Path -LiteralPath $_ -PathType Leaf)
         }
         if (!$candidates) { throw 'Unity 6000.0.67f1 executable not found. Set ERO_UNITY_EXE to the full path of Unity.exe or install the editor at the standard Unity Hub path.' }
-        $unityExe = [System.IO.Path]::GetFullPath($candidates[0])
+
+        # PowerShell collapses a single-item pipeline result to a scalar string. Indexing
+        # that scalar with [0] returns its first character (for example 'C'), not the path.
+        # Normalize to a one-dimensional array before selecting the first candidate.
+        $unityExe = @($candidates)[0]
+        $unityExe = [System.IO.Path]::GetFullPath([string]$unityExe)
+        if (-not ($unityExe -match '(?i)Unity\.exe$') -or -not (Test-Path -LiteralPath $unityExe -PathType Leaf)) {
+            throw "Resolved Unity path is invalid: $unityExe"
+        }
         "UNITY_EXE=$unityExe" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         Write-Host "Using Unity: $unityExe"
     }
