@@ -36,10 +36,17 @@ namespace ERO.Data
         public Appearance appearance = new Appearance(); public EROStatAllocation stats = new EROStatAllocation(); public int unspentStatPoints;
         public long credits; public long eroCrystals; public long guildTokens; public long arenaTokens; public long dungeonStones; public long mvpTokens; public long eventTokens;
         public List<ItemData> inventory = new List<ItemData>();
+        // Legacy aliases kept temporarily so older full-game/UI code remains source-compatible.
+        public long gold { get => credits; set => credits = Math.Max(0L, value); }
+        public long crystals { get => eroCrystals; set => eroCrystals = Math.Max(0L, value); }
     }
     [Serializable] public class SummonerPactData { public string id; public string name; public SummonerPactRole role; public bool primary; public int maxActiveSummons = 1; public SummonerSkillMode specialization = SummonerSkillMode.SingleTarget; }
     [Serializable] public class ItemData { public string id; public string name; public Rarity rarity; public int level; public int quantity = 1; public bool equipped; public string setId; public EROElement element = EROElement.Arcane; public EROTranscendenceData transcendence = new EROTranscendenceData(); public EROEquipmentSocket[] sockets = Array.Empty<EROEquipmentSocket>(); }
-    [Serializable] public class QuestData { public string id; public string title; public string description; public int required; public int progress; public long creditsReward; public long xpReward; public bool completed; }
+    [Serializable] public class QuestData
+    {
+        public string id; public string title; public string description; public int required; public int progress; public long creditsReward; public long xpReward; public bool completed;
+        public long goldReward { get => creditsReward; set => creditsReward = Math.Max(0L, value); }
+    }
     [Serializable] public class ZoneData { public string id; public string name; public int minLevel; public int maxLevel; public string[] pointsOfInterest; }
     [Serializable] public class GuildData { public string id; public string name; public int level = 1; public int members; public long experience; public string guildHouseId; }
     public static class EROEconomyRules { public const long CreditsPerEroCrystal = 1000L; public const int MaxClassEvolutionTicketsPerWeek = 4; }
