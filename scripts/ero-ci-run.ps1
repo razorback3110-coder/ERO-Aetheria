@@ -25,8 +25,6 @@ switch ($Action) {
         Write-Host 'Secret scan: OK'
     }
     'resolve-unity' {
-        # A runner-level ERO_UNITY_EXE may be configured, but reject malformed values such as
-        # a drive root (for example, 'C') which Test-Path considers valid but is not Unity.exe.
         $candidates = @(
             $env:ERO_UNITY_EXE,
             'C:\Program Files\Unity\Hub\Editor\6000.0.67f1\Editor\Unity.exe'
@@ -36,10 +34,6 @@ switch ($Action) {
             (Test-Path -LiteralPath $_ -PathType Leaf)
         }
         if (!$candidates) { throw 'Unity 6000.0.67f1 executable not found. Set ERO_UNITY_EXE to the full path of Unity.exe or install the editor at the standard Unity Hub path.' }
-
-        # PowerShell collapses a single-item pipeline result to a scalar string. Indexing
-        # that scalar with [0] returns its first character (for example 'C'), not the path.
-        # Normalize to a one-dimensional array before selecting the first candidate.
         $unityExe = @($candidates)[0]
         $unityExe = [System.IO.Path]::GetFullPath([string]$unityExe)
         if (-not ($unityExe -match '(?i)Unity\.exe$') -or -not (Test-Path -LiteralPath $unityExe -PathType Leaf)) {
@@ -55,9 +49,15 @@ switch ($Action) {
     'validate' {
         New-Item -ItemType Directory -Force -Path Logs | Out-Null
         $log = Join-Path $PWD 'Logs/ERO_Unity_Validation.log'
+        Write-Host "Launching Unity validation: $env:UNITY_EXE"
         & $env:UNITY_EXE -batchmode -nographics -quit -accept-apiupdate -projectPath $PWD -buildTarget StandaloneWindows64 -executeMethod EternalRealmsOnline.CI.EROBuildAutomation.ValidateCompile -logFile $log
         $code = $LASTEXITCODE
-        if (Test-Path $log) { Get-Content $log -Tail 250 }
+        Write-Host "Unity process exit code: $code"
+        if (Test-Path $log) {
+            Write-Host '--- Unity validation log (tail) ---'
+            Get-Content $log -Tail 300
+            Write-Host '--- End Unity validation log ---'
+        }
         if ($code -ne 0) { throw "Unity compile validation failed with exit code $code" }
     }
     'cleanup' {
