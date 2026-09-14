@@ -1,11 +1,13 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using ERO.Core;
 using ERO.Data;
+using ERO.Art;
 
 namespace ERO.World
 {
-    /// <summary>Playable vertical slice and deterministic streaming fallback.</summary>
+    /// <summary>Playable vertical slice using the real ERO systems and procedural Aetheria art foundation.</summary>
     public sealed class EROPlayableVerticalSlice : MonoBehaviour
     {
         private const int ChunkSize = 48;
@@ -68,13 +70,14 @@ namespace ERO.World
             controller.stepOffset = 0.35f;
             controller.slopeLimit = 45f;
 
-            var body = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-            body.name = "Player_DebugBody";
+            var body = new GameObject("Aetherian_PlayerVisual");
             body.transform.SetParent(player);
             body.transform.localPosition = new Vector3(0f, 0.9f, 0f);
             body.transform.localScale = new Vector3(0.7f, 0.9f, 0.7f);
-            Destroy(body.GetComponent<Collider>());
-            body.GetComponent<Renderer>().material = MakeMaterial(new Color(0.12f, 0.22f, 0.55f));
+            var bodyRenderer = body.AddComponent<MeshRenderer>();
+            var bodyFilter = body.AddComponent<MeshFilter>();
+            bodyFilter.sharedMesh = BuildPlayerMesh();
+            bodyRenderer.sharedMaterial = MakeMaterial(new Color(0.16f, 0.28f, 0.72f));
 
             var cameraGo = new GameObject("ERO_PlayerCamera");
             cameraGo.transform.SetParent(player);
@@ -82,20 +85,21 @@ namespace ERO.World
             playerCamera = cameraGo.AddComponent<Camera>();
             playerCamera.fieldOfView = 70f;
             playerCamera.nearClipPlane = 0.05f;
-            playerCamera.farClipPlane = 600f;
+            playerCamera.farClipPlane = 700f;
         }
 
         private void CreateLighting()
         {
-            var lightGo = new GameObject("ERO_Sun");
+            var lightGo = new GameObject("ERO_Aetheria_Sun");
             var light = lightGo.AddComponent<Light>();
             light.type = LightType.Directional;
             light.intensity = 1.15f;
             light.transform.rotation = Quaternion.Euler(48f, -35f, 0f);
+            RenderSettings.ambientIntensity = 0.75f;
             RenderSettings.fog = true;
             RenderSettings.fogColor = new Color(0.025f, 0.04f, 0.08f);
             RenderSettings.fogMode = FogMode.ExponentialSquared;
-            RenderSettings.fogDensity = 0.0045f;
+            RenderSettings.fogDensity = 0.0038f;
         }
 
         private void HandleLook()
@@ -141,39 +145,31 @@ namespace ERO.World
 
         private GameObject GenerateChunk(Vector2Int coord)
         {
-            var root = new GameObject("WorldChunk_" + coord.x + "_" + coord.y);
+            var root = new GameObject("Aetheria_Chunk_" + coord.x + "_" + coord.y);
             root.transform.position = new Vector3(coord.x * ChunkSize, 0f, coord.y * ChunkSize);
-            var ground = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            ground.name = "Terrain_DebugFallback";
-            ground.transform.SetParent(root.transform);
-            ground.transform.localPosition = new Vector3(ChunkSize * 0.5f, -0.75f, ChunkSize * 0.5f);
-            ground.transform.localScale = new Vector3(ChunkSize, 1.5f, ChunkSize);
-            ground.GetComponent<Renderer>().material = MakeMaterial(new Color(0.06f, 0.16f, 0.10f));
+            int seed = coord.x * 73856093 ^ coord.y * 19349663;
+            EROProceduralFantasyArt.CreateGround(root.transform, ChunkSize, seed);
 
-            uint seed = unchecked((uint)(coord.x * 73856093 ^ coord.y * 19349663));
-            var random = new System.Random((int)seed);
-            for (int i = 0; i < 10; i++)
+            var random = new System.Random(seed);
+            for (int i = 0; i < 14; i++)
             {
-                float x = (float)random.NextDouble() * (ChunkSize - 4f) + 2f;
-                float z = (float)random.NextDouble() * (ChunkSize - 4f) + 2f;
-                float scale = 0.8f + (float)random.NextDouble() * 1.7f;
-                var tree = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                tree.name = "Nature_DebugFallback";
-                tree.transform.SetParent(root.transform);
-                tree.transform.localPosition = new Vector3(x, 1.2f * scale, z);
-                tree.transform.localScale = new Vector3(0.45f * scale, 1.2f * scale, 0.45f * scale);
-                tree.GetComponent<Renderer>().material = MakeMaterial(new Color(0.05f, 0.22f, 0.10f));
+                float x = (float)random.NextDouble() * (ChunkSize - 6f) - (ChunkSize * 0.5f - 3f);
+                float z = (float)random.NextDouble() * (ChunkSize - 6f) - (ChunkSize * 0.5f - 3f);
+                float scale = 0.65f + (float)random.NextDouble() * 0.75f;
+                EROProceduralFantasyArt.CreateTree(root.transform, new Vector3(x, 0f, z), scale, seed + i);
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                float x = (float)random.NextDouble() * (ChunkSize - 8f) - (ChunkSize * 0.5f - 4f);
+                float z = (float)random.NextDouble() * (ChunkSize - 8f) - (ChunkSize * 0.5f - 4f);
+                EROProceduralFantasyArt.CreateCrystal(root.transform, new Vector3(x, 0f, z), 0.55f + (float)random.NextDouble() * 0.45f, seed + i * 17);
             }
             return root;
         }
 
         private void CreateEnemy()
         {
-            var go = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-            go.name = "TrainingEnemy_DebugFallback";
-            go.transform.position = new Vector3(0f, 1f, 12f);
-            enemy = go.transform;
-            enemy.GetComponent<Renderer>().material = MakeMaterial(new Color(0.55f, 0.08f, 0.12f));
+            enemy = EROProceduralFantasyArt.CreateEnemy(null, new Vector3(0f, 0.2f, 12f)).transform;
             enemyMaxHealth = 100;
             enemyHealth = enemyMaxHealth;
         }
@@ -185,7 +181,7 @@ namespace ERO.World
             {
                 enemyHealth = enemyMaxHealth;
                 enemy.gameObject.SetActive(true);
-                enemy.position = player.position + player.forward * 10f + Vector3.up;
+                enemy.position = player.position + player.forward * 10f + Vector3.up * 0.2f;
             }
             if (enemyHealth > 0)
             {
@@ -201,6 +197,7 @@ namespace ERO.World
             Vector3 toEnemy = enemy.position - playerCamera.transform.position;
             if (toEnemy.magnitude > 16f || Vector3.Angle(playerCamera.transform.forward, toEnemy) > 24f) return;
             var root = EROGameRoot.Instance;
+            if (root == null || root.Systems == null || root.Systems.Character.Active == null) return;
             var character = root.Systems.Character.Active;
             var stats = EROCombatSystem.BuildStats(character);
             var skill = new EROSkillDefinition
@@ -216,7 +213,7 @@ namespace ERO.World
                 resourceCost = 0,
                 areaOfEffect = false
             };
-            var combatEvent = EROCombatSystem.ResolveAttack(stats, stats, skill, 0, Random.Range(0, 10000), 10000);
+            var combatEvent = EROCombatSystem.ResolveAttack(stats, stats, skill, 0, UnityEngine.Random.Range(0, 10000), 10000);
             if (combatEvent.result == EROCombatResult.Miss) { status = "Attack missed"; return; }
             int damage = Mathf.Max(1, (int)Mathf.Min(int.MaxValue, combatEvent.mitigatedDamage));
             enemyHealth = Mathf.Max(0, enemyHealth - damage);
@@ -250,17 +247,18 @@ namespace ERO.World
             var root = EROGameRoot.Instance;
             var character = root != null && root.Systems != null ? root.Systems.Character.Active : null;
             if (character == null) return;
-            GUI.Box(new Rect(18, 18, 350, 170), GUIContent.none, panelStyle);
-            GUI.Label(new Rect(32, 28, 320, 30), "ETERNAL REALMS ONLINE", titleStyle);
-            GUI.Label(new Rect(32, 64, 320, 24), character.name + " • " + character.classId, textStyle);
-            GUI.Label(new Rect(32, 88, 320, 24), "Level " + character.level + "   XP " + character.xp + "   Credits " + character.credits, textStyle);
-            GUI.Label(new Rect(32, 112, 320, 24), "Inventory: " + (character.inventory == null ? 0 : character.inventory.Count) + " stacks", textStyle);
-            GUI.Label(new Rect(32, 136, 320, 24), "WASD Move • Shift Sprint • Mouse Look • LMB/Space Attack", textStyle);
-            GUI.Label(new Rect(32, 160, 320, 24), status, textStyle);
+            GUI.Box(new Rect(18, 18, 390, 185), GUIContent.none, panelStyle);
+            GUI.Label(new Rect(32, 28, 350, 30), "ETERNAL REALMS ONLINE", titleStyle);
+            GUI.Label(new Rect(32, 64, 350, 24), character.name + " • " + character.classId, textStyle);
+            GUI.Label(new Rect(32, 88, 350, 24), "Level " + character.level + "   XP " + character.xp + "   Credits " + character.credits, textStyle);
+            GUI.Label(new Rect(32, 112, 350, 24), "Inventory: " + (character.inventory == null ? 0 : character.inventory.Count) + " stacks", textStyle);
+            GUI.Label(new Rect(32, 136, 350, 24), "WASD Move • Shift Sprint • Mouse Look", textStyle);
+            GUI.Label(new Rect(32, 160, 350, 24), "LMB / Space: Attack", textStyle);
+            GUI.Label(new Rect(32, 184, 350, 24), status, textStyle);
             if (enemy != null && enemyHealth > 0)
             {
-                GUI.Box(new Rect(Screen.width * 0.5f - 120f, 34, 240, 42), GUIContent.none, panelStyle);
-                GUI.Label(new Rect(Screen.width * 0.5f - 105f, 42, 210, 24), "Training Enemy  " + enemyHealth + "/" + enemyMaxHealth, textStyle);
+                GUI.Box(new Rect(Screen.width * 0.5f - 140f, 34, 280, 42), GUIContent.none, panelStyle);
+                GUI.Label(new Rect(Screen.width * 0.5f - 125f, 42, 250, 24), "Aether Beast  " + enemyHealth + "/" + enemyMaxHealth, textStyle);
             }
         }
 
@@ -269,10 +267,28 @@ namespace ERO.World
 
         private static Material MakeMaterial(Color color)
         {
-            var material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
-            if (material.shader == null || material.shader.name == "Hidden/InternalErrorShader") material.shader = Shader.Find("Standard");
-            material.color = color;
+            var shader = Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard");
+            var material = new Material(shader) { color = color };
             return material;
+        }
+
+        private static Mesh BuildPlayerMesh()
+        {
+            var mesh = new Mesh { name = "Aetherian_PlayerSilhouette" };
+            mesh.vertices = new[]
+            {
+                new Vector3(0f, 1.0f, 0f), new Vector3(-0.48f, 0f, -0.32f), new Vector3(0.48f, 0f, -0.32f),
+                new Vector3(0.48f, 0f, 0.32f), new Vector3(-0.48f, 0f, 0.32f), new Vector3(0f, 1.8f, 0f),
+                new Vector3(-0.28f, 0.9f, 0f), new Vector3(0.28f, 0.9f, 0f)
+            };
+            mesh.triangles = new[]
+            {
+                0,1,2, 0,2,3, 0,3,4, 0,4,1,
+                5,2,1, 5,3,2, 5,4,3, 5,1,4,
+                6,7,5, 7,6,0
+            };
+            mesh.RecalculateNormals();
+            return mesh;
         }
 
         private static void LockCursor(bool locked)
