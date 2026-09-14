@@ -12,7 +12,7 @@ permissions:
 jobs:
   build:
     name: Build ERO
-    runs-on: [self-hosted, Windows, X64, ERO-Unity]
+    runs-on: [self-hosted, Windows, X64]
     timeout-minutes: 240
 
     steps:
@@ -37,7 +37,6 @@ jobs:
           Write-Host "Unity: $unity"
           & $unity -version
 
-
       - name: Initialize Unity project and rebuild Library when needed
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
         timeout-minutes: 60
@@ -60,68 +59,37 @@ jobs:
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
         timeout-minutes: 60
         run: |
+          $ErrorActionPreference = "Stop"
           New-Item -ItemType Directory -Force -Path "$env:GITHUB_WORKSPACE\Builds\Logs" | Out-Null
-          $args = @("-batchmode","-accept-apiupdate","-projectPath","$env:GITHUB_WORKSPACE","-buildTarget","StandaloneWindows64","-executeMethod","EternalRealmsOnline.CI.EROBuildAutomation.ValidateCompile","-quit","-logFile","$env:GITHUB_WORKSPACE\Builds\Logs\compile.log")
+          $log = "$env:GITHUB_WORKSPACE\Builds\Logs\compile.log"
+          $args = @("-batchmode","-accept-apiupdate","-projectPath","$env:GITHUB_WORKSPACE","-buildTarget","StandaloneWindows64","-executeMethod","EternalRealmsOnline.CI.EROBuildAutomation.ValidateCompile","-quit","-logFile",$log)
           $p = Start-Process -FilePath "$env:ERO_UNITY_EXE" -ArgumentList $args -Wait -PassThru
-          if ($p.ExitCode -ne 0) { Get-Content "$env:GITHUB_WORKSPACE\Builds\Logs\compile.log" -Tail 400; throw "Unity compile/validation failed with exit code $($p.ExitCode)" }
+          Write-Host "Compile validation exit code: $($p.ExitCode)"
+          if ($p.ExitCode -ne 0) { Get-Content $log -Tail 500; throw "Unity compile/validation failed with exit code $($p.ExitCode)" }
 
-      - name: Build Windows Player
-        shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
-        timeout-minutes: 120
-        run: |
-          $args = @("-batchmode","-accept-apiupdate","-projectPath","$env:GITHUB_WORKSPACE","-buildTarget","StandaloneWindows64","-executeMethod","EternalRealmsOnline.CI.EROBuildAutomation.BuildWindows","-quit","-logFile","$env:GITHUB_WORKSPACE\Builds\Logs\windows.log")
-          $p = Start-Process -FilePath "$env:ERO_UNITY_EXE" -ArgumentList $args -Wait -PassThru
-          if ($p.ExitCode -ne 0) { Get-Content "$env:GITHUB_WORKSPACE\Builds\Logs\windows.log" -Tail 500; throw "Windows build failed with exit code $($p.ExitCode)" }
-
-      - name: Prepare Unity Bee cache for Linux Server build
-        shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
-        timeout-minutes: 10
-        run: |
-          $ErrorActionPreference = "Stop"
-          Write-Host "Stopping any leftover Unity/Bee processes before Linux build..."
-          Get-Process Unity,UnityPackageManager,Bee,bee_backend,UnityShaderCompiler -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
-          Start-Sleep -Seconds 3
-          $bee = Join-Path $env:GITHUB_WORKSPACE "Library\Bee"
-          if (Test-Path $bee) {
-            Write-Host "Removing persistent Library/Bee cache: $bee"
-            attrib -R "$bee\*" /S /D 2>$null
-            Remove-Item -LiteralPath $bee -Recurse -Force -ErrorAction Stop
-          }
-          New-Item -ItemType Directory -Force -Path $bee | Out-Null
-          Write-Host "Library/Bee is clean and ready for the Linux Server build."
-
-      - name: Build Linux Dedicated Server
+      - name: Build playable Windows client
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
         timeout-minutes: 120
         run: |
           $ErrorActionPreference = "Stop"
-          $log = "$env:GITHUB_WORKSPACE\Builds\Logs\linux-server.log"
-          $args = @("-batchmode","-accept-apiupdate","-nographics","-projectPath","$env:GITHUB_WORKSPACE","-buildTarget","Linux64","-standaloneBuildSubtarget","Server","-executeMethod","EternalRealmsOnline.CI.EROBuildAutomation.BuildLinuxDedicatedServer","-quit","-logFile",$log)
+          New-Item -ItemType Directory -Force -Path "$env:GITHUB_WORKSPACE\Builds\Windows" | Out-Null
+          $log = "$env:GITHUB_WORKSPACE\Builds\Logs\windows.log"
+          $args = @("-batchmode","-accept-apiupdate","-projectPath","$env:GITHUB_WORKSPACE","-buildTarget","StandaloneWindows64","-executeMethod","EternalRealmsOnline.CI.EROBuildAutomation.BuildWindows","-quit","-logFile",$log)
           $p = Start-Process -FilePath "$env:ERO_UNITY_EXE" -ArgumentList $args -Wait -PassThru
-          Write-Host "Linux Dedicated Server exit code: $($p.ExitCode)"
-          if ($p.ExitCode -ne 0) { if (Test-Path $log) { Get-Content $log -Tail 600 }; throw "Linux Dedicated Server build failed with exit code $($p.ExitCode)" }
+          Write-Host "Windows build exit code: $($p.ExitCode)"
+          if ($p.ExitCode -ne 0) { if (Test-Path $log) { Get-Content $log -Tail 700 }; throw "Windows build failed with exit code $($p.ExitCode)" }
 
-      - name: Verify outputs
+      - name: Verify Windows playable output
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
         run: |
-          if (!(Test-Path "Builds/Windows/ERO.exe")) { throw "Windows build output missing." }
-          if (!(Test-Path "Builds/LinuxServer/ERO-WorldServer.x86_64")) { throw "Linux server output missing." }
-          Write-Host "Windows build: OK"
-          Write-Host "Linux server build: OK"
+          if (!(Test-Path "Builds/Windows/ERO.exe")) { throw "Windows build output missing: Builds/Windows/ERO.exe" }
+          Write-Host "PLAYABLE WINDOWS CLIENT: OK"
 
-      - name: Upload Windows build
+      - name: Upload Windows playable client
         uses: actions/upload-artifact@v4
         with:
-          name: ERO-Windows-${{ github.sha }}
+          name: ERO-Windows-Playable-${{ github.sha }}
           path: Builds/Windows
-          if-no-files-found: error
-          retention-days: 14
-
-      - name: Upload Linux server build
-        uses: actions/upload-artifact@v4
-        with:
-          name: ERO-LinuxServer-${{ github.sha }}
-          path: Builds/LinuxServer
           if-no-files-found: error
           retention-days: 14
 
