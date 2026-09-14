@@ -11,6 +11,7 @@ namespace EternalRealmsOnline.CI
     public static class EROBuildAutomation
     {
         private const string DefaultScene = "Assets/Scenes/ERO/ERO_Playable.unity";
+        private const string VerticalSliceScript = "Assets/ERO/World/EROPlayableVerticalSlice.cs";
 
         [MenuItem("ERO/CI/Validate Compile")]
         public static void ValidateCompile()
@@ -33,8 +34,6 @@ namespace EternalRealmsOnline.CI
         public static void BuildLinuxDedicatedServer()
         {
             ValidateProject();
-            // Unity 6 Dedicated Server: Linux64 + StandaloneBuildSubtarget.Server.
-            // The workflow also selects the same target/subtarget before the editor loads.
             var report = BuildPipeline.BuildPlayer(CreateOptions(BuildTarget.StandaloneLinux64, "Builds/LinuxServer/ERO-WorldServer.x86_64", StandaloneBuildSubtarget.Server));
             EnsureSucceeded(report, "Linux Dedicated Server");
             EditorApplication.Exit(0);
@@ -72,6 +71,10 @@ namespace EternalRealmsOnline.CI
             if (!File.Exists(versionFile)) throw new BuildFailedException("Missing ProjectSettings/ProjectVersion.txt");
             if (!File.ReadAllText(versionFile).Contains(expectedVersion)) throw new BuildFailedException("ERO requires Unity " + expectedVersion + ".");
             if (!Directory.Exists("Assets") || !Directory.Exists("Packages") || !Directory.Exists("ProjectSettings")) throw new BuildFailedException("ERO Unity project folders are incomplete.");
+            if (!File.Exists(DefaultScene)) throw new BuildFailedException("Missing required playable scene: " + DefaultScene);
+            if (!File.Exists(VerticalSliceScript)) throw new BuildFailedException("Missing playable vertical slice script: " + VerticalSliceScript);
+            var sceneText = File.ReadAllText(DefaultScene);
+            if (!sceneText.Contains("7d2f4f1a2e3b4c5d9e8f7a6b5c4d3e2f")) throw new BuildFailedException("Playable scene is not wired to EROPlayableVerticalSlice.");
         }
 
         private static void EnsureSucceeded(BuildReport report, string target)
