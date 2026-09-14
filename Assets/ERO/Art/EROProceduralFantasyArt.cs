@@ -106,7 +106,8 @@ namespace ERO.Art
             var mr = go.AddComponent<MeshRenderer>();
             var mesh = new Mesh { name = name + "Mesh" };
             var v = new Vector3[sides * 2];
-            var tr = new int[(sides - 1) * 6 + (sides - 2) * 3 * 2];
+            // Side surface: sides quads * 2 triangles * 3 indices, plus two caps.
+            var tr = new int[sides * 6 + (sides - 2) * 3 * 2];
             for (int i = 0; i < sides; i++)
             {
                 float a = i * Mathf.PI * 2f / sides;
