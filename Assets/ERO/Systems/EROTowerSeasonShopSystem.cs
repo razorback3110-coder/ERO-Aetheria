@@ -49,12 +49,11 @@ namespace ERO.Systems
             };
         }
 
-        public static EROTowerSeasonWallet CreateWallet(string seasonId)
-            => new EROTowerSeasonWallet { seasonId = seasonId };
+        public static EROTowerSeasonWallet CreateWallet(string seasonId) => new EROTowerSeasonWallet { seasonId = seasonId };
 
         public static bool ApplyReward(EROTowerSeasonWallet wallet, EROTowerReward reward)
         {
-            if (wallet == null || reward == null || string.IsNullOrEmpty(wallet.seasonId)) return false;
+            if (wallet == null || reward == null || string.IsNullOrEmpty(wallet.seasonId) || reward.amount <= 0) return false;
             switch (reward.resource)
             {
                 case EROTowerResourceType.TowerCoins: wallet.towerCoins += reward.amount; break;
@@ -69,9 +68,12 @@ namespace ERO.Systems
             return true;
         }
 
-        public static bool TryPurchase(EROTowerSeasonWallet wallet, EROTowerShopOffer offer)
+        /// <summary>Atomic purchase: currency is spent and the purchased reward is delivered exactly once.</summary>
+        public static bool TryPurchase(EROTowerSeasonWallet wallet, EROTowerShopOffer offer, out EROTowerReward reward)
         {
-            if (wallet == null || offer == null || offer.purchased >= offer.purchaseLimit) return false;
+            reward = null;
+            if (wallet == null || offer == null || string.IsNullOrEmpty(wallet.seasonId) || offer.purchased >= offer.purchaseLimit || offer.cost <= 0 || offer.amount <= 0)
+                return false;
             if (offer.currency == EROTowerShopCurrency.TowerCoins)
             {
                 if (wallet.towerCoins < offer.cost) return false;
@@ -82,17 +84,28 @@ namespace ERO.Systems
                 if (wallet.towerShards < offer.cost) return false;
                 wallet.towerShards -= offer.cost;
             }
+            reward = new EROTowerReward { resource = offer.reward, amount = offer.amount };
+            if (!ApplyReward(wallet, reward))
+            {
+                if (offer.currency == EROTowerShopCurrency.TowerCoins) wallet.towerCoins += offer.cost;
+                else wallet.towerShards += offer.cost;
+                reward = null;
+                return false;
+            }
             offer.purchased++;
             return true;
         }
 
-        public static bool ApplyPurchasedReward(EROTowerSeasonWallet wallet, EROTowerShopOffer offer)
+        /// <summary>Backward-compatible purchase method; the reward is still delivered atomically.</summary>
+        public static bool TryPurchase(EROTowerSeasonWallet wallet, EROTowerShopOffer offer)
         {
-            if (wallet == null || offer == null || offer.purchased <= 0) return false;
-            return ApplyReward(wallet, new EROTowerReward { resource = offer.reward, amount = offer.amount });
+            EROTowerReward reward;
+            return TryPurchase(wallet, offer, out reward);
         }
 
-        /// <summary>Late starters earn more Tower resources from eligible activities, without selling catch-up power.</summary>
+        [Obsolete("Purchases now deliver rewards atomically through TryPurchase to prevent duplicate claims.")]
+        public static bool ApplyPurchasedReward(EROTowerSeasonWallet wallet, EROTowerShopOffer offer) => false;
+
         public static int GetCatchUpMultiplier(int daysSinceSeasonStart)
         {
             if (daysSinceSeasonStart < 7) return 1;
@@ -104,15 +117,7 @@ namespace ERO.Systems
         public static int GetWeeklyTowerResourceBonus(int completedRuns)
             => completedRuns < 5 ? 0 : Math.Min(100, 10 + (completedRuns / 5) * 5);
 
-        private static EROTowerShopOffer Offer(string id, string name, EROTowerShopCurrency currency,
-            int cost, EROTowerResourceType reward, int amount, int limit, bool premiumRecommended)
-        {
-            return new EROTowerShopOffer
-            {
-                id = id, displayName = name, currency = currency, cost = cost,
-                reward = reward, amount = amount, purchaseLimit = limit,
-                premiumRecommended = premiumRecommended
-            };
-        }
+        private static EROTowerShopOffer Offer(string id, string name, EROTowerShopCurrency currency, int cost, EROTowerResourceType reward, int amount, int limit, bool premiumRecommended)
+            => new EROTowerShopOffer { id = id, displayName = name, currency = currency, cost = cost, reward = reward, amount = amount, purchaseLimit = limit, premiumRecommended = premiumRecommended };
     }
 }
