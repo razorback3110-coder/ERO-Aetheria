@@ -3,10 +3,7 @@ using ERO.Data;
 
 namespace ERO.Systems
 {
-    /// <summary>
-    /// Deterministic network-safe snapshot for a player. Transport-agnostic so it can be
-    /// replicated by Netcode for GameObjects without coupling gameplay rules to a client.
-    /// </summary>
+    /// <summary>Deterministic network-safe player snapshot. Transport-agnostic and server-authoritative.</summary>
     [Serializable]
     public sealed class ERONetworkPlayerState
     {
@@ -16,10 +13,10 @@ namespace ERO.Systems
         public long overflowXp;
         public long credits;
         public long eroCrystals;
-        public int health;
-        public int maxHealth;
-        public int resource;
-        public int maxResource;
+        public long health;
+        public long maxHealth;
+        public long resource;
+        public long maxResource;
         public EROClass classId;
         public int zoneId;
         public long serverTick;
@@ -34,12 +31,12 @@ namespace ERO.Systems
             credits = Math.Max(0L, character.credits);
             eroCrystals = Math.Max(0L, character.eroCrystals);
             classId = character.classId;
-            maxHealth = Math.Max(0, combatStats.maxHealth);
+            maxHealth = Math.Max(0L, combatStats.maxHealth);
             health = maxHealth;
             if (skillState != null)
             {
-                maxResource = (int)Math.Min(int.MaxValue, Math.Max(0L, skillState.maximumResource));
-                resource = (int)Math.Min(int.MaxValue, Math.Max(0L, skillState.currentResource));
+                maxResource = Math.Max(0L, skillState.maximumResource);
+                resource = Math.Max(0L, skillState.currentResource);
             }
             zoneId = zone;
             serverTick = tick;
@@ -49,7 +46,9 @@ namespace ERO.Systems
         {
             return character != null && !string.IsNullOrEmpty(characterId) && character.id == characterId &&
                    level == Math.Max(1, character.level) && classId == character.classId &&
-                   xp >= 0L && overflowXp >= 0L && credits >= 0L && eroCrystals >= 0L;
+                   xp >= 0L && overflowXp >= 0L && credits >= 0L && eroCrystals >= 0L &&
+                   health >= 0L && maxHealth >= 0L && health <= maxHealth &&
+                   resource >= 0L && maxResource >= 0L && resource <= maxResource;
         }
     }
 }
