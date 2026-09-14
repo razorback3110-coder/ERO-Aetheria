@@ -50,13 +50,16 @@ switch ($Action) {
         New-Item -ItemType Directory -Force -Path Logs | Out-Null
         $log = Join-Path $PWD 'Logs/ERO_Unity_Validation.log'
         Write-Host "Launching Unity validation: $env:UNITY_EXE"
-        & $env:UNITY_EXE -batchmode -nographics -quit -accept-apiupdate -projectPath $PWD -buildTarget StandaloneWindows64 -executeMethod EternalRealmsOnline.CI.EROBuildAutomation.ValidateCompile -logFile $log
-        $code = $LASTEXITCODE
+        $arguments = '-batchmode -nographics -quit -accept-apiupdate -projectPath "{0}" -buildTarget StandaloneWindows64 -executeMethod EternalRealmsOnline.CI.EROBuildAutomation.ValidateCompile -logFile "{1}"' -f $PWD, $log
+        $process = Start-Process -FilePath $env:UNITY_EXE -ArgumentList $arguments -WorkingDirectory $PWD -Wait -PassThru -NoNewWindow
+        $code = $process.ExitCode
         Write-Host "Unity process exit code: $code"
         if (Test-Path $log) {
             Write-Host '--- Unity validation log (tail) ---'
             Get-Content $log -Tail 300
             Write-Host '--- End Unity validation log ---'
+        } else {
+            Write-Host "Unity validation log was not created: $log"
         }
         if ($code -ne 0) { throw "Unity compile validation failed with exit code $code" }
     }
