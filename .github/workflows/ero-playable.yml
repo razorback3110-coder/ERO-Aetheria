@@ -1,0 +1,55 @@
+name: ERO Playable Today
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  playable:
+    runs-on: [self-hosted, Windows, X64]
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+          clean: false
+
+      - name: Locate Unity
+        shell: powershell
+        run: |
+          $paths = @(
+            $env:ERO_UNITY_EXE,
+            "C:\Program Files\Unity\Hub\Editor\6000.0.67f1\Editor\Unity.exe",
+            "C:\Program Files\Unity Hub\Editor\6000.0.67f1\Editor\Unity.exe"
+          )
+          $unity = $paths | Where-Object { $_ -and (Test-Path $_) } | Select-Object -First 1
+          if (-not $unity) { throw "Unity 6000.0.67f1 not found" }
+          "UNITY=$unity" | Out-File $env:GITHUB_ENV -Append
+          & $unity -version
+
+      - name: Import project if needed
+        shell: powershell
+        run: |
+          if (Test-Path "Library\SourceAssetDB") { exit 0 }
+          New-Item -ItemType Directory -Force -Path Builds\Logs | Out-Null
+          & $env:UNITY -batchmode -accept-apiupdate -projectPath "$env:GITHUB_WORKSPACE" -buildTarget StandaloneWindows64 -quit -logFile "$env:GITHUB_WORKSPACE\Builds\Logs\import.log"
+          if ($LASTEXITCODE -ne 0) { throw "Unity import failed" }
+
+      - name: Build playable Windows client
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Force -Path Builds\Windows,Builds\Logs | Out-Null
+          & $env:UNITY -batchmode -accept-apiupdate -projectPath "$env:GITHUB_WORKSPACE" -buildTarget StandaloneWindows64 -executeMethod EternalRealmsOnline.CI.EROBuildAutomation.BuildWindows -quit -logFile "$env:GITHUB_WORKSPACE\Builds\Logs\playable.log"
+          if ($LASTEXITCODE -ne 0) { Get-Content Builds\Logs\playable.log -Tail 1000; throw "Playable build failed" }
+          if (-not (Test-Path "Builds\Windows\ERO.exe")) { throw "ERO.exe was not produced" }
+
+      - name: Upload playable client
+        uses: actions/upload-artifact@v4
+        with:
+          name: ERO-Playable-Windows-${{ github.sha }}
+          path: Builds/Windows
+          if-no-files-found: error
