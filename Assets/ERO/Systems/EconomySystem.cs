@@ -47,7 +47,6 @@ namespace ERO.Systems
         public void GrantMvpTokens(CharacterData c, long amount) => GrantActivity(c, amount, 3);
         public void GrantEventTokens(CharacterData c, long amount) => GrantActivity(c, amount, 4);
 
-        // One-way conversion by design: Credits can never be converted into premium currency.
         public bool TryBuyCreditsWithCristauxEro(CharacterData c, long cristauxEro)
         {
             if (c == null || cristauxEro < 0 || c.eroCrystals < cristauxEro)
@@ -72,10 +71,16 @@ namespace ERO.Systems
             }
         }
 
-        private static long SaturatingAdd(long a, long b) =>
-            b > 0 && a > long.MaxValue - b ? long.MaxValue : a + Mathf.Max(0L, b);
+        private static long SaturatingAdd(long a, long b)
+        {
+            if (b <= 0) return a;
+            return a > long.MaxValue - b ? long.MaxValue : a + b;
+        }
 
-        private static long SaturatingMultiply(long a, long b) =>
-            a > 0 && b > long.MaxValue / a ? long.MaxValue : a * b;
+        private static long SaturatingMultiply(long a, long b)
+        {
+            if (a <= 0 || b <= 0) return 0;
+            return a > long.MaxValue / b ? long.MaxValue : a * b;
+        }
     }
 }
