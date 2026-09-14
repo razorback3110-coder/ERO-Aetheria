@@ -20,7 +20,21 @@ namespace EternalRealmsOnline.Full {
   public static bool TryGet(string id,out EROZoneDefinition zone){foreach(var z in Zones)if(z.id==id){zone=z;return true;}zone=null;return false;}
  }
  public static class EROClassContent {
-  public static readonly Dictionary<EROClass,string> Roles=new(){[EROClass.Knight]="Tank / Frontline",[EROClass.Assassin]="Melee DPS / Burst",[EROClass.Ranger]="Ranged DPS / Mobility",[EROClass.Mage]="Magic DPS / Control",[EROClass.Priest]="Healer / Support",[EROClass.Monk]="Melee DPS / Combo",[EROClass.Summoner]="Summoner / Control",[EROClass.Paladin]="Tank / Holy DPS"};
-  public static readonly Dictionary<EROClass,string> Weapons=new(){[EROClass.Knight]="Sword + Shield",[EROClass.Assassin]="Twin Blades",[EROClass.Ranger]="Bow",[EROClass.Mage]="Staff + Grimoire",[EROClass.Priest]="Holy Staff",[EROClass.Monk]="Fists",[EROClass.Summoner]="Grimoire",[EROClass.Paladin]="Holy Sword + Shield"};
+  public static readonly Dictionary<EROClass,string> Roles=new(){
+   [EROClass.Paladin]="Tank / Holy DPS",
+   [EROClass.Priest]="Healer / Support",
+   [EROClass.Invocateur]="Summoner / Control",
+   [EROClass.Mage]="Magic DPS / Control",
+   [EROClass.Assassin]="Melee DPS / Burst",
+   [EROClass.Archer]="Ranged DPS / Mobility",
+   [EROClass.Guerrier]="Melee DPS / Frontline"};
+  public static readonly Dictionary<EROClass,string> Weapons=new(){
+   [EROClass.Paladin]="Holy Sword + Shield",
+   [EROClass.Priest]="Holy Staff",
+   [EROClass.Invocateur]="Grimoire",
+   [EROClass.Mage]="Staff + Grimoire",
+   [EROClass.Assassin]="Twin Blades",
+   [EROClass.Archer]="Bow",
+   [EROClass.Guerrier]="Sword + Greatsword"};
  }
 }
