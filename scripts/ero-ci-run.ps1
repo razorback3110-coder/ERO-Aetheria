@@ -11,7 +11,7 @@ switch ($Action) {
         if (!(Test-Path Packages)) { throw 'Packages missing' }
         if (!(Test-Path ProjectSettings)) { throw 'ProjectSettings missing' }
         if (!(Test-Path ProjectSettings/ProjectVersion.txt)) { throw 'ProjectVersion.txt missing' }
-        if (-not (Select-String -Path ProjectSettings/ProjectVersion.txt -Pattern '6000.0.67f1' -Quiet)) { throw 'Unity version is not 6000.0.67f1' }
+        if (-not (Select-String -Path ProjectSettings/ProjectVersion.txt -Pattern '^m_EditorVersion:\s*6000\.0\.67f1\s*$' -Quiet)) { throw 'Unity version is not exactly 6000.0.67f1' }
         Write-Host 'ERO structure: OK'
         Get-Content ProjectSettings/ProjectVersion.txt
     }
@@ -39,8 +39,14 @@ switch ($Action) {
         if (-not ($unityExe -match '(?i)Unity\.exe$') -or -not (Test-Path -LiteralPath $unityExe -PathType Leaf)) {
             throw "Resolved Unity path is invalid: $unityExe"
         }
+        $productVersion = (Get-Item -LiteralPath $unityExe).VersionInfo.ProductVersion
+        if ([string]::IsNullOrWhiteSpace($productVersion) -or -not ($productVersion -match '^6000\.0\.67f1(?:\s|$)')) {
+            throw "Unity executable version mismatch. Expected 6000.0.67f1, got '$productVersion' at $unityExe"
+        }
         "UNITY_EXE=$unityExe" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        "UNITY_VERSION=$productVersion" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         Write-Host "Using Unity: $unityExe"
+        Write-Host "Unity ProductVersion: $productVersion"
     }
     'stop-processes' {
         Get-Process Unity,UnityHub,BeeBackend -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
