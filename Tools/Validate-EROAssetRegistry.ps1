@@ -1,6 +1,7 @@
 $ErrorActionPreference = "Stop"
 
-$registry = Join-Path $env:GITHUB_WORKSPACE "Assets\ERO\Legal\ERO_Asset_License_Registry.md"
+$repoRoot = if ($env:GITHUB_WORKSPACE) { $env:GITHUB_WORKSPACE } else { Split-Path -Parent (Split-Path -Parent $PSScriptRoot) }
+$registry = Join-Path $repoRoot "Assets\ERO\Legal\ERO_Asset_License_Registry.md"
 if (-not (Test-Path -LiteralPath $registry)) {
     throw "Missing legal asset registry: $registry"
 }
@@ -26,39 +27,20 @@ if ($approvedStart -lt 0 -or $reviewStart -le $approvedStart) {
 }
 $approved = $text.Substring($approvedStart, $reviewStart - $approvedStart)
 
-# Parse only Markdown table rows whose header explicitly declares the commercial-use field.
-# This avoids treating prose, section dividers, or unrelated tables as asset records.
-$lines = $approved -split "`r?`n"
-$rows = @()
-$inAssetTable = $false
-foreach ($line in $lines) {
-    if ($line -match '^\|\s*Asset\s*\|\s*Source\s*\|\s*License\s*\|\s*Commercial game\s*\|') {
-        $inAssetTable = $true
-        continue
-    }
-    if ($line -match '^\|\s*Asset\s*\|') {
-        $inAssetTable = $false
-        continue
-    }
-    if ($inAssetTable -and $line -match '^\|.*\|$' -and $line -notmatch '^\|\s*-+') {
-        $rows += $line
-    }
-}
+# A record is an approved Markdown row only when it has an HTTPS source,
+# an explicit permissive/commercial license marker, and an explicit commercial-use field.
+$rowPattern = '(?m)^\|\s*([^|]+?)\s*\|\s*(https://[^|]+?)\s*\|\s*([^|]+?)\s*\|\s*(Yes|yes|commercial)\s*\|'
+$matches = [regex]::Matches($approved, $rowPattern)
+if ($matches.Count -eq 0) { throw "No approved commercial asset rows were found" }
 
-if ($rows.Count -eq 0) { throw "No approved commercial asset rows were found" }
-
-foreach ($row in $rows) {
-    $cells = $row.Trim('|').Split('|') | ForEach-Object { $_.Trim() }
-    if ($cells.Count -lt 4) { throw "Malformed approved asset row: $row" }
-    $asset = $cells[0]
-    $source = $cells[1]
-    $license = $cells[2]
-    $commercial = $cells[3]
-    if ([string]::IsNullOrWhiteSpace($asset) -or [string]::IsNullOrWhiteSpace($source) -or [string]::IsNullOrWhiteSpace($license)) {
-        throw "Approved asset row has empty required metadata: $row"
-    }
+foreach ($match in $matches) {
+    $asset = $match.Groups[1].Value.Trim()
+    $source = $match.Groups[2].Value.Trim()
+    $license = $match.Groups[3].Value.Trim()
+    $commercial = $match.Groups[4].Value.Trim()
+    if ([string]::IsNullOrWhiteSpace($asset)) { throw "Approved asset row has an empty asset name" }
     if ($source -notmatch '^https://') { throw "Approved asset '$asset' has no HTTPS source URL" }
-    if ($license -notmatch 'CC0|public-domain|commercial') { throw "Approved asset '$asset' has no recognized permissive/commercial license marker" }
+    if ($license -notmatch '(?i)CC0|public-domain|commercial') { throw "Approved asset '$asset' has no recognized permissive/commercial license marker: $license" }
     if ($commercial -notmatch '(?i)^yes$|commercial') { throw "Approved asset '$asset' is not explicitly marked for commercial use" }
 }
 
@@ -72,4 +54,4 @@ foreach ($name in $forbiddenApproved) {
 }
 
 Write-Host "ERO legal asset registry validation: OK"
-Write-Host "Approved commercial asset rows checked: $($rows.Count)"
+Write-Host "Approved commercial asset rows checked: $($matches.Count)"
