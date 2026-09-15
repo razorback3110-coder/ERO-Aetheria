@@ -76,7 +76,7 @@ namespace EternalRealmsOnline.CI
 
             Debug.Log("[ERO CI] Building scene: " + PlayableScene);
             Debug.Log("[ERO CI] Output: " + executablePath);
-            BuildReport report = BuildPipeline.BuildPlayer(options);
+            UnityEditor.Build.Reporting.BuildReport report = BuildPipeline.BuildPlayer(options);
             if (report == null || report.summary.result != UnityEditor.Build.Reporting.BuildResult.Succeeded)
             {
                 string result = report == null ? "no build report" : report.summary.result.ToString();
