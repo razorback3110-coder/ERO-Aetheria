@@ -10,6 +10,15 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 - Do not redistribute third-party assets as a standalone asset pack.
 - Keep the original license/source URL with the project so the release can be audited.
 
+## ERO-authored runtime content
+
+| Content | Source | License | Commercial game | Attribution | ERO use |
+|---|---|---|---|---|---|
+| `EROProceduralFantasyArt.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Procedural terrain, vegetation, crystals and creature foundation |
+| `EROVisualQualityBootstrap.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Runtime lighting, fog, shadows, HDR camera and environment presentation |
+
+These entries contain no third-party asset payloads and are authored for ERO.
+
 ## APPROVED — environment / props / nature
 
 | Asset | Source | License | Commercial game | Attribution | ERO use |
@@ -26,10 +35,10 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 
 ## APPROVED — texture references
 
-| Asset | Source | License | Commercial game | ERO use |
-|---|---|---|---|---|
-| Kenney Road Textures | https://kenney.nl/assets/road-textures | CC0 | Yes | Road/ground texture support where visually appropriate |
-| Kenney Retro Textures Fantasy | https://kenney.nl/assets/retro-textures-fantasy | CC0 | Yes | Optional fantasy texture accents where consistent with ERO style |
+| Asset | Source | License | Commercial game | Attribution | ERO use |
+|---|---|---|---|---|---|
+| Kenney Road Textures | https://kenney.nl/assets/road-textures | CC0 | Yes | Not required | Road/ground texture support where visually appropriate |
+| Kenney Retro Textures Fantasy | https://kenney.nl/assets/retro-textures-fantasy | CC0 | Yes | Not required | Optional fantasy texture accents where consistent with ERO style |
 
 ## APPROVED — rules
 
