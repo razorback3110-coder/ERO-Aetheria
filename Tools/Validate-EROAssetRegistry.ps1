@@ -26,7 +26,27 @@ if ($approvedStart -lt 0 -or $reviewStart -le $approvedStart) {
 }
 $approved = $text.Substring($approvedStart, $reviewStart - $approvedStart)
 
-$rows = $approved -split "`r?`n" | Where-Object { $_ -match '^\|[^-].*\|$' -and $_ -notmatch '^\|\s*Asset\s*\|' }
+# Parse only Markdown table rows whose header explicitly declares the commercial-use field.
+# This avoids treating prose, section dividers, or unrelated tables as asset records.
+$lines = $approved -split "`r?`n"
+$rows = @()
+$inAssetTable = $false
+foreach ($line in $lines) {
+    if ($line -match '^\|\s*Asset\s*\|\s*Source\s*\|\s*License\s*\|\s*Commercial game\s*\|') {
+        $inAssetTable = $true
+        continue
+    }
+    if ($line -match '^\|\s*Asset\s*\|') {
+        $inAssetTable = $false
+        continue
+    }
+    if ($inAssetTable -and $line -match '^\|.*\|$' -and $line -notmatch '^\|\s*-+') {
+        $rows += $line
+    }
+}
+
+if ($rows.Count -eq 0) { throw "No approved commercial asset rows were found" }
+
 foreach ($row in $rows) {
     $cells = $row.Trim('|').Split('|') | ForEach-Object { $_.Trim() }
     if ($cells.Count -lt 4) { throw "Malformed approved asset row: $row" }
@@ -39,7 +59,7 @@ foreach ($row in $rows) {
     }
     if ($source -notmatch '^https://') { throw "Approved asset '$asset' has no HTTPS source URL" }
     if ($license -notmatch 'CC0|public-domain|commercial') { throw "Approved asset '$asset' has no recognized permissive/commercial license marker" }
-    if ($commercial -notmatch '(?i)yes|commercial') { throw "Approved asset '$asset' is not explicitly marked for commercial use" }
+    if ($commercial -notmatch '(?i)^yes$|commercial') { throw "Approved asset '$asset' is not explicitly marked for commercial use" }
 }
 
 $forbiddenApproved = @(
@@ -52,4 +72,4 @@ foreach ($name in $forbiddenApproved) {
 }
 
 Write-Host "ERO legal asset registry validation: OK"
-Write-Host "Approved registry rows checked: $($rows.Count)"
+Write-Host "Approved commercial asset rows checked: $($rows.Count)"
