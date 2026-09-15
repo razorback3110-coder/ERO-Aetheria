@@ -46,6 +46,7 @@ namespace EternalRealmsOnline.CI
                 throw new FileNotFoundException("ERO playable scene is missing.", PlayableScene);
 
             Debug.Log("[ERO CI] Unity compile/project validation completed successfully.");
+            EditorApplication.Exit(0);
         }
 
         public static void BuildWindows()
@@ -87,6 +88,7 @@ namespace EternalRealmsOnline.CI
                 throw new FileNotFoundException("Unity reported a successful build but ERO.exe is missing.", executablePath);
 
             Debug.Log("[ERO CI] Windows playable build completed: " + executablePath);
+            EditorApplication.Exit(0);
         }
     }
 }
