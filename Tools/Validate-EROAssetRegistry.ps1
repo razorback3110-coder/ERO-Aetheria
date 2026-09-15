@@ -10,7 +10,7 @@ $text = Get-Content -LiteralPath $registry -Raw
 $requiredSections = @(
     "# ERO Asset & License Registry",
     "## Policy",
-    "## APPROVED — environment / props / nature",
+    "## APPROVED",
     "## Integration quality gate",
     "## REVIEW",
     "## REJECTED",
@@ -27,8 +27,8 @@ if ($approvedStart -lt 0 -or $reviewStart -le $approvedStart) {
 }
 $approved = $text.Substring($approvedStart, $reviewStart - $approvedStart)
 
-# A record is an approved Markdown row only when it has an HTTPS source,
-# an explicit permissive/commercial license marker, and an explicit commercial-use field.
+# Keep this script ASCII-only because the self-hosted Windows runner executes Windows PowerShell 5.1.
+# Approved rows require an HTTPS source, a permissive/commercial license marker, and explicit commercial use.
 $rowPattern = '(?m)^\|\s*([^|]+?)\s*\|\s*(https://[^|]+?)\s*\|\s*([^|]+?)\s*\|\s*(Yes|yes|commercial)\s*\|'
 $matches = [regex]::Matches($approved, $rowPattern)
 if ($matches.Count -eq 0) { throw "No approved commercial asset rows were found" }
