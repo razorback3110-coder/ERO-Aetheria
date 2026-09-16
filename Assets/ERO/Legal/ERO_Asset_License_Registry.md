@@ -21,6 +21,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROSimulationClock.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Fixed-step authoritative simulation ticks for server networking and deterministic gameplay |
 | `EROAOIInterestSystem.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Allocation-aware deterministic interest management for network replication |
 | `EROSimulationDriver.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Unity host for fixed-step simulation ticks; future dedicated-server simulation entry point |
+| `EROCombatCommandBuffer.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Deterministic server-side combat input queue for authoritative simulation and replay validation |
 
 These entries contain no third-party asset payloads and are authored for ERO.
 
