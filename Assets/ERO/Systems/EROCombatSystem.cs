@@ -4,7 +4,6 @@ using ERO.Data;
 namespace ERO.Systems
 {
     public enum ERODamageType { Physical, Magical, True }
-    public enum EROCombatResult { Miss, Hit, Critical, Blocked, Immune }
     [Serializable] public struct EROCombatStats
     {
         public long maxHealth, attack, magicAttack, defense, magicDefense;
@@ -19,8 +18,9 @@ namespace ERO.Systems
     }
     [Serializable] public struct EROCombatEvent
     {
-        public EROCombatResult result; public ERODamageType damageType; public long rawDamage; public long mitigatedDamage; public bool critical; public int cooldownMilliseconds; public int resourceCost;
+        public EROCombatResultKind result; public ERODamageType damageType; public long rawDamage; public long mitigatedDamage; public bool critical; public int cooldownMilliseconds; public int resourceCost;
     }
+    public enum EROCombatResultKind { Miss, Hit, Critical, Blocked, Immune }
     public static class EROCombatSystem
     {
         public const int BasisPoints = 10000; private const long MinimumDamage = 1L;
@@ -58,11 +58,11 @@ namespace ERO.Systems
         public static EROCombatEvent ResolveAttack(EROCombatStats a, EROCombatStats d, EROSkillDefinition skill, int accuracyRoll, int criticalRoll, int blockRoll)
         {
             accuracyRoll=ClampRoll(accuracyRoll); criticalRoll=ClampRoll(criticalRoll); blockRoll=ClampRoll(blockRoll);
-            if (accuracyRoll>=ClampBasisPoints(a.accuracyBasisPoints+skill.accuracyBonusBasisPoints)) return new EROCombatEvent { result=EROCombatResult.Miss, damageType=skill.damageType, cooldownMilliseconds=Math.Max(0,skill.cooldownMilliseconds), resourceCost=Math.Max(0,skill.resourceCost) };
+            if (accuracyRoll>=ClampBasisPoints(a.accuracyBasisPoints+skill.accuracyBonusBasisPoints)) return new EROCombatEvent { result=EROCombatResultKind.Miss, damageType=skill.damageType, cooldownMilliseconds=Math.Max(0,skill.cooldownMilliseconds), resourceCost=Math.Max(0,skill.resourceCost) };
             long raw=MultiplyBasisPoints(a.GetPower(skill.damageType),Math.Max(0,skill.powerBasisPoints)); bool crit=criticalRoll<ClampBasisPoints(a.criticalChanceBasisPoints+skill.criticalBonusBasisPoints); if(crit) raw=MultiplyBasisPoints(raw,15000);
-            if(skill.damageType!=ERODamageType.True && blockRoll<ClampBasisPoints(d.blockChanceBasisPoints)) { long blocked=Math.Max(MinimumDamage,raw/2L); return new EROCombatEvent { result=EROCombatResult.Blocked,damageType=skill.damageType,rawDamage=raw,mitigatedDamage=blocked,critical=crit,cooldownMilliseconds=Math.Max(0,skill.cooldownMilliseconds),resourceCost=Math.Max(0,skill.resourceCost) }; }
+            if(skill.damageType!=ERODamageType.True && blockRoll<ClampBasisPoints(d.blockChanceBasisPoints)) { long blocked=Math.Max(MinimumDamage,raw/2L); return new EROCombatEvent { result=EROCombatResultKind.Blocked,damageType=skill.damageType,rawDamage=raw,mitigatedDamage=blocked,critical=crit,cooldownMilliseconds=Math.Max(0,skill.cooldownMilliseconds),resourceCost=Math.Max(0,skill.resourceCost) }; }
             long mitigation=d.GetDefense(skill.damageType); long damage=skill.damageType==ERODamageType.True?Math.Max(MinimumDamage,raw):Math.Max(MinimumDamage,raw-mitigation);
-            return new EROCombatEvent { result=crit?EROCombatResult.Critical:EROCombatResult.Hit,damageType=skill.damageType,rawDamage=raw,mitigatedDamage=damage,critical=crit,cooldownMilliseconds=Math.Max(0,skill.cooldownMilliseconds),resourceCost=Math.Max(0,skill.resourceCost) };
+            return new EROCombatEvent { result=crit?EROCombatResultKind.Critical:EROCombatResultKind.Hit,damageType=skill.damageType,rawDamage=raw,mitigatedDamage=damage,critical=crit,cooldownMilliseconds=Math.Max(0,skill.cooldownMilliseconds),resourceCost=Math.Max(0,skill.resourceCost) };
         }
         private static int ClampRoll(int v)=>Math.Max(0,Math.Min(BasisPoints-1,v)); private static int ClampBasisPoints(int v)=>Math.Max(0,Math.Min(BasisPoints,v)); private static int SafeBp(int v)=>ClampBasisPoints(v);
         private static long MultiplyBasisPoints(long v,int bp){if(v<=0||bp<=0)return 0;if(v>long.MaxValue/bp)return long.MaxValue;return v*bp/BasisPoints;}
