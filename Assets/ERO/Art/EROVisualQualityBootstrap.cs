@@ -45,14 +45,35 @@ namespace ERO.Art
             RenderSettings.fogDensity = 0.008f;
             RenderSettings.fogStartDistance = 35f;
             RenderSettings.fogEndDistance = 280f;
+            RenderSettings.fogColor = new Color(0.38f, 0.50f, 0.62f);
             RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Trilight;
             RenderSettings.ambientSkyColor = new Color(0.30f, 0.42f, 0.56f);
             RenderSettings.ambientEquatorColor = new Color(0.22f, 0.27f, 0.24f);
             RenderSettings.ambientGroundColor = new Color(0.075f, 0.065f, 0.055f);
             RenderSettings.reflectionIntensity = 0.8f;
 
+            EnsureProceduralSky();
             EnsureSun();
             ConfigureCameras();
+            DynamicGI.UpdateEnvironment();
+        }
+
+        private static void EnsureProceduralSky()
+        {
+            if (RenderSettings.skybox != null) return;
+            var shader = Shader.Find("Skybox/Procedural");
+            if (shader == null) return;
+
+            var material = new Material(shader)
+            {
+                name = "ERO_Runtime_ProceduralSky"
+            };
+            if (material.HasProperty("_SunSize")) material.SetFloat("_SunSize", 0.035f);
+            if (material.HasProperty("_SunSizeConvergence")) material.SetFloat("_SunSizeConvergence", 5f);
+            if (material.HasProperty("_AtmosphereThickness")) material.SetFloat("_AtmosphereThickness", 1.05f);
+            if (material.HasProperty("_SkyTint")) material.SetColor("_SkyTint", new Color(0.34f, 0.48f, 0.68f));
+            if (material.HasProperty("_GroundColor")) material.SetColor("_GroundColor", new Color(0.16f, 0.13f, 0.10f));
+            RenderSettings.skybox = material;
         }
 
         private static void EnsureSun()
