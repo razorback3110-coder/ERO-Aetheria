@@ -11,8 +11,57 @@ permissions:
   contents: read
 
 jobs:
+  preflight:
+    name: ERO Static Preflight
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout ERO
+        uses: actions/checkout@v6
+        with:
+          lfs: true
+          clean: true
+
+      - name: Validate Unity project contract
+        shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
+        run: |
+          $ErrorActionPreference = "Stop"
+          $required = @("Assets","Packages","ProjectSettings","ProjectSettings/ProjectVersion.txt")
+          foreach ($path in $required) {
+            if (!(Test-Path -LiteralPath $path)) { throw "Missing required path: $path" }
+            Write-Host "OK: $path"
+          }
+          $version = (Get-Content "ProjectSettings/ProjectVersion.txt" -Raw).Trim()
+          Write-Host "Unity version file: $version"
+          if ($version -notmatch "6000\.0\.67f1") { throw "Expected Unity 6000.0.67f1" }
+          $scripts = @(Get-ChildItem "Assets/ERO" -Recurse -Filter "*.cs" -File)
+          Write-Host "ERO C# scripts: $($scripts.Count)"
+          if ($scripts.Count -eq 0) { throw "No ERO C# scripts found" }
+
+      - name: Validate commercial asset registry
+        shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
+        run: |
+          $ErrorActionPreference = "Stop"
+          & "$env:GITHUB_WORKSPACE\Tools\Validate-EROAssetRegistry.ps1"
+
+      - name: Scan for accidental secrets
+        shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
+        run: |
+          $ErrorActionPreference = "Stop"
+          $patterns = @("UNITY_PASSWORD=","DISCORD_TOKEN=","BEGIN RSA PRIVATE KEY","BEGIN OPENSSH PRIVATE KEY","ghp_")
+          $files = Get-ChildItem Assets,Packages,ProjectSettings -Recurse -File -ErrorAction SilentlyContinue
+          foreach ($f in $files) {
+            if ($f.Extension -in @('.png','.jpg','.jpeg','.tga','.fbx','.obj','.wav','.mp3','.ttf','.otf','.dll','.zip')) { continue }
+            $text = Get-Content $f.FullName -Raw -ErrorAction SilentlyContinue
+            foreach ($p in $patterns) {
+              if ($text -and $text.Contains($p)) { throw "Possible secret pattern '$p' found in $($f.FullName)" }
+            }
+          }
+          Write-Host "Secret scan: OK"
+
   validate:
     name: ERO Project Validation
+    needs: preflight
     runs-on: [self-hosted, Windows, X64]
     timeout-minutes: 180
     steps:
