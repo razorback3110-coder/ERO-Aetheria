@@ -20,6 +20,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROCombatDeterminism.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Deterministic combat rolls for authoritative server simulation, replays and rollback-safe execution |
 | `EROSimulationClock.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Fixed-step authoritative simulation ticks for server networking and deterministic gameplay |
 | `EROAOIInterestSystem.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Allocation-aware deterministic interest management for network replication |
+| `EROSimulationDriver.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Unity host for fixed-step simulation ticks; future dedicated-server simulation entry point |
 
 These entries contain no third-party asset payloads and are authored for ERO.
 
@@ -34,7 +35,7 @@ These entries contain no third-party asset payloads and are authored for ERO.
 | Ultimate Modular Ruins Pack | https://quaternius.com/packs/ultimatemodularruins.html | CC0 | Yes | Not required | Ruins, abandoned POIs, world dressing |
 | Kenney Modular Dungeon Kit | https://kenney.nl/assets/modular-dungeon-kit | CC0 | Yes | Not required | Dungeon filler / modular dressing |
 | Kenney Fantasy Town Kit | https://kenney.nl/assets/fantasy-town-kit | CC0 | Yes | Not required | Supplementary town architecture and props |
-| Kenney Retro Fantasy Kit | https://kenney.nl/assets/retro-fantasy-kit | CC0 | Yes | Not required | Supplementary fantasy architecture/props where art-directed |
+| Kenney Retro Fantasy Kit | https://kenney.nl/assets/retro-fantasy-kit | CC0 | Yes | Not required | Supplementary fantasy architecture/props |
 | Kenney CC0 asset library | https://kenney.nl/support | CC0 | Yes | Not required | UI/props/environment where stylistically appropriate |
 
 ## APPROVED — texture references
