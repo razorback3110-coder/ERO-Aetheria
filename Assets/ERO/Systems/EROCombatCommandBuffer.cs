@@ -27,27 +27,30 @@ namespace ERO.Systems
     }
 
     /// <summary>
-    /// Allocation-free after construction when the caller provides enough capacity.
-    /// The buffer rejects commands scheduled too far in the past and provides a
-    /// deterministic drain for authoritative simulation.
+    /// Bounded, deterministic server-side queue for combat input.
+    /// A hard pending-command limit prevents a client from exhausting server
+    /// memory by flooding commands faster than the simulation can consume them.
     /// </summary>
     public sealed class EROCombatCommandBuffer
     {
         private readonly List<EROCombatCommand> commands;
+        private readonly int maxPendingCommands;
         private ulong nextSequence = 1UL;
 
         public EROCombatCommandBuffer(int capacity = 128)
         {
             if (capacity < 1) throw new ArgumentOutOfRangeException(nameof(capacity));
+            maxPendingCommands = capacity;
             commands = new List<EROCombatCommand>(capacity);
         }
 
         public int Count => commands.Count;
+        public int Capacity => maxPendingCommands;
 
         public bool TryEnqueue(ulong currentTick, ulong requestedTick, ulong actorId, ulong targetId, int skillId, out EROCombatCommand command)
         {
             command = default;
-            if (actorId == 0UL || skillId < 0)
+            if (actorId == 0UL || skillId < 0 || commands.Count >= maxPendingCommands)
                 return false;
 
             // Late client input is clamped to the current authoritative tick.
