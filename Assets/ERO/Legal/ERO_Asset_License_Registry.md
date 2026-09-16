@@ -6,7 +6,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 
 - Only assets with a verified license permitting use in a commercial game may enter `APPROVED`.
 - CC0/public-domain assets are preferred.
-- Never copy or ship proprietary assets, maps, UI, characters, music, sounds, animations or code from commercial games without an explicit redistribution/commercial license.
+- Never copy or ship proprietary assets, maps, UI, characters, sounds, music, animations or code from commercial games without an explicit redistribution/commercial license.
 - Do not redistribute third-party assets as a standalone asset pack.
 - Keep the original license/source URL with the project so the release can be audited.
 
@@ -22,6 +22,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROAOIInterestSystem.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Allocation-aware deterministic interest management for network replication |
 | `EROSimulationDriver.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Unity host for fixed-step simulation ticks; future dedicated-server simulation entry point |
 | `EROCombatCommandBuffer.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Deterministic server-side combat input queue for authoritative simulation and replay validation |
+| `EROCombatSimulationBridge.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Bridges deterministic combat commands into the fixed-step simulation tick for authoritative gameplay |
 
 These entries contain no third-party asset payloads and are authored for ERO.
 
