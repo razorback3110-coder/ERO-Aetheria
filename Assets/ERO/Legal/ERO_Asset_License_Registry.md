@@ -25,6 +25,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROCombatSimulationBridge.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Bridges queued combat commands into authoritative fixed-step simulation |
 | `EROCombatResolution.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Pure deterministic hit, critical, mitigation, damage and defeat resolution for authoritative combat |
 | `EROCombatStateStore.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Authoritative combatant/skill state and application of deterministic combat results |
+| `EROCombatRewards.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Idempotent deterministic XP and loot outcomes after authoritative combat defeat |
 
 These entries contain no third-party asset payloads and are authored for ERO.
 
