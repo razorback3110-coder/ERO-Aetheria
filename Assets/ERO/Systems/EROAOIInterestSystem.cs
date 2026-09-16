@@ -21,16 +21,34 @@ namespace ERO.Systems
         public static List<EROAOIEntity> Collect(Vector3 observerPosition, int observerZone, IReadOnlyList<EROAOIEntity> entities, float radius = DefaultRadius)
         {
             var result = new List<EROAOIEntity>();
-            if (entities == null || radius < 0f) return result;
+            CollectNonAlloc(observerPosition, observerZone, entities, result, radius);
+            return result;
+        }
+
+        /// <summary>
+        /// Reuses a caller-owned list to avoid per-tick allocations in server/client interest management.
+        /// Results remain deterministically ordered by network id.
+        /// </summary>
+        public static void CollectNonAlloc(
+            Vector3 observerPosition,
+            int observerZone,
+            IReadOnlyList<EROAOIEntity> entities,
+            List<EROAOIEntity> result,
+            float radius = DefaultRadius)
+        {
+            if (result == null) throw new ArgumentNullException(nameof(result));
+            result.Clear();
+            if (entities == null || radius < 0f) return;
+
             float radiusSq = radius * radius;
             for (int i = 0; i < entities.Count; i++)
             {
                 var entity = entities[i];
                 if (entity == null || entity.zoneId != observerZone) continue;
-                if (entity.alwaysRelevant || (entity.position - observerPosition).sqrMagnitude <= radiusSq) result.Add(entity);
+                if (entity.alwaysRelevant || (entity.position - observerPosition).sqrMagnitude <= radiusSq)
+                    result.Add(entity);
             }
             result.Sort((a, b) => a.networkId.CompareTo(b.networkId));
-            return result;
         }
     }
 }
