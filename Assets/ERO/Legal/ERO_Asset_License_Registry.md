@@ -19,6 +19,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROPerformanceBootstrap.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Runtime frame pacing and texture-streaming baseline for playable world streaming |
 | `EROCombatDeterminism.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Deterministic combat rolls for authoritative server simulation, replays and rollback-safe execution |
 | `EROSimulationClock.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Fixed-step authoritative simulation ticks for server networking and deterministic gameplay |
+| `EROAOIInterestSystem.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Allocation-aware deterministic interest management for network replication |
 
 These entries contain no third-party asset payloads and are authored for ERO.
 
