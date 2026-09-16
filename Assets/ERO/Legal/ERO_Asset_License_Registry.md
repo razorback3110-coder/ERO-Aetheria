@@ -23,6 +23,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROSimulationDriver.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Unity host for fixed-step simulation ticks; future dedicated-server simulation entry point |
 | `EROCombatCommandBuffer.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Bounded deterministic server-side combat input queue; protects server memory from command floods |
 | `EROCombatSimulationBridge.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Bridges queued combat commands into authoritative fixed-step simulation |
+| `EROCombatResolution.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Pure deterministic hit, critical, mitigation, damage and defeat resolution for authoritative combat |
 
 These entries contain no third-party asset payloads and are authored for ERO.
 
