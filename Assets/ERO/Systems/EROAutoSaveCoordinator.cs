@@ -30,6 +30,7 @@ namespace ERO.Systems
             characterSystem = GetComponent<CharacterSystem>() ?? GetComponentInParent<CharacterSystem>() ?? FindFirstObjectByType<CharacterSystem>();
             if (saveSystem == null || characterSystem == null) return;
 
+            characterSystem.CharacterChanged += MarkDirty;
             var restored = saveSystem.Load();
             if (restored != null) characterSystem.TryRestore(restored);
             SyncCharacterReference();
@@ -37,8 +38,14 @@ namespace ERO.Systems
             ScheduleNextDirtyCheck();
         }
 
+        private void OnDestroy()
+        {
+            if (characterSystem != null) characterSystem.CharacterChanged -= MarkDirty;
+        }
+
         public void Initialize(SaveSystem persistence, CharacterData data)
         {
+            if (characterSystem != null) characterSystem.CharacterChanged -= MarkDirty;
             saveSystem = persistence;
             character = data;
             lastSnapshot = Snapshot(character);
