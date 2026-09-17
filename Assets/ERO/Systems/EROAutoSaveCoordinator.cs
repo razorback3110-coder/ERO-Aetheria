@@ -34,6 +34,8 @@ namespace ERO.Systems
             var restored = saveSystem.Load();
             if (restored != null) characterSystem.TryRestore(restored);
             SyncCharacterReference();
+            lastSnapshot = Snapshot(character);
+            dirty = false;
             ScheduleNextSave();
             ScheduleNextDirtyCheck();
         }
@@ -45,9 +47,11 @@ namespace ERO.Systems
 
         public void Initialize(SaveSystem persistence, CharacterData data)
         {
-            if (characterSystem != null) characterSystem.CharacterChanged -= MarkDirty;
             saveSystem = persistence;
             character = data;
+            if (characterSystem == null) characterSystem = FindFirstObjectByType<CharacterSystem>();
+            if (characterSystem != null) characterSystem.CharacterChanged -= MarkDirty;
+            if (characterSystem != null) characterSystem.CharacterChanged += MarkDirty;
             lastSnapshot = Snapshot(character);
             dirty = false;
             ScheduleNextSave();
@@ -108,8 +112,8 @@ namespace ERO.Systems
 
         private void SyncCharacterReference()
         {
-            if (characterSystem != null) character = characterSystem.Active;
-            else if (character == null) characterSystem = FindFirstObjectByType<CharacterSystem>();
+            if (characterSystem != null && characterSystem.Active != null) character = characterSystem.Active;
+            else if (characterSystem == null) characterSystem = FindFirstObjectByType<CharacterSystem>();
         }
 
         private static string Snapshot(CharacterData data)
