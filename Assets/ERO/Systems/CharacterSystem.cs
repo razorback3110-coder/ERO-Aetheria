@@ -44,5 +44,56 @@ namespace ERO.Systems
             Active.appearance.skinTone = skin;
             CharacterChanged?.Invoke();
         }
+
+        public bool TryAddItem(ItemData item)
+        {
+            if (Active == null || item == null || string.IsNullOrWhiteSpace(item.id) || item.quantity <= 0) return false;
+            if (Active.inventory == null) Active.inventory = new System.Collections.Generic.List<ItemData>();
+
+            var existing = Active.inventory.Find(i => i != null && string.Equals(i.id, item.id, StringComparison.Ordinal));
+            if (existing != null)
+            {
+                existing.quantity = Math.Max(1, existing.quantity) + item.quantity;
+            }
+            else
+            {
+                Active.inventory.Add(item);
+            }
+
+            CharacterChanged?.Invoke();
+            return true;
+        }
+
+        public bool TryRemoveItem(string itemId, int quantity = 1)
+        {
+            if (Active == null || Active.inventory == null || string.IsNullOrWhiteSpace(itemId) || quantity <= 0) return false;
+            var index = Active.inventory.FindIndex(i => i != null && string.Equals(i.id, itemId, StringComparison.Ordinal));
+            if (index < 0) return false;
+
+            var item = Active.inventory[index];
+            if (item.quantity < quantity) return false;
+            item.quantity -= quantity;
+            if (item.quantity == 0) Active.inventory.RemoveAt(index);
+
+            CharacterChanged?.Invoke();
+            return true;
+        }
+
+        public bool TryEquipItem(string itemId)
+        {
+            if (Active == null || Active.inventory == null || string.IsNullOrWhiteSpace(itemId)) return false;
+            var target = Active.inventory.Find(i => i != null && string.Equals(i.id, itemId, StringComparison.Ordinal));
+            if (target == null) return false;
+
+            for (int i = 0; i < Active.inventory.Count; i++)
+            {
+                var item = Active.inventory[i];
+                if (item != null && item.equipped) item.equipped = false;
+            }
+
+            target.equipped = true;
+            CharacterChanged?.Invoke();
+            return true;
+        }
     }
 }
