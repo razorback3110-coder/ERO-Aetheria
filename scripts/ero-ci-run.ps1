@@ -25,23 +25,43 @@ switch ($Action) {
         Write-Host 'Secret scan: OK'
     }
     'resolve-unity' {
-        $candidates = @(
-            $env:ERO_UNITY_EXE,
-            'C:\Program Files\Unity\Hub\Editor\6000.0.67f1\Editor\Unity.exe'
-        ) | Where-Object {
-            $_ -and
-            $_ -match '(?i)(^|[\\/])Unity\.exe$' -and
-            (Test-Path -LiteralPath $_ -PathType Leaf)
+        $version = '6000.0.67f1'
+        $candidates = New-Object System.Collections.Generic.List[string]
+        if ($env:ERO_UNITY_EXE) { [void]$candidates.Add($env:ERO_UNITY_EXE) }
+        $knownRoots = @(
+            (Join-Path ${env:ProgramFiles} "Unity\Hub\Editor\$version\Editor\Unity.exe"),
+            (Join-Path ${env:ProgramFiles} "Unity Hub\Editor\$version\Editor\Unity.exe"),
+            (Join-Path ${env:ProgramFiles(x86)} "Unity\Hub\Editor\$version\Editor\Unity.exe"),
+            (Join-Path ${env:ProgramFiles(x86)} "Unity Hub\Editor\$version\Editor\Unity.exe"),
+            "C:\Unity\Hub\Editor\$version\Editor\Unity.exe",
+            "D:\Unity\Hub\Editor\$version\Editor\Unity.exe",
+            "D:\Program Files\Unity\Hub\Editor\$version\Editor\Unity.exe"
+        )
+        foreach ($candidate in $knownRoots) { if ($candidate) { [void]$candidates.Add($candidate) } }
+
+        $unityExe = $null
+        foreach ($candidate in ($candidates | Select-Object -Unique)) {
+            if ((Test-Path -LiteralPath $candidate -PathType Leaf) -and ($candidate -match '(?i)Unity\.exe$')) {
+                $unityExe = [System.IO.Path]::GetFullPath([string]$candidate)
+                break
+            }
         }
-        if (!$candidates) { throw 'Unity 6000.0.67f1 executable not found. Set ERO_UNITY_EXE to the full path of Unity.exe or install the editor at the standard Unity Hub path.' }
-        $unityExe = @($candidates)[0]
-        $unityExe = [System.IO.Path]::GetFullPath([string]$unityExe)
-        if (-not ($unityExe -match '(?i)Unity\.exe$') -or -not (Test-Path -LiteralPath $unityExe -PathType Leaf)) {
-            throw "Resolved Unity path is invalid: $unityExe"
+
+        if (-not $unityExe) {
+            $searchRoots = @("C:\Program Files\Unity", "C:\Program Files\Unity Hub", "C:\Unity", "D:\Unity", "D:\Program Files\Unity") | Where-Object { Test-Path -LiteralPath $_ -PathType Container }
+            foreach ($root in $searchRoots) {
+                $found = Get-ChildItem -LiteralPath $root -Filter 'Unity.exe' -File -Recurse -ErrorAction SilentlyContinue |
+                    Where-Object { $_.FullName -match "(?i)[\\/]$version[\\/]Editor[\\/]Unity\.exe$" } |
+                    Select-Object -First 1
+                if ($found) { $unityExe = $found.FullName; break }
+            }
         }
+
+        if (-not $unityExe) { throw "Unity $version executable not found. Set ERO_UNITY_EXE to the full path of Unity.exe or install the editor." }
+        if (-not (Test-Path -LiteralPath $unityExe -PathType Leaf)) { throw "Resolved Unity path is invalid: $unityExe" }
         $productVersion = (Get-Item -LiteralPath $unityExe).VersionInfo.ProductVersion
-        if ([string]::IsNullOrWhiteSpace($productVersion) -or -not ($productVersion -match '^6000\.0\.67f1(?:\s|$)')) {
-            throw "Unity executable version mismatch. Expected 6000.0.67f1, got '$productVersion' at $unityExe"
+        if ([string]::IsNullOrWhiteSpace($productVersion) -or -not ($productVersion -match "^$version(?:\s|$)")) {
+            throw "Unity executable version mismatch. Expected $version, got '$productVersion' at $unityExe"
         }
         "UNITY_EXE=$unityExe" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         "UNITY_VERSION=$productVersion" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
