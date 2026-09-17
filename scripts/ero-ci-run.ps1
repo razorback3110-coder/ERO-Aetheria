@@ -28,6 +28,8 @@ switch ($Action) {
         $version = '6000.0.67f1'
         $candidates = New-Object System.Collections.Generic.List[string]
         if ($env:ERO_UNITY_EXE) { [void]$candidates.Add($env:ERO_UNITY_EXE) }
+
+        # Prefer the explicit versioned Hub locations used by the hosted/self-hosted runners.
         $knownRoots = @(
             (Join-Path ${env:ProgramFiles} "Unity\Hub\Editor\$version\Editor\Unity.exe"),
             (Join-Path ${env:ProgramFiles} "Unity Hub\Editor\$version\Editor\Unity.exe"),
@@ -38,6 +40,50 @@ switch ($Action) {
             "D:\Program Files\Unity\Hub\Editor\$version\Editor\Unity.exe"
         )
         foreach ($candidate in $knownRoots) { if ($candidate) { [void]$candidates.Add($candidate) } }
+
+        # Unity Hub records installed editors in editors.json; this handles custom Hub install roots.
+        $hubFiles = @(
+            (Join-Path ${env:APPDATA} 'UnityHub\editors.json'),
+            (Join-Path ${env:LOCALAPPDATA} 'UnityHub\editors.json')
+        ) | Where-Object { $_ -and (Test-Path -LiteralPath $_ -PathType Leaf) }
+        foreach ($hubFile in $hubFiles) {
+            try {
+                $hubEditors = Get-Content -LiteralPath $hubFile -Raw | ConvertFrom-Json
+                foreach ($editor in @($hubEditors)) {
+                    $path = $null
+                    if ($editor.version -eq $version) { $path = $editor.path }
+                    elseif ($editor.version -and ($editor.version -match "^$version(?:\s|$)")) { $path = $editor.path }
+                    if ($path) {
+                        if ($path -match '(?i)Unity\.exe$') { [void]$candidates.Add($path) }
+                        else { [void]$candidates.Add((Join-Path $path 'Unity.exe')); [void]$candidates.Add((Join-Path $path 'Editor\Unity.exe')) }
+                    }
+                }
+            } catch { Write-Warning "Unable to parse Unity Hub editor registry '$hubFile': $($_.Exception.Message)" }
+        }
+
+        # Unity installer registry entries can point at non-standard installation roots.
+        $registryPaths = @(
+            'HKLM:\SOFTWARE\Unity Technologies\Installer',
+            'HKLM:\SOFTWARE\WOW6432Node\Unity Technologies\Installer'
+        )
+        foreach ($registryPath in $registryPaths) {
+            if (Test-Path $registryPath) {
+                try {
+                    $props = Get-ItemProperty -Path $registryPath -ErrorAction Stop
+                    foreach ($property in $props.PSObject.Properties) {
+                        if ($property.Value -is [string] -and $property.Value -match [regex]::Escape($version)) {
+                            [void]$candidates.Add($property.Value)
+                        }
+                    }
+                } catch { Write-Warning "Unable to inspect Unity installer registry '$registryPath': $($_.Exception.Message)" }
+            }
+        }
+
+        # Finally accept Unity.exe exposed on PATH, but still require the exact editor version below.
+        try {
+            $pathUnity = Get-Command Unity.exe -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty Source
+            if ($pathUnity) { [void]$candidates.Add($pathUnity) }
+        } catch { }
 
         $unityExe = $null
         foreach ($candidate in ($candidates | Select-Object -Unique)) {
