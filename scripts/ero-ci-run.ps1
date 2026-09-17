@@ -28,8 +28,6 @@ switch ($Action) {
         $version = '6000.0.67f1'
         $candidates = New-Object System.Collections.Generic.List[string]
         if ($env:ERO_UNITY_EXE) { [void]$candidates.Add($env:ERO_UNITY_EXE) }
-
-        # Prefer the explicit versioned Hub locations used by the hosted/self-hosted runners.
         $knownRoots = @(
             (Join-Path ${env:ProgramFiles} "Unity\Hub\Editor\$version\Editor\Unity.exe"),
             (Join-Path ${env:ProgramFiles} "Unity Hub\Editor\$version\Editor\Unity.exe"),
@@ -40,8 +38,6 @@ switch ($Action) {
             "D:\Program Files\Unity\Hub\Editor\$version\Editor\Unity.exe"
         )
         foreach ($candidate in $knownRoots) { if ($candidate) { [void]$candidates.Add($candidate) } }
-
-        # Unity Hub records installed editors in editors.json; this handles custom Hub install roots.
         $hubFiles = @(
             (Join-Path ${env:APPDATA} 'UnityHub\editors.json'),
             (Join-Path ${env:LOCALAPPDATA} 'UnityHub\editors.json')
@@ -60,8 +56,6 @@ switch ($Action) {
                 }
             } catch { Write-Warning "Unable to parse Unity Hub editor registry '$hubFile': $($_.Exception.Message)" }
         }
-
-        # Unity installer registry entries can point at non-standard installation roots.
         $registryPaths = @(
             'HKLM:\SOFTWARE\Unity Technologies\Installer',
             'HKLM:\SOFTWARE\WOW6432Node\Unity Technologies\Installer'
@@ -78,13 +72,10 @@ switch ($Action) {
                 } catch { Write-Warning "Unable to inspect Unity installer registry '$registryPath': $($_.Exception.Message)" }
             }
         }
-
-        # Finally accept Unity.exe exposed on PATH, but still require the exact editor version below.
         try {
             $pathUnity = Get-Command Unity.exe -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty Source
             if ($pathUnity) { [void]$candidates.Add($pathUnity) }
         } catch { }
-
         $unityExe = $null
         foreach ($candidate in ($candidates | Select-Object -Unique)) {
             if ((Test-Path -LiteralPath $candidate -PathType Leaf) -and ($candidate -match '(?i)Unity\.exe$')) {
@@ -92,7 +83,6 @@ switch ($Action) {
                 break
             }
         }
-
         if (-not $unityExe) {
             $searchRoots = @("C:\Program Files\Unity", "C:\Program Files\Unity Hub", "C:\Unity", "D:\Unity", "D:\Program Files\Unity") | Where-Object { Test-Path -LiteralPath $_ -PathType Container }
             foreach ($root in $searchRoots) {
@@ -102,11 +92,11 @@ switch ($Action) {
                 if ($found) { $unityExe = $found.FullName; break }
             }
         }
-
         if (-not $unityExe) { throw "Unity $version executable not found. Set ERO_UNITY_EXE to the full path of Unity.exe or install the editor." }
         if (-not (Test-Path -LiteralPath $unityExe -PathType Leaf)) { throw "Resolved Unity path is invalid: $unityExe" }
         $productVersion = (Get-Item -LiteralPath $unityExe).VersionInfo.ProductVersion
-        if ([string]::IsNullOrWhiteSpace($productVersion) -or -not ($productVersion -match "^$version(?:\s|$)")) {
+        # Unity Windows executables may report the revision suffix, e.g. 6000.0.67f1_78a1c2bbeb6a.
+        if ([string]::IsNullOrWhiteSpace($productVersion) -or -not ($productVersion -match "^$version(?:\s|_|$)")) {
             throw "Unity executable version mismatch. Expected $version, got '$productVersion' at $unityExe"
         }
         "UNITY_EXE=$unityExe" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
