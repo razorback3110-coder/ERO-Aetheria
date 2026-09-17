@@ -121,44 +121,7 @@ jobs:
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
         run: |
           $ErrorActionPreference = "Stop"
-          $version = "6000.0.67f1"
-          $candidates = New-Object System.Collections.Generic.List[string]
-          if ($env:ERO_UNITY_EXE) { [void]$candidates.Add($env:ERO_UNITY_EXE) }
-          $knownRoots = @(
-            (Join-Path ${env:ProgramFiles} "Unity\Hub\Editor\$version\Editor\Unity.exe"),
-            (Join-Path ${env:ProgramFiles} "Unity Hub\Editor\$version\Editor\Unity.exe"),
-            (Join-Path ${env:ProgramFiles(x86)} "Unity\Hub\Editor\$version\Editor\Unity.exe"),
-            (Join-Path ${env:ProgramFiles(x86)} "Unity Hub\Editor\$version\Editor\Unity.exe"),
-            "C:\Unity\Hub\Editor\$version\Editor\Unity.exe",
-            "D:\Unity\Hub\Editor\$version\Editor\Unity.exe",
-            "D:\Program Files\Unity\Hub\Editor\$version\Editor\Unity.exe"
-          )
-          foreach ($candidate in $knownRoots) { if ($candidate) { [void]$candidates.Add($candidate) } }
-
-          $unity = $null
-          foreach ($candidate in ($candidates | Select-Object -Unique)) {
-            if ((Test-Path -LiteralPath $candidate -PathType Leaf) -and ($candidate -match '(?i)Unity\.exe$')) {
-              $unity = $candidate
-              break
-            }
-          }
-
-          if (-not $unity) {
-            $searchRoots = @("C:\Program Files\Unity", "C:\Program Files\Unity Hub", "C:\Unity", "D:\Unity", "D:\Program Files\Unity") | Where-Object { Test-Path -LiteralPath $_ -PathType Container }
-            foreach ($root in $searchRoots) {
-              $found = Get-ChildItem -LiteralPath $root -Filter "Unity.exe" -File -Recurse -ErrorAction SilentlyContinue |
-                Where-Object { $_.FullName -match "(?i)[\\/]$version[\\/]Editor[\\/]Unity\.exe$" } |
-                Select-Object -First 1
-              if ($found) { $unity = $found.FullName; break }
-            }
-          }
-
-          if (-not $unity) { throw "Unity $version was not found on self-hosted runner. Set ERO_UNITY_EXE to the exact Unity.exe path or install the editor." }
-          $productVersion = (Get-Item -LiteralPath $unity).VersionInfo.ProductVersion
-          if ($productVersion -notmatch "^$version(?:\s|$)") { throw "Unity executable version mismatch. Expected $version, got '$productVersion' at $unity" }
-          Write-Host "Unity found: $unity"
-          Write-Host "Unity ProductVersion: $productVersion"
-          "ERO_UNITY_EXE=$unity" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          & "$env:GITHUB_WORKSPACE\scripts\ero-ci-run.ps1" -Action resolve-unity
 
       - name: Initialize Unity project and rebuild Library when needed
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
