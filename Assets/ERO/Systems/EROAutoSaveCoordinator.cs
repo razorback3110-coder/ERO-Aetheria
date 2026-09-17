@@ -8,6 +8,7 @@ namespace ERO.Systems
     public sealed class EROAutoSaveCoordinator : MonoBehaviour
     {
         [SerializeField, Min(5f)] private float intervalSeconds = 30f;
+        [SerializeField, Min(0.25f)] private float dirtyCheckIntervalSeconds = 1f;
         [SerializeField] private bool saveOnPause = true;
         [SerializeField] private bool saveOnQuit = true;
 
@@ -15,11 +16,13 @@ namespace ERO.Systems
         private CharacterSystem characterSystem;
         private CharacterData character;
         private float nextSaveAt;
+        private float nextDirtyCheckAt;
         private bool dirty;
         private string lastSnapshot;
 
         public bool IsDirty => dirty;
         public float IntervalSeconds => intervalSeconds;
+        public float DirtyCheckIntervalSeconds => dirtyCheckIntervalSeconds;
 
         private void Awake()
         {
@@ -31,6 +34,7 @@ namespace ERO.Systems
             if (restored != null) characterSystem.TryRestore(restored);
             SyncCharacterReference();
             ScheduleNextSave();
+            ScheduleNextDirtyCheck();
         }
 
         public void Initialize(SaveSystem persistence, CharacterData data)
@@ -40,6 +44,7 @@ namespace ERO.Systems
             lastSnapshot = Snapshot(character);
             dirty = false;
             ScheduleNextSave();
+            ScheduleNextDirtyCheck();
         }
 
         public void MarkDirty()
@@ -57,6 +62,7 @@ namespace ERO.Systems
             lastSnapshot = Snapshot(character);
             dirty = false;
             ScheduleNextSave();
+            ScheduleNextDirtyCheck();
         }
 
         private void Update()
@@ -64,14 +70,23 @@ namespace ERO.Systems
             SyncCharacterReference();
             if (saveSystem == null || character == null) return;
 
+            if (Time.unscaledTime >= nextDirtyCheckAt)
+            {
+                DetectChanges();
+                ScheduleNextDirtyCheck();
+            }
+
+            if (dirty && Time.unscaledTime >= nextSaveAt) SaveNow();
+        }
+
+        private void DetectChanges()
+        {
             var snapshot = Snapshot(character);
             if (!string.Equals(snapshot, lastSnapshot, System.StringComparison.Ordinal))
             {
                 dirty = true;
                 lastSnapshot = snapshot;
             }
-
-            if (dirty && Time.unscaledTime >= nextSaveAt) SaveNow();
         }
 
         private void OnApplicationPause(bool paused)
@@ -98,6 +113,11 @@ namespace ERO.Systems
         private void ScheduleNextSave()
         {
             nextSaveAt = Time.unscaledTime + Mathf.Max(5f, intervalSeconds);
+        }
+
+        private void ScheduleNextDirtyCheck()
+        {
+            nextDirtyCheckAt = Time.unscaledTime + Mathf.Max(0.25f, dirtyCheckIntervalSeconds);
         }
     }
 }
