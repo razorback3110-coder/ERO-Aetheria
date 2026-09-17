@@ -116,7 +116,7 @@ namespace ERO.Systems
             return new EROSkillCastResult
             {
                 success = true,
-                reason = combat.result == EROCombatResult.Miss ? "Miss." : "Cast successful.",
+                reason = combat.result == EROCombatResultKind.Miss ? "Miss." : "Cast successful.",
                 ability = ability,
                 combat = combat,
                 remainingResource = state.currentResource,
