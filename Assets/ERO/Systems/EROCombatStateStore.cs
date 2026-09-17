@@ -12,6 +12,7 @@ namespace ERO.Systems
     {
         private readonly Dictionary<ulong, EROCombatantState> combatants;
         private readonly Dictionary<int, EROCombatSkill> skills;
+        private readonly Dictionary<ulong, Dictionary<int, ulong>> skillReadyTicks;
 
         public EROCombatStateStore(int actorCapacity = 256, int skillCapacity = 64)
         {
@@ -19,6 +20,7 @@ namespace ERO.Systems
             if (skillCapacity < 1) throw new ArgumentOutOfRangeException(nameof(skillCapacity));
             combatants = new Dictionary<ulong, EROCombatantState>(actorCapacity);
             skills = new Dictionary<int, EROCombatSkill>(skillCapacity);
+            skillReadyTicks = new Dictionary<ulong, Dictionary<int, ulong>>(actorCapacity);
         }
 
         public int ActorCount => combatants.Count;
@@ -30,7 +32,11 @@ namespace ERO.Systems
             combatants[state.ActorId] = state;
         }
 
-        public bool RemoveActor(ulong actorId) => combatants.Remove(actorId);
+        public bool RemoveActor(ulong actorId)
+        {
+            skillReadyTicks.Remove(actorId);
+            return combatants.Remove(actorId);
+        }
 
         public bool TryGetActor(ulong actorId, out EROCombatantState state) => combatants.TryGetValue(actorId, out state);
 
@@ -40,6 +46,13 @@ namespace ERO.Systems
             skills[skill.SkillId] = skill;
         }
 
+        public bool TryGetSkillReadyTick(ulong actorId, int skillId, out ulong readyTick)
+        {
+            readyTick = 0UL;
+            return skillReadyTicks.TryGetValue(actorId, out Dictionary<int, ulong> actorCooldowns)
+                && actorCooldowns.TryGetValue(skillId, out readyTick);
+        }
+
         public bool TryResolve(ulong tickId, ulong sequence, ulong actorId, ulong targetId, int skillId, ulong seed, out EROCombatResult result)
         {
             result = default;
@@ -47,8 +60,22 @@ namespace ERO.Systems
             if (!combatants.TryGetValue(targetId, out EROCombatantState target)) return false;
             if (!skills.TryGetValue(skillId, out EROCombatSkill skill)) return false;
             if (attacker.Health <= 0 || target.Health <= 0) return false;
+            if (TryGetSkillReadyTick(actorId, skillId, out ulong readyTick) && tickId < readyTick) return false;
 
             result = EROCombatResolution.Resolve(tickId, sequence, attacker, target, skill, seed);
+            if (skill.CooldownTicks > 0UL)
+            {
+                ulong nextReadyTick = ulong.MaxValue - tickId < skill.CooldownTicks
+                    ? ulong.MaxValue
+                    : tickId + skill.CooldownTicks;
+                if (!skillReadyTicks.TryGetValue(actorId, out Dictionary<int, ulong> actorCooldowns))
+                {
+                    actorCooldowns = new Dictionary<int, ulong>();
+                    skillReadyTicks.Add(actorId, actorCooldowns);
+                }
+                actorCooldowns[skillId] = nextReadyTick;
+            }
+
             if (!result.Hit && result.Damage == 0) return true;
 
             combatants[targetId] = new EROCombatantState(
