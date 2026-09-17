@@ -40,6 +40,17 @@ namespace ERO.Systems
         public void RegisterSkill(EROCombatSkill skill) => AuthoritativeState.RegisterSkill(skill);
 
         /// <summary>
+        /// Returns the number of simulation ticks before an actor can use a skill again.
+        /// The caller supplies the authoritative server tick; no wall-clock time is used.
+        /// </summary>
+        public ulong GetSkillCooldownRemainingTicks(ulong actorId, int skillId, ulong currentTick)
+        {
+            if (!AuthoritativeState.TryGetSkillReadyTick(actorId, skillId, out ulong readyTick))
+                return 0UL;
+            return currentTick >= readyTick ? 0UL : readyTick - currentTick;
+        }
+
+        /// <summary>
         /// Resolves one already-validated combat command against authoritative state.
         /// Returns false for invalid/dead/cooldown-locked commands; successful outcomes
         /// are emitted exactly once for UI, replication, logging and reward systems.
