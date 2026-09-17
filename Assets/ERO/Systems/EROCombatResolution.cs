@@ -34,13 +34,15 @@ namespace ERO.Systems
         public readonly int Power;
         public readonly int AccuracyPercent;
         public readonly bool CanCrit;
+        public readonly ulong CooldownTicks;
 
-        public EROCombatSkill(int skillId, int power, int accuracyPercent = 100, bool canCrit = true)
+        public EROCombatSkill(int skillId, int power, int accuracyPercent = 100, bool canCrit = true, ulong cooldownTicks = 0UL)
         {
             SkillId = skillId;
             Power = Math.Max(0, power);
             AccuracyPercent = Math.Max(0, Math.Min(100, accuracyPercent));
             CanCrit = canCrit;
+            CooldownTicks = cooldownTicks;
         }
     }
 
