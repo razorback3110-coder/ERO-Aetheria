@@ -14,16 +14,20 @@ namespace ERO.Systems
         private readonly Dictionary<int, EROCombatSkill> skills;
         private readonly Dictionary<ulong, Dictionary<int, ulong>> skillReadyTicks;
         private readonly Dictionary<ulong, ulong> lastProcessedSequences;
+        private readonly Dictionary<ulong, ulong> respawnReadyTicks;
         private readonly EROCombatRewardLedger rewardLedger;
+        private readonly ulong respawnDelayTicks;
 
-        public EROCombatStateStore(int actorCapacity = 256, int skillCapacity = 64)
+        public EROCombatStateStore(int actorCapacity = 256, int skillCapacity = 64, ulong respawnDelayTicks = 100UL)
         {
             if (actorCapacity < 1) throw new ArgumentOutOfRangeException(nameof(actorCapacity));
             if (skillCapacity < 1) throw new ArgumentOutOfRangeException(nameof(skillCapacity));
+            this.respawnDelayTicks = respawnDelayTicks;
             combatants = new Dictionary<ulong, EROCombatantState>(actorCapacity);
             skills = new Dictionary<int, EROCombatSkill>(skillCapacity);
             skillReadyTicks = new Dictionary<ulong, Dictionary<int, ulong>>(actorCapacity);
             lastProcessedSequences = new Dictionary<ulong, ulong>(actorCapacity);
+            respawnReadyTicks = new Dictionary<ulong, ulong>(actorCapacity);
             rewardLedger = new EROCombatRewardLedger(actorCapacity);
         }
 
@@ -46,12 +50,14 @@ namespace ERO.Systems
             combatants[state.ActorId] = state;
             lastProcessedSequences.Remove(state.ActorId);
             skillReadyTicks.Remove(state.ActorId);
+            respawnReadyTicks.Remove(state.ActorId);
         }
 
         public bool RemoveActor(ulong actorId)
         {
             skillReadyTicks.Remove(actorId);
             lastProcessedSequences.Remove(actorId);
+            respawnReadyTicks.Remove(actorId);
             return combatants.Remove(actorId);
         }
 
@@ -70,16 +76,21 @@ namespace ERO.Systems
                 && actorCooldowns.TryGetValue(skillId, out readyTick);
         }
 
+        /// <summary>Returns the authoritative tick at which a defeated actor may respawn.</summary>
+        public bool TryGetRespawnReadyTick(ulong actorId, out ulong readyTick)
+            => respawnReadyTicks.TryGetValue(actorId, out readyTick);
+
         /// <summary>
-        /// Restores a defeated actor when the authoritative respawn-ready tick is
-        /// reached. The command sequence remains monotonic across death/respawn so
-        /// stale client commands cannot become valid again after the actor returns.
+        /// Restores a defeated actor when the server-owned respawn-ready tick is reached.
+        /// The ready tick is created by the authoritative store on defeat; callers cannot
+        /// shorten the delay by supplying a client-controlled timestamp.
         /// </summary>
-        public bool TryRespawnActor(ulong actorId, ulong currentTick, ulong respawnReadyTick)
+        public bool TryRespawnActor(ulong actorId, ulong currentTick)
         {
             if (!combatants.TryGetValue(actorId, out EROCombatantState actor)) return false;
             if (actor.Health > 0) return false;
-            if (currentTick < respawnReadyTick) return false;
+            if (!respawnReadyTicks.TryGetValue(actorId, out ulong readyTick)) return false;
+            if (currentTick < readyTick) return false;
 
             combatants[actorId] = new EROCombatantState(
                 actor.ActorId,
@@ -91,7 +102,19 @@ namespace ERO.Systems
                 actor.MaxHealth,
                 actor.MaxHealth);
             skillReadyTicks.Remove(actorId);
+            respawnReadyTicks.Remove(actorId);
             return true;
+        }
+
+        /// <summary>
+        /// Compatibility overload. The supplied ready tick is validated against the
+        /// server-owned schedule and can never override it.
+        /// </summary>
+        public bool TryRespawnActor(ulong actorId, ulong currentTick, ulong expectedReadyTick)
+        {
+            return TryGetRespawnReadyTick(actorId, out ulong readyTick)
+                && readyTick == expectedReadyTick
+                && TryRespawnActor(actorId, currentTick);
         }
 
         public bool TryResolve(ulong tickId, ulong sequence, ulong actorId, ulong targetId, int skillId, ulong seed, out EROCombatResult result)
@@ -143,6 +166,10 @@ namespace ERO.Systems
             CombatResolved?.Invoke(result);
             if (target.Health > 0 && result.TargetHealth <= 0)
             {
+                ulong respawnReadyTick = ulong.MaxValue - tickId < respawnDelayTicks
+                    ? ulong.MaxValue
+                    : tickId + respawnDelayTicks;
+                respawnReadyTicks[targetId] = respawnReadyTick;
                 CombatantDefeated?.Invoke(targetId, actorId);
                 if (rewardLedger.TryApply(result, target, out EROCombatReward reward))
                     CombatRewardGranted?.Invoke(reward);
