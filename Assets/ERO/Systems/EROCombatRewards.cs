@@ -62,9 +62,25 @@ namespace ERO.Systems
             int levelDelta = Math.Max(0, defeated.Level);
             int experience = checked(Math.Max(1, levelDelta * 25));
             int lootRoll = RollLoot(result.TickId, result.Sequence, result.ActorId, result.TargetId, result.SkillId);
-            reward = new EROCombatReward(result.TickId, result.Sequence, result.ActorId, result.TargetId, experience, lootRoll);
+            EROCombatReward generated = new EROCombatReward(result.TickId, result.Sequence, result.ActorId, result.TargetId, experience, lootRoll);
+            EROCombatRewardSnapshot snapshot = new EROCombatRewardSnapshot(generated);
 
-            persistence?.Save(new EROCombatRewardSnapshot(reward));
+            // Prefer an atomic insert when the backing store supports it. A concurrent
+            // worker that loses the insert race reloads the already-committed reward,
+            // preventing duplicate XP/loot generation in a multi-worker server.
+            if (persistence is IEROAtomicCombatRewardStore atomicStore && !atomicStore.TrySaveIfAbsent(snapshot))
+            {
+                if (!persistence.TryLoad(result.ActorId, result.Sequence, out stored)) return false;
+                reward = stored.Reward;
+                appliedSequences.Add(key);
+                rewards.Add(reward);
+                return true;
+            }
+
+            if (persistence != null && !(persistence is IEROAtomicCombatRewardStore))
+                persistence.Save(snapshot);
+
+            reward = generated;
             appliedSequences.Add(key);
             rewards.Add(reward);
             return true;
