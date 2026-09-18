@@ -32,6 +32,7 @@ namespace ERO.Systems
         private readonly HashSet<RewardKey> appliedSequences;
         private readonly List<EROCombatReward> rewards;
         private readonly IEROCombatRewardStore persistence;
+        private readonly object syncRoot = new object();
 
         public EROCombatRewardLedger(int expectedCapacity = 256, IEROCombatRewardStore persistence = null)
         {
@@ -41,9 +42,23 @@ namespace ERO.Systems
             this.persistence = persistence;
         }
 
-        public int Count => rewards.Count;
+        public int Count
+        {
+            get
+            {
+                lock (syncRoot) return rewards.Count;
+            }
+        }
 
         public bool TryApply(EROCombatResult result, EROCombatantState defeated, out EROCombatReward reward)
+        {
+            lock (syncRoot)
+            {
+                return TryApplyLocked(result, defeated, out reward);
+            }
+        }
+
+        private bool TryApplyLocked(EROCombatResult result, EROCombatantState defeated, out EROCombatReward reward)
         {
             reward = default;
             if (!result.TargetDefeated || result.TargetId != defeated.ActorId) return false;
@@ -88,13 +103,16 @@ namespace ERO.Systems
 
         public bool TryGetLatest(out EROCombatReward reward)
         {
-            if (rewards.Count == 0)
+            lock (syncRoot)
             {
-                reward = default;
-                return false;
+                if (rewards.Count == 0)
+                {
+                    reward = default;
+                    return false;
+                }
+                reward = rewards[rewards.Count - 1];
+                return true;
             }
-            reward = rewards[rewards.Count - 1];
-            return true;
         }
 
         private static int RollLoot(ulong tickId, ulong sequence, ulong actorId, ulong targetId, int skillId)
