@@ -28,6 +28,12 @@ namespace ERO.Systems
         public int ActorCount => combatants.Count;
         public int SkillCount => skills.Count;
 
+        /// <summary>Raised after an accepted combat command has mutated authoritative state.</summary>
+        public event Action<EROCombatResult> CombatResolved;
+
+        /// <summary>Raised once when an accepted hit reduces a target from alive to defeated.</summary>
+        public event Action<ulong, ulong> CombatantDefeated;
+
         public void RegisterActor(EROCombatantState state)
         {
             if (state.ActorId == 0UL) throw new ArgumentException("Actor must have a valid id.", nameof(state));
@@ -112,7 +118,11 @@ namespace ERO.Systems
                 actorCooldowns[skillId] = nextReadyTick;
             }
 
-            if (!result.Hit && result.Damage == 0) return true;
+            if (!result.Hit && result.Damage == 0)
+            {
+                CombatResolved?.Invoke(result);
+                return true;
+            }
 
             combatants[targetId] = new EROCombatantState(
                 target.ActorId,
@@ -123,6 +133,12 @@ namespace ERO.Systems
                 target.CritMultiplierPercent,
                 target.MaxHealth,
                 result.TargetHealth);
+
+            CombatResolved?.Invoke(result);
+            if (target.Health > 0 && result.TargetHealth <= 0)
+            {
+                CombatantDefeated?.Invoke(targetId, actorId);
+            }
             return true;
         }
     }
