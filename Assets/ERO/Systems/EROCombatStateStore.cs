@@ -13,7 +13,7 @@ namespace ERO.Systems
         private readonly Dictionary<ulong, EROCombatantState> combatants;
         private readonly Dictionary<int, EROCombatSkill> skills;
         private readonly Dictionary<ulong, Dictionary<int, ulong>> skillReadyTicks;
-        private readonly Dictionary<ulong, ulong> lastAcceptedSequences;
+        private readonly Dictionary<ulong, ulong> lastProcessedSequences;
 
         public EROCombatStateStore(int actorCapacity = 256, int skillCapacity = 64)
         {
@@ -22,7 +22,7 @@ namespace ERO.Systems
             combatants = new Dictionary<ulong, EROCombatantState>(actorCapacity);
             skills = new Dictionary<int, EROCombatSkill>(skillCapacity);
             skillReadyTicks = new Dictionary<ulong, Dictionary<int, ulong>>(actorCapacity);
-            lastAcceptedSequences = new Dictionary<ulong, ulong>(actorCapacity);
+            lastProcessedSequences = new Dictionary<ulong, ulong>(actorCapacity);
         }
 
         public int ActorCount => combatants.Count;
@@ -32,14 +32,14 @@ namespace ERO.Systems
         {
             if (state.ActorId == 0UL) throw new ArgumentException("Actor must have a valid id.", nameof(state));
             combatants[state.ActorId] = state;
-            lastAcceptedSequences.Remove(state.ActorId);
+            lastProcessedSequences.Remove(state.ActorId);
             skillReadyTicks.Remove(state.ActorId);
         }
 
         public bool RemoveActor(ulong actorId)
         {
             skillReadyTicks.Remove(actorId);
-            lastAcceptedSequences.Remove(actorId);
+            lastProcessedSequences.Remove(actorId);
             return combatants.Remove(actorId);
         }
 
@@ -65,11 +65,15 @@ namespace ERO.Systems
             if (!combatants.TryGetValue(targetId, out EROCombatantState target)) return false;
             if (!skills.TryGetValue(skillId, out EROCombatSkill skill)) return false;
             if (attacker.Health <= 0 || target.Health <= 0) return false;
-            if (lastAcceptedSequences.TryGetValue(actorId, out ulong lastSequence) && sequence <= lastSequence) return false;
+            if (lastProcessedSequences.TryGetValue(actorId, out ulong lastSequence) && sequence <= lastSequence) return false;
+
+            // Consume a valid command sequence even when the skill is rejected by
+            // cooldown. This prevents replaying the same command after the cooldown
+            // expires and keeps the authoritative command stream monotonic.
+            lastProcessedSequences[actorId] = sequence;
             if (TryGetSkillReadyTick(actorId, skillId, out ulong readyTick) && tickId < readyTick) return false;
 
             result = EROCombatResolution.Resolve(tickId, sequence, attacker, target, skill, seed);
-            lastAcceptedSequences[actorId] = sequence;
 
             if (skill.CooldownTicks > 0UL)
             {
