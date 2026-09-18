@@ -31,12 +31,14 @@ namespace ERO.Systems
     {
         private readonly HashSet<RewardKey> appliedSequences;
         private readonly List<EROCombatReward> rewards;
+        private readonly IEROCombatRewardStore persistence;
 
-        public EROCombatRewardLedger(int expectedCapacity = 256)
+        public EROCombatRewardLedger(int expectedCapacity = 256, IEROCombatRewardStore persistence = null)
         {
             if (expectedCapacity < 1) throw new ArgumentOutOfRangeException(nameof(expectedCapacity));
             appliedSequences = new HashSet<RewardKey>(expectedCapacity);
             rewards = new List<EROCombatReward>(expectedCapacity);
+            this.persistence = persistence;
         }
 
         public int Count => rewards.Count;
@@ -45,12 +47,25 @@ namespace ERO.Systems
         {
             reward = default;
             if (!result.TargetDefeated || result.TargetId != defeated.ActorId) return false;
-            if (!appliedSequences.Add(new RewardKey(result.ActorId, result.Sequence))) return false;
+
+            RewardKey key = new RewardKey(result.ActorId, result.Sequence);
+            if (appliedSequences.Contains(key)) return false;
+
+            if (persistence != null && persistence.TryLoad(result.ActorId, result.Sequence, out EROCombatRewardSnapshot stored))
+            {
+                reward = stored.Reward;
+                appliedSequences.Add(key);
+                rewards.Add(reward);
+                return true;
+            }
 
             int levelDelta = Math.Max(0, defeated.Level);
             int experience = checked(Math.Max(1, levelDelta * 25));
             int lootRoll = RollLoot(result.TickId, result.Sequence, result.ActorId, result.TargetId, result.SkillId);
             reward = new EROCombatReward(result.TickId, result.Sequence, result.ActorId, result.TargetId, experience, lootRoll);
+
+            persistence?.Save(new EROCombatRewardSnapshot(reward));
+            appliedSequences.Add(key);
             rewards.Add(reward);
             return true;
         }
@@ -89,9 +104,7 @@ namespace ERO.Systems
             }
 
             public bool Equals(RewardKey other) => actorId == other.actorId && sequence == other.sequence;
-
             public override bool Equals(object obj) => obj is RewardKey other && Equals(other);
-
             public override int GetHashCode() => HashCode.Combine(actorId, sequence);
         }
     }
