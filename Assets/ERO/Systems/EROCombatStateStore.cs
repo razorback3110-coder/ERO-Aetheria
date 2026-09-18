@@ -58,6 +58,30 @@ namespace ERO.Systems
                 && actorCooldowns.TryGetValue(skillId, out readyTick);
         }
 
+        /// <summary>
+        /// Restores a defeated actor after the authoritative respawn delay. The
+        /// command sequence remains monotonic across death/respawn so stale client
+        /// commands cannot become valid again after the actor returns.
+        /// </summary>
+        public bool TryRespawnActor(ulong actorId, ulong currentTick, ulong respawnDelayTicks)
+        {
+            if (!combatants.TryGetValue(actorId, out EROCombatantState actor)) return false;
+            if (actor.Health > 0) return false;
+            if (respawnDelayTicks > 0UL && currentTick < respawnDelayTicks) return false;
+
+            combatants[actorId] = new EROCombatantState(
+                actor.ActorId,
+                actor.Level,
+                actor.Attack,
+                actor.Defense,
+                actor.CritChancePercent,
+                actor.CritMultiplierPercent,
+                actor.MaxHealth,
+                actor.MaxHealth);
+            skillReadyTicks.Remove(actorId);
+            return true;
+        }
+
         public bool TryResolve(ulong tickId, ulong sequence, ulong actorId, ulong targetId, int skillId, ulong seed, out EROCombatResult result)
         {
             result = default;
