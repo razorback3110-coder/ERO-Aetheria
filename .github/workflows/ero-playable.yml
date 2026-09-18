@@ -18,6 +18,11 @@ jobs:
           lfs: true
           clean: false
 
+      - name: Verify pinned Unity project version
+        shell: cmd
+        run: |
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "$expected = '6000.0.67f1'; $file = Join-Path $env:GITHUB_WORKSPACE 'ProjectSettings\ProjectVersion.txt'; if (-not (Test-Path $file)) { throw 'ProjectSettings\ProjectVersion.txt not found' }; $line = Get-Content $file | Where-Object { $_ -match '^m_EditorVersion:\s*' } | Select-Object -First 1; $actual = ($line -replace '^m_EditorVersion:\s*','').Trim(); Write-Host ('Project Unity version: ' + $actual); if ($actual -ne $expected) { throw ('Expected Unity ' + $expected + ' but project declares ' + $actual) }"
+
       - name: Locate Unity
         shell: cmd
         run: |
