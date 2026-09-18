@@ -27,6 +27,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROCombatStateStore.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Authoritative combatant/skill state and application of deterministic combat results |
 | `EROCombatRewards.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Idempotent deterministic XP and loot outcomes after authoritative combat defeat |
 | `EROCharacterProgression.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Overflow-safe authoritative XP accumulation and level progression for persistent characters |
+| `EROWallet.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative idempotent currency balances with versioned persistence snapshots |
 
 These entries contain no third-party asset payloads and are authored for ERO.
 
