@@ -14,6 +14,7 @@ namespace ERO.Systems
         private readonly Dictionary<int, EROCombatSkill> skills;
         private readonly Dictionary<ulong, Dictionary<int, ulong>> skillReadyTicks;
         private readonly Dictionary<ulong, ulong> lastProcessedSequences;
+        private readonly EROCombatRewardLedger rewardLedger;
 
         public EROCombatStateStore(int actorCapacity = 256, int skillCapacity = 64)
         {
@@ -23,16 +24,21 @@ namespace ERO.Systems
             skills = new Dictionary<int, EROCombatSkill>(skillCapacity);
             skillReadyTicks = new Dictionary<ulong, Dictionary<int, ulong>>(actorCapacity);
             lastProcessedSequences = new Dictionary<ulong, ulong>(actorCapacity);
+            rewardLedger = new EROCombatRewardLedger(actorCapacity);
         }
 
         public int ActorCount => combatants.Count;
         public int SkillCount => skills.Count;
+        public EROCombatRewardLedger RewardLedger => rewardLedger;
 
         /// <summary>Raised after an accepted combat command has mutated authoritative state.</summary>
         public event Action<EROCombatResult> CombatResolved;
 
         /// <summary>Raised once when an accepted hit reduces a target from alive to defeated.</summary>
         public event Action<ulong, ulong> CombatantDefeated;
+
+        /// <summary>Raised once when a deterministic reward is committed for a defeat.</summary>
+        public event Action<EROCombatReward> CombatRewardGranted;
 
         public void RegisterActor(EROCombatantState state)
         {
@@ -138,6 +144,8 @@ namespace ERO.Systems
             if (target.Health > 0 && result.TargetHealth <= 0)
             {
                 CombatantDefeated?.Invoke(targetId, actorId);
+                if (rewardLedger.TryApply(result, target, out EROCombatReward reward))
+                    CombatRewardGranted?.Invoke(reward);
             }
             return true;
         }
