@@ -8,6 +8,9 @@ on:
 permissions:
   contents: read
 
+env:
+  ERO_UNITY_VERSION: 6000.0.67f1
+
 jobs:
   playable:
     runs-on: [self-hosted, Windows, X64]
@@ -16,27 +19,79 @@ jobs:
       - uses: actions/checkout@v4
         with:
           lfs: true
-          clean: false
+          clean: true
 
-      - name: Verify pinned Unity project version
-        shell: cmd
+      - name: Validate repository and legal gate
+        shell: powershell
         run: |
-          powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "$expected = '6000.0.67f1'; $file = Join-Path $env:GITHUB_WORKSPACE 'ProjectSettings\ProjectVersion.txt'; if (-not (Test-Path $file)) { throw 'ProjectSettings\ProjectVersion.txt not found' }; $line = Get-Content $file | Where-Object { $_ -match '^m_EditorVersion:\s*' } | Select-Object -First 1; $actual = ($line -replace '^m_EditorVersion:\s*','').Trim(); Write-Host ('Project Unity version: ' + $actual); if ($actual -ne $expected) { throw ('Expected Unity ' + $expected + ' but project declares ' + $actual) }"
+          $ErrorActionPreference = 'Stop'
+          $versionFile = Join-Path $env:GITHUB_WORKSPACE 'ProjectSettings\ProjectVersion.txt'
+          $registry = Join-Path $env:GITHUB_WORKSPACE 'Assets\ERO\Legal\ERO_Asset_License_Registry.md'
+          if (-not (Test-Path -LiteralPath $versionFile -PathType Leaf)) { throw 'Missing ProjectSettings/ProjectVersion.txt' }
+          if (-not (Test-Path -LiteralPath $registry -PathType Leaf)) { throw 'Missing Assets/ERO/Legal/ERO_Asset_License_Registry.md' }
+          $line = Get-Content -LiteralPath $versionFile | Where-Object { $_ -match '^m_EditorVersion:\s*' } | Select-Object -First 1
+          $actual = ($line -replace '^m_EditorVersion:\s*','').Trim()
+          Write-Host "Project Unity version: $actual"
+          if ($actual -ne $env:ERO_UNITY_VERSION) { throw "Expected Unity $env:ERO_UNITY_VERSION but project declares $actual" }
+          $legalText = Get-Content -LiteralPath $registry -Raw
+          if ($legalText -notmatch '(?m)^# ERO Asset & License Registry') { throw 'Asset license registry header is missing' }
+          if ($legalText -notmatch 'Only assets with a verified license permitting use in a commercial game') { throw 'Commercial-license policy is missing from the asset registry' }
+          Write-Host 'Repository and legal gate: OK'
 
       - name: Locate Unity
-        shell: cmd
+        shell: powershell
         run: |
-          powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "$paths = @($env:ERO_UNITY_EXE, 'C:\Program Files\Unity\Hub\Editor\6000.0.67f1\Editor\Unity.exe', 'C:\Program Files\Unity Hub\Editor\6000.0.67f1\Editor\Unity.exe'); $unity = $paths | Where-Object { $_ -and (Test-Path $_) } | Select-Object -First 1; if (-not $unity) { throw 'Unity 6000.0.67f1 not found' }; 'UNITY=' + $unity | Out-File $env:GITHUB_ENV -Append; & $unity -version; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }"
+          $ErrorActionPreference = 'Stop'
+          $version = $env:ERO_UNITY_VERSION
+          $paths = @(
+            $env:ERO_UNITY_EXE,
+            "C:\Program Files\Unity\Hub\Editor\$version\Editor\Unity.exe",
+            "C:\Program Files\Unity Hub\Editor\$version\Editor\Unity.exe",
+            "C:\Unity\Hub\Editor\$version\Editor\Unity.exe"
+          ) | Where-Object { $_ -and (Test-Path -LiteralPath $_ -PathType Leaf) }
+          $unity = $paths | Select-Object -First 1
+          if (-not $unity) { throw "Unity $version not found. Set ERO_UNITY_EXE to the full path of Unity.exe." }
+          $productVersion = (Get-Item -LiteralPath $unity).VersionInfo.ProductVersion
+          Write-Host "Unity executable: $unity"
+          Write-Host "Unity ProductVersion: $productVersion"
+          if ($productVersion -notmatch "^$([regex]::Escape($version))(\s|_|$)") { throw "Unity executable version mismatch: expected $version, got $productVersion" }
+          "UNITY=$unity" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
 
       - name: Import project if needed
-        shell: cmd
+        shell: powershell
         run: |
-          powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "if (Test-Path 'Library\SourceAssetDB') { Write-Host 'Unity Library already imported.'; exit 0 }; New-Item -ItemType Directory -Force -Path 'Builds\Logs' | Out-Null; $log = Join-Path $env:GITHUB_WORKSPACE 'Builds\Logs\import.log'; Write-Host 'Starting cold Unity import...'; $p = Start-Process -FilePath $env:UNITY -ArgumentList @('-batchmode','-accept-apiupdate','-projectPath', $env:GITHUB_WORKSPACE,'-buildTarget','StandaloneWindows64','-quit','-logFile',$log) -Wait -PassThru; Write-Host ('Unity import exit code: ' + $p.ExitCode); if (Test-Path $log) { Get-Content $log -Tail 500 }; if ($p.ExitCode -ne 0) { throw ('Unity import failed with exit code ' + $p.ExitCode) }"
+          $ErrorActionPreference = 'Stop'
+          if (Test-Path -LiteralPath 'Library\SourceAssetDB') { Write-Host 'Unity Library already imported.'; exit 0 }
+          New-Item -ItemType Directory -Force -Path 'Builds\Logs' | Out-Null
+          $log = Join-Path $env:GITHUB_WORKSPACE 'Builds\Logs\import.log'
+          Write-Host 'Starting cold Unity import...'
+          $p = Start-Process -FilePath $env:UNITY -ArgumentList @('-batchmode','-accept-apiupdate','-projectPath',$env:GITHUB_WORKSPACE,'-buildTarget','StandaloneWindows64','-quit','-logFile',$log) -Wait -PassThru -NoNewWindow
+          Write-Host "Unity import exit code: $($p.ExitCode)"
+          if (Test-Path -LiteralPath $log) { Get-Content -LiteralPath $log -Tail 500 }
+          if ($p.ExitCode -ne 0) { throw "Unity import failed with exit code $($p.ExitCode)" }
+
+      - name: Validate compile
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          New-Item -ItemType Directory -Force -Path 'Builds\Logs' | Out-Null
+          $log = Join-Path $env:GITHUB_WORKSPACE 'Builds\Logs\compile-validation.log'
+          $p = Start-Process -FilePath $env:UNITY -ArgumentList @('-batchmode','-nographics','-accept-apiupdate','-projectPath',$env:GITHUB_WORKSPACE,'-buildTarget','StandaloneWindows64','-executeMethod','EternalRealmsOnline.CI.EROBuildAutomation.ValidateCompile','-quit','-logFile',$log) -Wait -PassThru -NoNewWindow
+          Write-Host "Unity compile validation exit code: $($p.ExitCode)"
+          if (Test-Path -LiteralPath $log) { Get-Content -LiteralPath $log -Tail 1000 }
+          if ($p.ExitCode -ne 0) { throw "Unity compile validation failed with exit code $($p.ExitCode)" }
 
       - name: Build playable Windows client
-        shell: cmd
+        shell: powershell
         run: |
-          powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "New-Item -ItemType Directory -Force -Path 'Builds\Windows','Builds\Logs' | Out-Null; $log = Join-Path $env:GITHUB_WORKSPACE 'Builds\Logs\playable.log'; $p = Start-Process -FilePath $env:UNITY -ArgumentList @('-batchmode','-accept-apiupdate','-projectPath', $env:GITHUB_WORKSPACE,'-buildTarget','StandaloneWindows64','-executeMethod','EternalRealmsOnline.CI.EROBuildAutomation.BuildWindows','-quit','-logFile',$log) -Wait -PassThru; Write-Host ('Unity build exit code: ' + $p.ExitCode); if (Test-Path $log) { Get-Content $log -Tail 1000 }; if ($p.ExitCode -ne 0) { throw ('Playable build failed with exit code ' + $p.ExitCode) }; if (-not (Test-Path 'Builds\Windows\ERO.exe')) { throw 'ERO.exe was not produced' }"
+          $ErrorActionPreference = 'Stop'
+          New-Item -ItemType Directory -Force -Path 'Builds\Windows','Builds\Logs' | Out-Null
+          $log = Join-Path $env:GITHUB_WORKSPACE 'Builds\Logs\playable.log'
+          $p = Start-Process -FilePath $env:UNITY -ArgumentList @('-batchmode','-nographics','-accept-apiupdate','-projectPath',$env:GITHUB_WORKSPACE,'-buildTarget','StandaloneWindows64','-executeMethod','EternalRealmsOnline.CI.EROBuildAutomation.BuildWindows','-quit','-logFile',$log) -Wait -PassThru -NoNewWindow
+          Write-Host "Unity build exit code: $($p.ExitCode)"
+          if (Test-Path -LiteralPath $log) { Get-Content -LiteralPath $log -Tail 1500 }
+          if ($p.ExitCode -ne 0) { throw "Playable build failed with exit code $($p.ExitCode)" }
+          if (-not (Test-Path -LiteralPath 'Builds\Windows\ERO.exe' -PathType Leaf)) { throw 'ERO.exe was not produced' }
 
       - name: Upload playable client
         uses: actions/upload-artifact@v4
