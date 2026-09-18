@@ -5,27 +5,50 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 
+$UnityVersion = '6000.0.67f1'
+
 switch ($Action) {
     'preflight' {
-        if (!(Test-Path Assets)) { throw 'Assets missing' }
-        if (!(Test-Path Packages)) { throw 'Packages missing' }
-        if (!(Test-Path ProjectSettings)) { throw 'ProjectSettings missing' }
-        if (!(Test-Path ProjectSettings/ProjectVersion.txt)) { throw 'ProjectVersion.txt missing' }
-        if (-not (Select-String -Path ProjectSettings/ProjectVersion.txt -Pattern '^m_EditorVersion:\s*6000\.0\.67f1\s*$' -Quiet)) { throw 'Unity version is not exactly 6000.0.67f1' }
+        $required = @('Assets','Packages','ProjectSettings','ProjectSettings/ProjectVersion.txt','Assets/ERO/Legal/ERO_Asset_License_Registry.md')
+        foreach ($path in $required) {
+            if (!(Test-Path -LiteralPath $path)) { throw "Required ERO path missing: $path" }
+        }
+        if (-not (Select-String -Path ProjectSettings/ProjectVersion.txt -Pattern "^m_EditorVersion:\s*$([regex]::Escape($UnityVersion))\s*$" -Quiet)) {
+            throw "Unity version is not exactly $UnityVersion"
+        }
         Write-Host 'ERO structure: OK'
+        Write-Host "Pinned Unity: $UnityVersion"
         Get-Content ProjectSettings/ProjectVersion.txt
     }
     'secrets' {
-        $patterns = @('UNITY_' + 'PASSWORD=','DISCORD_' + 'TOKEN=','BEGIN RSA PRIVATE KEY','BEGIN OPENSSH PRIVATE KEY','BEGIN PRIVATE KEY')
-        $files = Get-ChildItem Assets,Packages,ProjectSettings -Recurse -File -ErrorAction SilentlyContinue | Where-Object { $_.Extension -ne '.meta' }
+        $patterns = @(
+            'UNITY_PASSWORD=',
+            'DISCORD_TOKEN=',
+            'BEGIN RSA PRIVATE KEY',
+            'BEGIN OPENSSH PRIVATE KEY',
+            'BEGIN PRIVATE KEY'
+        )
+        # Keep this gate focused on source/config text. Scanning every Unity binary/imported asset
+        # recursively was unnecessarily expensive on the self-hosted runner and could prevent the
+        # actual Unity compile job from ever starting.
+        $extensions = @('.cs','.json','.yaml','.yml','.txt','.xml','.asset','.prefab','.unity','.shader','.hlsl','.asmdef','.md','.ps1','.bat','.cmd','.ini','.cfg','.config')
+        $roots = @('Assets','Packages','ProjectSettings')
+        $files = Get-ChildItem $roots -Recurse -File -ErrorAction SilentlyContinue |
+            Where-Object {
+                $_.Extension -in $extensions -and
+                $_.Length -le 2097152 -and
+                $_.Extension -ne '.meta'
+            }
+        $scanned = 0
         foreach ($file in $files) {
-            $hit = Select-String -Path $file.FullName -Pattern $patterns -SimpleMatch -ErrorAction SilentlyContinue
+            $scanned++
+            $hit = Select-String -LiteralPath $file.FullName -Pattern $patterns -SimpleMatch -ErrorAction SilentlyContinue
             if ($hit) { throw "Possible secret found in project file: $($file.FullName)" }
         }
-        Write-Host 'Secret scan: OK'
+        Write-Host "Secret scan: OK ($scanned text/config files scanned)"
     }
     'resolve-unity' {
-        $version = '6000.0.67f1'
+        $version = $UnityVersion
         $candidates = New-Object System.Collections.Generic.List[string]
         if ($env:ERO_UNITY_EXE) { [void]$candidates.Add($env:ERO_UNITY_EXE) }
         $knownRoots = @(
@@ -93,9 +116,7 @@ switch ($Action) {
             }
         }
         if (-not $unityExe) { throw "Unity $version executable not found. Set ERO_UNITY_EXE to the full path of Unity.exe or install the editor." }
-        if (-not (Test-Path -LiteralPath $unityExe -PathType Leaf)) { throw "Resolved Unity path is invalid: $unityExe" }
         $productVersion = (Get-Item -LiteralPath $unityExe).VersionInfo.ProductVersion
-        # Unity Windows executables may report the revision suffix, e.g. 6000.0.67f1_78a1c2bbeb6a.
         if ([string]::IsNullOrWhiteSpace($productVersion) -or -not ($productVersion -match "^$version(?:\s|_|$)")) {
             throw "Unity executable version mismatch. Expected $version, got '$productVersion' at $unityExe"
         }
