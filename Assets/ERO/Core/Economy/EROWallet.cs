@@ -10,6 +10,8 @@ namespace EternalRealmsOnline.Core.Economy
     /// </summary>
     public sealed class EROWallet
     {
+        public const int CurrentSnapshotVersion = 2;
+
         private readonly object sync = new object();
         private readonly Dictionary<string, long> balances = new Dictionary<string, long>(StringComparer.Ordinal);
         private readonly HashSet<string> appliedTransactions = new HashSet<string>(StringComparer.Ordinal);
@@ -70,20 +72,28 @@ namespace EternalRealmsOnline.Core.Economy
             }
         }
 
+        /// <summary>
+        /// Captures both balances and the idempotency ledger. Persisting only balances is
+        /// unsafe: after restart an old transaction could otherwise be applied again.
+        /// </summary>
         public WalletSnapshot CaptureSnapshot()
         {
             lock (sync)
             {
-                var copy = new Dictionary<string, long>(balances, StringComparer.Ordinal);
-                return new WalletSnapshot(1, ActorId, copy);
+                var balanceCopy = new Dictionary<string, long>(balances, StringComparer.Ordinal);
+                var transactionCopy = new List<string>(appliedTransactions);
+                transactionCopy.Sort(StringComparer.Ordinal);
+                return new WalletSnapshot(CurrentSnapshotVersion, ActorId, balanceCopy, transactionCopy);
             }
         }
 
         public void RestoreSnapshot(WalletSnapshot snapshot)
         {
             if (snapshot == null) throw new ArgumentNullException(nameof(snapshot));
-            if (snapshot.Version != 1) throw new InvalidOperationException("Unsupported wallet snapshot version.");
-            if (!string.Equals(snapshot.ActorId, ActorId, StringComparison.Ordinal)) throw new InvalidOperationException("Wallet actor mismatch.");
+            if (snapshot.Version != 1 && snapshot.Version != CurrentSnapshotVersion)
+                throw new InvalidOperationException("Unsupported wallet snapshot version.");
+            if (!string.Equals(snapshot.ActorId, ActorId, StringComparison.Ordinal))
+                throw new InvalidOperationException("Wallet actor mismatch.");
 
             lock (sync)
             {
@@ -94,7 +104,18 @@ namespace EternalRealmsOnline.Core.Economy
                     if (pair.Value < 0) throw new InvalidOperationException("Wallet balances cannot be negative.");
                     balances[pair.Key] = pair.Value;
                 }
+
                 appliedTransactions.Clear();
+                if (snapshot.Version >= 2)
+                {
+                    foreach (var transactionId in snapshot.AppliedTransactions)
+                    {
+                        if (string.IsNullOrWhiteSpace(transactionId))
+                            throw new InvalidOperationException("Wallet transaction id cannot be empty.");
+                        if (!appliedTransactions.Add(transactionId))
+                            throw new InvalidOperationException("Wallet snapshot contains duplicate transaction ids.");
+                    }
+                }
             }
         }
 
@@ -107,15 +128,21 @@ namespace EternalRealmsOnline.Core.Economy
 
     public sealed class WalletSnapshot
     {
-        public WalletSnapshot(int version, string actorId, IReadOnlyDictionary<string, long> balances)
+        public WalletSnapshot(
+            int version,
+            string actorId,
+            IReadOnlyDictionary<string, long> balances,
+            IReadOnlyCollection<string> appliedTransactions = null)
         {
             Version = version;
             ActorId = actorId ?? throw new ArgumentNullException(nameof(actorId));
             Balances = balances ?? throw new ArgumentNullException(nameof(balances));
+            AppliedTransactions = appliedTransactions ?? Array.Empty<string>();
         }
 
         public int Version { get; }
         public string ActorId { get; }
         public IReadOnlyDictionary<string, long> Balances { get; }
+        public IReadOnlyCollection<string> AppliedTransactions { get; }
     }
 }
