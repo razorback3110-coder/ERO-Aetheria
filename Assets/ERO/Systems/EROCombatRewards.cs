@@ -29,13 +29,13 @@ namespace ERO.Systems
     /// </summary>
     public sealed class EROCombatRewardLedger
     {
-        private readonly HashSet<ulong> appliedSequences;
+        private readonly HashSet<RewardKey> appliedSequences;
         private readonly List<EROCombatReward> rewards;
 
         public EROCombatRewardLedger(int expectedCapacity = 256)
         {
             if (expectedCapacity < 1) throw new ArgumentOutOfRangeException(nameof(expectedCapacity));
-            appliedSequences = new HashSet<ulong>(expectedCapacity);
+            appliedSequences = new HashSet<RewardKey>(expectedCapacity);
             rewards = new List<EROCombatReward>(expectedCapacity);
         }
 
@@ -45,7 +45,7 @@ namespace ERO.Systems
         {
             reward = default;
             if (!result.TargetDefeated || result.TargetId != defeated.ActorId) return false;
-            if (!appliedSequences.Add(result.Sequence)) return false;
+            if (!appliedSequences.Add(new RewardKey(result.ActorId, result.Sequence))) return false;
 
             int levelDelta = Math.Max(0, defeated.Level);
             int experience = checked(Math.Max(1, levelDelta * 25));
@@ -75,6 +75,24 @@ namespace ERO.Systems
             value *= 0x94d049bb133111ebUL;
             value ^= value >> 31;
             return (int)(value % 1000000UL);
+        }
+
+        private readonly struct RewardKey : IEquatable<RewardKey>
+        {
+            private readonly ulong actorId;
+            private readonly ulong sequence;
+
+            public RewardKey(ulong actorId, ulong sequence)
+            {
+                this.actorId = actorId;
+                this.sequence = sequence;
+            }
+
+            public bool Equals(RewardKey other) => actorId == other.actorId && sequence == other.sequence;
+
+            public override bool Equals(object obj) => obj is RewardKey other && Equals(other);
+
+            public override int GetHashCode() => HashCode.Combine(actorId, sequence);
         }
     }
 }
