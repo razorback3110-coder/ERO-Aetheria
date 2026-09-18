@@ -29,6 +29,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROCharacterProgression.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Overflow-safe authoritative XP accumulation and level progression for persistent characters |
 | `EROWallet.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative idempotent currency balances with versioned persistence snapshots |
 | `EROInventory.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative bounded item storage with operation-bound transaction idempotency and persistence snapshots |
+| `EROItemInstance.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Persistent identity, stack limits, level and stat payload for unique/equipment loot |
 
 These entries contain no third-party asset payloads and are authored for ERO.
 
