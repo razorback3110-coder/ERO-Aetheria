@@ -59,15 +59,15 @@ namespace ERO.Systems
         }
 
         /// <summary>
-        /// Restores a defeated actor after the authoritative respawn delay. The
-        /// command sequence remains monotonic across death/respawn so stale client
-        /// commands cannot become valid again after the actor returns.
+        /// Restores a defeated actor when the authoritative respawn-ready tick is
+        /// reached. The command sequence remains monotonic across death/respawn so
+        /// stale client commands cannot become valid again after the actor returns.
         /// </summary>
-        public bool TryRespawnActor(ulong actorId, ulong currentTick, ulong respawnDelayTicks)
+        public bool TryRespawnActor(ulong actorId, ulong currentTick, ulong respawnReadyTick)
         {
             if (!combatants.TryGetValue(actorId, out EROCombatantState actor)) return false;
             if (actor.Health > 0) return false;
-            if (respawnDelayTicks > 0UL && currentTick < respawnDelayTicks) return false;
+            if (currentTick < respawnReadyTick) return false;
 
             combatants[actorId] = new EROCombatantState(
                 actor.ActorId,
