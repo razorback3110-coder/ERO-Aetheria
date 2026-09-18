@@ -48,10 +48,24 @@ namespace EternalRealmsOnline.Core.Economy
                 }
 
                 var current = balances.TryGetValue(currencyId, out var balance) ? balance : 0L;
-                if (delta < 0 && current < -delta)
+                if (delta < 0)
                 {
-                    newBalance = current;
-                    return false;
+                    long spend;
+                    try
+                    {
+                        spend = checked(-delta);
+                    }
+                    catch (OverflowException)
+                    {
+                        newBalance = current;
+                        return false;
+                    }
+
+                    if (current < spend)
+                    {
+                        newBalance = current;
+                        return false;
+                    }
                 }
 
                 long next;
@@ -60,6 +74,12 @@ namespace EternalRealmsOnline.Core.Economy
                     next = checked(current + delta);
                 }
                 catch (OverflowException)
+                {
+                    newBalance = current;
+                    return false;
+                }
+
+                if (next < 0)
                 {
                     newBalance = current;
                     return false;
