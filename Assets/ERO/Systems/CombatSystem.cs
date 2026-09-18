@@ -12,7 +12,11 @@ namespace ERO.Systems
     {
         private EROCombatStateStore stateStore;
 
+        /// <summary>Raised exactly once for each accepted combat command that produces a result.</summary>
         public event Action<EROCombatResult> CombatResolved;
+
+        /// <summary>Raised exactly once when an accepted combat result defeats a target.</summary>
+        public event Action<ulong, ulong> CombatantDefeated;
 
         public int CalculateDamage(CharacterData c, int power, int defense, bool critical = false)
         {
@@ -23,7 +27,15 @@ namespace ERO.Systems
 
         public void InitializeAuthoritativeState(int actorCapacity = 256, int skillCapacity = 64)
         {
+            if (stateStore != null)
+            {
+                stateStore.CombatResolved -= ForwardCombatResolved;
+                stateStore.CombatantDefeated -= ForwardCombatantDefeated;
+            }
+
             stateStore = new EROCombatStateStore(actorCapacity, skillCapacity);
+            stateStore.CombatResolved += ForwardCombatResolved;
+            stateStore.CombatantDefeated += ForwardCombatantDefeated;
         }
 
         public EROCombatStateStore AuthoritativeState
@@ -52,16 +64,18 @@ namespace ERO.Systems
 
         /// <summary>
         /// Resolves one already-validated combat command against authoritative state.
-        /// Returns false for invalid/dead/cooldown-locked commands; successful outcomes
-        /// are emitted exactly once for UI, replication, logging and reward systems.
+        /// Returns false for invalid/dead/cooldown-locked commands; accepted outcomes are
+        /// forwarded from the authoritative state store exactly once for UI, replication,
+        /// logging and reward systems.
         /// </summary>
         public bool TryResolve(ulong tickId, ulong sequence, ulong actorId, ulong targetId, int skillId, ulong seed, out EROCombatResult result)
         {
-            bool accepted = AuthoritativeState.TryResolve(tickId, sequence, actorId, targetId, skillId, seed, out result);
-            if (accepted)
-                CombatResolved?.Invoke(result);
-            return accepted;
+            return AuthoritativeState.TryResolve(tickId, sequence, actorId, targetId, skillId, seed, out result);
         }
+
+        private void ForwardCombatResolved(EROCombatResult result) => CombatResolved?.Invoke(result);
+
+        private void ForwardCombatantDefeated(ulong targetId, ulong attackerId) => CombatantDefeated?.Invoke(targetId, attackerId);
 
         public bool CanAutoInRankedPvP() => false;
         public bool CanAutoInGvG() => false;
