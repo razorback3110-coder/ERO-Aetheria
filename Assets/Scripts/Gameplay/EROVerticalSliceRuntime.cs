@@ -13,6 +13,8 @@ namespace EternalRealmsOnline.Gameplay
         private const string RootName = "ERO_VerticalSlice_Runtime";
         private static bool created;
         private Transform player;
+        private GameObject playerVisual;
+        private int attackSequence;
         private Camera gameplayCamera;
         private readonly DemoEnemy[] enemies = new DemoEnemy[3];
         private int xp;
@@ -99,6 +101,17 @@ namespace EternalRealmsOnline.Gameplay
 
         private void BuildPlayer()
         {
+            playerVisual = Resources.Load<GameObject>("ERO/PlayerGraphics_Mage_Boy");
+            if (playerVisual != null)
+            {
+                var instance = Instantiate(playerVisual);
+                instance.name = "ERO_Player_Visual";
+                instance.transform.position = new Vector3(0f, 0f, -12f);
+                instance.transform.localScale = Vector3.one * 0.01f;
+                player = instance.transform;
+                return;
+            }
+
             player = GameObject.CreatePrimitive(PrimitiveType.Capsule).transform;
             player.name = "ERO_Player_Demo";
             player.position = new Vector3(0f, 1f, -12f);
@@ -115,11 +128,16 @@ namespace EternalRealmsOnline.Gameplay
 
         private DemoEnemy CreateEnemy(string label, Vector3 position, Color color, int health)
         {
-            var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            var resourceName = label == "Void Brute" ? "ERO/VandalImpGraphics" : "ERO/ImpGraphics";
+            var prefab = Resources.Load<GameObject>(resourceName);
+            var go = prefab != null ? Instantiate(prefab) : GameObject.CreatePrimitive(PrimitiveType.Sphere);
             go.name = "Enemy_" + label.Replace(" ", "_");
             go.transform.position = position;
-            go.transform.localScale = Vector3.one * 1.8f;
-            go.GetComponent<Renderer>().material = Mat(color, 0.5f);
+            go.transform.localScale = prefab != null ? Vector3.one * 0.01f : Vector3.one * 1.8f;
+
+            if (prefab == null)
+                go.GetComponent<Renderer>().material = Mat(color, 0.5f);
+
             var enemy = go.AddComponent<DemoEnemy>();
             enemy.Initialize(label, health);
             return enemy;
@@ -161,7 +179,8 @@ namespace EternalRealmsOnline.Gameplay
                 return;
             }
 
-            var damage = Random.Range(18, 31);
+            attackSequence++;
+            var damage = 24 + ((attackSequence % 5 == 0) ? 12 : 0);
             nearest.TakeDamage(damage);
             status = $"Hit {nearest.Label} for {damage} damage.";
             if (nearest.IsDefeated)
@@ -249,7 +268,7 @@ namespace EternalRealmsOnline.Gameplay
             {
                 if (IsDefeated) return;
                 health = Mathf.Max(0, health - damage);
-                transform.localScale = Vector3.one * 2.1f;
+                transform.localScale *= 1.03f;
                 if (health == 0)
                 {
                     IsDefeated = true;
