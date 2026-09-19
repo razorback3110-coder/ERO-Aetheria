@@ -22,7 +22,7 @@ namespace EternalRealmsOnline.V8
         }
 
         private const int BaseHealth = 250000;
-        private const float HealthGrowth = 1.6f;
+        private const double HealthGrowth = 1.6d;
         private const int MaxLevel = 50;
         private const double RespawnSeconds = 3600d;
         private const double DamageIntervalSeconds = 0.15d;
@@ -63,6 +63,7 @@ namespace EternalRealmsOnline.V8
                 Defeated.Value = false;
                 RespawnAtServerTime.Value = 0d;
                 respawnUtc = DateTime.MinValue;
+                SaveState();
             }
         }
 
@@ -78,7 +79,19 @@ namespace EternalRealmsOnline.V8
             Defeated.Value = false;
             RespawnAtServerTime.Value = 0d;
             respawnUtc = DateTime.MinValue;
+            lastDamageByClient.Clear();
             SaveState();
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            if (IsServer) SaveState();
+            base.OnNetworkDespawn();
+        }
+
+        private void OnApplicationQuit()
+        {
+            if (IsServer) SaveState();
         }
 
         [ServerRpc(InvokePermission = RpcInvokePermission.Everyone)]
@@ -92,7 +105,7 @@ namespace EternalRealmsOnline.V8
             if (lastDamageByClient.TryGetValue(senderId, out var lastDamage) && now - lastDamage < DamageIntervalSeconds)
                 return;
 
-            var damageCap = Mathf.Clamp(Mathf.RoundToInt(40f * Mathf.Pow(1.45f, Level.Value - 1) * 25f), 1, MaxDamagePerHit);
+            var damageCap = CalculateDamageCap(Level.Value);
             if (damage > damageCap) return;
 
             lastDamageByClient[senderId] = now;
@@ -152,8 +165,16 @@ namespace EternalRealmsOnline.V8
 
         private static int CalculateMaxHealth(int level)
         {
-            var scaled = BaseHealth * Mathf.Pow(HealthGrowth, Mathf.Clamp(level - 1, 0, MaxLevel - 1));
-            return Mathf.Clamp(Mathf.RoundToInt(scaled), BaseHealth, int.MaxValue);
+            var exponent = Mathf.Clamp(level - 1, 0, MaxLevel - 1);
+            var scaled = BaseHealth * Math.Pow(HealthGrowth, exponent);
+            return scaled >= int.MaxValue ? int.MaxValue : Math.Max(BaseHealth, (int)Math.Round(scaled));
+        }
+
+        private static int CalculateDamageCap(int level)
+        {
+            var exponent = Mathf.Clamp(level - 1, 0, MaxLevel - 1);
+            var scaled = 40d * Math.Pow(1.45d, exponent) * 25d;
+            return scaled >= MaxDamagePerHit ? MaxDamagePerHit : Math.Max(1, (int)Math.Round(scaled));
         }
     }
 }
