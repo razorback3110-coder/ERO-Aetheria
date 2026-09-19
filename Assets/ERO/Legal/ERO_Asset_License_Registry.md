@@ -17,6 +17,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROProceduralFantasyArt.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Procedural terrain, vegetation, crystals and creature foundation |
 | `EROVisualQualityBootstrap.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Runtime lighting, fog, shadows, HDR camera and environment presentation |
 | `EROPerformanceBootstrap.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Runtime frame pacing and texture-streaming baseline for playable world streaming |
+| `EROWorldChunkStreaming.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Deterministic procedural world chunks, distance-based loading/unloading and scalable world dressing |
 | `EROCombatDeterminism.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Deterministic combat rolls for authoritative server simulation, replays and rollback-safe execution |
 | `EROSimulationClock.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Fixed-step authoritative simulation ticks for server networking and deterministic gameplay |
 | `EROAOIInterestSystem.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Allocation-aware deterministic interest management for network replication |
@@ -39,6 +40,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROCombatStatsResolver.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Converts authoritative base/equipment stats into deterministic attack, defense, health and critical combat inputs |
 | `EROAuthoritativeCombatService.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Applies resolved equipment-derived combat inputs to authoritative health state, prevents damage to already defeated actors and persists health snapshots |
 | `EROVerticalSliceRuntime.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Temporary visible vertical-slice runtime using procedural primitives only; production art remains subject to the approved asset pipeline |
+| `EROPlayablePersistence.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Local playable-slice persistence bridge for safe avatar position snapshots while authoritative server persistence is being integrated |
 
 These entries contain no third-party asset payloads and are authored for ERO.
 
