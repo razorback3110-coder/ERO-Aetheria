@@ -57,6 +57,10 @@ namespace ERO.Systems
             new EROAbilityDefinition { id="archer_ranger_volley", name="Ranger Volley", classId=EROClass.Archer, specialization=EROSpecialization.Ranger, requiredLevel=30, damageType=ERODamageType.Physical, element=EROElement.Wind, powerBasisPoints=14500, cooldownMilliseconds=6000, resourceCost=20, areaOfEffect=true },
             new EROAbilityDefinition { id="warrior_heavy_strike", name="Heavy Strike", classId=EROClass.Guerrier, requiredLevel=1, damageType=ERODamageType.Physical, element=EROElement.Earth, powerBasisPoints=12500, cooldownMilliseconds=0, resourceCost=10 },
             new EROAbilityDefinition { id="warrior_berserker_rage", name="Berserker Rage", classId=EROClass.Guerrier, specialization=EROSpecialization.Berserker, requiredLevel=30, damageType=ERODamageType.Physical, element=EROElement.Fire, powerBasisPoints=17000, criticalBonusBasisPoints=900, cooldownMilliseconds=10000, resourceCost=25 },
+            new EROAbilityDefinition { id="monk_tiger_palm", name="Tiger Palm", classId=EROClass.Moine, requiredLevel=1, damageType=ERODamageType.Physical, element=EROElement.Wind, powerBasisPoints=13200, criticalBonusBasisPoints=400, cooldownMilliseconds=0, resourceCost=8 },
+            new EROAbilityDefinition { id="monk_whirlwind_step", name="Whirlwind Step", classId=EROClass.Moine, specialization=EROSpecialization.WindWalker, requiredLevel=30, damageType=ERODamageType.Physical, element=EROElement.Wind, powerBasisPoints=16800, criticalBonusBasisPoints=900, cooldownMilliseconds=7000, resourceCost=22, areaOfEffect=true },
+            new EROAbilityDefinition { id="monk_iron_body", name="Iron Body", classId=EROClass.Moine, specialization=EROSpecialization.IronFist, requiredLevel=30, damageType=ERODamageType.Physical, element=EROElement.Earth, powerBasisPoints=15000, cooldownMilliseconds=9000, resourceCost=24 },
+            new EROAbilityDefinition { id="monk_mystic_wave", name="Mystic Wave", classId=EROClass.Moine, specialization=EROSpecialization.Mystic, requiredLevel=30, damageType=ERODamageType.Magical, element=EROElement.Arcane, powerBasisPoints=17200, cooldownMilliseconds=8500, resourceCost=26, areaOfEffect=true },
         };
 
         private static readonly EROTalentDefinition[] Talents = BuildTalents();
@@ -113,6 +117,9 @@ namespace ERO.Systems
             AddSpecializationTalents(result, EROClass.Archer, EROSpecialization.Sniper, EROPrimaryStat.Dexterity, 3);
             AddSpecializationTalents(result, EROClass.Archer, EROSpecialization.Ranger, EROPrimaryStat.Agility, 3);
             AddSpecializationTalents(result, EROClass.Archer, EROSpecialization.ElementalArcher, EROPrimaryStat.Intelligence, 2);
+            AddSpecializationTalents(result, EROClass.Moine, EROSpecialization.WindWalker, EROPrimaryStat.Agility, 3);
+            AddSpecializationTalents(result, EROClass.Moine, EROSpecialization.IronFist, EROPrimaryStat.Strength, 3);
+            AddSpecializationTalents(result, EROClass.Moine, EROSpecialization.Mystic, EROPrimaryStat.Spirit, 3);
             return result.ToArray();
         }
 
