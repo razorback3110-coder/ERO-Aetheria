@@ -34,8 +34,6 @@ namespace EternalRealmsOnline.Core.Economy
         {
             if (string.IsNullOrWhiteSpace(encounterId)) throw new ArgumentException("Encounter id is required.", nameof(encounterId));
             if (string.IsNullOrWhiteSpace(defeatedActorId)) throw new ArgumentException("Defeated actor id is required.", nameof(defeatedActorId));
-            if (!string.Equals(defeatedActorId, defeatedActorId, StringComparison.Ordinal) && string.IsNullOrWhiteSpace(defeatedActorId))
-                throw new InvalidOperationException("Invalid defeated actor identity.");
             if (experience < 0) throw new ArgumentOutOfRangeException(nameof(experience));
 
             string rewardId = BuildRewardId(encounterId, encounterSeed, defeatedActorId);
@@ -55,9 +53,8 @@ namespace EternalRealmsOnline.Core.Economy
 
             if (!lootResult.Success)
             {
-                // The reward transaction remains claimed: the encounter cannot be replayed to
-                // mint XP again. A later recovery job can re-issue the item using the deterministic
-                // loot transaction id without replaying progression.
+                // The encounter remains claimed so a retry cannot mint XP again.
+                // The deterministic loot transaction id can be recovered independently.
                 return new CombatRewardResult(
                     CombatRewardStatus.LootPending,
                     rewardId,
