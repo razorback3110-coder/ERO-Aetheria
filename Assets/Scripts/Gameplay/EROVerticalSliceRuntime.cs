@@ -181,6 +181,7 @@ namespace EternalRealmsOnline.Gameplay
 
             attackSequence++;
             var damage = 24 + ((attackSequence % 5 == 0) ? 12 : 0);
+            SpawnAttackVfx(nearest.transform.position, attackSequence % 5 == 0);
             nearest.TakeDamage(damage);
             status = $"Hit {nearest.Label} for {damage} damage.";
             if (nearest.IsDefeated)
@@ -189,6 +190,31 @@ namespace EternalRealmsOnline.Gameplay
                 gold += nearest.GoldReward;
                 status = $"Defeated {nearest.Label}! +{nearest.XpReward} XP  +{nearest.GoldReward} gold. Loot secured.";
             }
+        }
+
+        private void SpawnAttackVfx(Vector3 targetPosition, bool critical)
+        {
+            var fx = new GameObject(critical ? "ERO_Critical_Impact" : "ERO_Magic_Impact");
+            fx.transform.position = targetPosition + Vector3.up * 0.8f;
+            var particles = fx.AddComponent<ParticleSystem>();
+            var main = particles.main;
+            main.duration = 0.35f;
+            main.loop = false;
+            main.startLifetime = 0.28f;
+            main.startSpeed = critical ? 7f : 5f;
+            main.startSize = critical ? 0.22f : 0.14f;
+            main.maxParticles = critical ? 32 : 20;
+            main.simulationSpace = ParticleSystemSimulationSpace.World;
+            var emission = particles.emission;
+            emission.enabled = true;
+            emission.rateOverTime = 0f;
+            emission.SetBursts(new[] { new ParticleSystem.Burst(0f, critical ? 26u : 16u) });
+            var shape = particles.shape;
+            shape.shapeType = ParticleSystemShapeType.Sphere;
+            shape.radius = 0.25f;
+            var renderer = particles.GetComponent<ParticleSystemRenderer>();
+            renderer.renderMode = ParticleSystemRenderMode.Billboard;
+            Destroy(fx, 0.6f);
         }
 
         private void CreatePillar(Vector3 position, float height)
