@@ -20,6 +20,10 @@ namespace EternalRealmsOnline.Gameplay
         private int xp;
         private int gold;
         private string status = "Explore Aetheria — WASD to move, Space/click to attack.";
+        private GameObject questNpc;
+        private bool questActive;
+        private bool questComplete;
+        private int questKills;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
@@ -36,6 +40,7 @@ namespace EternalRealmsOnline.Gameplay
             BuildWorld();
             BuildPlayer();
             BuildEnemies();
+            BuildQuestNpc();
             BuildCamera();
         }
 
@@ -50,6 +55,9 @@ namespace EternalRealmsOnline.Gameplay
 
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 AttackNearest();
+
+            if (Input.GetKeyDown(KeyCode.E))
+                InteractWithQuestNpc();
 
             for (var i = 0; i < enemies.Length; i++)
                 enemies[i]?.Tick(Time.deltaTime);
@@ -143,6 +151,49 @@ namespace EternalRealmsOnline.Gameplay
             return enemy;
         }
 
+        private void BuildQuestNpc()
+        {
+            questNpc = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            questNpc.name = "Aetheria_Quest_NPC";
+            questNpc.transform.position = new Vector3(-12f, 1.2f, 16f);
+            questNpc.transform.localScale = new Vector3(0.8f, 1.2f, 0.8f);
+            questNpc.GetComponent<Renderer>().material = Mat(new Color(0.95f, 0.72f, 0.18f), 1.5f);
+            var beacon = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            beacon.name = "Quest_Beacon";
+            beacon.transform.SetParent(questNpc.transform);
+            beacon.transform.localPosition = new Vector3(0f, 1.7f, 0f);
+            beacon.transform.localScale = Vector3.one * 0.35f;
+            beacon.GetComponent<Renderer>().material = Mat(new Color(1f, 0.85f, 0.1f), 3f);
+        }
+
+        private void InteractWithQuestNpc()
+        {
+            if (questNpc == null || Vector3.Distance(player.position, questNpc.transform.position) > 4.5f)
+            {
+                status = "Approche-toi du gardien d'Aetheria (E).";
+                return;
+            }
+
+            if (!questActive && !questComplete)
+            {
+                questActive = true;
+                status = "Quête: purifie 3 créatures du Néant.";
+                return;
+            }
+
+            if (questActive && questKills >= 3)
+            {
+                questActive = false;
+                questComplete = true;
+                xp += 250;
+                gold += 100;
+                status = "Quête terminée ! +250 XP +100 gold.";
+                return;
+            }
+
+            status = questComplete ? "Le gardien te remercie. D'autres quêtes arrivent." : $"Quête active: {questKills}/3 créatures vaincues.";
+        }
+
         private void BuildCamera()
         {
             gameplayCamera = new GameObject("ERO_Gameplay_Camera").AddComponent<Camera>();
@@ -184,6 +235,7 @@ namespace EternalRealmsOnline.Gameplay
             SpawnAttackVfx(nearest.transform.position, attackSequence % 5 == 0);
             nearest.TakeDamage(damage);
             status = $"Hit {nearest.Label} for {damage} damage.";
+            if (questActive && nearest.IsDefeated) questKills = Mathf.Min(3, questKills + 1);
             if (nearest.IsDefeated)
             {
                 xp += nearest.XpReward;
@@ -259,7 +311,10 @@ namespace EternalRealmsOnline.Gameplay
             GUI.Label(new Rect(34f, 48f, 380f, 24f), "VERTICAL SLICE — combat / XP / loot loop");
             GUI.Label(new Rect(34f, 74f, 380f, 24f), $"XP {xp}     Gold {gold}     Enemies remaining: {AliveCount()}");
             GUI.Label(new Rect(34f, 100f, 380f, 24f), status);
-            GUI.Label(new Rect(34f, 124f, 380f, 24f), "WASD: move   SPACE / Left Click: attack");
+            GUI.Label(new Rect(34f, 124f, 380f, 24f), "WASD: move   SPACE / Left Click: attack   E: interact");
+            GUI.Box(new Rect(Screen.width - 360f, 18f, 340f, 88f), "AETHERIA QUEST");
+            GUI.Label(new Rect(Screen.width - 345f, 48f, 310f, 22f), questComplete ? "✓ Guardian quest completed" : questActive ? $"Purify creatures: {questKills}/3" : "Find the golden Guardian");
+            GUI.Label(new Rect(Screen.width - 345f, 74f, 310f, 22f), "Approach the golden NPC and press E");
         }
 
         private int AliveCount()
