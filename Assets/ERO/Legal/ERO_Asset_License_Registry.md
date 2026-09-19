@@ -42,6 +42,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROVerticalSliceRuntime.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Temporary visible vertical-slice runtime using procedural primitives only; production art remains subject to the approved asset pipeline |
 | `EROPlayablePersistence.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Local playable-slice persistence bridge for safe avatar position snapshots while authoritative server persistence is being integrated |
 | `EROPlayableLootInventory.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Dependency-free visible loot, inventory and gear-score presentation for the playable slice |
+| `EROMvpWorldEvent.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Playable Aetheria MVP world event, respawn timer and presentation-side boss encounter |
 
 These entries contain no third-party asset payloads and are authored for ERO.
 
