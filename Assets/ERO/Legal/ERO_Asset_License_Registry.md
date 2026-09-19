@@ -33,6 +33,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROInstanceInventory.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative storage and persistence of concrete item instances with transaction-bound ownership changes |
 | `EROLootGenerator.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Deterministic server-side generation of persistent item instances from authoritative encounter seeds |
 | `EROLootInventoryService.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Authoritative bridge that grants deterministic loot instances into persistent player inventory with retry-safe transaction identity |
+| `EROEquipmentLoadout.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative equipment slots referencing persistent owned item instances and aggregating equipment stats |
 
 These entries contain no third-party asset payloads and are authored for ERO.
 
