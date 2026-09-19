@@ -43,7 +43,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROPlayablePersistence.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Local playable-slice persistence bridge for safe avatar position snapshots while authoritative server persistence is being integrated |
 | `EROPlayableLootInventory.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Dependency-free visible loot, inventory and gear-score presentation for the playable slice |
 | `EROMvpWorldEvent.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Playable Aetheria MVP world event, respawn timer and presentation-side boss encounter |
-| `EROV8MVPAuthority.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative network MVP level, HP scaling, damage throttling and one-hour respawn state |
+| `EROV8MVPAuthority.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative network MVP level, safe exponential HP/damage scaling, rate limiting and atomic one-hour respawn persistence across dedicated-server shutdown/restart |
 
 These entries contain no third-party asset payloads and are authored for ERO.
 
