@@ -35,6 +35,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROLootInventoryService.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Authoritative bridge that grants deterministic loot instances into persistent player inventory with retry-safe transaction identity |
 | `EROEquipmentLoadout.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative equipment slots referencing persistent owned item instances and aggregating equipment stats |
 | `EROCharacterCombatStats.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative character base-stat persistence and deterministic aggregation of equipped item bonuses for combat |
+| `EROCombatStatsResolver.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Converts authoritative base/equipment stats into deterministic attack, defense, health and critical combat inputs |
 
 These entries contain no third-party asset payloads and are authored for ERO.
 
