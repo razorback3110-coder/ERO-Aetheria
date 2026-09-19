@@ -12,7 +12,9 @@ namespace EternalRealmsOnline.Gameplay
         private static bool created;
         private GameObject boss;
         private Transform player;
-        private int health = 500;
+        private const int MaxHealth = 250000;
+        private const float RespawnDelaySeconds = 3600f;
+        private int health = MaxHealth;
         private float respawnAt;
         private bool active;
         private int defeats;
@@ -67,7 +69,7 @@ namespace EternalRealmsOnline.Gameplay
             boss.name = "ERO_MVP_Aetheria_Warden";
             boss.transform.position = new Vector3(0f, 1.4f, 18f);
             boss.transform.localScale = prefab != null ? Vector3.one * 0.014f : Vector3.one * 2.8f;
-            health = 500;
+            health = MaxHealth;
             active = true;
             status = "⚔ MVP AWAKENED — Aetheria Warden!";
         }
@@ -93,8 +95,8 @@ namespace EternalRealmsOnline.Gameplay
             defeats++;
             Destroy(boss);
             boss = null;
-            respawnAt = Time.time + 60f;
-            status = $"MVP vaincu ! Réapparition dans 60s. Victoires: {defeats}";
+            respawnAt = Time.time + RespawnDelaySeconds;
+            status = $"MVP vaincu ! Réapparition dans 1 heure. Victoires: {defeats}";
         }
 
         private void SpawnImpact(bool critical)
@@ -114,17 +116,26 @@ namespace EternalRealmsOnline.Gameplay
             Destroy(fx, 0.6f);
         }
 
+        private static string FormatRespawnTime(float seconds)
+        {
+            var remaining = Mathf.Max(0, Mathf.CeilToInt(seconds));
+            var hours = remaining / 3600;
+            var minutes = (remaining % 3600) / 60;
+            var secs = remaining % 60;
+            return hours > 0 ? $"{hours}h {minutes:00}m {secs:00}s" : $"{minutes}m {secs:00}s";
+        }
+
         private void OnGUI()
         {
             if (!active)
             {
                 if (Time.time < respawnAt)
-                    GUI.Label(new Rect(Screen.width - 360f, 116f, 340f, 24f), $"MVP respawn: {Mathf.CeilToInt(respawnAt - Time.time)}s");
+                    GUI.Label(new Rect(Screen.width - 360f, 116f, 340f, 24f), $"MVP respawn: {FormatRespawnTime(respawnAt - Time.time)}");
                 return;
             }
 
             GUI.Box(new Rect(Screen.width * 0.5f - 220f, 18f, 440f, 92f), "AETHERIA WORLD BOSS • MVP");
-            GUI.Label(new Rect(Screen.width * 0.5f - 205f, 46f, 410f, 22f), $"Aetheria Warden   {health}/500 HP");
+            GUI.Label(new Rect(Screen.width * 0.5f - 205f, 46f, 410f, 22f), $"Aetheria Warden   {health}/{MaxHealth:N0} HP");
             GUI.Label(new Rect(Screen.width * 0.5f - 205f, 70f, 410f, 22f), status);
         }
     }
