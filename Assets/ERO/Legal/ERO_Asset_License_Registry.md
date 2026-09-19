@@ -85,3 +85,7 @@ Any new source must be added here before it is referenced by production generati
 ## Release rule
 
 A production build is considered legally ready only when every non-ERO asset referenced by the build is either CC0/public-domain or covered by an explicit commercial redistribution license, and the corresponding registry entry is present.
+
+| `Resources/ERO/PlayerGraphics_Mage_Boy.prefab` | Existing ERO character graphics asset | Project-owned/approved ERO asset | Yes | Existing asset | Relocated into Resources solely for runtime vertical-slice loading; no external content added |
+| `Resources/ERO/ImpGraphics.prefab` | Existing ERO enemy graphics asset | Project-owned/approved ERO asset | Yes | Existing asset | Relocated into Resources solely for runtime vertical-slice loading |
+| `Resources/ERO/VandalImpGraphics.prefab` | Existing ERO enemy graphics asset | Project-owned/approved ERO asset | Yes | Existing asset | Relocated into Resources solely for runtime vertical-slice loading |
