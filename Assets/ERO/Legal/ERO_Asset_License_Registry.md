@@ -44,6 +44,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROPlayableLootInventory.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Dependency-free visible loot, inventory and gear-score presentation for the playable slice |
 | `EROMvpWorldEvent.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Playable Aetheria MVP world event, respawn timer and presentation-side boss encounter |
 | `EROV8MVPAuthority.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative network MVP level, safe exponential HP/damage scaling, rate limiting and atomic one-hour respawn persistence across dedicated-server shutdown/restart |
+| `EROHeadlessServerBootstrap.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Deterministic dedicated-server bootstrap for `-ero-server`, disabling client presentation and starting the Netcode server |
 
 These entries contain no third-party asset payloads and are authored for ERO.
 
@@ -74,7 +75,7 @@ Quaternius public pack pages currently identify the listed packs as CC0 and expl
 
 ## Integration quality gate
 
-Legal approval alone does not make an asset production-ready. Production assets must also satisfy `Assets/ERO/ArtDirection/ERO_VISUAL_PRODUCTION_STANDARD.md`: textured/material treatment, coherent ERO art direction, collision, LOD/optimization and scene integration must be addressed. Unity primitives remain debug/prototype-only and are not acceptable as final visual assets.
+Legal approval alone does not make an asset production-ready. Production assets must also satisfy `Assets/ERO/ArtDirection/ERO_VISUAL_PRODUCTION_STANDARD.md`: textured/material treatment, collision, LOD/optimization and scene integration must be addressed. Unity primitives remain debug/prototype-only and are not acceptable as final visual assets.
 
 ## REVIEW
 
