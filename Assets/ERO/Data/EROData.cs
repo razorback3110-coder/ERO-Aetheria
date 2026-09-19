@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ERO.Data
 {
-    public enum EROClass { Paladin, Priest, Invocateur, Mage, Assassin, Archer, Guerrier }
+    public enum EROClass { Paladin, Priest, Invocateur, Mage, Assassin, Archer, Guerrier, Moine }
     public enum ClassRole { PhysicalDPS, MagicDPS, Tank, Heal }
     public enum SummonerPactRole { DPS, Tank, Heal }
     public enum SummonerSkillMode { Debuff, SingleTarget, AOEBurst }
