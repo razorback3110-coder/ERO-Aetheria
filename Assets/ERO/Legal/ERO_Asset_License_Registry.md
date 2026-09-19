@@ -38,6 +38,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROCharacterCombatStats.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative character base-stat persistence and deterministic aggregation of equipped item bonuses for combat |
 | `EROCombatStatsResolver.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Converts authoritative base/equipment stats into deterministic attack, defense, health and critical combat inputs |
 | `EROAuthoritativeCombatService.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Applies resolved equipment-derived combat inputs to authoritative health state, prevents damage to already defeated actors and persists health snapshots |
+| `EROVerticalSliceRuntime.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Temporary visible vertical-slice runtime using procedural primitives only; production art remains subject to the approved asset pipeline |
 
 These entries contain no third-party asset payloads and are authored for ERO.
 
