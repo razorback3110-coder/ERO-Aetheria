@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,10 +7,19 @@ namespace EternalRealmsOnline.Gameplay
 {
     /// <summary>
     /// Lightweight vertical-slice MVP event. Uses an already approved ERO enemy prefab
-    /// and remains presentation-side until the authoritative encounter service is wired in.
+    /// and persists the world-boss progression/cooldown locally for the playable build.
+    /// The authoritative server should own this state when dedicated-server persistence is wired in.
     /// </summary>
     public sealed class EROMvpWorldEvent : MonoBehaviour
     {
+        [Serializable]
+        private sealed class MvpState
+        {
+            public int level = 1;
+            public int defeats;
+            public long respawnUtcTicks;
+        }
+
         private static bool created;
         private GameObject boss;
         private Transform player;
@@ -19,10 +30,12 @@ namespace EternalRealmsOnline.Gameplay
         private int mvpLevel = 1;
         private int maxHealth = BaseHealth;
         private int health = BaseHealth;
-        private float respawnAt;
+        private DateTime respawnUtc = DateTime.MinValue;
         private bool active;
         private int defeats;
         private string status = "Defeat the Aetheria creatures to awaken the MVP.";
+
+        private string SavePath => Path.Combine(Application.persistentDataPath, "ero_mvp_world_state.json");
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Bootstrap()
@@ -34,6 +47,7 @@ namespace EternalRealmsOnline.Gameplay
 
         private void Start()
         {
+            LoadState();
             InvokeRepeating(nameof(EvaluateEncounter), 1f, 1f);
         }
 
@@ -53,12 +67,12 @@ namespace EternalRealmsOnline.Gameplay
 
         private void EvaluateEncounter()
         {
-            if (active || Time.time < respawnAt) return;
+            if (active || DateTime.UtcNow < respawnUtc) return;
             var remaining = GameObject.FindGameObjectsWithTag("Untagged");
             var defeatedCreatures = 0;
             for (var i = 0; i < remaining.Length; i++)
             {
-                if (remaining[i] == null || !remaining[i].name.StartsWith("Enemy_")) continue;
+                if (remaining[i] == null || !remaining[i].name.StartsWith("Enemy_", StringComparison.Ordinal)) continue;
                 if (!remaining[i].activeSelf) defeatedCreatures++;
             }
 
@@ -68,16 +82,16 @@ namespace EternalRealmsOnline.Gameplay
 
         private void SpawnBoss()
         {
-            mvpLevel = Mathf.Clamp(defeats + 1, 1, MaxMvpLevel);
+            mvpLevel = Mathf.Clamp(mvpLevel, 1, MaxMvpLevel);
             maxHealth = CalculateMaxHealth(mvpLevel);
             health = maxHealth;
             var prefab = Resources.Load<GameObject>("ERO/VandalImpGraphics");
             boss = prefab != null ? Instantiate(prefab) : GameObject.CreatePrimitive(PrimitiveType.Sphere);
             boss.name = "ERO_MVP_Aetheria_Warden";
             boss.transform.position = new Vector3(0f, 1.4f, 18f);
-            boss.transform.localScale = prefab != null ? Vector3.one * 0.014f : Vector3.one * 2.8f;
+            boss.transform.localScale = prefab != null ? Vector3.one * (0.014f + (mvpLevel - 1) * 0.00012f) : Vector3.one * 2.8f;
             active = true;
-            status = "⚔ MVP AWAKENED — Aetheria Warden!";
+            status = $"⚔ MVP AWAKENED — Aetheria Warden Lv.{mvpLevel}!";
         }
 
         private void TryAttackBoss()
@@ -89,11 +103,11 @@ namespace EternalRealmsOnline.Gameplay
                 return;
             }
 
-            var critical = Random.Range(0, 5) == 0;
+            var critical = UnityEngine.Random.Range(0, 5) == 0;
             var damage = CalculateDamage(critical);
             health = Mathf.Max(0, health - damage);
             SpawnImpact(critical);
-            status = critical ? $"CRITICAL! MVP -{damage} HP" : $"MVP -{damage} HP";
+            status = critical ? $"CRITICAL! MVP -{damage:N0} HP" : $"MVP -{damage:N0} HP";
 
             if (health != 0) return;
 
@@ -101,8 +115,10 @@ namespace EternalRealmsOnline.Gameplay
             defeats++;
             Destroy(boss);
             boss = null;
-            respawnAt = Time.time + RespawnDelaySeconds;
-            status = $"MVP Lv.{mvpLevel} vaincu ! Prochain niveau: {Mathf.Min(mvpLevel + 1, MaxMvpLevel)} • Réapparition dans 1 heure. Victoires: {defeats}";
+            mvpLevel = Mathf.Min(mvpLevel + 1, MaxMvpLevel);
+            respawnUtc = DateTime.UtcNow.AddSeconds(RespawnDelaySeconds);
+            SaveState();
+            status = $"MVP vaincu ! Prochain niveau: {mvpLevel} • Réapparition dans 1 heure. Victoires: {defeats}";
         }
 
         private void SpawnImpact(bool critical)
@@ -128,28 +144,74 @@ namespace EternalRealmsOnline.Gameplay
             return Mathf.Clamp(Mathf.RoundToInt(scaled), BaseHealth, int.MaxValue);
         }
 
-        private static int CalculateDamage(bool critical)
+        private int CalculateDamage(bool critical)
         {
             var baseDamage = 40f * Mathf.Pow(1.45f, Mathf.Clamp(mvpLevel - 1, 0, MaxMvpLevel - 1));
             var damage = Mathf.RoundToInt(critical ? baseDamage * 1.5f : baseDamage);
             return Mathf.Clamp(damage, 1, 1000000);
         }
 
-        private static string FormatRespawnTime(float seconds)
+        private static string FormatRespawnTime(double seconds)
         {
-            var remaining = Mathf.Max(0, Mathf.CeilToInt(seconds));
+            var remaining = Math.Max(0, (int)Math.Ceiling(seconds));
             var hours = remaining / 3600;
             var minutes = (remaining % 3600) / 60;
             var secs = remaining % 60;
             return hours > 0 ? $"{hours}h {minutes:00}m {secs:00}s" : $"{minutes}m {secs:00}s";
         }
 
+        private void LoadState()
+        {
+            try
+            {
+                if (!File.Exists(SavePath)) return;
+                var json = File.ReadAllText(SavePath);
+                var state = JsonUtility.FromJson<MvpState>(json);
+                if (state == null) return;
+                mvpLevel = Mathf.Clamp(state.level, 1, MaxMvpLevel);
+                defeats = Mathf.Max(0, state.defeats);
+                respawnUtc = state.respawnUtcTicks > 0 ? new DateTime(state.respawnUtcTicks, DateTimeKind.Utc) : DateTime.MinValue;
+                status = DateTime.UtcNow < respawnUtc
+                    ? $"MVP Lv.{mvpLevel} — monde boss en cooldown."
+                    : "Defeat the Aetheria creatures to awaken the MVP.";
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning($"ERO MVP state load failed: {exception.Message}");
+            }
+        }
+
+        private void SaveState()
+        {
+            try
+            {
+                var state = new MvpState
+                {
+                    level = mvpLevel,
+                    defeats = defeats,
+                    respawnUtcTicks = respawnUtc == DateTime.MinValue ? 0 : respawnUtc.Ticks
+                };
+                var json = JsonUtility.ToJson(state, true);
+                var tempPath = SavePath + ".tmp";
+                File.WriteAllText(tempPath, json);
+                if (File.Exists(SavePath)) File.Delete(SavePath);
+                File.Move(tempPath, SavePath);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning($"ERO MVP state save failed: {exception.Message}");
+            }
+        }
+
         private void OnGUI()
         {
             if (!active)
             {
-                if (Time.time < respawnAt)
-                    GUI.Label(new Rect(Screen.width - 360f, 116f, 340f, 24f), $"MVP respawn: {FormatRespawnTime(respawnAt - Time.time)}");
+                if (DateTime.UtcNow < respawnUtc)
+                {
+                    var remaining = (respawnUtc - DateTime.UtcNow).TotalSeconds;
+                    GUI.Label(new Rect(Screen.width - 390f, 116f, 370f, 24f), $"MVP Lv.{mvpLevel} respawn: {FormatRespawnTime(remaining)}");
+                }
                 return;
             }
 
