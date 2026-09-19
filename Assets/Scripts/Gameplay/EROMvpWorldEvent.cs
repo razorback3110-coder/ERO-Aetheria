@@ -12,9 +12,13 @@ namespace EternalRealmsOnline.Gameplay
         private static bool created;
         private GameObject boss;
         private Transform player;
-        private const int MaxHealth = 250000;
+        private const int BaseHealth = 250000;
+        private const float HealthGrowthPerLevel = 1.6f;
+        private const int MaxMvpLevel = 50;
         private const float RespawnDelaySeconds = 3600f;
-        private int health = MaxHealth;
+        private int mvpLevel = 1;
+        private int maxHealth = BaseHealth;
+        private int health = BaseHealth;
         private float respawnAt;
         private bool active;
         private int defeats;
@@ -64,12 +68,14 @@ namespace EternalRealmsOnline.Gameplay
 
         private void SpawnBoss()
         {
+            mvpLevel = Mathf.Clamp(defeats + 1, 1, MaxMvpLevel);
+            maxHealth = CalculateMaxHealth(mvpLevel);
+            health = maxHealth;
             var prefab = Resources.Load<GameObject>("ERO/VandalImpGraphics");
             boss = prefab != null ? Instantiate(prefab) : GameObject.CreatePrimitive(PrimitiveType.Sphere);
             boss.name = "ERO_MVP_Aetheria_Warden";
             boss.transform.position = new Vector3(0f, 1.4f, 18f);
             boss.transform.localScale = prefab != null ? Vector3.one * 0.014f : Vector3.one * 2.8f;
-            health = MaxHealth;
             active = true;
             status = "⚔ MVP AWAKENED — Aetheria Warden!";
         }
@@ -84,7 +90,7 @@ namespace EternalRealmsOnline.Gameplay
             }
 
             var critical = Random.Range(0, 5) == 0;
-            var damage = critical ? 60 : 40;
+            var damage = CalculateDamage(critical);
             health = Mathf.Max(0, health - damage);
             SpawnImpact(critical);
             status = critical ? $"CRITICAL! MVP -{damage} HP" : $"MVP -{damage} HP";
@@ -96,7 +102,7 @@ namespace EternalRealmsOnline.Gameplay
             Destroy(boss);
             boss = null;
             respawnAt = Time.time + RespawnDelaySeconds;
-            status = $"MVP vaincu ! Réapparition dans 1 heure. Victoires: {defeats}";
+            status = $"MVP Lv.{mvpLevel} vaincu ! Prochain niveau: {Mathf.Min(mvpLevel + 1, MaxMvpLevel)} • Réapparition dans 1 heure. Victoires: {defeats}";
         }
 
         private void SpawnImpact(bool critical)
@@ -114,6 +120,19 @@ namespace EternalRealmsOnline.Gameplay
             var emission = ps.emission;
             emission.SetBursts(new[] { new ParticleSystem.Burst(0f, critical ? 28u : 18u) });
             Destroy(fx, 0.6f);
+        }
+
+        private static int CalculateMaxHealth(int level)
+        {
+            var scaled = BaseHealth * Mathf.Pow(HealthGrowthPerLevel, level - 1);
+            return Mathf.Clamp(Mathf.RoundToInt(scaled), BaseHealth, int.MaxValue);
+        }
+
+        private static int CalculateDamage(bool critical)
+        {
+            var baseDamage = 40f * Mathf.Pow(1.45f, Mathf.Clamp(mvpLevel - 1, 0, MaxMvpLevel - 1));
+            var damage = Mathf.RoundToInt(critical ? baseDamage * 1.5f : baseDamage);
+            return Mathf.Clamp(damage, 1, 1000000);
         }
 
         private static string FormatRespawnTime(float seconds)
@@ -135,7 +154,7 @@ namespace EternalRealmsOnline.Gameplay
             }
 
             GUI.Box(new Rect(Screen.width * 0.5f - 220f, 18f, 440f, 92f), "AETHERIA WORLD BOSS • MVP");
-            GUI.Label(new Rect(Screen.width * 0.5f - 205f, 46f, 410f, 22f), $"Aetheria Warden   {health}/{MaxHealth:N0} HP");
+            GUI.Label(new Rect(Screen.width * 0.5f - 205f, 46f, 410f, 22f), $"Aetheria Warden • Lv.{mvpLevel}   {health}/{maxHealth:N0} HP");
             GUI.Label(new Rect(Screen.width * 0.5f - 205f, 70f, 410f, 22f), status);
         }
     }
