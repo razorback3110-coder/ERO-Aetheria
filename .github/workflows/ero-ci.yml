@@ -10,6 +10,12 @@ on:
 permissions:
   contents: read
 
+# Unity validation is expensive and uses one self-hosted Windows runner.
+# Keep only the newest revision waiting for that runner.
+concurrency:
+  group: ero-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   preflight:
     name: ERO Static Preflight
