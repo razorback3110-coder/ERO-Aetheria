@@ -46,12 +46,19 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if grep -RniE --exclude-dir=.git --exclude='*.meta' --exclude='*.png' --exclude='*.jpg' --exclude='*.jpeg' \
-            -e 'Ragnarok Online' -e 'Ragnarok The New World' -e 'Gravity Co' -e 'Nexon' -e 'MapleStory' \
-            Assets ProjectSettings Packages; then
-            echo 'Forbidden proprietary game-content reference detected.'
+          # Scan build-relevant text, not the legal/governance documentation that must
+          # explicitly name rejected games to document what ERO must never ship.
+          # git grep -I also avoids false positives from binary Unity assets/lightmaps.
+          if git grep -nI -E \
+            'Ragnarok Online|Ragnarok The New World|Gravity Co|Nexon|MapleStory' \
+            -- Assets ProjectSettings Packages \
+            ':(exclude)**/*.md' \
+            ':(exclude)Assets/ERO/Legal/**' \
+            ':(exclude)Assets/ERO/Documentation/**'; then
+            echo 'Forbidden proprietary game-content reference detected in build-relevant files.'
             exit 1
           fi
+          echo 'Proprietary-content scan: OK'
 
       - name: Validate no tracked generated Unity cache
         shell: bash
