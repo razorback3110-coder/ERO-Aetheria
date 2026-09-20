@@ -5,6 +5,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/GameModeBase.h"
+#include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 
@@ -140,9 +141,9 @@ void AEROPlayerCharacter::ServerSelectClass_Implementation(EEROPlayerClass Reque
     CurrentHealth = MaxHealth;
 }
 
-void AEROPlayerCharacter::ServerGrantExperience_Implementation(int64 Amount)
+void AEROPlayerCharacter::GrantExperience(int64 Amount)
 {
-    if (Amount <= 0 || bDefeated)
+    if (!HasAuthority() || Amount <= 0 || bDefeated)
     {
         return;
     }
@@ -213,7 +214,11 @@ void AEROPlayerCharacter::RespawnAfterDeath()
     GetCharacterMovement()->SetMovementMode(MOVE_Walking);
     SetActorHiddenInGame(false);
     SetActorEnableCollision(true);
-    EnableInput(Controller);
+
+    if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+    {
+        EnableInput(PlayerController);
+    }
 
     if (AGameModeBase* GameMode = GetWorld()->GetAuthGameMode())
     {
@@ -240,7 +245,7 @@ float AEROPlayerCharacter::TakeDamage(float DamageAmount, const FDamageEvent& Da
         CurrentHealth = 0.0f;
         bDefeated = true;
         GetCharacterMovement()->DisableMovement();
-        DisableInput(Controller);
+        DisableInput(Cast<APlayerController>(Controller));
 
         GetWorldTimerManager().SetTimer(RespawnTimerHandle, this, &AEROPlayerCharacter::RespawnAfterDeath, RespawnDelay, false);
     }
