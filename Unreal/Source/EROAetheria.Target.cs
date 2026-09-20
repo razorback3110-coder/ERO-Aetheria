@@ -8,6 +8,7 @@ public class EROAetheriaTarget : TargetRules
         Type = TargetType.Game;
         DefaultBuildSettings = BuildSettingsVersion.V6;
         IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_8;
+        BuildEnvironment = TargetBuildEnvironment.Unique;
         ExtraModuleNames.Add("EROAetheria");
     }
 }
