@@ -98,3 +98,12 @@ A production build is considered legally ready only when every non-ERO asset ref
 | `Resources/ERO/PlayerGraphics_Mage_Boy.prefab` | Existing ERO character graphics asset | Project-owned/approved ERO asset | Yes | Existing asset | Relocated into Resources solely for runtime vertical-slice loading; no external content added |
 | `Resources/ERO/ImpGraphics.prefab` | Existing ERO enemy graphics asset | Project-owned/approved ERO asset | Yes | Existing asset | Relocated into Resources solely for runtime vertical-slice loading |
 | `Resources/ERO/VandalImpGraphics.prefab` | Existing ERO enemy graphics asset | Project-owned/approved ERO asset | Yes | Existing asset | Relocated into Resources solely for runtime vertical-slice loading |
+
+
+## ERO-authored Unreal runtime foundation
+
+| Content | Source | License | Commercial game | Attribution | ERO use |
+|---|---|---|---|---|---|
+| Unreal project/module foundation under `Unreal/` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Unreal Engine 5.8 runtime foundation, server-authoritative MMORPG architecture and migration target |
+| `EROGameMode` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Unreal multiplayer game-mode foundation |
+| `EROAetheria.Build.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Unreal module dependencies for networking, Enhanced Input, Gameplay Ability System and Mass |
