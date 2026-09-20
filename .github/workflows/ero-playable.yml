@@ -14,6 +14,7 @@ permissions:
 
 env:
   ERO_UNITY_VERSION: 6000.0.67f1
+  ERO_UNITY_REVISION: 78a1c2bbeb6a
 
 jobs:
   playable:
@@ -33,10 +34,16 @@ jobs:
           $registry = Join-Path $env:GITHUB_WORKSPACE 'Assets\ERO\Legal\ERO_Asset_License_Registry.md'
           if (-not (Test-Path -LiteralPath $versionFile -PathType Leaf)) { throw 'Missing ProjectSettings/ProjectVersion.txt' }
           if (-not (Test-Path -LiteralPath $registry -PathType Leaf)) { throw 'Missing Assets/ERO/Legal/ERO_Asset_License_Registry.md' }
-          $line = Get-Content -LiteralPath $versionFile | Where-Object { $_ -match '^m_EditorVersion:\s*' } | Select-Object -First 1
-          $actual = ($line -replace '^m_EditorVersion:\s*','').Trim()
+          $lines = Get-Content -LiteralPath $versionFile
+          $versionLine = $lines | Where-Object { $_ -match '^m_EditorVersion:\s*' } | Select-Object -First 1
+          $revisionLine = $lines | Where-Object { $_ -match '^m_EditorVersionWithRevision:\s*' } | Select-Object -First 1
+          $actual = ($versionLine -replace '^m_EditorVersion:\s*','').Trim()
+          $actualWithRevision = ($revisionLine -replace '^m_EditorVersionWithRevision:\s*','').Trim()
+          $expectedWithRevision = "$env:ERO_UNITY_VERSION ($env:ERO_UNITY_REVISION)"
           Write-Host "Project Unity version: $actual"
+          Write-Host "Project Unity revision: $actualWithRevision"
           if ($actual -ne $env:ERO_UNITY_VERSION) { throw "Expected Unity $env:ERO_UNITY_VERSION but project declares $actual" }
+          if ($actualWithRevision -ne $expectedWithRevision) { throw "Expected Unity revision $expectedWithRevision but project declares $actualWithRevision" }
           $legalText = Get-Content -LiteralPath $registry -Raw
           if ($legalText -notmatch '(?m)^# ERO Asset & License Registry') { throw 'Asset license registry header is missing' }
           if ($legalText -notmatch 'Only assets with a verified license permitting use in a commercial game') { throw 'Commercial-license policy is missing from the asset registry' }
