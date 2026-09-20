@@ -12,6 +12,7 @@ permissions:
 
 env:
   ERO_UNITY_VERSION: 6000.0.67f1
+  ERO_UNITY_REVISION: 78a1c2bbeb6a
 
 jobs:
   preflight:
@@ -30,9 +31,14 @@ jobs:
           set -euo pipefail
           test -f ProjectSettings/ProjectVersion.txt
           test -f Assets/ERO/Legal/ERO_Asset_License_Registry.md
-          actual="$(sed -n 's/^m_EditorVersion:[[:space:]]*//p' ProjectSettings/ProjectVersion.txt | head -n1 | tr -d '\r')"
+          version_line="$(grep -m1 '^m_EditorVersion:' ProjectSettings/ProjectVersion.txt | tr -d '\r')"
+          revision_line="$(grep -m1 '^m_EditorVersionWithRevision:' ProjectSettings/ProjectVersion.txt | tr -d '\r')"
+          actual="${version_line#*: }"
+          actual_revision="${revision_line#*: }"
           echo "Project Unity version: ${actual}"
+          echo "Project Unity revision: ${actual_revision}"
           test "${actual}" = "${ERO_UNITY_VERSION}"
+          test "${actual_revision}" = "${ERO_UNITY_VERSION} (${ERO_UNITY_REVISION})"
           grep -q '^# ERO Asset & License Registry' Assets/ERO/Legal/ERO_Asset_License_Registry.md
           grep -q 'verified license permitting use in a commercial game' Assets/ERO/Legal/ERO_Asset_License_Registry.md
 
