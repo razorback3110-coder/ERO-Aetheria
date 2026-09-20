@@ -1,50 +1,28 @@
 using System;
 using System.IO;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace EternalRealmsOnline.CI
 {
     public static class EROBuildAutomation
     {
+        private const string RequiredUnityVersion = "6000.0.67f1";
+        private const string RequiredUnityRevision = "78a1c2bbeb6a";
         private const string PlayableScene = "Assets/Scenes/ERO/ERO_Playable.unity";
         private const string WindowsBuildPath = "Builds/Windows/ERO.exe";
 
         public static void ValidateCompile()
         {
             Debug.Log("[ERO CI] Compile validation started.");
-            if (Application.unityVersion != "6000.0.67f1")
-                throw new InvalidOperationException("ERO requires Unity 6000.0.67f1; running " + Application.unityVersion + ".");
-
-            string projectRoot = Directory.GetParent(Application.dataPath).FullName;
-            string registry = Path.Combine(projectRoot, "Assets/ERO/Legal/ERO_Asset_License_Registry.md");
-            if (!File.Exists(registry))
-                throw new FileNotFoundException("ERO legal asset registry is missing.", registry);
+            ValidateUnityProjectIdentity();
+            ValidateLegalRegistry();
 
             AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
             if (EditorUtility.scriptCompilationFailed)
                 throw new InvalidOperationException("Unity reports script compilation errors.");
 
-            string[] scenes = AssetDatabase.FindAssets("t:Scene");
-            if (scenes == null || scenes.Length == 0)
-                throw new InvalidOperationException("ERO project contains no Unity scenes.");
-
-            bool playableSceneFound = false;
-            foreach (string guid in scenes)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                if (!string.IsNullOrEmpty(path) && path.EndsWith(".unity", StringComparison.OrdinalIgnoreCase))
-                {
-                    Debug.Log("[ERO CI] Scene validated: " + path);
-                    if (string.Equals(path, PlayableScene, StringComparison.OrdinalIgnoreCase))
-                        playableSceneFound = true;
-                }
-            }
-
-            if (!playableSceneFound)
-                throw new FileNotFoundException("ERO playable scene is missing.", PlayableScene);
-
+            ValidateScenes();
             Debug.Log("[ERO CI] Unity compile/project validation completed successfully.");
             EditorApplication.Exit(0);
         }
@@ -52,17 +30,14 @@ namespace EternalRealmsOnline.CI
         public static void BuildWindows()
         {
             Debug.Log("[ERO CI] Windows playable build started.");
-            if (Application.unityVersion != "6000.0.67f1")
-                throw new InvalidOperationException("ERO requires Unity 6000.0.67f1; running " + Application.unityVersion + ".");
+            ValidateUnityProjectIdentity();
+            ValidateLegalRegistry();
+            ValidatePlayableScene();
+
+            if (EditorUtility.scriptCompilationFailed)
+                throw new InvalidOperationException("Unity reports script compilation errors before the Windows build.");
 
             string projectRoot = Directory.GetParent(Application.dataPath).FullName;
-            string registry = Path.Combine(projectRoot, "Assets/ERO/Legal/ERO_Asset_License_Registry.md");
-            if (!File.Exists(registry))
-                throw new FileNotFoundException("ERO legal asset registry is missing.", registry);
-
-            if (!File.Exists(Path.Combine(projectRoot, PlayableScene)))
-                throw new FileNotFoundException("ERO playable scene is missing.", PlayableScene);
-
             string buildDirectory = Path.Combine(projectRoot, "Builds/Windows");
             Directory.CreateDirectory(buildDirectory);
             string executablePath = Path.Combine(projectRoot, WindowsBuildPath);
@@ -89,6 +64,61 @@ namespace EternalRealmsOnline.CI
 
             Debug.Log("[ERO CI] Windows playable build completed: " + executablePath);
             EditorApplication.Exit(0);
+        }
+
+        private static void ValidateUnityProjectIdentity()
+        {
+            if (!string.Equals(Application.unityVersion, RequiredUnityVersion, StringComparison.Ordinal))
+                throw new InvalidOperationException("ERO requires Unity " + RequiredUnityVersion + "; running " + Application.unityVersion + ".");
+
+            string projectRoot = Directory.GetParent(Application.dataPath).FullName;
+            string versionFile = Path.Combine(projectRoot, "ProjectSettings/ProjectVersion.txt");
+            if (!File.Exists(versionFile))
+                throw new FileNotFoundException("Unity project version file is missing.", versionFile);
+
+            string expected = RequiredUnityVersion + " (" + RequiredUnityRevision + ")";
+            string actual = string.Empty;
+            foreach (string line in File.ReadAllLines(versionFile))
+            {
+                if (line.StartsWith("m_EditorVersionWithRevision:", StringComparison.Ordinal))
+                {
+                    actual = line.Substring("m_EditorVersionWithRevision:".Length).Trim();
+                    break;
+                }
+            }
+
+            if (!string.Equals(actual, expected, StringComparison.Ordinal))
+                throw new InvalidOperationException("ERO requires Unity editor revision " + expected + "; project declares " + actual + ".");
+        }
+
+        private static void ValidateLegalRegistry()
+        {
+            string projectRoot = Directory.GetParent(Application.dataPath).FullName;
+            string registry = Path.Combine(projectRoot, "Assets/ERO/Legal/ERO_Asset_License_Registry.md");
+            if (!File.Exists(registry))
+                throw new FileNotFoundException("ERO legal asset registry is missing.", registry);
+        }
+
+        private static void ValidateScenes()
+        {
+            string[] scenes = AssetDatabase.FindAssets("t:Scene");
+            if (scenes == null || scenes.Length == 0)
+                throw new InvalidOperationException("ERO project contains no Unity scenes.");
+
+            foreach (string guid in scenes)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                if (!string.IsNullOrEmpty(path) && path.EndsWith(".unity", StringComparison.OrdinalIgnoreCase))
+                    Debug.Log("[ERO CI] Scene validated: " + path);
+            }
+
+            ValidatePlayableScene();
+        }
+
+        private static void ValidatePlayableScene()
+        {
+            if (!File.Exists(Path.Combine(Directory.GetParent(Application.dataPath).FullName, PlayableScene)))
+                throw new FileNotFoundException("ERO playable scene is missing.", PlayableScene);
         }
     }
 }
