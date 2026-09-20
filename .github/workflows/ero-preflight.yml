@@ -1,0 +1,58 @@
+name: ERO Repository Preflight
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  ERO_UNITY_VERSION: 6000.0.67f1
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 1
+
+      - name: Validate Unity project and legal registry
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f ProjectSettings/ProjectVersion.txt
+          test -f Assets/ERO/Legal/ERO_Asset_License_Registry.md
+          actual="$(sed -n 's/^m_EditorVersion:[[:space:]]*//p' ProjectSettings/ProjectVersion.txt | head -n1 | tr -d '\r')"
+          echo "Project Unity version: ${actual}"
+          test "${actual}" = "${ERO_UNITY_VERSION}"
+          grep -q '^# ERO Asset & License Registry' Assets/ERO/Legal/ERO_Asset_License_Registry.md
+          grep -q 'verified license permitting use in a commercial game' Assets/ERO/Legal/ERO_Asset_License_Registry.md
+
+      - name: Detect forbidden proprietary game-content references
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -RniE --exclude-dir=.git --exclude='*.meta' --exclude='*.png' --exclude='*.jpg' --exclude='*.jpeg' \
+            -e 'Ragnarok Online' -e 'Ragnarok The New World' -e 'Gravity Co' -e 'Nexon' -e 'MapleStory' \
+            Assets ProjectSettings Packages; then
+            echo 'Forbidden proprietary game-content reference detected.'
+            exit 1
+          fi
+
+      - name: Validate no tracked generated Unity cache
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git ls-files | grep -E '^(Library|Temp|Logs|Obj|Builds/Windows)/'; then
+            echo 'Generated Unity cache/build output is tracked.'
+            exit 1
+          fi
+          echo 'Repository preflight: OK'
