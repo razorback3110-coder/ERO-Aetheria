@@ -65,8 +65,7 @@ public:
     UFUNCTION(Server, Reliable)
     void ServerSelectClass(EEROPlayerClass RequestedClass);
 
-    UFUNCTION(Server, Reliable)
-    void ServerGrantExperience(int64 Amount);
+    void GrantExperience(int64 Amount);
 
 protected:
     void MoveForward(float Value);
