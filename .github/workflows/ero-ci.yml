@@ -149,7 +149,7 @@ jobs:
             "-quit",
             "-logFile", $log
           )
-          $p = Start-Process -FilePath "$env:ERO_UNITY_EXE" -ArgumentList $args -Wait -PassThru
+          $p = Start-Process -FilePath "$env:UNITY_EXE" -ArgumentList $args -Wait -PassThru
           Write-Host "Unity initialization exit code: $($p.ExitCode)"
           if ($p.ExitCode -ne 0) {
             Write-Host "===== UNITY INITIALIZATION LOG ====="
@@ -172,7 +172,7 @@ jobs:
             "-quit",
             "-logFile", $log
           )
-          $p = Start-Process -FilePath "$env:ERO_UNITY_EXE" -ArgumentList $args -Wait -PassThru
+          $p = Start-Process -FilePath "$env:UNITY_EXE" -ArgumentList $args -Wait -PassThru
           Write-Host "Unity compile validation exit code: $($p.ExitCode)"
           if ($p.ExitCode -ne 0) {
             Write-Host "===== UNITY COMPILE LOG ====="
