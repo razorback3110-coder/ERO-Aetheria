@@ -8,7 +8,7 @@ namespace EternalRealmsOnline.V8
 {
     /// <summary>
     /// Server-authoritative world-boss state for the networked endgame path.
-    /// Damage is bounded and rate-limited per sender; level, HP and respawn state are server-owned.
+    /// Damage is bounded, range-validated and rate-limited per sender; level, HP and respawn state are server-owned.
     /// World-boss progression survives dedicated-server restarts through an atomic local snapshot.
     /// </summary>
     public sealed class EROV8MVPAuthority : NetworkBehaviour
@@ -27,6 +27,8 @@ namespace EternalRealmsOnline.V8
         private const double RespawnSeconds = 3600d;
         private const double DamageIntervalSeconds = 0.15d;
         private const int MaxDamagePerHit = 1000000;
+        private const float MaxAttackDistance = 12f;
+        private const float MaxAttackVerticalDistance = 8f;
 
         public NetworkVariable<int> Level = new(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
         public NetworkVariable<int> HP = new(BaseHealth, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
@@ -101,6 +103,8 @@ namespace EternalRealmsOnline.V8
             if (NetworkManager == null) return;
 
             var senderId = rpcParams.Receive.SenderClientId;
+            if (!IsAuthorizedAttackOrigin(senderId)) return;
+
             var now = NetworkManager.ServerTime.Time;
             if (lastDamageByClient.TryGetValue(senderId, out var lastDamage) && now - lastDamage < DamageIntervalSeconds)
                 return;
@@ -118,6 +122,18 @@ namespace EternalRealmsOnline.V8
             respawnUtc = DateTime.UtcNow.AddSeconds(RespawnSeconds);
             RespawnAtServerTime.Value = now + RespawnSeconds;
             SaveState();
+        }
+
+        private bool IsAuthorizedAttackOrigin(ulong senderId)
+        {
+            if (NetworkManager == null) return false;
+            if (!NetworkManager.ConnectedClients.TryGetValue(senderId, out var client)) return false;
+            var playerObject = client.PlayerObject;
+            if (playerObject == null || !playerObject.IsSpawned) return false;
+
+            var offset = playerObject.transform.position - transform.position;
+            if (Mathf.Abs(offset.y) > MaxAttackVerticalDistance) return false;
+            return offset.sqrMagnitude <= MaxAttackDistance * MaxAttackDistance;
         }
 
         private void LoadState()
