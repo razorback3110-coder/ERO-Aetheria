@@ -32,6 +32,7 @@ namespace EternalRealmsOnline.Gameplay
         private int health = BaseHealth;
         private DateTime respawnUtc = DateTime.MinValue;
         private bool active;
+        private bool encounterStarted;
         private int defeats;
         private string status = "Defeat the Aetheria creatures to awaken the MVP.";
 
@@ -68,15 +69,27 @@ namespace EternalRealmsOnline.Gameplay
         private void EvaluateEncounter()
         {
             if (active || DateTime.UtcNow < respawnUtc) return;
-            var remaining = GameObject.FindGameObjectsWithTag("Untagged");
-            var defeatedCreatures = 0;
-            for (var i = 0; i < remaining.Length; i++)
+
+            // The previous implementation looked for inactive objects through
+            // FindGameObjectsWithTag("Untagged"), but Unity does not return inactive
+            // objects from that API. That made the MVP unable to awaken after the
+            // vertical-slice enemies were defeated. Track the encounter once the
+            // expected enemy objects exist, then require zero active enemies.
+            var enemyObjects = GameObject.FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            var totalEnemiesSeen = 0;
+            var activeEnemies = 0;
+            for (var i = 0; i < enemyObjects.Length; i++)
             {
-                if (remaining[i] == null || !remaining[i].name.StartsWith("Enemy_", StringComparison.Ordinal)) continue;
-                if (!remaining[i].activeSelf) defeatedCreatures++;
+                var enemy = enemyObjects[i];
+                if (enemy == null || !enemy.gameObject.scene.IsValid()) continue;
+                if (!enemy.name.StartsWith("Enemy_", StringComparison.Ordinal)) continue;
+                totalEnemiesSeen++;
+                if (enemy.gameObject.activeInHierarchy) activeEnemies++;
             }
 
-            if (defeatedCreatures < 3) return;
+            if (totalEnemiesSeen > 0) encounterStarted = true;
+            if (!encounterStarted || activeEnemies > 0) return;
+
             SpawnBoss();
         }
 
