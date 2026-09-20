@@ -4,6 +4,7 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 
 AEROPlayerCharacter::AEROPlayerCharacter()
@@ -43,6 +44,7 @@ void AEROPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
     PlayerInputComponent->BindAxis(TEXT("MoveRight"), this, &AEROPlayerCharacter::MoveRight);
     PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &AEROPlayerCharacter::LookUp);
     PlayerInputComponent->BindAxis(TEXT("Turn"), this, &AEROPlayerCharacter::Turn);
+    PlayerInputComponent->BindAction(TEXT("Attack"), IE_Pressed, this, &AEROPlayerCharacter::Attack);
 }
 
 void AEROPlayerCharacter::MoveForward(float Value)
@@ -71,4 +73,63 @@ void AEROPlayerCharacter::LookUp(float Value)
 void AEROPlayerCharacter::Turn(float Value)
 {
     AddControllerYawInput(Value);
+}
+
+void AEROPlayerCharacter::Attack()
+{
+    if (CanAttack())
+    {
+        ServerAttack();
+    }
+}
+
+void AEROPlayerCharacter::ServerAttack_Implementation()
+{
+    if (!CanAttack())
+    {
+        return;
+    }
+
+    LastAttackServerTime = GetWorld()->GetTimeSeconds();
+
+    const FVector Start = GetActorLocation() + FVector(0.0f, 0.0f, 60.0f);
+    const FVector End = Start + GetActorForwardVector() * AttackRange;
+    const FCollisionShape Shape = FCollisionShape::MakeSphere(60.0f);
+
+    FCollisionQueryParams QueryParams(SCENE_QUERY_STAT(EROPlayerAttack), false, this);
+    FHitResult Hit;
+    if (GetWorld()->SweepSingleByChannel(Hit, Start, End, FQuat::Identity, ECC_Pawn, Shape, QueryParams))
+    {
+        AActor* Target = Hit.GetActor();
+        if (IsValid(Target) && Target != this)
+        {
+            UGameplayStatics::ApplyDamage(Target, AttackDamage, GetController(), this, UDamageType::StaticClass());
+        }
+    }
+}
+
+bool AEROPlayerCharacter::CanAttack() const
+{
+    const UWorld* World = GetWorld();
+    return World && HasAuthority() ? (World->GetTimeSeconds() - LastAttackServerTime >= AttackCooldown) : true;
+}
+
+void AEROPlayerCharacter::ResetAttackCooldown()
+{
+    LastAttackServerTime = -BIG_NUMBER;
+}
+
+float AEROPlayerCharacter::TakeDamage(float DamageAmount, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+    const float AppliedDamage = FMath::Clamp(DamageAmount, 0.0f, CurrentHealth);
+    if (HasAuthority() && AppliedDamage > 0.0f)
+    {
+        CurrentHealth -= AppliedDamage;
+        if (CurrentHealth <= 0.0f)
+        {
+            CurrentHealth = 0.0f;
+            DisableInput(nullptr);
+        }
+    }
+    return AppliedDamage;
 }
