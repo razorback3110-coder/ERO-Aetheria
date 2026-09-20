@@ -46,6 +46,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROPlayableLootInventory.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Dependency-free visible loot, inventory and gear-score presentation for the playable slice |
 | `EROMvpWorldEvent.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Playable Aetheria MVP world event, respawn timer and presentation-side boss encounter |
 | `EROV8MVPAuthority.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative network MVP level, safe exponential HP/damage scaling, rate limiting and atomic one-hour respawn persistence across dedicated-server shutdown/restart |
+| `EROMvpEncounterRules.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Deterministic MVP level scaling, 250,000 base HP, one-hour respawn contract and bounded XP/currency rewards for server and client-slice parity |
 | `EROHeadlessServerBootstrap.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Deterministic dedicated-server bootstrap for `-ero-server`, disabling client presentation and starting the Netcode server |
 | `EROBuildAutomation.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | CI-only Unity build/compile validation, exact Unity version/revision gate, playable-scene and legal-registry checks |
 
