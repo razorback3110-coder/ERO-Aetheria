@@ -35,11 +35,20 @@ public:
     UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Character")
     int32 Level = 1;
 
-    UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Combat")
-    float CurrentHealth = 100.0f;
+    UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Character")
+    int64 Experience = 0;
+
+    UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Character")
+    bool bDefeated = false;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Character")
+    float RespawnDelay = 5.0f;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Combat")
     float MaxHealth = 100.0f;
+
+    UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Combat")
+    float CurrentHealth = 100.0f;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Combat")
     float AttackDamage = 25.0f;
@@ -49,6 +58,15 @@ public:
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Combat")
     float AttackCooldown = 0.5f;
+
+    UFUNCTION(BlueprintCallable, Category="ERO|Character")
+    bool CanSelectClass() const;
+
+    UFUNCTION(Server, Reliable)
+    void ServerSelectClass(EEROPlayerClass RequestedClass);
+
+    UFUNCTION(Server, Reliable)
+    void ServerGrantExperience(int64 Amount);
 
 protected:
     void MoveForward(float Value);
@@ -63,6 +81,10 @@ protected:
 
     bool CanAttack() const;
     void ResetAttackCooldown();
+    void ApplyClassProfile();
+    void RespawnAfterDeath();
+    int64 ExperienceForNextLevel() const;
 
+    FTimerHandle RespawnTimerHandle;
     float LastAttackServerTime = -BIG_NUMBER;
 };
