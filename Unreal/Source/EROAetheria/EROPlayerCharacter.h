@@ -27,6 +27,7 @@ public:
 
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
+    virtual float TakeDamage(float DamageAmount, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
     UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Character")
     EEROPlayerClass PlayerClass = EEROPlayerClass::Warrior;
@@ -40,9 +41,28 @@ public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Combat")
     float MaxHealth = 100.0f;
 
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Combat")
+    float AttackDamage = 25.0f;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Combat")
+    float AttackRange = 300.0f;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Combat")
+    float AttackCooldown = 0.5f;
+
 protected:
     void MoveForward(float Value);
     void MoveRight(float Value);
     void LookUp(float Value);
     void Turn(float Value);
+
+    void Attack();
+
+    UFUNCTION(Server, Reliable)
+    void ServerAttack();
+
+    bool CanAttack() const;
+    void ResetAttackCooldown();
+
+    float LastAttackServerTime = -BIG_NUMBER;
 };
