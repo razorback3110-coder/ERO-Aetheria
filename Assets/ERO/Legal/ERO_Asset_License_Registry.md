@@ -108,5 +108,6 @@ A production build is considered legally ready only when every non-ERO asset ref
 | `EROGameMode` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Unreal multiplayer game-mode foundation |
 | `EROPlayerCharacter` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Replicated playable character foundation with eight-class identity, health/level state, third-person camera and movement input |
 | `EROPlayerCharacter` combat extension | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative primary attack, bounded cooldown/range, pawn sweep damage application and replicated health state |
+| `EROPlayerCharacter` progression and respawn extension | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative eight-class stat profiles, level/XP progression, level-18 class selection gate and automatic post-defeat respawn loop |
 | `DefaultInput.ini` attack mapping | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Primary left-mouse combat input for the Unreal playable slice |
 | `EROAetheria.Build.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Unreal module dependencies for networking, Enhanced Input, Gameplay Ability System and Mass |
