@@ -8,7 +8,9 @@ public class EROAetheriaTarget : TargetRules
         Type = TargetType.Game;
         DefaultBuildSettings = BuildSettingsVersion.V6;
         IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_8;
-        BuildEnvironment = TargetBuildEnvironment.Unique;
+        UnreachableWarningLevel = WarningLevel.Error;
+        ReturnTypeWarningLevel = WarningLevel.Error;
+        DanglingElseWarningLevel = WarningLevel.Error;
         ExtraModuleNames.Add("EROAetheria");
     }
 }
