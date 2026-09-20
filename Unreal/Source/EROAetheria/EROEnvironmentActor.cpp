@@ -54,6 +54,7 @@ void AEROEnvironmentActor::AddStaticMesh(UStaticMesh* Mesh, const FVector& Locat
     Component->SetStaticMesh(Mesh);
     Component->SetMobility(EComponentMobility::Static);
     Component->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+    Component->SetIsReplicated(true);
     Component->SetupAttachment(GetRootComponent());
     Component->SetRelativeLocation(Location);
     Component->SetRelativeRotation(Rotation);
