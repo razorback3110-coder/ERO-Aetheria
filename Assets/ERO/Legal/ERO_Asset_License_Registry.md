@@ -31,6 +31,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROCharacterProgression.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Overflow-safe authoritative XP accumulation and level progression for persistent characters |
 | `EROClassProgression.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-safe eight-class progression rules with class selection at 18, first evolution at 40, second evolution at 75 and three skills per tier |
 | `EROWallet.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative idempotent currency balances with versioned persistence snapshots |
+| `EROCurrencyCatalog.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Canonical server-side currency identifiers and bounded balance rules for Gold and ERO Crystals |
 | `EROInventory.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative bounded item storage with operation-bound transaction idempotency and persistence snapshots |
 | `EROItemInstance.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Persistent identity, stack limits, level and stat payload for unique/equipment loot |
 | `EROInstanceInventory.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative storage and persistence of concrete item instances with transaction-bound ownership changes |
