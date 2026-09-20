@@ -154,8 +154,31 @@ namespace EternalRealmsOnline.V8
                 var json = JsonUtility.ToJson(state, true);
                 var tempPath = SavePath + ".tmp";
                 File.WriteAllText(tempPath, json);
-                if (File.Exists(SavePath)) File.Delete(SavePath);
-                File.Move(tempPath, SavePath);
+
+                // Keep the previous snapshot intact until the replacement succeeds.
+                // File.Replace is atomic on supported desktop filesystems; the fallback
+                // preserves compatibility with platforms where Replace is unavailable.
+                if (File.Exists(SavePath))
+                {
+                    try
+                    {
+                        File.Replace(tempPath, SavePath, null, true);
+                    }
+                    catch (PlatformNotSupportedException)
+                    {
+                        File.Delete(SavePath);
+                        File.Move(tempPath, SavePath);
+                    }
+                    catch (IOException)
+                    {
+                        File.Delete(SavePath);
+                        File.Move(tempPath, SavePath);
+                    }
+                }
+                else
+                {
+                    File.Move(tempPath, SavePath);
+                }
             }
             catch (Exception exception)
             {
