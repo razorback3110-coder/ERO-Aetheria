@@ -45,6 +45,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROMvpWorldEvent.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Playable Aetheria MVP world event, respawn timer and presentation-side boss encounter |
 | `EROV8MVPAuthority.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative network MVP level, safe exponential HP/damage scaling, rate limiting and atomic one-hour respawn persistence across dedicated-server shutdown/restart |
 | `EROHeadlessServerBootstrap.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Deterministic dedicated-server bootstrap for `-ero-server`, disabling client presentation and starting the Netcode server |
+| `EROBuildAutomation.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | CI-only Unity build/compile validation, exact Unity version/revision gate, playable-scene and legal-registry checks |
 
 These entries contain no third-party asset payloads and are authored for ERO.
 
