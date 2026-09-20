@@ -17,8 +17,7 @@ public class EROAetheria : ModuleRules
             "GameplayTags",
             "GameplayTasks",
             "NetCore",
-            "MassEntity",
-            "MassGameplay"
+            "MassEntity"
         });
     }
 }
