@@ -57,7 +57,7 @@ namespace EternalRealmsOnline.Core.Economy
                 long next;
                 try { next = checked(current + delta); }
                 catch (OverflowException) { newBalance = current; return false; }
-                if (next < 0) { newBalance = current; return false; }
+                if (!EROCurrencyCatalog.IsValidBalance(currencyId, next)) { newBalance = current; return false; }
 
                 balances[currencyId] = next;
                 appliedTransactions.Add(transactionId, new WalletTransaction(currencyId, delta));
@@ -90,7 +90,8 @@ namespace EternalRealmsOnline.Core.Economy
                 foreach (var pair in snapshot.Balances)
                 {
                     ValidateCurrency(pair.Key);
-                    if (pair.Value < 0) throw new InvalidOperationException("Wallet balances cannot be negative.");
+                    if (!EROCurrencyCatalog.IsValidBalance(pair.Key, pair.Value))
+                        throw new InvalidOperationException("Wallet snapshot contains an invalid currency balance.");
                     balances[pair.Key] = pair.Value;
                 }
 
@@ -120,6 +121,7 @@ namespace EternalRealmsOnline.Core.Economy
         {
             if (string.IsNullOrWhiteSpace(currencyId)) throw new ArgumentException("CurrencyId is required.", nameof(currencyId));
             if (currencyId.Length > 64) throw new ArgumentException("CurrencyId is too long.", nameof(currencyId));
+            if (!EROCurrencyCatalog.IsKnown(currencyId)) throw new ArgumentException("Unknown ERO currency.", nameof(currencyId));
         }
 
         public readonly struct WalletTransaction
