@@ -3,7 +3,7 @@ name: ERO CI
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ main, unreal-migration ]
   pull_request:
     branches: [ main ]
 
