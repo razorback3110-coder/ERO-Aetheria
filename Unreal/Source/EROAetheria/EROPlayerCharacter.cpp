@@ -222,7 +222,10 @@ void AEROPlayerCharacter::RespawnAfterDeath()
 
     if (AGameModeBase* GameMode = GetWorld()->GetAuthGameMode())
     {
-        GameMode->RestartPlayer(Controller);
+        if (AActor* StartSpot = GameMode->FindPlayerStart(Controller))
+        {
+            SetActorLocationAndRotation(StartSpot->GetActorLocation(), StartSpot->GetActorRotation(), false, nullptr, ETeleportType::TeleportPhysics);
+        }
     }
 }
 
