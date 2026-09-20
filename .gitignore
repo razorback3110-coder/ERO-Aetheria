@@ -23,3 +23,15 @@ Thumbs.db
 ERO_LocalBuilds/
 Artifacts/
 TestResults/
+
+
+# Unreal Engine generated folders
+Unreal/Binaries/
+Unreal/DerivedDataCache/
+Unreal/Intermediate/
+Unreal/Saved/
+Unreal/.vs/
+Unreal/*.sln
+Unreal/*.suo
+Unreal/*.VC.db
+Unreal/*.VC.opendb
