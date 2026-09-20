@@ -27,7 +27,7 @@ jobs:
           clean: true
 
       - name: Validate repository and legal gate
-        shell: powershell
+        shell: powershell -NoProfile -ExecutionPolicy Bypass -File {0}
         run: |
           $ErrorActionPreference = 'Stop'
           $versionFile = Join-Path $env:GITHUB_WORKSPACE 'ProjectSettings\ProjectVersion.txt'
@@ -50,7 +50,7 @@ jobs:
           Write-Host 'Repository and legal gate: OK'
 
       - name: Locate Unity
-        shell: powershell
+        shell: powershell -NoProfile -ExecutionPolicy Bypass -File {0}
         run: |
           $ErrorActionPreference = 'Stop'
           $version = $env:ERO_UNITY_VERSION
@@ -69,7 +69,7 @@ jobs:
           "UNITY=$unity" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
 
       - name: Import project if needed
-        shell: powershell
+        shell: powershell -NoProfile -ExecutionPolicy Bypass -File {0}
         run: |
           $ErrorActionPreference = 'Stop'
           if (Test-Path -LiteralPath 'Library\SourceAssetDB') { Write-Host 'Unity Library already imported.'; exit 0 }
@@ -82,7 +82,7 @@ jobs:
           if ($p.ExitCode -ne 0) { throw "Unity import failed with exit code $($p.ExitCode)" }
 
       - name: Validate compile
-        shell: powershell
+        shell: powershell -NoProfile -ExecutionPolicy Bypass -File {0}
         run: |
           $ErrorActionPreference = 'Stop'
           New-Item -ItemType Directory -Force -Path 'Builds\Logs' | Out-Null
@@ -93,7 +93,7 @@ jobs:
           if ($p.ExitCode -ne 0) { throw "Unity compile validation failed with exit code $($p.ExitCode)" }
 
       - name: Build playable Windows client
-        shell: powershell
+        shell: powershell -NoProfile -ExecutionPolicy Bypass -File {0}
         run: |
           $ErrorActionPreference = 'Stop'
           New-Item -ItemType Directory -Force -Path 'Builds\Windows','Builds\Logs' | Out-Null
