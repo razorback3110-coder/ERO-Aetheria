@@ -10,18 +10,19 @@ enum class EEROWeaponFamily : uint8
     Sword,
     Greatsword,
     Axe,
-    Bow,
-    Crossbow,
-    Staff,
-    Wand,
-    Dagger,
     Mace,
     Shield,
+    Bow,
+    Crossbow,
+    Dagger,
+    DualBlades,
+    Staff,
+    Wand,
     Grimoire,
     Orb,
+    Scythe,
     Spear,
-    Fist,
-    DualBlades
+    Fist
 };
 
 UENUM(BlueprintType)
