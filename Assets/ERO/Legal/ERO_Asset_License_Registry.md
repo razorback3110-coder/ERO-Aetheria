@@ -137,3 +137,9 @@ The generator creates only Unreal Engine built-in primitive geometry and ERO-aut
 | `Unreal/Config/AetheriaInstanceManifest.json` | ERO-Aetheria source data | ERO-owned/original | Yes | Not required | Canonical separate-map definitions for dungeons, Towers, PvP 1v1/4v4 and GvG |
 
 The eleven-city world uses only Unreal Engine built-in primitive geometry and ERO-authored materials in its generated scaffold. No third-party asset payload is embedded by these generators.
+
+
+### ERO-authored class visual pipeline
+- `Unreal/Source/EROAetheria/EROCharacterAppearanceTypes.h` — ERO-owned data types for class silhouettes, armor styles and weapon specializations; commercially usable as original project code.
+- `Unreal/Source/EROAetheria/EROClassAppearanceDefinition.h` — ERO-owned data asset contract for class body meshes, outfits, weapon assets and evolution appearances.
+- `Unreal/Config/AetheriaClassAppearanceManifest.json` — ERO-owned class modeling/specification manifest; contains no third-party asset payload.
