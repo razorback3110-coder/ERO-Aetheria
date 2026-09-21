@@ -7,7 +7,7 @@
 #include "Engine/SkyLight.h"
 #include "Engine/StaticMesh.h"
 #include "Components/StaticMeshComponent.h"
-#include "UObject/ConstructorHelpers.h"
+#include "UObject/SoftObjectPath.h"
 
 AEROEnvironmentActor::AEROEnvironmentActor()
 {
@@ -26,21 +26,18 @@ void AEROEnvironmentActor::BeginPlay()
 
 UStaticMesh* AEROEnvironmentActor::LoadMesh(const TCHAR* AssetPath) const
 {
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> PlaneMesh(TEXT("/Engine/BasicShapes/Plane.Plane"));
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> CubeMesh(TEXT("/Engine/BasicShapes/Cube.Cube"));
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> SphereMesh(TEXT("/Engine/BasicShapes/Sphere.Sphere"));
+    const TCHAR* ObjectPath = TEXT("/Engine/BasicShapes/Cube.Cube");
 
     if (FCString::Stricmp(AssetPath, TEXT("Plane")) == 0)
     {
-        return PlaneMesh.Succeeded() ? PlaneMesh.Object : nullptr;
+        ObjectPath = TEXT("/Engine/BasicShapes/Plane.Plane");
     }
-
-    if (FCString::Stricmp(AssetPath, TEXT("Sphere")) == 0)
+    else if (FCString::Stricmp(AssetPath, TEXT("Sphere")) == 0)
     {
-        return SphereMesh.Succeeded() ? SphereMesh.Object : nullptr;
+        ObjectPath = TEXT("/Engine/BasicShapes/Sphere.Sphere");
     }
 
-    return CubeMesh.Succeeded() ? CubeMesh.Object : nullptr;
+    return LoadObject<UStaticMesh>(nullptr, ObjectPath);
 }
 
 void AEROEnvironmentActor::AddStaticMesh(UStaticMesh* Mesh, const FVector& Location, const FVector& Scale, const FRotator& Rotation)
