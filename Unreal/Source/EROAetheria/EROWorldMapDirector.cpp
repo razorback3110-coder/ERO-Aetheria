@@ -79,6 +79,5 @@ void AEROWorldMapDirector::ServerTravelToMap_Implementation(FName MapId)
 
     UE_LOG(LogTemp, Log, TEXT("[ERO] MAP TRAVEL: %s -> %s"), *MapId.ToString(), *Map->MapAssetPath);
 
-    FGameplayTagContainer UnusedTags;
     World->ServerTravel(Map->MapAssetPath + TEXT("?listen"));
 }
