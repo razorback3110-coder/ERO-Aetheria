@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "purpose": "Data contract for ERO class character modeling, outfits, weapon families and specialization choices.",
+  "assetPolicy": {
+    "default": "ERO-authored or commercially verified assets only",
+    "fallback": "UE5 mannequin/prototype geometry may be used for development",
+    "proprietaryRips": "rejected"
+  },
+  "classes": [
+    {
+      "id": "Warrior",
+      "outfit": "Vanguard",
+      "silhouette": "heavy_frontline",
+      "weaponFamilies": ["Sword", "Greatsword", "Axe", "Shield"],
+      "primarySpecialization": "Greatsword",
+      "evolution18": ["Bladeguard", "Berserker", "Warlord"],
+      "evolution40": ["Iron Vanguard", "Blood Reaver", "War Captain"],
+      "evolution75": ["Aether Champion", "Worldbreaker", "Dragon Vanguard"]
+    },
+    {
+      "id": "Ranger",
+      "outfit": "Ranger",
+      "silhouette": "light_ranged",
+      "weaponFamilies": ["Bow", "Crossbow", "DualBlades"],
+      "primarySpecialization": "Bow",
+      "evolution18": ["Sharpshooter", "Trapper", "Windrunner"],
+      "evolution40": ["Storm Archer", "Beast Hunter", "Falconer"],
+      "evolution75": ["Aether Marksman", "Wild Huntmaster", "Sky Ranger"]
+    },
+    {
+      "id": "Mage",
+      "outfit": "Arcanist",
+      "silhouette": "caster_robes",
+      "weaponFamilies": ["Staff", "Wand", "Orb", "Grimoire"],
+      "primarySpecialization": "Staff",
+      "evolution18": ["Elementalist", "Chronomancer", "Battlemage"],
+      "evolution40": ["Archmage", "Time Weaver", "Spellblade"],
+      "evolution75": ["Aether Archon", "Chronarch", "Astral Battlemage"]
+    },
+    {
+      "id": "Assassin",
+      "outfit": "Shadow",
+      "silhouette": "agile_dual_wield",
+      "weaponFamilies": ["Dagger", "DualBlades", "Fist"],
+      "primarySpecialization": "DualBlades",
+      "evolution18": ["Shadowblade", "Rogue", "Nightstalker"],
+      "evolution40": ["Phantom", "Venomancer", "Executioner"],
+      "evolution75": ["Void Assassin", "Plague Fang", "Death Dancer"]
+    },
+    {
+      "id": "Cleric",
+      "outfit": "Acolyte",
+      "silhouette": "holy_support",
+      "weaponFamilies": ["Mace", "Staff", "Wand", "Shield"],
+      "primarySpecialization": "Mace",
+      "evolution18": ["Priest", "Oracle", "Dawnkeeper"],
+      "evolution40": ["High Priest", "Seer", "Lightbringer"],
+      "evolution75": ["Aether Saint", "Celestial Oracle", "Dawn Seraph"]
+    },
+    {
+      "id": "Paladin",
+      "outfit": "Templar",
+      "silhouette": "holy_tank",
+      "weaponFamilies": ["Sword", "Greatsword", "Mace", "Shield"],
+      "primarySpecialization": "Sword",
+      "evolution18": ["Crusader", "Guardian", "Templar"],
+      "evolution40": ["Holy Knight", "Aegis Lord", "Inquisitor"],
+      "evolution75": ["Aether Paladin", "Eternal Guardian", "Radiant Inquisitor"]
+    },
+    {
+      "id": "Warlock",
+      "outfit": "Hexbinder",
+      "silhouette": "dark_caster",
+      "weaponFamilies": ["Grimoire", "Wand", "Staff", "Orb"],
+      "primarySpecialization": "Grimoire",
+      "evolution18": ["Doomcaller", "Soulbinder", "Cursemancer"],
+      "evolution40": ["Dreadlord", "Soul Reaper", "Hex Archon"],
+      "evolution75": ["Abyssal Lord", "Soul Sovereign", "Curse Emperor"]
+    },
+    {
+      "id": "Summoner",
+      "outfit": "Conjurer",
+      "silhouette": "arcane_summoner",
+      "weaponFamilies": ["Staff", "Orb", "Wand", "Grimoire"],
+      "primarySpecialization": "Orb",
+      "evolution18": ["Beastcaller", "Elemental Caller", "Spiritbinder"],
+      "evolution40": ["Primalist", "Elemental Lord", "Astral Binder"],
+      "evolution75": ["Aether Summoner", "World Caller", "Astral Sovereign"]
+    }
+  ],
+  "modelingMilestones": [
+    "base_body",
+    "class_silhouette",
+    "class_outfit",
+    "class_weapon_sets",
+    "evolution_outfits",
+    "weapon_specialization_visuals",
+    "combat_animations",
+    "skill_vfx"
+  ]
+}
