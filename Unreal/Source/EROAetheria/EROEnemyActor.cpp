@@ -40,6 +40,23 @@ float AEROEnemyActor::TakeDamage(float DamageAmount, const FDamageEvent& DamageE
         return 0.0f;
     }
 
+    // Network combat must prove that damage originated from a real ERO player
+    // and from that player's current server-authoritative position. Never trust
+    // an arbitrary client-supplied instigator/causer to award PvE damage or XP.
+    const AEROPlayerCharacter* Attacker = Cast<AEROPlayerCharacter>(DamageCauser);
+    if (!Attacker || !Attacker->HasAuthority() || !Attacker->GetController() || EventInstigator != Attacker->GetController())
+    {
+        return 0.0f;
+    }
+
+    const float MaxAttackDistance = FMath::Max(Attacker->AttackRange, 0.0f) + 100.0f;
+    const FVector Delta = Attacker->GetActorLocation() - GetActorLocation();
+    const float MaxVerticalDistance = 180.0f;
+    if (FMath::Abs(Delta.Z) > MaxVerticalDistance || Delta.SizeSquared2D() > FMath::Square(MaxAttackDistance))
+    {
+        return 0.0f;
+    }
+
     const float AppliedDamage = FMath::Clamp(DamageAmount, 0.0f, CurrentHealth);
     CurrentHealth -= AppliedDamage;
 
@@ -51,7 +68,7 @@ float AEROEnemyActor::TakeDamage(float DamageAmount, const FDamageEvent& DamageE
         SetActorHiddenInGame(true);
         GetCharacterMovement()->DisableMovement();
 
-        if (AEROPlayerCharacter* Player = Cast<AEROPlayerCharacter>(EventInstigator ? EventInstigator->GetPawn() : nullptr))
+        if (AEROPlayerCharacter* Player = Cast<AEROPlayerCharacter>(EventInstigator->GetPawn()))
         {
             Player->GrantExperience(ExperienceReward);
         }
