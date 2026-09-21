@@ -27,6 +27,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ERO|Reward")
     int64 ExperienceReward = 250;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ERO|Reward")
+    int64 GoldReward = 25;
+
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ERO|Enemy")
     float RespawnDelay = 10.0f;
 
