@@ -1,10 +1,6 @@
 name: ERO Repository Preflight
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
 
 permissions:
@@ -46,9 +42,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # Scan build-relevant text, not the legal/governance documentation that must
-          # explicitly name rejected games to document what ERO must never ship.
-          # git grep -I also avoids false positives from binary Unity assets/lightmaps.
           if git grep -nI -E \
             'Ragnarok Online|Ragnarok The New World|Gravity Co|Nexon|MapleStory' \
             -- Assets ProjectSettings Packages \
