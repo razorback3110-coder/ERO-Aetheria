@@ -96,6 +96,29 @@ public:
     UFUNCTION(Server, Reliable)
     void ServerSelectWeapon(FName RequestedWeaponId);
 
+    void RestorePersistentProgression(int32 InLevel, int64 InExperience, EEROPlayerClass InClass, FName InWeaponId, EEROWeaponFamily InWeaponFamily)
+    {
+        if (!HasAuthority())
+        {
+            return;
+        }
+
+        Level = FMath::Clamp(InLevel, 1, 100);
+        Experience = FMath::Max<int64>(0, InExperience);
+        PlayerClass = InClass;
+        ApplyClassProfile();
+
+        if (IsWeaponFamilyAllowed(InWeaponFamily))
+        {
+            EquippedWeaponFamily = InWeaponFamily;
+        }
+
+        EquippedWeaponId = IsWeaponAllowedForClass(InWeaponId) ? InWeaponId : NAME_None;
+        bDefeated = false;
+        CurrentHealth = MaxHealth;
+        SyncAttributesFromLegacyProfile();
+    }
+
 protected:
     virtual void BeginPlay() override;
 
