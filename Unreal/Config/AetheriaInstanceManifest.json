@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "instances": [
+    {
+      "id": "Dungeon_Forest",
+      "name": "Elderglen Dungeon",
+      "type": "Dungeon",
+      "recommendedLevel": 25,
+      "map": "/Game/Maps/Instances/Dungeon_Forest"
+    },
+    {
+      "id": "Dungeon_Desert",
+      "name": "Sunscar Dungeon",
+      "type": "Dungeon",
+      "recommendedLevel": 50,
+      "map": "/Game/Maps/Instances/Dungeon_Desert"
+    },
+    {
+      "id": "Dungeon_Frost",
+      "name": "Frostheim Dungeon",
+      "type": "Dungeon",
+      "recommendedLevel": 75,
+      "map": "/Game/Maps/Instances/Dungeon_Frost"
+    },
+    {
+      "id": "Dungeon_Abyss",
+      "name": "Abyssia Dungeon",
+      "type": "Dungeon",
+      "recommendedLevel": 175,
+      "map": "/Game/Maps/Instances/Dungeon_Abyss"
+    },
+    {
+      "id": "Tower_01",
+      "name": "Tower of the First Guardian",
+      "type": "Tower",
+      "recommendedLevel": 50,
+      "map": "/Game/Maps/Instances/Tower_01"
+    },
+    {
+      "id": "Tower_02",
+      "name": "Tower of the Frozen Warden",
+      "type": "Tower",
+      "recommendedLevel": 100,
+      "map": "/Game/Maps/Instances/Tower_02"
+    },
+    {
+      "id": "Tower_03",
+      "name": "Tower of the Ancient King",
+      "type": "Tower",
+      "recommendedLevel": 150,
+      "map": "/Game/Maps/Instances/Tower_03"
+    },
+    {
+      "id": "Tower_04",
+      "name": "Tower of the Abyss",
+      "type": "Tower",
+      "recommendedLevel": 200,
+      "map": "/Game/Maps/Instances/Tower_04"
+    },
+    {
+      "id": "Tower_05",
+      "name": "Tower of the Dragon",
+      "type": "Tower",
+      "recommendedLevel": 225,
+      "map": "/Game/Maps/Instances/Tower_05"
+    },
+    {
+      "id": "Arena_1v1",
+      "name": "PvP Arena 1v1",
+      "type": "PvP_1v1",
+      "recommendedLevel": 1,
+      "map": "/Game/Maps/Instances/Arena_1v1"
+    },
+    {
+      "id": "Arena_4v4",
+      "name": "PvP Arena 4v4",
+      "type": "PvP_4v4",
+      "recommendedLevel": 1,
+      "map": "/Game/Maps/Instances/Arena_4v4"
+    },
+    {
+      "id": "GvG_WarOfRealms",
+      "name": "GvG - War of Realms",
+      "type": "GvG",
+      "recommendedLevel": 50,
+      "map": "/Game/Maps/Instances/GvG_WarOfRealms"
+    }
+  ]
+}
