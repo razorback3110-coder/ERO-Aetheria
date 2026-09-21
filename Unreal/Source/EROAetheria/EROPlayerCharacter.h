@@ -51,9 +51,6 @@ public:
     UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Character")
     int64 Experience = 0;
 
-    UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Economy")
-    int64 Credits = 0;
-
     UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Character")
     bool bDefeated = false;
 
@@ -88,7 +85,6 @@ public:
     void ServerSelectWeaponSpecialization(EEROWeaponFamily RequestedWeapon);
 
     void GrantExperience(int64 Amount);
-    void GrantCredits(int64 Amount);
 
     UFUNCTION(BlueprintCallable, Category="ERO|Equipment")
     bool CanEquipWeapon(FName WeaponId) const;
