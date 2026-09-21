@@ -56,6 +56,8 @@ void AEROPlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(AEROPlayerCharacter, PlayerClass);
+    DOREPLIFETIME(AEROPlayerCharacter, AppearanceId);
+    DOREPLIFETIME(AEROPlayerCharacter, EquippedWeaponFamily);
     DOREPLIFETIME(AEROPlayerCharacter, Level);
     DOREPLIFETIME(AEROPlayerCharacter, Experience);
     DOREPLIFETIME(AEROPlayerCharacter, bDefeated);
@@ -162,6 +164,55 @@ void AEROPlayerCharacter::ServerSelectClass_Implementation(EEROPlayerClass Reque
     CurrentHealth = MaxHealth;
 }
 
+bool AEROPlayerCharacter::CanSelectWeaponSpecialization() const
+{
+    return HasAuthority() && Level >= 18 && !bDefeated;
+}
+
+bool AEROPlayerCharacter::IsWeaponFamilyAllowed(EEROWeaponFamily WeaponFamily) const
+{
+    switch (PlayerClass)
+    {
+    case EEROPlayerClass::Warrior:
+        return WeaponFamily == EEROWeaponFamily::Sword || WeaponFamily == EEROWeaponFamily::Greatsword ||
+               WeaponFamily == EEROWeaponFamily::Axe || WeaponFamily == EEROWeaponFamily::Shield;
+    case EEROPlayerClass::Ranger:
+        return WeaponFamily == EEROWeaponFamily::Bow || WeaponFamily == EEROWeaponFamily::Crossbow ||
+               WeaponFamily == EEROWeaponFamily::DualBlades;
+    case EEROPlayerClass::Mage:
+        return WeaponFamily == EEROWeaponFamily::Staff || WeaponFamily == EEROWeaponFamily::Wand ||
+               WeaponFamily == EEROWeaponFamily::Orb || WeaponFamily == EEROWeaponFamily::Grimoire;
+    case EEROPlayerClass::Assassin:
+        return WeaponFamily == EEROWeaponFamily::Dagger || WeaponFamily == EEROWeaponFamily::DualBlades ||
+               WeaponFamily == EEROWeaponFamily::Fist;
+    case EEROPlayerClass::Cleric:
+        return WeaponFamily == EEROWeaponFamily::Mace || WeaponFamily == EEROWeaponFamily::Staff ||
+               WeaponFamily == EEROWeaponFamily::Wand || WeaponFamily == EEROWeaponFamily::Shield;
+    case EEROPlayerClass::Paladin:
+        return WeaponFamily == EEROWeaponFamily::Sword || WeaponFamily == EEROWeaponFamily::Greatsword ||
+               WeaponFamily == EEROWeaponFamily::Mace || WeaponFamily == EEROWeaponFamily::Shield;
+    case EEROPlayerClass::Warlock:
+        return WeaponFamily == EEROWeaponFamily::Grimoire || WeaponFamily == EEROWeaponFamily::Wand ||
+               WeaponFamily == EEROWeaponFamily::Staff || WeaponFamily == EEROWeaponFamily::Orb;
+    case EEROPlayerClass::Summoner:
+        return WeaponFamily == EEROWeaponFamily::Staff || WeaponFamily == EEROWeaponFamily::Orb ||
+               WeaponFamily == EEROWeaponFamily::Wand || WeaponFamily == EEROWeaponFamily::Grimoire;
+    default:
+        return false;
+    }
+}
+
+void AEROPlayerCharacter::ServerSelectWeaponSpecialization_Implementation(EEROWeaponFamily RequestedWeapon)
+{
+    if (!CanSelectWeaponSpecialization() || !IsWeaponFamilyAllowed(RequestedWeapon))
+    {
+        return;
+    }
+
+    EquippedWeaponFamily = RequestedWeapon;
+    ApplyClassAppearanceProfile();
+}
+
 void AEROPlayerCharacter::GrantExperience(int64 Amount)
 {
     if (!HasAuthority() || Amount <= 0 || bDefeated)
@@ -215,7 +266,40 @@ void AEROPlayerCharacter::ApplyClassProfile()
 
     MaxHealth = ClassHealthBonus + static_cast<float>(Level - 1) * 12.0f;
     AttackDamage = ClassDamageBonus + static_cast<float>(Level - 1) * 2.5f;
+
+    switch (PlayerClass)
+    {
+    case EEROPlayerClass::Warrior: EquippedWeaponFamily = EEROWeaponFamily::Greatsword; break;
+    case EEROPlayerClass::Ranger: EquippedWeaponFamily = EEROWeaponFamily::Bow; break;
+    case EEROPlayerClass::Mage: EquippedWeaponFamily = EEROWeaponFamily::Staff; break;
+    case EEROPlayerClass::Assassin: EquippedWeaponFamily = EEROWeaponFamily::DualBlades; break;
+    case EEROPlayerClass::Cleric: EquippedWeaponFamily = EEROWeaponFamily::Mace; break;
+    case EEROPlayerClass::Paladin: EquippedWeaponFamily = EEROWeaponFamily::Sword; break;
+    case EEROPlayerClass::Warlock: EquippedWeaponFamily = EEROWeaponFamily::Grimoire; break;
+    case EEROPlayerClass::Summoner: EquippedWeaponFamily = EEROWeaponFamily::Orb; break;
+    default: break;
+    }
+
+    ApplyClassAppearanceProfile();
     SyncAttributesFromLegacyProfile();
+}
+
+void AEROPlayerCharacter::ApplyClassAppearanceProfile()
+{
+    const TCHAR* ClassName = TEXT("Warrior");
+    switch (PlayerClass)
+    {
+    case EEROPlayerClass::Warrior: ClassName = TEXT("Warrior"); break;
+    case EEROPlayerClass::Ranger: ClassName = TEXT("Ranger"); break;
+    case EEROPlayerClass::Mage: ClassName = TEXT("Mage"); break;
+    case EEROPlayerClass::Assassin: ClassName = TEXT("Assassin"); break;
+    case EEROPlayerClass::Cleric: ClassName = TEXT("Cleric"); break;
+    case EEROPlayerClass::Paladin: ClassName = TEXT("Paladin"); break;
+    case EEROPlayerClass::Warlock: ClassName = TEXT("Warlock"); break;
+    case EEROPlayerClass::Summoner: ClassName = TEXT("Summoner"); break;
+    }
+
+    AppearanceId = FName(*FString::Printf(TEXT("%s_Base"), ClassName));
 }
 
 void AEROPlayerCharacter::SyncAttributesFromLegacyProfile()
