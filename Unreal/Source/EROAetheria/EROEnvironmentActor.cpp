@@ -1,9 +1,12 @@
 #include "EROEnvironmentActor.h"
 
 #include "Components/DirectionalLightComponent.h"
+#include "Components/ExponentialHeightFogComponent.h"
 #include "Components/SceneComponent.h"
 #include "Components/SkyLightComponent.h"
 #include "Engine/DirectionalLight.h"
+#include "Engine/ExponentialHeightFog.h"
+#include "Engine/SkyAtmosphere.h"
 #include "Engine/SkyLight.h"
 #include "Engine/StaticMesh.h"
 #include "Components/StaticMeshComponent.h"
@@ -49,7 +52,11 @@ void AEROEnvironmentActor::AddStaticMesh(UStaticMesh* Mesh, const FVector& Locat
 
     UStaticMeshComponent* Component = NewObject<UStaticMeshComponent>(this);
     Component->SetStaticMesh(Mesh);
-    Component->SetMobility(EComponentMobility::Static);
+
+    // These meshes are created at runtime, so they must not participate in
+    // precomputed static lighting. Movable avoids "lighting needs to be rebuilt"
+    // warnings while we are still using the procedural prototype environment.
+    Component->SetMobility(EComponentMobility::Movable);
     Component->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
     Component->SetIsReplicated(true);
     Component->SetupAttachment(GetRootComponent());
@@ -98,6 +105,12 @@ void AEROEnvironmentActor::BuildEnvironment()
         AddStaticMesh(Sphere, Location + FVector(0.0f, 0.0f, 650.0f), FVector(2.2f, 2.2f, 2.2f));
     }
 
+    // Runtime sky atmosphere gives the prototype a real sky instead of a
+    // black unlit background.
+    ASkyAtmosphere* Atmosphere = GetWorld()->SpawnActor<ASkyAtmosphere>(
+        FVector::ZeroVector,
+        FRotator::ZeroRotator);
+
     // Directional sun.
     ADirectionalLight* Sun = GetWorld()->SpawnActor<ADirectionalLight>(
         FVector(0.0f, 0.0f, 1800.0f),
@@ -106,16 +119,39 @@ void AEROEnvironmentActor::BuildEnvironment()
     if (Sun && Sun->GetLightComponent())
     {
         Sun->SetReplicates(false);
+        Sun->GetLightComponent()->SetMobility(EComponentMobility::Movable);
         Sun->GetLightComponent()->SetIntensity(6.0f);
         Sun->GetLightComponent()->SetCastShadows(true);
+        Sun->GetLightComponent()->SetAtmosphereSunLight(true);
     }
 
-    // Skylight keeps the plaza readable even before a final sky asset is installed.
-    ASkyLight* Sky = GetWorld()->SpawnActor<ASkyLight>(FVector(0.0f, 0.0f, 1000.0f), FRotator::ZeroRotator);
+    // Movable skylight avoids static-light build requirements for the
+    // runtime-generated prototype.
+    ASkyLight* Sky = GetWorld()->SpawnActor<ASkyLight>(
+        FVector(0.0f, 0.0f, 1000.0f),
+        FRotator::ZeroRotator);
+
     if (Sky && Sky->GetLightComponent())
     {
         Sky->SetReplicates(false);
+        Sky->GetLightComponent()->SetMobility(EComponentMobility::Movable);
         Sky->GetLightComponent()->SetIntensity(1.0f);
         Sky->GetLightComponent()->RecaptureSky();
+    }
+
+    // A small amount of height fog provides depth while we are still using
+    // placeholder geometry. It will be replaced by the final world
+    // atmosphere during the visual pass.
+    AExponentialHeightFog* Fog = GetWorld()->SpawnActor<AExponentialHeightFog>(
+        FVector(0.0f, 0.0f, 0.0f),
+        FRotator::ZeroRotator);
+
+    if (Fog && Fog->GetComponent())
+    {
+        Fog->SetReplicates(false);
+        Fog->GetComponent()->SetMobility(EComponentMobility::Movable);
+        Fog->GetComponent()->FogDensity = 0.008f;
+        Fog->GetComponent()->FogHeightFalloff = 0.2f;
+        Fog->GetComponent()->bOverrideLightColorsWithFogInscatteringColors = false;
     }
 }
