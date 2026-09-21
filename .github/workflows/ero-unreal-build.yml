@@ -16,7 +16,7 @@ permissions:
 jobs:
   unreal-build:
     runs-on: [self-hosted, Windows, X64, Unreal]
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -38,6 +38,14 @@ jobs:
             exit $LASTEXITCODE
           }
 
+      - name: Build EROAetheriaServer
+        shell: powershell
+        run: |
+          & "C:\Program Files\Epic Games\UE_5.8\Engine\Build\BatchFiles\Build.bat" EROAetheriaServer Win64 Development -Project="$env:GITHUB_WORKSPACE\Unreal\ERO-Aetheria.uproject" -WaitMutex -NoHotReload
+          if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+          }
+
       - name: Reject generated Unreal output
         shell: powershell
         run: |
@@ -55,4 +63,4 @@ jobs:
 
       - name: Build result
         shell: powershell
-        run: 'Write-Host "ERO Unreal Engine build: SUCCEEDED"'
+        run: 'Write-Host "ERO Unreal Editor + Dedicated Server builds: SUCCEEDED"'
