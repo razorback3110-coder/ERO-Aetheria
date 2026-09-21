@@ -112,7 +112,6 @@ A production build is considered legally ready only when every non-ERO asset ref
 | `DefaultInput.ini` attack mapping | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Primary left-mouse combat input for the Unreal playable slice |
 | `EROAetheria.Build.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Unreal module dependencies for networking, Enhanced Input, Gameplay Ability System and Mass |
 
-
 ## ERO Unreal visual-generation tooling
 
 | Content | Source | License | Commercial game | Attribution | ERO use |
@@ -121,10 +120,8 @@ A production build is considered legally ready only when every non-ERO asset ref
 
 The generator creates only Unreal Engine built-in primitive geometry and ERO-authored material/layout data. It does not embed third-party assets. Production third-party content must still pass the registry gate above.
 
-
 | `Unreal/Config/AetheriaWorldManifest.json` | ERO-Aetheria source data | ERO-owned/original | Yes | Not required | Canonical machine-readable definition of the complete Aetheria launch-world region layout and content nodes |
 | `Unreal/Scripts/GenerateAetheriaVisualWorld.py` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Complete deterministic UE5 World Partition generator for the Aetheria launch-world scaffold |
-
 
 ## ERO Unreal world architecture tooling
 
@@ -138,12 +135,10 @@ The generator creates only Unreal Engine built-in primitive geometry and ERO-aut
 
 The eleven-city world uses only Unreal Engine built-in primitive geometry and ERO-authored materials in its generated scaffold. No third-party asset payload is embedded by these generators.
 
-
 ### ERO-authored class visual pipeline
 - `Unreal/Source/EROAetheria/EROCharacterAppearanceTypes.h` — ERO-owned data types for class silhouettes, armor styles and weapon specializations; commercially usable as original project code.
 - `Unreal/Source/EROAetheria/EROClassAppearanceDefinition.h` — ERO-owned data asset contract for class body meshes, outfits, weapon assets and evolution appearances.
 - `Unreal/Config/AetheriaClassAppearanceManifest.json` — ERO-owned class modeling/specification manifest; contains no third-party asset payload.
-
 
 ## ERO character presentation bootstrap — 2026-09-21
 
@@ -152,4 +147,10 @@ The eleven-city world uses only Unreal Engine built-in primitive geometry and ER
 - `Unreal/Config/EROCharacterClassVisualManifest.json` — **ERO-owned/original** eight-class outfit, weapon and specialization manifest.
 - `Unreal/Scripts/GenerateEROCharacterPrototypeBlender.py` — **ERO-owned/original** procedural prototype modeling script; generates only original primitive geometry and must not be treated as final AAA character art.
 
-No third-party mesh, texture, animation, VFX or proprietary game asset is embedded by these files. Production character assets must be added only after license verification in this registry.
+## ERO Unreal PvE combat foundation — 2026-09-21
+
+- `Unreal/Source/EROAetheria/EROCombatRules.h` — **ERO-owned/original** deterministic server-side weapon-family combat modifiers for damage, range and cooldown.
+- `Unreal/Source/EROAetheria/EROEnemyActor.h` — **ERO-owned/original** replicated PvE enemy contract with authoritative health, level, rewards and respawn configuration.
+- `Unreal/Source/EROAetheria/EROEnemyActor.cpp` — **ERO-owned/original** server-authoritative PvE damage, defeat, XP reward and respawn implementation.
+
+These files contain no third-party asset payload. They provide the first Unreal PvE opponent foundation for the playable combat loop.
