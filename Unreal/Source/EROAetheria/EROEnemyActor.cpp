@@ -21,7 +21,16 @@ void AEROEnemyActor::BeginPlay()
         SpawnLocation = GetActorLocation();
         SpawnRotation = GetActorRotation();
         CurrentHealth = MaxHealth;
+        bDefeated = false;
     }
+}
+
+void AEROEnemyActor::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AEROEnemyActor, EnemyLevel);
+    DOREPLIFETIME(AEROEnemyActor, CurrentHealth);
+    DOREPLIFETIME(AEROEnemyActor, bDefeated);
 }
 
 float AEROEnemyActor::TakeDamage(float DamageAmount, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
