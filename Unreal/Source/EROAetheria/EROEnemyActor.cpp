@@ -76,6 +76,7 @@ float AEROEnemyActor::TakeDamage(float DamageAmount, const FDamageEvent& DamageE
             if (AEROPlayerEconomyState* EconomyState = Player->GetPlayerState<AEROPlayerEconomyState>())
             {
                 EconomyState->GrantGold(GoldReward);
+                EconomyState->GrantItem(ItemRewardId, ItemRewardQuantity);
             }
         }
 
