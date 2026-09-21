@@ -42,5 +42,8 @@ grep -q 'LoadPersistentEconomyState' "$economy"
 grep -q 'SaveGameToSlot' "$economy"
 grep -q 'LoadGameFromSlot' "$economy"
 grep -q 'SchemaVersion' "$savegame"
+grep -q 'SetTimer' "$economy"
+grep -q 'ClearTimer' "$economy"
+grep -q 'EconomyCheckpointIntervalSeconds' "$economy"
 
 echo "Unreal gameplay contract: OK"
