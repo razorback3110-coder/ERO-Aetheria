@@ -11,7 +11,7 @@ AEROPlayerEconomyState::AEROPlayerEconomyState()
 
 void AEROPlayerEconomyState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
-    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    Super::GetLifetimeReplicatedProps(OutLifetimeReplicatedProps);
     DOREPLIFETIME(AEROPlayerEconomyState, GoldBalance);
     DOREPLIFETIME(AEROPlayerEconomyState, Inventory);
 }
@@ -151,7 +151,13 @@ void AEROPlayerEconomyState::LoadPersistentEconomyState()
 
 FString AEROPlayerEconomyState::GetPersistenceSlotName() const
 {
-    FString Identity = GetUniqueId().ToString();
+    FString Identity;
+    const FUniqueNetIdRepl UniqueId = GetUniqueId();
+    if (UniqueId.IsValid())
+    {
+        Identity = UniqueId.ToString();
+    }
+
     if (Identity.IsEmpty())
     {
         Identity = FString::Printf(TEXT("PlayerId_%d"), GetPlayerId());
