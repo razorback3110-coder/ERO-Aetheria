@@ -124,3 +124,20 @@ Canonical generators:
 - `Unreal/Scripts/GenerateAetheriaInstanceMaps.py` — separate activity-map shells
 
 The previous eleven-city-map shell approach is superseded and must not be used for the city layout.
+
+
+## Character / class visual foundation
+
+The Unreal migration now has a data-driven presentation layer for the eight current playable classes. Each class has a distinct visual profile/outfit identity, a class-specific weapon pool and three specialization-oriented weapon choices. Weapon selection is replicated and validated server-side through `AEROPlayerCharacter::ServerSelectWeapon`; class identity remains fixed while weapon choice changes combat style.
+
+Current visual identities:
+- Warrior — Ironheart Vanguard
+- Ranger — Wildstrider Scout
+- Mage — Astral Weaver
+- Assassin — Nightveil Stalker
+- Cleric — Dawnkeeper Vestments
+- Paladin — Sunwarden Aegis
+- Warlock — Voidbinder Regalia
+- Summoner — Ethercaller Mantle
+
+The canonical manifest is `Unreal/Config/EROCharacterClassVisualManifest.json`. A Blender bootstrap at `Unreal/Scripts/GenerateEROCharacterPrototypeBlender.py` can generate original low-poly class prototypes as an art-blockout. These prototypes are not final commercial-quality assets; production meshes, rigging, animations, materials and VFX remain a separate import/validation phase.
