@@ -9,7 +9,8 @@ Date: 2026-09-21
 | `Unreal/Source/EROAetheria/EROPlayerEconomySaveGame.h` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Versioned server-side SaveGame schema for persistent Gold and inventory snapshots |
 | `Unreal/Source/EROAetheria/EROPlayerEconomyState.h` persistence lifecycle | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative load/save lifecycle for the Unreal economy PlayerState |
 | `Unreal/Source/EROAetheria/EROPlayerEconomyState.cpp` persistence implementation | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Local dedicated-server persistence bridge keyed by the stable Unreal network identity when available |
-| `Tools/Validate-EROUnrealGameplayContract.sh` persistence checks | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | CI contract validation for the Unreal economy persistence foundation |
+| `Unreal/Source/EROAetheria/EROPlayerEconomyState.cpp` periodic checkpoint extension | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative 60-second economy/inventory checkpoints plus final shutdown save to reduce progress loss during unexpected process termination |
+| `Tools/Validate-EROUnrealGameplayContract.sh` persistence checks | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | CI contract validation for the Unreal economy persistence foundation and checkpoint lifecycle |
 
 No third-party asset payload was introduced by this change. The persistence implementation uses Unreal Engine runtime APIs only. It is an intermediate local persistence adapter; production external database/storage integration must retain the same authoritative schema and legal gate.
 
