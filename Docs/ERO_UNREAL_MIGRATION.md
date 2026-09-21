@@ -52,3 +52,28 @@ AEROEnvironmentActor no longer creates lights or fog during gameplay. The render
 Unreal/Scripts/GenerateAetheriaVisualWorld.py creates a partitioned Aetheria visual map with five biome districts (Capital, Plains, Forest, Desert, Snow), roads, landmarks, crystals, vegetation clusters and dungeon/raid/MVP gateways. It uses only Unreal built-in primitives and ERO-authored materials as a generation scaffold.
 
 The same rules will later drive production zones: capital, plains, forest, mountain/snow, desert, swamp/corrupted, ruins, dungeons, raids, MVP regions and PvP/GvG areas. Approved commercial/CC0 assets can replace generated geometry without changing gameplay rules.
+
+
+## Complete Aetheria world generation
+
+The launch-world generator now targets one complete World Partition map rather than isolated demo zones:
+
+- Aetheria Capital
+- Starter Plains
+- Whispering Forest
+- Frostpeak Mountains
+- Sunscar Desert
+- Mire of Corruption
+- Ancient Ruins
+- Arcane Highlands
+- PvP/GvG Frontier
+- connected world roads and waypoints
+- dungeon gateways
+- raid gateways
+- MVP/world-boss territories
+- capital buildings, gates and landmark
+- deterministic biome dressing
+
+The canonical generation script is `Unreal/Scripts/GenerateAetheriaVisualWorld.py`; its machine-readable world contract is `Unreal/Config/AetheriaWorldManifest.json`.
+
+This generated world is the full visual launch scaffold. It is intentionally made from UE built-in primitives and ERO-authored materials so it can be generated without introducing unverified third-party IP. Production Nanite/PCG assets can subsequently replace individual generated actors while preserving the world coordinates and gameplay content nodes.
