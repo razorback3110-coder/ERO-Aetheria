@@ -77,3 +77,50 @@ The launch-world generator now targets one complete World Partition map rather t
 The canonical generation script is `Unreal/Scripts/GenerateAetheriaVisualWorld.py`; its machine-readable world contract is `Unreal/Config/AetheriaWorldManifest.json`.
 
 This generated world is the full visual launch scaffold. It is intentionally made from UE built-in primitives and ERO-authored materials so it can be generated without introducing unverified third-party IP. Production Nanite/PCG assets can subsequently replace individual generated actors while preserving the world coordinates and gameplay content nodes.
+
+
+## Corrected Aetheria world architecture
+
+The launch world is a **single persistent Aetheria World Partition map**: `/Game/Maps/Aetheria_CompleteWorld`.
+
+It contains eleven connected cities/regions:
+1. Aetheria Capital
+2. Valoria Plains
+3. Elderglen
+4. Sunscar
+5. Frostheim
+6. Mirehaven
+7. Arkenfall
+8. Astralis
+9. Duskmoor
+10. Abyssia
+11. Drakoria
+
+City travel is same-world waypoint travel. It does not use `ServerTravel` between cities.
+
+### MVP system
+
+There are exactly 22 launch MVP definitions, two associated with each city. MVPs remain on the main Aetheria map in predefined boss territories. Each MVP has a 100 m movement/spawn radius, a predefined level, an independent respawn/reset contract, a unique loot table and a unique lootable necklace cosmetic with its own appearance and stat preset.
+
+The authoritative machine-readable contract is `Unreal/Config/AetheriaMVPManifest.json`.
+
+### City achievement system
+
+Each city has its own achievement collection and a different total. Completion thresholds are driven by `Unreal/Config/AetheriaCityAchievements.json` and support milestone rewards at 400/600/800/1200 where the city's total permits the milestone. Rewards are city-specific and completion is persistent progression.
+
+### Separate instance maps
+
+Only instanced activities receive separate maps:
+- Dungeons
+- five monthly-reset Tower boss scenes
+- PvP Arena 1v1
+- PvP Arena 4v4
+- GvG War of Realms
+
+GvG travel is gated by the active GvG event. PvP arenas are separate matchmaking destinations rather than persistent regions of Aetheria.
+
+Canonical generators:
+- `Unreal/Scripts/GenerateAetheriaWorld.py` — one 11-city world
+- `Unreal/Scripts/GenerateAetheriaInstanceMaps.py` — separate activity-map shells
+
+The previous eleven-city-map shell approach is superseded and must not be used for the city layout.
