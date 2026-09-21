@@ -4,6 +4,7 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
 #include "EROClassTypes.h"
+#include "EROCharacterVisualTypes.h"
 #include "EROCharacterAppearanceTypes.h"
 #include "EROPlayerCharacter.generated.h"
 
@@ -34,6 +35,9 @@ public:
 
     UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Character")
     EEROPlayerClass PlayerClass = EEROPlayerClass::Warrior;
+
+    UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Equipment")
+    FName EquippedWeaponId = NAME_None;
 
     UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Appearance")
     FName AppearanceId = TEXT("Warrior_Base");
@@ -82,6 +86,12 @@ public:
 
     void GrantExperience(int64 Amount);
 
+    UFUNCTION(BlueprintCallable, Category="ERO|Equipment")
+    bool CanEquipWeapon(FName WeaponId) const;
+
+    UFUNCTION(Server, Reliable)
+    void ServerSelectWeapon(FName RequestedWeaponId);
+
 protected:
     virtual void BeginPlay() override;
 
@@ -98,6 +108,7 @@ protected:
     bool CanAttack() const;
     void ResetAttackCooldown();
     void ApplyClassProfile();
+    bool IsWeaponAllowedForClass(FName WeaponId) const;
     void ApplyClassAppearanceProfile();
     bool IsWeaponFamilyAllowed(EEROWeaponFamily WeaponFamily) const;
     void SyncAttributesFromLegacyProfile();
