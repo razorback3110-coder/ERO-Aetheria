@@ -46,6 +46,44 @@ jobs:
             exit $LASTEXITCODE
           }
 
+      - name: Smoke test dedicated server startup
+        shell: powershell
+        run: |
+          $server = Join-Path $env:GITHUB_WORKSPACE "Unreal\Binaries\Win64\EROAetheriaServer.exe"
+          if (-not (Test-Path $server)) {
+            throw "Dedicated server binary was not produced: $server"
+          }
+
+          $log = Join-Path $env:RUNNER_TEMP "EROAetheriaServerSmoke.log"
+          $arguments = "Unreal/ERO-Aetheria.uproject?listen -nullrhi -unattended -nosound -log=$log -port=17777"
+          $process = Start-Process -FilePath $server -ArgumentList $arguments -PassThru -WindowStyle Hidden
+          try {
+            Start-Sleep -Seconds 15
+            if ($process.HasExited) {
+              $exitCode = $process.ExitCode
+              if ($exitCode -ne 0) {
+                if (Test-Path $log) { Get-Content $log -Tail 120 }
+                throw "Dedicated server exited during smoke test with code $exitCode"
+              }
+              throw "Dedicated server exited during smoke test"
+            }
+
+            if (Test-Path $log) {
+              $content = Get-Content $log -Raw
+              if ($content -match "Error:|Fatal error|Assertion failed|Ensure condition failed") {
+                Get-Content $log -Tail 160
+                throw "Dedicated server smoke test reported a fatal/assertion error"
+              }
+            }
+
+            Write-Host "Dedicated server startup smoke test: OK"
+          }
+          finally {
+            if (-not $process.HasExited) {
+              Stop-Process -Id $process.Id -Force
+            }
+          }
+
       - name: Reject generated Unreal output
         shell: powershell
         run: |
@@ -63,4 +101,4 @@ jobs:
 
       - name: Build result
         shell: powershell
-        run: 'Write-Host "ERO Unreal Editor + Dedicated Server builds: SUCCEEDED"'
+        run: 'Write-Host "ERO Unreal Editor + Dedicated Server build and startup smoke test: SUCCEEDED"'
