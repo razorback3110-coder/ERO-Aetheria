@@ -59,13 +59,18 @@ jobs:
           done
           test -f Unreal/Config/DefaultEngine.ini
           test -f Unreal/Config/DefaultGame.ini
-          # GenerateAetheriaVisualWorld.py was superseded by the canonical
-          # single-world generator. Keep CI aligned with the current architecture.
           test -f Unreal/Scripts/GenerateAetheriaWorld.py
           test -f Unreal/Scripts/GenerateAetheriaInstanceMaps.py
           test -f Unreal/Config/AetheriaWorldManifest.json
           test -f Unreal/Config/AetheriaInstanceManifest.json
           echo "Unreal source/config/world-generation foundation: OK"
+
+      - name: Validate gameplay contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x Tools/Validate-EROUnrealGameplayContract.sh
+          ./Tools/Validate-EROUnrealGameplayContract.sh
 
       - name: Validate legal gate
         shell: bash
