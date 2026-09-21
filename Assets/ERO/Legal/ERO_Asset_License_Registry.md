@@ -124,3 +124,16 @@ The generator creates only Unreal Engine built-in primitive geometry and ERO-aut
 
 | `Unreal/Config/AetheriaWorldManifest.json` | ERO-Aetheria source data | ERO-owned/original | Yes | Not required | Canonical machine-readable definition of the complete Aetheria launch-world region layout and content nodes |
 | `Unreal/Scripts/GenerateAetheriaVisualWorld.py` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Complete deterministic UE5 World Partition generator for the Aetheria launch-world scaffold |
+
+
+## ERO Unreal world architecture tooling
+
+| Content | Source | License | Commercial game | Attribution | ERO use |
+|---|---|---|---|---|---|
+| `Unreal/Scripts/GenerateAetheriaWorld.py` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Deterministic UE5.8 generator for the single persistent Aetheria world containing eleven connected cities |
+| `Unreal/Scripts/GenerateAetheriaInstanceMaps.py` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Deterministic UE5.8 generator for separate dungeon, tower, PvP and GvG map shells |
+| `Unreal/Config/AetheriaMVPManifest.json` | ERO-Aetheria source data | ERO-owned/original | Yes | Not required | Canonical definitions for 22 Aetheria MVPs, their levels, spawn radius, loot tables and unique necklace cosmetics |
+| `Unreal/Config/AetheriaCityAchievements.json` | ERO-Aetheria source data | ERO-owned/original | Yes | Not required | Canonical city-specific achievement totals and completion milestones |
+| `Unreal/Config/AetheriaInstanceManifest.json` | ERO-Aetheria source data | ERO-owned/original | Yes | Not required | Canonical separate-map definitions for dungeons, Towers, PvP 1v1/4v4 and GvG |
+
+The eleven-city world uses only Unreal Engine built-in primitive geometry and ERO-authored materials in its generated scaffold. No third-party asset payload is embedded by these generators.
