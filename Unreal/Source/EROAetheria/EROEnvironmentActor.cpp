@@ -60,10 +60,12 @@ void AEROEnvironmentActor::AddStaticMesh(UStaticMesh* Mesh, const FVector& Locat
     Component->SetMobility(EComponentMobility::Movable);
     Component->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
     Component->SetIsReplicated(true);
-    Component->SetupAttachment(GetRootComponent());
-    Component->SetRelativeLocation(Location);
-    Component->SetRelativeRotation(Rotation);
-    Component->SetRelativeScale3D(Scale);
+    // Runtime-generated components are intentionally not attached to the
+    // actor root. This avoids Unreal's static/movable attachment validation
+    // for components created during BeginPlay.
+    Component->SetWorldLocation(Location);
+    Component->SetWorldRotation(Rotation);
+    Component->SetWorldScale3D(Scale);
     AddInstanceComponent(Component);
     Component->RegisterComponent();
 }
