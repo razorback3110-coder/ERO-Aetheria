@@ -97,68 +97,76 @@ FEROInstanceDefinition AEROWorldMapDirector::GetInstanceDefinition(FName Instanc
 
 void AEROWorldMapDirector::TravelToRegion(FName RegionId)
 {
-    if (!HasAuthority())
+    if (HasAuthority())
     {
-        ServerTravelToRegion(RegionId);
-        return;
-    }
-    ServerTravelToRegion_Implementation(RegionId);
-}
-
-void AEROWorldMapDirector::ServerTravelToRegion_Implementation(FName RegionId)
-{
-    const FERORegionDefinition* Region = FindRegion(RegionId);
-    if (!Region)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("[ERO] Unknown region travel request: %s"), *RegionId.ToString());
+        UE_LOG(LogTemp, Warning, TEXT("[ERO] TravelToRegion must be requested by a client controller."));
         return;
     }
 
-    // Same-map travel: authoritative teleport to the city's waypoint.
     UWorld* World = GetWorld();
     if (!World)
     {
         return;
     }
 
-    for (FConstPlayerControllerIterator It = World->GetPlayerControllerIterator(); It; ++It)
+    APlayerController* LocalPC = World->GetFirstPlayerController();
+    if (!LocalPC)
     {
-        APlayerController* PC = It->Get();
-        if (!PC || !PC->IsLocalController() && PC->GetPawn() == nullptr)
-        {
-            continue;
-        }
-
-        if (APawn* Pawn = PC->GetPawn())
-        {
-            Pawn->SetActorLocation(Region->WorldLocation + FVector(0, 0, 120), false, nullptr, ETeleportType::TeleportPhysics);
-        }
+        UE_LOG(LogTemp, Warning, TEXT("[ERO] Region travel requested without a local player controller: %s"), *RegionId.ToString());
+        return;
     }
 
-    UE_LOG(LogTemp, Log, TEXT("[ERO] REGION TRAVEL: %s"), *RegionId.ToString());
+    ServerTravelToRegion(LocalPC, RegionId);
+}
+
+void AEROWorldMapDirector::ServerTravelToRegion_Implementation(APlayerController* RequestingController, FName RegionId)
+{
+    const FERORegionDefinition* Region = FindRegion(RegionId);
+    if (!Region || !RequestingController || !IsValid(RequestingController) || !RequestingController->GetPawn())
+    {
+        UE_LOG(LogTemp, Warning, TEXT("[ERO] Rejected region travel request: %s"), *RegionId.ToString());
+        return;
+    }
+
+    APawn* Pawn = RequestingController->GetPawn();
+    Pawn->SetActorLocation(Region->WorldLocation + FVector(0, 0, 120), false, nullptr, ETeleportType::TeleportPhysics);
+
+    UE_LOG(LogTemp, Log, TEXT("[ERO] REGION TRAVEL: %s -> Player=%s"), *RegionId.ToString(), *GetNameSafe(RequestingController));
 }
 
 void AEROWorldMapDirector::TravelToInstance(FName InstanceId)
 {
-    if (!HasAuthority())
+    if (HasAuthority())
     {
-        ServerTravelToInstance(InstanceId);
+        UE_LOG(LogTemp, Warning, TEXT("[ERO] TravelToInstance is not available as a per-player operation yet: %s"), *InstanceId.ToString());
         return;
     }
-    ServerTravelToInstance_Implementation(InstanceId);
+
+    UWorld* World = GetWorld();
+    if (!World)
+    {
+        return;
+    }
+
+    APlayerController* LocalPC = World->GetFirstPlayerController();
+    if (!LocalPC)
+    {
+        return;
+    }
+
+    ServerTravelToInstance(LocalPC, InstanceId);
 }
 
-void AEROWorldMapDirector::ServerTravelToInstance_Implementation(FName InstanceId)
+void AEROWorldMapDirector::ServerTravelToInstance_Implementation(APlayerController* RequestingController, FName InstanceId)
 {
     const FEROInstanceDefinition* Instance = FindInstance(InstanceId);
-    UWorld* World = GetWorld();
-
-    if (!Instance || !World)
+    if (!Instance || !RequestingController || !IsValid(RequestingController) || !RequestingController->GetPawn())
     {
-        UE_LOG(LogTemp, Warning, TEXT("[ERO] Unknown instance travel request: %s"), *InstanceId.ToString());
+        UE_LOG(LogTemp, Warning, TEXT("[ERO] Rejected instance travel request: %s"), *InstanceId.ToString());
         return;
     }
 
-    UE_LOG(LogTemp, Log, TEXT("[ERO] INSTANCE TRAVEL: %s -> %s"), *InstanceId.ToString(), *Instance->MapAssetPath);
-    World->ServerTravel(Instance->MapAssetPath + TEXT("?listen"));
+    // Instance maps are server-wide until a dedicated instance-session manager exists.
+    // Never silently move every player from an untrusted client request.
+    UE_LOG(LogTemp, Warning, TEXT("[ERO] Instance travel is deferred until per-party instance sessions are available: %s"), *InstanceId.ToString());
 }

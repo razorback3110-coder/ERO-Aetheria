@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "GameFramework/PlayerController.h"
 #include "EROWorldMapDirector.generated.h"
 
 USTRUCT(BlueprintType)
@@ -73,13 +74,13 @@ public:
     void TravelToRegion(FName RegionId);
 
     UFUNCTION(Server, Reliable)
-    void ServerTravelToRegion(FName RegionId);
+    void ServerTravelToRegion(APlayerController* RequestingController, FName RegionId);
 
     UFUNCTION(BlueprintCallable, Category="ERO|Instances")
     void TravelToInstance(FName InstanceId);
 
     UFUNCTION(Server, Reliable)
-    void ServerTravelToInstance(FName InstanceId);
+    void ServerTravelToInstance(APlayerController* RequestingController, FName InstanceId);
 
     UFUNCTION(BlueprintPure, Category="ERO|World")
     bool HasRegion(FName RegionId) const;
