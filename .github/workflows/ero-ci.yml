@@ -2,23 +2,18 @@ name: ERO CI
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main, unreal-migration ]
-  pull_request:
-    branches: [ main ]
 
 permissions:
   contents: read
 
-# Unity validation is expensive and uses one self-hosted Windows runner.
-# Keep only the newest revision waiting for that runner.
+# Unity validation is manual-only. Unreal workflows are the only automatic CI.
 concurrency:
-  group: ero-ci-${{ github.workflow }}-${{ github.ref }}
+  group: ero-ci-manual-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   preflight:
-    name: ERO Static Preflight
+    name: ERO Static Preflight (manual Unity validation)
     runs-on: windows-latest
     timeout-minutes: 15
     steps:
@@ -66,7 +61,7 @@ jobs:
           Write-Host "Secret scan: OK"
 
   validate:
-    name: ERO Project Validation
+    name: ERO Project Validation (manual Unity validation)
     needs: preflight
     runs-on: [self-hosted, Windows, X64]
     timeout-minutes: 180
@@ -80,7 +75,7 @@ jobs:
       - name: Show environment
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
         run: |
-          Write-Host "=== ERO CI ==="
+          Write-Host "=== ERO manual Unity CI ==="
           Write-Host "Runner: $env:RUNNER_NAME"
           Write-Host "OS: $env:RUNNER_OS"
           Write-Host "Architecture: $env:RUNNER_ARCH"
@@ -193,5 +188,5 @@ jobs:
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
         run: |
           Write-Host "========================================"
-          Write-Host " ERO CI VALIDATION SUCCESS"
+          Write-Host " ERO MANUAL UNITY VALIDATION SUCCESS"
           Write-Host "========================================"
