@@ -120,3 +120,7 @@ A production build is considered legally ready only when every non-ERO asset ref
 | Unreal/Scripts/GenerateAetheriaVisualWorld.py | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Deterministic UE5 editor generator for a partitioned Aetheria visual scaffold, biome layout, materials, lighting and POIs |
 
 The generator creates only Unreal Engine built-in primitive geometry and ERO-authored material/layout data. It does not embed third-party assets. Production third-party content must still pass the registry gate above.
+
+
+| `Unreal/Config/AetheriaWorldManifest.json` | ERO-Aetheria source data | ERO-owned/original | Yes | Not required | Canonical machine-readable definition of the complete Aetheria launch-world region layout and content nodes |
+| `Unreal/Scripts/GenerateAetheriaVisualWorld.py` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Complete deterministic UE5 World Partition generator for the Aetheria launch-world scaffold |
