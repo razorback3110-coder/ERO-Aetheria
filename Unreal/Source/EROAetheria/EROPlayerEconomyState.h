@@ -4,6 +4,18 @@
 #include "GameFramework/PlayerState.h"
 #include "EROPlayerEconomyState.generated.h"
 
+USTRUCT(BlueprintType)
+struct FEROInventoryStack
+{
+    GENERATED_BODY()
+
+    UPROPERTY(BlueprintReadOnly, Category="ERO|Inventory")
+    FName ItemId = NAME_None;
+
+    UPROPERTY(BlueprintReadOnly, Category="ERO|Inventory")
+    int32 Quantity = 0;
+};
+
 UCLASS()
 class EROAETHERIA_API AEROPlayerEconomyState final : public APlayerState
 {
@@ -17,5 +29,9 @@ public:
     UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Economy")
     int64 GoldBalance = 0;
 
+    UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Inventory")
+    TArray<FEROInventoryStack> Inventory;
+
     void GrantGold(int64 Amount);
+    void GrantItem(FName ItemId, int32 Quantity);
 };
