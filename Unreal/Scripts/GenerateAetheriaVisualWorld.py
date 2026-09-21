@@ -348,6 +348,15 @@ def build_complete_world():
 
     add_light_stack()
 
+    # Place the runtime World Director in the generated launch map.
+    # It owns server-authoritative world-event state; content actors can subscribe later.
+    director_class = unreal.load_class(None, "/Script/EROAetheria.EROWorldDirector")
+    if director_class:
+        actor_subsystem = unreal.get_editor_subsystem(unreal.EditorActorSubsystem)
+        director = actor_subsystem.spawn_actor_from_class(director_class, unreal.Vector(0, 0, 120))
+        if director:
+            director.set_actor_label("ERO_WorldDirector")
+
     levels.save_current_level()
     log("COMPLETE AETHERIA WORLD GENERATED: " + MAP_PATH)
     log("Zones: 9 major regions + capital + dungeons + raids + MVP + PvP/GvG frontier.")
