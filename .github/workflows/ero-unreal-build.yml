@@ -1,0 +1,58 @@
+name: ERO Unreal Build
+
+on:
+  push:
+    branches:
+      - unreal-migration
+  pull_request:
+    branches:
+      - main
+      - unreal-migration
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unreal-build:
+    runs-on: [self-hosted, Windows, X64, Unreal]
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify Unreal Engine 5.8.2
+        shell: powershell
+        run: |
+          $ue = "C:\Program Files\Epic Games\UE_5.8"
+          if (-not (Test-Path "$ue\Engine\Build\BatchFiles\Build.bat")) {
+            throw "Unreal Engine 5.8 was not found at $ue"
+          }
+          Write-Host "Unreal Engine 5.8 installation: OK"
+
+      - name: Build EROAetheriaEditor
+        shell: powershell
+        run: |
+          & "C:\Program Files\Epic Games\UE_5.8\Engine\Build\BatchFiles\Build.bat" EROAetheriaEditor Win64 Development -Project="$env:GITHUB_WORKSPACE\Unreal\ERO-Aetheria.uproject" -WaitMutex -NoHotReload
+          if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+          }
+
+      - name: Reject generated Unreal output
+        shell: powershell
+        run: |
+          $generated = @(
+            "Unreal\Binaries",
+            "Unreal\DerivedDataCache",
+            "Unreal\Intermediate",
+            "Unreal\Saved"
+          )
+          foreach ($path in $generated) {
+            if (git ls-files $path | Select-Object -First 1) {
+              throw "Generated Unreal output must not be committed: $path"
+            }
+          }
+
+      - name: Build result
+        shell: powershell
+        run: Write-Host "ERO Unreal Engine build: SUCCEEDED"
