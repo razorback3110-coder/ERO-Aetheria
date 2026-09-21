@@ -56,6 +56,7 @@ void AEROPlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(AEROPlayerCharacter, PlayerClass);
+    DOREPLIFETIME(AEROPlayerCharacter, EquippedWeaponId);
     DOREPLIFETIME(AEROPlayerCharacter, AppearanceId);
     DOREPLIFETIME(AEROPlayerCharacter, EquippedWeaponFamily);
     DOREPLIFETIME(AEROPlayerCharacter, Level);
@@ -160,6 +161,7 @@ void AEROPlayerCharacter::ServerSelectClass_Implementation(EEROPlayerClass Reque
     }
 
     PlayerClass = RequestedClass;
+    EquippedWeaponId = NAME_None;
     ApplyClassProfile();
     CurrentHealth = MaxHealth;
 }
@@ -211,6 +213,38 @@ void AEROPlayerCharacter::ServerSelectWeaponSpecialization_Implementation(EEROWe
 
     EquippedWeaponFamily = RequestedWeapon;
     ApplyClassAppearanceProfile();
+}
+
+bool AEROPlayerCharacter::CanEquipWeapon(FName WeaponId) const
+{
+    return HasAuthority() && !bDefeated && IsWeaponAllowedForClass(WeaponId);
+}
+
+void AEROPlayerCharacter::ServerSelectWeapon_Implementation(FName RequestedWeaponId)
+{
+    if (!CanEquipWeapon(RequestedWeaponId))
+    {
+        return;
+    }
+
+    EquippedWeaponId = RequestedWeaponId;
+}
+
+bool AEROPlayerCharacter::IsWeaponAllowedForClass(FName WeaponId) const
+{
+    static const TMap<EEROPlayerClass, TSet<FName>> AllowedWeapons = {
+        { EEROPlayerClass::Warrior,  { TEXT("Warrior_Sword"), TEXT("Warrior_Greatsword"), TEXT("Warrior_Axe") } },
+        { EEROPlayerClass::Ranger,   { TEXT("Ranger_Bow"), TEXT("Ranger_Crossbow"), TEXT("Ranger_Bow_Sharpshooter") } },
+        { EEROPlayerClass::Mage,     { TEXT("Mage_Staff"), TEXT("Mage_Wand"), TEXT("Mage_Orb") } },
+        { EEROPlayerClass::Assassin, { TEXT("Assassin_Daggers"), TEXT("Assassin_DualBlades"), TEXT("Assassin_Daggers_Executioner") } },
+        { EEROPlayerClass::Cleric,   { TEXT("Cleric_MaceShield"), TEXT("Cleric_Staff"), TEXT("Cleric_Grimoire") } },
+        { EEROPlayerClass::Paladin,  { TEXT("Paladin_SwordShield"), TEXT("Paladin_MaceShield"), TEXT("Paladin_Greatsword") } },
+        { EEROPlayerClass::Warlock,  { TEXT("Warlock_Grimoire"), TEXT("Warlock_Staff"), TEXT("Warlock_Scythe") } },
+        { EEROPlayerClass::Summoner, { TEXT("Summoner_Staff"), TEXT("Summoner_Orb"), TEXT("Summoner_Grimoire") } }
+    };
+
+    const TSet<FName>* Options = AllowedWeapons.Find(PlayerClass);
+    return Options && Options->Contains(WeaponId);
 }
 
 void AEROPlayerCharacter::GrantExperience(int64 Amount)
