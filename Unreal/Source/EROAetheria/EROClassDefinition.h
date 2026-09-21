@@ -3,6 +3,8 @@
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
 #include "EROClassTypes.h"
+
+class UEROClassAppearanceDefinition;
 #include "EROClassDefinition.generated.h"
 
 /**
@@ -50,4 +52,7 @@ public:
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Abilities")
     TArray<TSoftClassPtr<class UGameplayAbility>> StartingAbilities;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Appearance")
+    TSoftObjectPtr<UEROClassAppearanceDefinition> AppearanceDefinition;
 };
