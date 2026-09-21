@@ -25,6 +25,8 @@ public:
     AEROPlayerEconomyState();
 
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+    virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
     UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Economy")
     int64 GoldBalance = 0;
@@ -34,4 +36,9 @@ public:
 
     void GrantGold(int64 Amount);
     void GrantItem(FName ItemId, int32 Quantity);
+    void SavePersistentEconomyState();
+
+private:
+    FString GetPersistenceSlotName() const;
+    void LoadPersistentEconomyState();
 };
