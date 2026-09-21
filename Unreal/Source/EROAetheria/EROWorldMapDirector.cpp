@@ -3,6 +3,7 @@
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
+#include "EROPlayerCharacter.h"
 
 AEROWorldMapDirector::AEROWorldMapDirector()
 {
@@ -122,16 +123,23 @@ void AEROWorldMapDirector::TravelToRegion(FName RegionId)
 void AEROWorldMapDirector::ServerTravelToRegion_Implementation(APlayerController* RequestingController, FName RegionId)
 {
     const FERORegionDefinition* Region = FindRegion(RegionId);
-    if (!Region || !RequestingController || !IsValid(RequestingController) || !RequestingController->GetPawn())
+    AEROPlayerCharacter* Player = RequestingController ? Cast<AEROPlayerCharacter>(RequestingController->GetPawn()) : nullptr;
+    if (!Region || !RequestingController || !IsValid(RequestingController) || !Player)
     {
         UE_LOG(LogTemp, Warning, TEXT("[ERO] Rejected region travel request: %s"), *RegionId.ToString());
         return;
     }
 
-    APawn* Pawn = RequestingController->GetPawn();
-    Pawn->SetActorLocation(Region->WorldLocation + FVector(0, 0, 120), false, nullptr, ETeleportType::TeleportPhysics);
+    if (Player->Level < Region->RecommendedLevel)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("[ERO] Rejected region travel: Player=%s Level=%d Required=%d Region=%s"),
+            *GetNameSafe(RequestingController), Player->Level, Region->RecommendedLevel, *RegionId.ToString());
+        return;
+    }
 
-    UE_LOG(LogTemp, Log, TEXT("[ERO] REGION TRAVEL: %s -> Player=%s"), *RegionId.ToString(), *GetNameSafe(RequestingController));
+    Player->SetActorLocation(Region->WorldLocation + FVector(0, 0, 120), false, nullptr, ETeleportType::TeleportPhysics);
+
+    UE_LOG(LogTemp, Log, TEXT("[ERO] REGION TRAVEL: %s -> Player=%s Level=%d"), *RegionId.ToString(), *GetNameSafe(RequestingController), Player->Level);
 }
 
 void AEROWorldMapDirector::TravelToInstance(FName InstanceId)
@@ -160,13 +168,21 @@ void AEROWorldMapDirector::TravelToInstance(FName InstanceId)
 void AEROWorldMapDirector::ServerTravelToInstance_Implementation(APlayerController* RequestingController, FName InstanceId)
 {
     const FEROInstanceDefinition* Instance = FindInstance(InstanceId);
-    if (!Instance || !RequestingController || !IsValid(RequestingController) || !RequestingController->GetPawn())
+    AEROPlayerCharacter* Player = RequestingController ? Cast<AEROPlayerCharacter>(RequestingController->GetPawn()) : nullptr;
+    if (!Instance || !RequestingController || !IsValid(RequestingController) || !Player)
     {
         UE_LOG(LogTemp, Warning, TEXT("[ERO] Rejected instance travel request: %s"), *InstanceId.ToString());
         return;
     }
 
+    if (Player->Level < Instance->RecommendedLevel)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("[ERO] Rejected instance entry: Player=%s Level=%d Required=%d Instance=%s"),
+            *GetNameSafe(RequestingController), Player->Level, Instance->RecommendedLevel, *InstanceId.ToString());
+        return;
+    }
+
     // Instance maps are server-wide until a dedicated instance-session manager exists.
     // Never silently move every player from an untrusted client request.
-    UE_LOG(LogTemp, Warning, TEXT("[ERO] Instance travel is deferred until per-party instance sessions are available: %s"), *InstanceId.ToString());
+    UE_LOG(LogTemp, Warning, TEXT("[ERO] Instance entry approved by level gate but deferred until per-party instance sessions are available: %s"), *InstanceId.ToString());
 }
