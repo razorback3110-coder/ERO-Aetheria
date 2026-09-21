@@ -46,13 +46,26 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for f in             Unreal/Source/EROAetheria/EROAetheria.Build.cs             Unreal/Source/EROAetheria/EROAetheria.h             Unreal/Source/EROAetheria/EROAetheria.cpp             Unreal/Source/EROAetheria/EROGameMode.h             Unreal/Source/EROAetheria/EROGameMode.cpp             Unreal/Source/EROAetheria.Target.cs             Unreal/Source/EROAetheriaServer.Target.cs             Unreal/Source/EROAetheriaEditor.Target.cs; do
+          for f in \
+            Unreal/Source/EROAetheria/EROAetheria.Build.cs \
+            Unreal/Source/EROAetheria/EROAetheria.h \
+            Unreal/Source/EROAetheria/EROAetheria.cpp \
+            Unreal/Source/EROAetheria/EROGameMode.h \
+            Unreal/Source/EROAetheria/EROGameMode.cpp \
+            Unreal/Source/EROAetheria.Target.cs \
+            Unreal/Source/EROAetheriaServer.Target.cs \
+            Unreal/Source/EROAetheriaEditor.Target.cs; do
             test -f "$f"
           done
           test -f Unreal/Config/DefaultEngine.ini
           test -f Unreal/Config/DefaultGame.ini
-          test -f Unreal/Scripts/GenerateAetheriaVisualWorld.py
-          echo "Unreal source/config/visual-generation foundation: OK"
+          # GenerateAetheriaVisualWorld.py was superseded by the canonical
+          # single-world generator. Keep CI aligned with the current architecture.
+          test -f Unreal/Scripts/GenerateAetheriaWorld.py
+          test -f Unreal/Scripts/GenerateAetheriaInstanceMaps.py
+          test -f Unreal/Config/AetheriaWorldManifest.json
+          test -f Unreal/Config/AetheriaInstanceManifest.json
+          echo "Unreal source/config/world-generation foundation: OK"
 
       - name: Validate legal gate
         shell: bash
