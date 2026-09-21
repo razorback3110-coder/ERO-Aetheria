@@ -12,6 +12,9 @@ required_files=(
   "$SRC/EROGameMode.h"
   "$SRC/EROGameMode.cpp"
   "$SRC/EROEncounterDirectorTypes.h"
+  "$SRC/EROPlayerEconomyState.h"
+  "$SRC/EROPlayerEconomyState.cpp"
+  "$SRC/EROPlayerEconomySaveGame.h"
 )
 
 for file in "${required_files[@]}"; do
@@ -21,6 +24,9 @@ done
 player="$SRC/EROPlayerCharacter.h"
 enemy="$SRC/EROEnemyActor.h"
 gamemode="$SRC/EROGameMode.cpp"
+economy="$SRC/EROPlayerEconomyState.cpp"
+economy_header="$SRC/EROPlayerEconomyState.h"
+savegame="$SRC/EROPlayerEconomySaveGame.h"
 
 grep -q 'ServerAttack' "$player"
 grep -q 'GrantExperience' "$player"
@@ -31,5 +37,10 @@ grep -q 'TakeDamage' "$enemy"
 grep -q 'RespawnDelay' "$enemy"
 grep -q 'StarterEncounters' "$gamemode"
 grep -q 'SpawnConfiguredEncounters' "$gamemode"
+grep -q 'SavePersistentEconomyState' "$economy_header"
+grep -q 'LoadPersistentEconomyState' "$economy"
+grep -q 'SaveGameToSlot' "$economy"
+grep -q 'LoadGameFromSlot' "$economy"
+grep -q 'SchemaVersion' "$savegame"
 
 echo "Unreal gameplay contract: OK"
