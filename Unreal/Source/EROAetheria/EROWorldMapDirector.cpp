@@ -1,26 +1,44 @@
 #include "EROWorldMapDirector.h"
 
 #include "Engine/World.h"
+#include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
-#include "Kismet/GameplayStatics.h"
 
 AEROWorldMapDirector::AEROWorldMapDirector()
 {
     bReplicates = true;
     PrimaryActorTick.bCanEverTick = false;
 
-    Maps = {
-        {TEXT("AetheriaCapital"), TEXT("Aetheria Capital"), TEXT("/Game/Maps/Aetheria_CompleteWorld"), 1, FVector(0, 0, 0), true},
-        {TEXT("StarterPlains"), TEXT("Starter Plains"), TEXT("/Game/Maps/Aetheria_StarterPlains"), 1, FVector(0, 1800, 0), true},
-        {TEXT("WhisperingForest"), TEXT("Whispering Forest"), TEXT("/Game/Maps/Aetheria_WhisperingForest"), 25, FVector(-1800, 0, 0), true},
-        {TEXT("SunscarDesert"), TEXT("Sunscar Desert"), TEXT("/Game/Maps/Aetheria_SunscarDesert"), 50, FVector(1800, 0, 0), true},
-        {TEXT("FrostpeakMountains"), TEXT("Frostpeak Mountains"), TEXT("/Game/Maps/Aetheria_FrostpeakMountains"), 75, FVector(0, -1800, 0), true},
-        {TEXT("MireOfCorruption"), TEXT("Mire of Corruption"), TEXT("/Game/Maps/Aetheria_MireOfCorruption"), 100, FVector(-1800, -1800, 0), true},
-        {TEXT("AncientRuins"), TEXT("Ancient Ruins"), TEXT("/Game/Maps/Aetheria_AncientRuins"), 125, FVector(1800, 1800, 0), true},
-        {TEXT("ArcaneHighlands"), TEXT("Arcane Highlands"), TEXT("/Game/Maps/Aetheria_ArcaneHighlands"), 150, FVector(-3600, 0, 0), true},
-        {TEXT("PvPGvGFrontier"), TEXT("PvP / GvG Frontier"), TEXT("/Game/Maps/Aetheria_PvPGvGFrontier"), 120, FVector(3600, 0, 0), true},
-        {TEXT("AbyssalDepths"), TEXT("Abyssal Depths"), TEXT("/Game/Maps/Aetheria_AbyssalDepths"), 175, FVector(0, -3600, 0), true},
-        {TEXT("DragonSanctum"), TEXT("Dragon Sanctum"), TEXT("/Game/Maps/Aetheria_DragonSanctum"), 200, FVector(0, 3600, 0), true}
+    // One persistent Aetheria World Partition map. These are regions/cities,
+    // not separate map assets.
+    Regions = {
+        {TEXT("AetheriaCapital"), TEXT("Aetheria Capital"), 1, FVector(0, 0, 0), 4200.f, 600, 0},
+        {TEXT("ValoriaPlains"), TEXT("Valoria Plains"), 10, FVector(0, 7200, 0), 7200.f, 750, 2},
+        {TEXT("Elderglen"), TEXT("Elderglen"), 25, FVector(-7200, 0, 0), 7200.f, 2, 2},
+        {TEXT("Sunscar"), TEXT("Sunscar"), 50, FVector(7200, 0, 0), 7200.f, 900, 2},
+        {TEXT("Frostheim"), TEXT("Frostheim"), 75, FVector(0, -7200, 0), 7200.f, 1000, 2},
+        {TEXT("Mirehaven"), TEXT("Mirehaven"), 100, FVector(-7200, -7200, 0), 7200.f, 1200, 2},
+        {TEXT("Arkenfall"), TEXT("Arkenfall"), 125, FVector(7200, 7200, 0), 8500.f, 850, 2},
+        {TEXT("Astralis"), TEXT("Astralis"), 150, FVector(-14400, 0, 0), 8500.f, 1300, 2},
+        {TEXT("Duskmoor"), TEXT("Duskmoor"), 165, FVector(14400, 0, 0), 8500.f, 950, 2},
+        {TEXT("Abyssia"), TEXT("Abyssia"), 175, FVector(0, -14400, 0), 9000.f, 1400, 2},
+        {TEXT("Drakoria"), TEXT("Drakoria"), 200, FVector(0, 14400, 0), 9000.f, 1500, 2}
+    };
+
+    // Separate maps are reserved for instanced content only.
+    Instances = {
+        {TEXT("Dungeon_Forest"), TEXT("Elderglen Dungeon"), TEXT("/Game/Maps/Instances/Dungeon_Forest"), TEXT("Dungeon"), 25, false},
+        {TEXT("Dungeon_Desert"), TEXT("Sunscar Dungeon"), TEXT("/Game/Maps/Instances/Dungeon_Desert"), TEXT("Dungeon"), 50, false},
+        {TEXT("Dungeon_Frost"), TEXT("Frostheim Dungeon"), TEXT("/Game/Maps/Instances/Dungeon_Frost"), TEXT("Dungeon"), 75, false},
+        {TEXT("Dungeon_Abyss"), TEXT("Abyssia Dungeon"), TEXT("/Game/Maps/Instances/Dungeon_Abyss"), TEXT("Dungeon"), 175, false},
+        {TEXT("Tower_01"), TEXT("Tower of the First Guardian"), TEXT("/Game/Maps/Instances/Tower_01"), TEXT("Tower"), 50, false},
+        {TEXT("Tower_02"), TEXT("Tower of the Frozen Warden"), TEXT("/Game/Maps/Instances/Tower_02"), TEXT("Tower"), 100, false},
+        {TEXT("Tower_03"), TEXT("Tower of the Ancient King"), TEXT("/Game/Maps/Instances/Tower_03"), TEXT("Tower"), 150, false},
+        {TEXT("Tower_04"), TEXT("Tower of the Abyss"), TEXT("/Game/Maps/Instances/Tower_04"), TEXT("Tower"), 200, false},
+        {TEXT("Tower_05"), TEXT("Tower of the Dragon"), TEXT("/Game/Maps/Instances/Tower_05"), TEXT("Tower"), 225, false},
+        {TEXT("Arena_1v1"), TEXT("PvP Arena 1v1"), TEXT("/Game/Maps/Instances/Arena_1v1"), TEXT("PvP_1v1"), 1, false},
+        {TEXT("Arena_4v4"), TEXT("PvP Arena 4v4"), TEXT("/Game/Maps/Instances/Arena_4v4"), TEXT("PvP_4v4"), 1, false},
+        {TEXT("GvG_WarOfRealms"), TEXT("GvG - War of Realms"), TEXT("/Game/Maps/Instances/GvG_WarOfRealms"), TEXT("GvG"), 50, true}
     };
 }
 
@@ -29,55 +47,118 @@ void AEROWorldMapDirector::BeginPlay()
     Super::BeginPlay();
     if (HasAuthority())
     {
-        UE_LOG(LogTemp, Log, TEXT("[ERO] World Map Director online. %d maps registered."), Maps.Num());
+        UE_LOG(LogTemp, Log, TEXT("[ERO] Aetheria world online: %d regions, %d instance maps."), Regions.Num(), Instances.Num());
     }
 }
 
-const FEROMapDefinition* AEROWorldMapDirector::FindMap(FName MapId) const
+const FERORegionDefinition* AEROWorldMapDirector::FindRegion(FName RegionId) const
 {
-    return Maps.FindByPredicate([MapId](const FEROMapDefinition& Map)
+    return Regions.FindByPredicate([RegionId](const FERORegionDefinition& Region)
     {
-        return Map.MapId == MapId;
+        return Region.RegionId == RegionId;
     });
 }
 
-bool AEROWorldMapDirector::HasMap(FName MapId) const
+const FEROInstanceDefinition* AEROWorldMapDirector::FindInstance(FName InstanceId) const
 {
-    return FindMap(MapId) != nullptr;
-}
-
-FEROMapDefinition AEROWorldMapDirector::GetMapDefinition(FName MapId) const
-{
-    if (const FEROMapDefinition* Map = FindMap(MapId))
+    return Instances.FindByPredicate([InstanceId](const FEROInstanceDefinition& Instance)
     {
-        return *Map;
-    }
-    return FEROMapDefinition();
+        return Instance.InstanceId == InstanceId;
+    });
 }
 
-void AEROWorldMapDirector::TravelToMap(FName MapId)
+bool AEROWorldMapDirector::HasRegion(FName RegionId) const
+{
+    return FindRegion(RegionId) != nullptr;
+}
+
+bool AEROWorldMapDirector::HasInstance(FName InstanceId) const
+{
+    return FindInstance(InstanceId) != nullptr;
+}
+
+FERORegionDefinition AEROWorldMapDirector::GetRegionDefinition(FName RegionId) const
+{
+    if (const FERORegionDefinition* Region = FindRegion(RegionId))
+    {
+        return *Region;
+    }
+    return FERORegionDefinition();
+}
+
+FEROInstanceDefinition AEROWorldMapDirector::GetInstanceDefinition(FName InstanceId) const
+{
+    if (const FEROInstanceDefinition* Instance = FindInstance(InstanceId))
+    {
+        return *Instance;
+    }
+    return FEROInstanceDefinition();
+}
+
+void AEROWorldMapDirector::TravelToRegion(FName RegionId)
 {
     if (!HasAuthority())
     {
-        ServerTravelToMap(MapId);
+        ServerTravelToRegion(RegionId);
         return;
     }
-
-    ServerTravelToMap_Implementation(MapId);
+    ServerTravelToRegion_Implementation(RegionId);
 }
 
-void AEROWorldMapDirector::ServerTravelToMap_Implementation(FName MapId)
+void AEROWorldMapDirector::ServerTravelToRegion_Implementation(FName RegionId)
 {
-    const FEROMapDefinition* Map = FindMap(MapId);
-    UWorld* World = GetWorld();
-
-    if (!Map || !World)
+    const FERORegionDefinition* Region = FindRegion(RegionId);
+    if (!Region)
     {
-        UE_LOG(LogTemp, Warning, TEXT("[ERO] Unknown map travel request: %s"), *MapId.ToString());
+        UE_LOG(LogTemp, Warning, TEXT("[ERO] Unknown region travel request: %s"), *RegionId.ToString());
         return;
     }
 
-    UE_LOG(LogTemp, Log, TEXT("[ERO] MAP TRAVEL: %s -> %s"), *MapId.ToString(), *Map->MapAssetPath);
+    // Same-map travel: authoritative teleport to the city's waypoint.
+    UWorld* World = GetWorld();
+    if (!World)
+    {
+        return;
+    }
 
-    World->ServerTravel(Map->MapAssetPath + TEXT("?listen"));
+    for (FConstPlayerControllerIterator It = World->GetPlayerControllerIterator(); It; ++It)
+    {
+        APlayerController* PC = It->Get();
+        if (!PC || !PC->IsLocalController() && PC->GetPawn() == nullptr)
+        {
+            continue;
+        }
+
+        if (APawn* Pawn = PC->GetPawn())
+        {
+            Pawn->SetActorLocation(Region->WorldLocation + FVector(0, 0, 120), false, nullptr, ETeleportType::TeleportPhysics);
+        }
+    }
+
+    UE_LOG(LogTemp, Log, TEXT("[ERO] REGION TRAVEL: %s"), *RegionId.ToString());
+}
+
+void AEROWorldMapDirector::TravelToInstance(FName InstanceId)
+{
+    if (!HasAuthority())
+    {
+        ServerTravelToInstance(InstanceId);
+        return;
+    }
+    ServerTravelToInstance_Implementation(InstanceId);
+}
+
+void AEROWorldMapDirector::ServerTravelToInstance_Implementation(FName InstanceId)
+{
+    const FEROInstanceDefinition* Instance = FindInstance(InstanceId);
+    UWorld* World = GetWorld();
+
+    if (!Instance || !World)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("[ERO] Unknown instance travel request: %s"), *InstanceId.ToString());
+        return;
+    }
+
+    UE_LOG(LogTemp, Log, TEXT("[ERO] INSTANCE TRAVEL: %s -> %s"), *InstanceId.ToString(), *Instance->MapAssetPath);
+    World->ServerTravel(Instance->MapAssetPath + TEXT("?listen"));
 }
