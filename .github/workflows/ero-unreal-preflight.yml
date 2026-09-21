@@ -51,7 +51,8 @@ jobs:
           done
           test -f Unreal/Config/DefaultEngine.ini
           test -f Unreal/Config/DefaultGame.ini
-          echo "Unreal source/config foundation: OK"
+          test -f Unreal/Scripts/GenerateAetheriaVisualWorld.py
+          echo "Unreal source/config/visual-generation foundation: OK"
 
       - name: Validate legal gate
         shell: bash
