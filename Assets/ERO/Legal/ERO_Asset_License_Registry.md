@@ -143,3 +143,13 @@ The eleven-city world uses only Unreal Engine built-in primitive geometry and ER
 - `Unreal/Source/EROAetheria/EROCharacterAppearanceTypes.h` — ERO-owned data types for class silhouettes, armor styles and weapon specializations; commercially usable as original project code.
 - `Unreal/Source/EROAetheria/EROClassAppearanceDefinition.h` — ERO-owned data asset contract for class body meshes, outfits, weapon assets and evolution appearances.
 - `Unreal/Config/AetheriaClassAppearanceManifest.json` — ERO-owned class modeling/specification manifest; contains no third-party asset payload.
+
+
+## ERO character presentation bootstrap — 2026-09-21
+
+- `Unreal/Source/EROAetheria/EROCharacterVisualTypes.h` — **ERO-owned/original** gameplay presentation data types and weapon specialization enums.
+- `Unreal/Source/EROAetheria/EROCharacterVisualDefinition.h` — **ERO-owned/original** data-driven character visual definition contract.
+- `Unreal/Config/EROCharacterClassVisualManifest.json` — **ERO-owned/original** eight-class outfit, weapon and specialization manifest.
+- `Unreal/Scripts/GenerateEROCharacterPrototypeBlender.py` — **ERO-owned/original** procedural prototype modeling script; generates only original primitive geometry and must not be treated as final AAA character art.
+
+No third-party mesh, texture, animation, VFX or proprietary game asset is embedded by these files. Production character assets must be added only after license verification in this registry.
