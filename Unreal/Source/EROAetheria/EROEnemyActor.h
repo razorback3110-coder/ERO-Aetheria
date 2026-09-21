@@ -12,15 +12,16 @@ class EROAETHERIA_API AEROEnemyActor : public ACharacter
 public:
     AEROEnemyActor();
 
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     virtual float TakeDamage(float DamageAmount, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ERO|Enemy")
+    UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Enemy")
     int32 EnemyLevel = 1;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ERO|Enemy")
     float MaxHealth = 250.0f;
 
-    UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category="ERO|Enemy")
+    UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Enemy")
     float CurrentHealth = 250.0f;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ERO|Reward")
@@ -28,6 +29,9 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ERO|Enemy")
     float RespawnDelay = 10.0f;
+
+    UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Enemy")
+    bool bDefeated = false;
 
 protected:
     virtual void BeginPlay() override;
@@ -37,5 +41,4 @@ private:
     FTimerHandle RespawnTimerHandle;
     FVector SpawnLocation = FVector::ZeroVector;
     FRotator SpawnRotation = FRotator::ZeroRotator;
-    bool bDefeated = false;
 };
