@@ -1,6 +1,7 @@
 #include "EROEnemyActor.h"
 
 #include "EROPlayerCharacter.h"
+#include "EROPlayerEconomyState.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Net/UnrealNetwork.h"
@@ -71,6 +72,11 @@ float AEROEnemyActor::TakeDamage(float DamageAmount, const FDamageEvent& DamageE
         if (AEROPlayerCharacter* Player = Cast<AEROPlayerCharacter>(EventInstigator->GetPawn()))
         {
             Player->GrantExperience(ExperienceReward);
+
+            if (AEROPlayerEconomyState* EconomyState = Player->GetPlayerState<AEROPlayerEconomyState>())
+            {
+                EconomyState->GrantGold(GoldReward);
+            }
         }
 
         GetWorldTimerManager().SetTimer(RespawnTimerHandle, this, &AEROEnemyActor::RespawnEnemy, RespawnDelay, false);
