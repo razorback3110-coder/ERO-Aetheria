@@ -15,6 +15,9 @@ class UEROClassAppearanceDefinition;
  * progression, UI, abilities and server validation.
  */
 UCLASS(BlueprintType)
+class UEROCharacterVisualDefinition;
+
+UCLASS(BlueprintType)
 class EROAETHERIA_API UEROClassDefinition : public UPrimaryDataAsset
 {
     GENERATED_BODY()
@@ -31,6 +34,9 @@ public:
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Class")
     FEROClassStats BaseStats;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Appearance")
+    TSoftObjectPtr<UEROCharacterVisualDefinition> VisualDefinition;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Progression")
     FEROClassBranch SelectionBranch;
