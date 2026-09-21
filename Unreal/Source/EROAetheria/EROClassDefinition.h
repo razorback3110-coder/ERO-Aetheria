@@ -4,7 +4,7 @@
 #include "Engine/DataAsset.h"
 #include "EROClassTypes.h"
 
-class UEROClassAppearanceDefinition;
+class UEROCharacterVisualDefinition;
 #include "EROClassDefinition.generated.h"
 
 /**
@@ -14,9 +14,6 @@ class UEROClassAppearanceDefinition;
  * gameplay branches so the same data can drive character creation,
  * progression, UI, abilities and server validation.
  */
-UCLASS(BlueprintType)
-class UEROCharacterVisualDefinition;
-
 UCLASS(BlueprintType)
 class EROAETHERIA_API UEROClassDefinition : public UPrimaryDataAsset
 {
@@ -59,6 +56,4 @@ public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Abilities")
     TArray<TSoftClassPtr<class UGameplayAbility>> StartingAbilities;
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Appearance")
-    TSoftObjectPtr<UEROClassAppearanceDefinition> AppearanceDefinition;
 };
