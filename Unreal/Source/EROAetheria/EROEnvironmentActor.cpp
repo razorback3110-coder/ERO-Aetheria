@@ -18,6 +18,7 @@ AEROEnvironmentActor::AEROEnvironmentActor()
     PrimaryActorTick.bCanEverTick = false;
 
     USceneComponent* Root = CreateDefaultSubobject<USceneComponent>(TEXT("EnvironmentRoot"));
+    Root->SetMobility(EComponentMobility::Movable);
     SetRootComponent(Root);
 }
 
