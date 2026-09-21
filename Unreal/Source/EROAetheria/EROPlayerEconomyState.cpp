@@ -20,6 +20,7 @@ void AEROPlayerEconomyState::GrantGold(int64 Amount)
         return;
     }
 
-    GoldBalance = FMath::Max<int64>(0, GoldBalance);
-    GoldBalance = FMath::AddInt64Checked(GoldBalance, Amount);
+    const int64 SafeBalance = FMath::Max<int64>(0, GoldBalance);
+    const int64 MaxGold = MAX_int64;
+    GoldBalance = Amount > (MaxGold - SafeBalance) ? MaxGold : SafeBalance + Amount;
 }
