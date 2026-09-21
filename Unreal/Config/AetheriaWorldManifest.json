@@ -1,32 +1,197 @@
 {
+  "version": 2,
   "world": "Aetheria",
   "map": "/Game/Maps/Aetheria_CompleteWorld",
   "engine": "Unreal Engine 5.8",
-  "generation": "editor-deterministic",
-  "streaming": "World Partition",
-  "rendering": ["Lumen", "Nanite", "Virtual Shadow Maps"],
-  "procedural": ["PCG-ready", "deterministic biome dressing"],
-  "vfx": "Niagara-ready",
+  "architecture": "single_persistent_world_partition",
   "regions": [
-    {"id":"capital","name":"Aetheria Capital","type":"capital","center":[0,0],"radius":4200},
-    {"id":"plains","name":"Starter Plains","type":"starter","center":[0,6200],"radius":4200},
-    {"id":"forest","name":"Whispering Forest","type":"forest","center":[-6200,0],"radius":4200},
-    {"id":"snow","name":"Frostpeak Mountains","type":"mountain","center":[0,-6200],"radius":4200},
-    {"id":"desert","name":"Sunscar Desert","type":"desert","center":[6200,0],"radius":4200},
-    {"id":"swamp","name":"Mire of Corruption","type":"corrupted","center":[-6200,-6200],"radius":4200},
-    {"id":"ruins","name":"Ancient Ruins","type":"ruins","center":[6200,6200],"radius":4200},
-    {"id":"arcane","name":"Arcane Highlands","type":"magical","center":[-12000,0],"radius":4200},
-    {"id":"frontier","name":"PvP/GvG Frontier","type":"pvp_gvg","center":[12000,0],"radius":4200}
+    {
+      "id": "AetheriaCapital",
+      "name": "Aetheria Capital",
+      "type": "capital",
+      "recommended_level": 1,
+      "center": [
+        0,
+        0
+      ],
+      "radius": 4200,
+      "achievements": 600,
+      "mvps": 0
+    },
+    {
+      "id": "ValoriaPlains",
+      "name": "Valoria Plains",
+      "type": "starter",
+      "recommended_level": 10,
+      "center": [
+        0,
+        7200
+      ],
+      "radius": 7200,
+      "achievements": 750,
+      "mvps": 2
+    },
+    {
+      "id": "Elderglen",
+      "name": "Elderglen",
+      "type": "forest",
+      "recommended_level": 25,
+      "center": [
+        -7200,
+        0
+      ],
+      "radius": 7200,
+      "achievements": 750,
+      "mvps": 2
+    },
+    {
+      "id": "Sunscar",
+      "name": "Sunscar",
+      "type": "desert",
+      "recommended_level": 50,
+      "center": [
+        7200,
+        0
+      ],
+      "radius": 7200,
+      "achievements": 900,
+      "mvps": 2
+    },
+    {
+      "id": "Frostheim",
+      "name": "Frostheim",
+      "type": "mountain",
+      "recommended_level": 75,
+      "center": [
+        0,
+        -7200
+      ],
+      "radius": 7200,
+      "achievements": 1000,
+      "mvps": 2
+    },
+    {
+      "id": "Mirehaven",
+      "name": "Mirehaven",
+      "type": "corrupted",
+      "recommended_level": 100,
+      "center": [
+        -7200,
+        -7200
+      ],
+      "radius": 7200,
+      "achievements": 1200,
+      "mvps": 2
+    },
+    {
+      "id": "Arkenfall",
+      "name": "Arkenfall",
+      "type": "ruins",
+      "recommended_level": 125,
+      "center": [
+        7200,
+        7200
+      ],
+      "radius": 8500,
+      "achievements": 850,
+      "mvps": 2
+    },
+    {
+      "id": "Astralis",
+      "name": "Astralis",
+      "type": "magical",
+      "recommended_level": 150,
+      "center": [
+        -14400,
+        0
+      ],
+      "radius": 8500,
+      "achievements": 1300,
+      "mvps": 2
+    },
+    {
+      "id": "Duskmoor",
+      "name": "Duskmoor",
+      "type": "darklands",
+      "recommended_level": 165,
+      "center": [
+        14400,
+        0
+      ],
+      "radius": 8500,
+      "achievements": 950,
+      "mvps": 2
+    },
+    {
+      "id": "Abyssia",
+      "name": "Abyssia",
+      "type": "abyss",
+      "recommended_level": 175,
+      "center": [
+        0,
+        -14400
+      ],
+      "radius": 9000,
+      "achievements": 1400,
+      "mvps": 2
+    },
+    {
+      "id": "Drakoria",
+      "name": "Drakoria",
+      "type": "dragon",
+      "recommended_level": 200,
+      "center": [
+        0,
+        14400
+      ],
+      "radius": 9000,
+      "achievements": 1500,
+      "mvps": 2
+    }
   ],
-  "content_nodes": {
-    "dungeons": 4,
-    "raids": 2,
-    "mvp_regions": 2,
-    "pvp_gvg_frontier": true,
-    "waypoints": 9
+  "mvp_system": {
+    "total": 22,
+    "per_region": 2,
+    "spawn_radius_m": 100,
+    "server_authoritative": true,
+    "individual_respawn": true,
+    "individual_loot_tables": true,
+    "unique_necklace_per_mvp": true
+  },
+  "instances": {
+    "dungeons": [
+      "Dungeon_Forest",
+      "Dungeon_Desert",
+      "Dungeon_Frost",
+      "Dungeon_Abyss"
+    ],
+    "towers": [
+      "Tower_01",
+      "Tower_02",
+      "Tower_03",
+      "Tower_04",
+      "Tower_05"
+    ],
+    "pvp": [
+      "Arena_1v1",
+      "Arena_4v4"
+    ],
+    "gvg": [
+      "GvG_WarOfRealms"
+    ]
+  },
+  "achievements": {
+    "city_thresholds": [
+      400,
+      600,
+      800,
+      1200
+    ],
+    "variable_per_city": true,
+    "completion_rewards": true
   },
   "asset_policy": {
     "generated_scaffold": "Unreal built-in primitives + ERO-authored materials",
-    "third_party_assets": "must pass ERO asset license registry before inclusion"
+    "third_party_assets": "must pass ERO asset license registry"
   }
 }
