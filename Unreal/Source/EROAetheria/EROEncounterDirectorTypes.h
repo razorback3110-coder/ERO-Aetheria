@@ -27,10 +27,23 @@ struct EROAETHERIA_API FEROEncounterSpawnDefinition
     int64 ExperienceReward = 250;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ERO|Encounter")
+    int64 GoldReward = 25;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ERO|Encounter")
+    FName ItemRewardId = TEXT("Aetherium_Shard");
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ERO|Encounter", meta=(ClampMin="0", ClampMax="9999"))
+    int32 ItemRewardQuantity = 1;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ERO|Encounter")
     float RespawnDelay = 10.0f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ERO|Encounter")
+    bool bIsMVP = false;
 
     bool IsValid() const
     {
-        return !EncounterId.IsNone() && EnemyLevel > 0 && MaxHealth > 0.0f && ExperienceReward >= 0 && RespawnDelay >= 0.0f;
+        return !EncounterId.IsNone() && EnemyLevel > 0 && MaxHealth > 0.0f && ExperienceReward >= 0 && GoldReward >= 0 &&
+               !ItemRewardId.IsNone() && ItemRewardQuantity >= 0 && RespawnDelay >= 0.0f;
     }
 };
