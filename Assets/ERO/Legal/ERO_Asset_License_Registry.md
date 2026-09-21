@@ -111,3 +111,12 @@ A production build is considered legally ready only when every non-ERO asset ref
 | `EROPlayerCharacter` progression and respawn extension | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Server-authoritative eight-class stat profiles, level/XP progression, level-18 class selection gate and automatic post-defeat respawn loop |
 | `DefaultInput.ini` attack mapping | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Primary left-mouse combat input for the Unreal playable slice |
 | `EROAetheria.Build.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Unreal module dependencies for networking, Enhanced Input, Gameplay Ability System and Mass |
+
+
+## ERO Unreal visual-generation tooling
+
+| Content | Source | License | Commercial game | Attribution | ERO use |
+|---|---|---|---|---|---|
+| Unreal/Scripts/GenerateAetheriaVisualWorld.py | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Deterministic UE5 editor generator for a partitioned Aetheria visual scaffold, biome layout, materials, lighting and POIs |
+
+The generator creates only Unreal Engine built-in primitive geometry and ERO-authored material/layout data. It does not embed third-party assets. Production third-party content must still pass the registry gate above.
