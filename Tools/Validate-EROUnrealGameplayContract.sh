@@ -7,6 +7,7 @@ SRC="$ROOT/Unreal/Source/EROAetheria"
 required_files=(
   "$SRC/EROPlayerCharacter.h"
   "$SRC/EROPlayerCharacter.cpp"
+  "$SRC/EROPlayerCharacterEconomy.cpp"
   "$SRC/EROEnemyActor.h"
   "$SRC/EROEnemyActor.cpp"
   "$SRC/EROGameMode.h"
@@ -22,6 +23,7 @@ for file in "${required_files[@]}"; do
 done
 
 player="$SRC/EROPlayerCharacter.h"
+player_economy="$SRC/EROPlayerCharacterEconomy.cpp"
 enemy="$SRC/EROEnemyActor.h"
 gamemode="$SRC/EROGameMode.cpp"
 encounters="$SRC/EROEncounterDirectorTypes.h"
@@ -31,9 +33,12 @@ savegame="$SRC/EROPlayerEconomySaveGame.h"
 
 grep -q 'ServerAttack' "$player"
 grep -q 'GrantExperience' "$player"
+grep -q 'GrantGold' "$player"
 grep -q 'CurrentHealth' "$player"
 grep -q 'ServerSelectClass' "$player"
 grep -q 'RestorePersistentProgression' "$player"
+grep -q 'void AEROPlayerCharacter::GrantGold' "$player_economy"
+grep -q 'MaxGold' "$player_economy"
 grep -q 'Replicated' "$enemy"
 grep -q 'TakeDamage' "$enemy"
 grep -q 'RespawnDelay' "$enemy"
