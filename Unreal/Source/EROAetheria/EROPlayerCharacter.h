@@ -4,6 +4,7 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
 #include "EROClassTypes.h"
+#include "EROCharacterAppearanceTypes.h"
 #include "EROPlayerCharacter.generated.h"
 
 class UAbilitySystemComponent;
@@ -33,6 +34,12 @@ public:
 
     UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Character")
     EEROPlayerClass PlayerClass = EEROPlayerClass::Warrior;
+
+    UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Appearance")
+    FName AppearanceId = TEXT("Warrior_Base");
+
+    UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Weapon")
+    EEROWeaponFamily EquippedWeaponFamily = EEROWeaponFamily::Sword;
 
     UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Character")
     int32 Level = 1;
@@ -67,6 +74,12 @@ public:
     UFUNCTION(Server, Reliable)
     void ServerSelectClass(EEROPlayerClass RequestedClass);
 
+    UFUNCTION(BlueprintCallable, Category="ERO|Weapon")
+    bool CanSelectWeaponSpecialization() const;
+
+    UFUNCTION(Server, Reliable)
+    void ServerSelectWeaponSpecialization(EEROWeaponFamily RequestedWeapon);
+
     void GrantExperience(int64 Amount);
 
 protected:
@@ -85,6 +98,8 @@ protected:
     bool CanAttack() const;
     void ResetAttackCooldown();
     void ApplyClassProfile();
+    void ApplyClassAppearanceProfile();
+    bool IsWeaponFamilyAllowed(EEROWeaponFamily WeaponFamily) const;
     void SyncAttributesFromLegacyProfile();
     void RespawnAfterDeath();
     int64 ExperienceForNextLevel() const;
