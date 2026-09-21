@@ -7,6 +7,12 @@ AEROGameMode::AEROGameMode()
 {
     bUseSeamlessTravel = true;
     DefaultPawnClass = AEROPlayerCharacter::StaticClass();
+
+    StarterEncounters = {
+        { TEXT("Starter_Imp_01"), FVector(900.0f, 0.0f, 100.0f), FRotator::ZeroRotator, 1, 250.0f, 250, 10.0f },
+        { TEXT("Starter_Imp_02"), FVector(1300.0f, 650.0f, 100.0f), FRotator::ZeroRotator, 2, 350.0f, 350, 10.0f },
+        { TEXT("Starter_Imp_03"), FVector(1700.0f, -550.0f, 100.0f), FRotator::ZeroRotator, 3, 450.0f, 450, 10.0f }
+    };
 }
 
 void AEROGameMode::BeginPlay()
@@ -19,30 +25,35 @@ void AEROGameMode::BeginPlay()
     }
 
     GetWorld()->SpawnActor<AEROEnvironmentActor>(FVector::ZeroVector, FRotator::ZeroRotator);
+    SpawnConfiguredEncounters();
+}
 
-    // Deterministic PvE starter encounters. These are server-owned and can be
-    // replaced later by the data-driven world/encounter director without
-    // changing player combat code.
-    const TArray<FVector> StarterEnemyLocations = {
-        FVector(900.0f, 0.0f, 100.0f),
-        FVector(1300.0f, 650.0f, 100.0f),
-        FVector(1700.0f, -550.0f, 100.0f)
-    };
-
-    for (int32 Index = 0; Index < StarterEnemyLocations.Num(); ++Index)
+void AEROGameMode::SpawnConfiguredEncounters()
+{
+    if (!GetWorld())
     {
-        FTransform SpawnTransform(FRotator::ZeroRotator, StarterEnemyLocations[Index]);
+        return;
+    }
+
+    for (const FEROEncounterSpawnDefinition& Definition : StarterEncounters)
+    {
+        if (!Definition.IsValid())
+        {
+            continue;
+        }
+
+        const FTransform SpawnTransform(Definition.Rotation, Definition.Location);
         AEROEnemyActor* Enemy = GetWorld()->SpawnActorDeferred<AEROEnemyActor>(AEROEnemyActor::StaticClass(), SpawnTransform);
         if (!Enemy)
         {
             continue;
         }
 
-        Enemy->EnemyLevel = 1 + Index;
-        Enemy->MaxHealth = 250.0f + (Index * 100.0f);
-        Enemy->CurrentHealth = Enemy->MaxHealth;
-        Enemy->ExperienceReward = 250 + (Index * 100);
-        Enemy->RespawnDelay = 10.0f;
+        Enemy->EnemyLevel = Definition.EnemyLevel;
+        Enemy->MaxHealth = Definition.MaxHealth;
+        Enemy->CurrentHealth = Definition.MaxHealth;
+        Enemy->ExperienceReward = Definition.ExperienceReward;
+        Enemy->RespawnDelay = Definition.RespawnDelay;
         Enemy->FinishSpawning(SpawnTransform);
     }
 }
