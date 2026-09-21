@@ -1,5 +1,6 @@
 #include "EROGameMode.h"
 #include "EROPlayerCharacter.h"
+#include "EROPlayerEconomyState.h"
 #include "EROEnvironmentActor.h"
 #include "EROEnemyActor.h"
 
@@ -7,6 +8,7 @@ AEROGameMode::AEROGameMode()
 {
     bUseSeamlessTravel = true;
     DefaultPawnClass = AEROPlayerCharacter::StaticClass();
+    PlayerStateClass = AEROPlayerEconomyState::StaticClass();
 
     StarterEncounters = {
         { TEXT("Starter_Imp_01"), FVector(900.0f, 0.0f, 100.0f), FRotator::ZeroRotator, 1, 250.0f, 250, 10.0f },
@@ -53,6 +55,7 @@ void AEROGameMode::SpawnConfiguredEncounters()
         Enemy->MaxHealth = Definition.MaxHealth;
         Enemy->CurrentHealth = Definition.MaxHealth;
         Enemy->ExperienceReward = Definition.ExperienceReward;
+        Enemy->GoldReward = FMath::Max<int64>(1, static_cast<int64>(Definition.EnemyLevel) * 25);
         Enemy->RespawnDelay = Definition.RespawnDelay;
         Enemy->FinishSpawning(SpawnTransform);
     }
