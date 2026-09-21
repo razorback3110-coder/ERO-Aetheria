@@ -2,27 +2,8 @@
 
 #include "CoreMinimal.h"
 #include "EROClassTypes.h"
+#include "EROCharacterAppearanceTypes.h"
 #include "EROCharacterVisualTypes.generated.h"
-
-UENUM(BlueprintType)
-enum class EEROWeaponFamily : uint8
-{
-    Sword,
-    Greatsword,
-    Axe,
-    Mace,
-    Shield,
-    Bow,
-    Crossbow,
-    Dagger,
-    DualBlades,
-    Staff,
-    Wand,
-    Grimoire,
-    Orb,
-    Scythe,
-    Spear
-};
 
 UENUM(BlueprintType)
 enum class EEROWeaponSpecialization : uint8
