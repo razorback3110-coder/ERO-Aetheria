@@ -70,6 +70,8 @@ public:
     void GrantExperience(int64 Amount);
 
 protected:
+    virtual void BeginPlay() override;
+
     void MoveForward(float Value);
     void MoveRight(float Value);
     void LookUp(float Value);
