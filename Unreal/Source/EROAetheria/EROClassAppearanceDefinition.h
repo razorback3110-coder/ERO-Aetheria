@@ -5,6 +5,8 @@
 #include "EROCharacterAppearanceTypes.h"
 #include "EROClassAppearanceDefinition.generated.h"
 
+class USkeletalMesh;
+
 UCLASS(BlueprintType)
 class EROAETHERIA_API UEROClassAppearanceDefinition : public UPrimaryDataAsset
 {
