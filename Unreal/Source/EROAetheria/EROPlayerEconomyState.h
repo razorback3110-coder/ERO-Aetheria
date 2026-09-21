@@ -41,4 +41,6 @@ public:
 private:
     FString GetPersistenceSlotName() const;
     void LoadPersistentEconomyState();
+
+    FTimerHandle PersistenceSaveTimerHandle;
 };
