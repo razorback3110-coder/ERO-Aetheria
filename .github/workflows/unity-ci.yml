@@ -2,10 +2,6 @@ name: ERO Unity Validation
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main, master, unreal-migration ]
-  pull_request:
-    branches: [ main, master, unreal-migration ]
 
 permissions:
   contents: read
