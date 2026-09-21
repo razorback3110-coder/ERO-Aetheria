@@ -1,0 +1,32 @@
+{
+  "world": "Aetheria",
+  "map": "/Game/Maps/Aetheria_CompleteWorld",
+  "engine": "Unreal Engine 5.8",
+  "generation": "editor-deterministic",
+  "streaming": "World Partition",
+  "rendering": ["Lumen", "Nanite", "Virtual Shadow Maps"],
+  "procedural": ["PCG-ready", "deterministic biome dressing"],
+  "vfx": "Niagara-ready",
+  "regions": [
+    {"id":"capital","name":"Aetheria Capital","type":"capital","center":[0,0],"radius":4200},
+    {"id":"plains","name":"Starter Plains","type":"starter","center":[0,6200],"radius":4200},
+    {"id":"forest","name":"Whispering Forest","type":"forest","center":[-6200,0],"radius":4200},
+    {"id":"snow","name":"Frostpeak Mountains","type":"mountain","center":[0,-6200],"radius":4200},
+    {"id":"desert","name":"Sunscar Desert","type":"desert","center":[6200,0],"radius":4200},
+    {"id":"swamp","name":"Mire of Corruption","type":"corrupted","center":[-6200,-6200],"radius":4200},
+    {"id":"ruins","name":"Ancient Ruins","type":"ruins","center":[6200,6200],"radius":4200},
+    {"id":"arcane","name":"Arcane Highlands","type":"magical","center":[-12000,0],"radius":4200},
+    {"id":"frontier","name":"PvP/GvG Frontier","type":"pvp_gvg","center":[12000,0],"radius":4200}
+  ],
+  "content_nodes": {
+    "dungeons": 4,
+    "raids": 2,
+    "mvp_regions": 2,
+    "pvp_gvg_frontier": true,
+    "waypoints": 9
+  },
+  "asset_policy": {
+    "generated_scaffold": "Unreal built-in primitives + ERO-authored materials",
+    "third_party_assets": "must pass ERO asset license registry before inclusion"
+  }
+}
