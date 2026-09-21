@@ -46,6 +46,12 @@ UAbilitySystemComponent* AEROPlayerCharacter::GetAbilitySystemComponent() const
     return AbilitySystemComponent;
 }
 
+void AEROPlayerCharacter::BeginPlay()
+{
+    Super::BeginPlay();
+    SyncAttributesFromLegacyProfile();
+}
+
 void AEROPlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
