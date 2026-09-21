@@ -1,5 +1,8 @@
 #include "EROPlayerCharacter.h"
 
+#include "AbilitySystemComponent.h"
+#include "EROAttributeSet.h"
+
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -13,6 +16,12 @@ AEROPlayerCharacter::AEROPlayerCharacter()
 {
     bReplicates = true;
     SetReplicateMovement(true);
+
+    AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+    AbilitySystemComponent->SetIsReplicated(true);
+    AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
+
+    AttributeSet = CreateDefaultSubobject<UEROAttributeSet>(TEXT("AttributeSet"));
 
     GetCapsuleComponent()->InitCapsuleSize(42.0f, 96.0f);
     GetCharacterMovement()->MaxWalkSpeed = 500.0f;
@@ -29,6 +38,12 @@ AEROPlayerCharacter::AEROPlayerCharacter()
 
     ApplyClassProfile();
     CurrentHealth = MaxHealth;
+    SyncAttributesFromLegacyProfile();
+}
+
+UAbilitySystemComponent* AEROPlayerCharacter::GetAbilitySystemComponent() const
+{
+    return AbilitySystemComponent;
 }
 
 void AEROPlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -194,6 +209,26 @@ void AEROPlayerCharacter::ApplyClassProfile()
 
     MaxHealth = ClassHealthBonus + static_cast<float>(Level - 1) * 12.0f;
     AttackDamage = ClassDamageBonus + static_cast<float>(Level - 1) * 2.5f;
+    SyncAttributesFromLegacyProfile();
+}
+
+void AEROPlayerCharacter::SyncAttributesFromLegacyProfile()
+{
+    if (!AttributeSet || !AbilitySystemComponent || !HasAuthority())
+    {
+        return;
+    }
+
+    AttributeSet->SetMaxHealth(MaxHealth);
+    AttributeSet->SetHealth(CurrentHealth);
+    AttributeSet->SetMaxMana(100.0f + static_cast<float>(Level - 1) * 8.0f);
+    AttributeSet->SetMana(AttributeSet->GetMaxMana());
+    AttributeSet->SetAttack(AttackDamage);
+    AttributeSet->SetMagicAttack(AttackDamage * 1.25f);
+    AttributeSet->SetDefense(10.0f + static_cast<float>(Level - 1) * 1.5f);
+    AttributeSet->SetMagicDefense(10.0f + static_cast<float>(Level - 1) * 1.5f);
+    AttributeSet->SetCritChance(0.05f);
+    AttributeSet->SetMoveSpeed(GetCharacterMovement() ? GetCharacterMovement()->MaxWalkSpeed : 500.0f);
 }
 
 int64 AEROPlayerCharacter::ExperienceForNextLevel() const
@@ -211,6 +246,7 @@ void AEROPlayerCharacter::RespawnAfterDeath()
 
     bDefeated = false;
     CurrentHealth = MaxHealth;
+    SyncAttributesFromLegacyProfile();
     GetCharacterMovement()->SetMovementMode(MOVE_Walking);
     SetActorHiddenInGame(false);
     SetActorEnableCollision(true);
@@ -246,6 +282,10 @@ float AEROPlayerCharacter::TakeDamage(float DamageAmount, const FDamageEvent& Da
     if (CurrentHealth <= 0.0f)
     {
         CurrentHealth = 0.0f;
+        if (AttributeSet && HasAuthority())
+        {
+            AttributeSet->SetHealth(0.0f);
+        }
         bDefeated = true;
         GetCharacterMovement()->DisableMovement();
         DisableInput(Cast<APlayerController>(Controller));
