@@ -232,19 +232,27 @@ void AEROPlayerCharacter::ServerSelectWeapon_Implementation(FName RequestedWeapo
 
 bool AEROPlayerCharacter::IsWeaponAllowedForClass(FName WeaponId) const
 {
-    static const TMap<EEROPlayerClass, TSet<FName>> AllowedWeapons = {
-        { EEROPlayerClass::Warrior,  { TEXT("Warrior_Sword"), TEXT("Warrior_Greatsword"), TEXT("Warrior_Axe") } },
-        { EEROPlayerClass::Ranger,   { TEXT("Ranger_Bow"), TEXT("Ranger_Crossbow"), TEXT("Ranger_Bow_Sharpshooter") } },
-        { EEROPlayerClass::Mage,     { TEXT("Mage_Staff"), TEXT("Mage_Wand"), TEXT("Mage_Orb") } },
-        { EEROPlayerClass::Assassin, { TEXT("Assassin_Daggers"), TEXT("Assassin_DualBlades"), TEXT("Assassin_Daggers_Executioner") } },
-        { EEROPlayerClass::Cleric,   { TEXT("Cleric_MaceShield"), TEXT("Cleric_Staff"), TEXT("Cleric_Grimoire") } },
-        { EEROPlayerClass::Paladin,  { TEXT("Paladin_SwordShield"), TEXT("Paladin_MaceShield"), TEXT("Paladin_Greatsword") } },
-        { EEROPlayerClass::Warlock,  { TEXT("Warlock_Grimoire"), TEXT("Warlock_Staff"), TEXT("Warlock_Scythe") } },
-        { EEROPlayerClass::Summoner, { TEXT("Summoner_Staff"), TEXT("Summoner_Orb"), TEXT("Summoner_Grimoire") } }
-    };
-
-    const TSet<FName>* Options = AllowedWeapons.Find(PlayerClass);
-    return Options && Options->Contains(WeaponId);
+    switch (PlayerClass)
+    {
+    case EEROPlayerClass::Warrior:
+        return WeaponId == TEXT("Warrior_Sword") || WeaponId == TEXT("Warrior_Greatsword") || WeaponId == TEXT("Warrior_Axe");
+    case EEROPlayerClass::Ranger:
+        return WeaponId == TEXT("Ranger_Bow") || WeaponId == TEXT("Ranger_Crossbow") || WeaponId == TEXT("Ranger_Bow_Sharpshooter");
+    case EEROPlayerClass::Mage:
+        return WeaponId == TEXT("Mage_Staff") || WeaponId == TEXT("Mage_Wand") || WeaponId == TEXT("Mage_Orb");
+    case EEROPlayerClass::Assassin:
+        return WeaponId == TEXT("Assassin_Daggers") || WeaponId == TEXT("Assassin_DualBlades") || WeaponId == TEXT("Assassin_Daggers_Executioner");
+    case EEROPlayerClass::Cleric:
+        return WeaponId == TEXT("Cleric_MaceShield") || WeaponId == TEXT("Cleric_Staff") || WeaponId == TEXT("Cleric_Grimoire");
+    case EEROPlayerClass::Paladin:
+        return WeaponId == TEXT("Paladin_SwordShield") || WeaponId == TEXT("Paladin_MaceShield") || WeaponId == TEXT("Paladin_Greatsword");
+    case EEROPlayerClass::Warlock:
+        return WeaponId == TEXT("Warlock_Grimoire") || WeaponId == TEXT("Warlock_Staff") || WeaponId == TEXT("Warlock_Scythe");
+    case EEROPlayerClass::Summoner:
+        return WeaponId == TEXT("Summoner_Staff") || WeaponId == TEXT("Summoner_Orb") || WeaponId == TEXT("Summoner_Grimoire");
+    default:
+        return false;
+    }
 }
 
 void AEROPlayerCharacter::GrantExperience(int64 Amount)
