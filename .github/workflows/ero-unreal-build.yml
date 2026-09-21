@@ -10,6 +10,10 @@ on:
       - unreal-migration
   workflow_dispatch:
 
+concurrency:
+  group: ero-unreal-build-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
@@ -55,25 +59,36 @@ jobs:
           }
 
           $log = Join-Path $env:RUNNER_TEMP "EROAetheriaServerSmoke.log"
-          $arguments = "Unreal/ERO-Aetheria.uproject?listen -nullrhi -unattended -nosound -log=$log -port=17777"
+          $port = 17000 + ([Math]::Abs([int]$env:GITHUB_RUN_ID) % 1000)
+          $arguments = "Unreal/ERO-Aetheria.uproject?listen -nullrhi -unattended -nosound -log=$log -port=$port"
+          Write-Host "Starting dedicated server smoke test on port $port"
           $process = Start-Process -FilePath $server -ArgumentList $arguments -PassThru -WindowStyle Hidden
           try {
-            Start-Sleep -Seconds 15
-            if ($process.HasExited) {
-              $exitCode = $process.ExitCode
-              if ($exitCode -ne 0) {
-                if (Test-Path $log) { Get-Content $log -Tail 120 }
+            $started = $false
+            for ($i = 0; $i -lt 30; $i++) {
+              Start-Sleep -Seconds 1
+              if ($process.HasExited) {
+                $exitCode = $process.ExitCode
+                if (Test-Path $log) { Get-Content $log -Tail 160 }
                 throw "Dedicated server exited during smoke test with code $exitCode"
               }
-              throw "Dedicated server exited during smoke test"
+
+              if (Test-Path $log) {
+                $content = Get-Content $log -Raw
+                if ($content -match "Error:|Fatal error|Assertion failed|Ensure condition failed") {
+                  Get-Content $log -Tail 200
+                  throw "Dedicated server smoke test reported a fatal/assertion error"
+                }
+                if ($content -match "Engine initialized|Game engine initialized|Browse: /Game|LogNet: GameNetDriver") {
+                  $started = $true
+                  break
+                }
+              }
             }
 
-            if (Test-Path $log) {
-              $content = Get-Content $log -Raw
-              if ($content -match "Error:|Fatal error|Assertion failed|Ensure condition failed") {
-                Get-Content $log -Tail 160
-                throw "Dedicated server smoke test reported a fatal/assertion error"
-              }
+            if (-not $started) {
+              if (Test-Path $log) { Get-Content $log -Tail 200 }
+              throw "Dedicated server did not reach a recognizable initialized state within 30 seconds"
             }
 
             Write-Host "Dedicated server startup smoke test: OK"
