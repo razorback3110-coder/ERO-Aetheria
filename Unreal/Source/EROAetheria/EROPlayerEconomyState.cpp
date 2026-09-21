@@ -1,12 +1,14 @@
 #include "EROPlayerEconomyState.h"
 
 #include "EROPlayerEconomySaveGame.h"
+#include "EROPlayerCharacter.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 
 namespace
 {
 constexpr float EconomyCheckpointIntervalSeconds = 60.0f;
+constexpr float CharacterRestoreDelaySeconds = 0.1f;
 }
 
 AEROPlayerEconomyState::AEROPlayerEconomyState()
@@ -35,6 +37,14 @@ void AEROPlayerEconomyState::BeginPlay()
             EconomyCheckpointIntervalSeconds,
             true,
             EconomyCheckpointIntervalSeconds);
+
+        GetWorldTimerManager().SetTimer(
+            CharacterRestoreTimerHandle,
+            this,
+            &AEROPlayerEconomyState::RestorePersistentCharacterState,
+            CharacterRestoreDelaySeconds,
+            false,
+            CharacterRestoreDelaySeconds);
     }
 }
 
@@ -43,6 +53,7 @@ void AEROPlayerEconomyState::EndPlay(const EEndPlayReason::Type EndPlayReason)
     if (HasAuthority())
     {
         GetWorldTimerManager().ClearTimer(PersistenceSaveTimerHandle);
+        GetWorldTimerManager().ClearTimer(CharacterRestoreTimerHandle);
         SavePersistentEconomyState();
     }
 
@@ -104,7 +115,7 @@ void AEROPlayerEconomyState::SavePersistentEconomyState()
         return;
     }
 
-    SaveGame->SchemaVersion = 1;
+    SaveGame->SchemaVersion = 2;
     SaveGame->GoldBalance = FMath::Max<int64>(0, GoldBalance);
     SaveGame->Inventory.Reset();
 
@@ -127,6 +138,15 @@ void AEROPlayerEconomyState::SavePersistentEconomyState()
         SafeStack.Quantity = FMath::Clamp(Stack.Quantity, 1, MaxStackQuantity);
     }
 
+    if (const AEROPlayerCharacter* Character = Cast<AEROPlayerCharacter>(GetPawn()))
+    {
+        SaveGame->CharacterLevel = FMath::Clamp(Character->Level, 1, 100);
+        SaveGame->CharacterExperience = FMath::Max<int64>(0, Character->Experience);
+        SaveGame->CharacterClass = Character->PlayerClass;
+        SaveGame->EquippedWeaponId = Character->EquippedWeaponId;
+        SaveGame->EquippedWeaponFamily = Character->EquippedWeaponFamily;
+    }
+
     UGameplayStatics::SaveGameToSlot(SaveGame, GetPersistenceSlotName(), 0);
 }
 
@@ -139,7 +159,7 @@ void AEROPlayerEconomyState::LoadPersistentEconomyState()
     }
 
     UEROPlayerEconomySaveGame* SaveGame = Cast<UEROPlayerEconomySaveGame>(UGameplayStatics::LoadGameFromSlot(SlotName, 0));
-    if (!SaveGame || SaveGame->SchemaVersion != 1)
+    if (!SaveGame || SaveGame->SchemaVersion < 1 || SaveGame->SchemaVersion > 2)
     {
         return;
     }
@@ -159,6 +179,36 @@ void AEROPlayerEconomyState::LoadPersistentEconomyState()
         FEROInventoryStack& SafeStack = Inventory.AddDefaulted_GetRef();
         SafeStack.ItemId = Stack.ItemId;
         SafeStack.Quantity = FMath::Clamp(Stack.Quantity, 1, MaxStackQuantity);
+    }
+}
+
+void AEROPlayerEconomyState::RestorePersistentCharacterState()
+{
+    if (!HasAuthority())
+    {
+        return;
+    }
+
+    const FString SlotName = GetPersistenceSlotName();
+    if (!UGameplayStatics::DoesSaveGameExist(SlotName, 0))
+    {
+        return;
+    }
+
+    const UEROPlayerEconomySaveGame* SaveGame = Cast<UEROPlayerEconomySaveGame>(UGameplayStatics::LoadGameFromSlot(SlotName, 0));
+    if (!SaveGame || SaveGame->SchemaVersion < 2)
+    {
+        return;
+    }
+
+    if (AEROPlayerCharacter* Character = Cast<AEROPlayerCharacter>(GetPawn()))
+    {
+        Character->RestorePersistentProgression(
+            SaveGame->CharacterLevel,
+            SaveGame->CharacterExperience,
+            SaveGame->CharacterClass,
+            SaveGame->EquippedWeaponId,
+            SaveGame->EquippedWeaponFamily);
     }
 }
 
