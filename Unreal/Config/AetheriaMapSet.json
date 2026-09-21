@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "worldMap": "Aetheria_WorldMap",
+  "persistentWorld": "/Game/Maps/Aetheria_CompleteWorld",
+  "regionCount": 11,
+  "instanceMaps": [
+    "Dungeon_Forest",
+    "Dungeon_Desert",
+    "Dungeon_Frost",
+    "Dungeon_Abyss",
+    "Tower_01",
+    "Tower_02",
+    "Tower_03",
+    "Tower_04",
+    "Tower_05",
+    "Arena_1v1",
+    "Arena_4v4",
+    "GvG_WarOfRealms"
+  ],
+  "travel": {
+    "regions": "same_world_waypoint_teleport",
+    "instances": "server_authoritative_server_travel",
+    "gvg": "only_when_event_open"
+  }
+}

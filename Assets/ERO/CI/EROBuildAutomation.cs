@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
+using ERO.Content.MVP;
 
 namespace EternalRealmsOnline.CI
 {
@@ -75,6 +76,9 @@ namespace EternalRealmsOnline.CI
             if (!File.Exists(VerticalSliceScript)) throw new BuildFailedException("Missing playable vertical slice script: " + VerticalSliceScript);
             var sceneText = File.ReadAllText(DefaultScene);
             if (!sceneText.Contains("7d2f4f1a2e3b4c5d9e8f7a6b5c4d3e2f")) throw new BuildFailedException("Playable scene is not wired to EROPlayableVerticalSlice.");
+
+            // Keep the MMO encounter contract executable and regression-tested in CI.
+            EROMvpEncounterRules.ValidateContract();
         }
 
         private static void EnsureSucceeded(BuildReport report, string target)

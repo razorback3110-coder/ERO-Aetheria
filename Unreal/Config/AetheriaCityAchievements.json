@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "completionThresholds": [
+    400,
+    600,
+    800,
+    1200
+  ],
+  "cities": [
+    {
+      "cityId": "AetheriaCapital",
+      "totalAchievements": 600,
+      "thresholds": [
+        400,
+        600
+      ]
+    },
+    {
+      "cityId": "ValoriaPlains",
+      "totalAchievements": 750,
+      "thresholds": [
+        400,
+        600,
+        750
+      ]
+    },
+    {
+      "cityId": "Elderglen",
+      "totalAchievements": 900,
+      "thresholds": [
+        400,
+        600,
+        800,
+        900
+      ]
+    },
+    {
+      "cityId": "Sunscar",
+      "totalAchievements": 1000,
+      "thresholds": [
+        400,
+        600,
+        800,
+        1000
+      ]
+    },
+    {
+      "cityId": "Frostheim",
+      "totalAchievements": 1100,
+      "thresholds": [
+        400,
+        600,
+        800,
+        1100
+      ]
+    },
+    {
+      "cityId": "Mirehaven",
+      "totalAchievements": 1200,
+      "thresholds": [
+        400,
+        600,
+        800,
+        1200
+      ]
+    },
+    {
+      "cityId": "Arkenfall",
+      "totalAchievements": 850,
+      "thresholds": [
+        400,
+        600,
+        800,
+        850
+      ]
+    },
+    {
+      "cityId": "Astralis",
+      "totalAchievements": 1300,
+      "thresholds": [
+        400,
+        600,
+        800,
+        1200
+      ]
+    },
+    {
+      "cityId": "Duskmoor",
+      "totalAchievements": 950,
+      "thresholds": [
+        400,
+        600,
+        800,
+        950
+      ]
+    },
+    {
+      "cityId": "Abyssia",
+      "totalAchievements": 1400,
+      "thresholds": [
+        400,
+        600,
+        800,
+        1200
+      ]
+    },
+    {
+      "cityId": "Drakoria",
+      "totalAchievements": 1500,
+      "thresholds": [
+        400,
+        600,
+        800,
+        1200
+      ]
+    }
+  ]
+}

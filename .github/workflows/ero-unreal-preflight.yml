@@ -1,0 +1,92 @@
+name: ERO Unreal Preflight
+
+on:
+  push:
+    branches:
+      - unreal-migration
+  pull_request:
+    branches:
+      - main
+      - unreal-migration
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unreal-preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate Unreal project manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f Unreal/ERO-Aetheria.uproject
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("Unreal/ERO-Aetheria.uproject")
+          data = json.loads(p.read_text(encoding="utf-8"))
+          assert data["EngineAssociation"] == "5.8"
+          assert any(m["Name"] == "EROAetheria" for m in data["Modules"])
+          plugins = {x["Name"] for x in data.get("Plugins", []) if x.get("Enabled")}
+          required_plugins = {"EnhancedInput", "GameplayAbilities", "MassGameplay", "PCG", "Niagara", "EditorScriptingUtilities", "PythonScriptPlugin"}
+          forbidden_engine_modules = {"GameplayTags", "MassEntity"}
+          missing = required_plugins - plugins
+          if missing:
+              raise SystemExit(f"Missing required Unreal plugins: {sorted(missing)}")
+          unexpected = forbidden_engine_modules & plugins
+          if unexpected:
+              raise SystemExit(f"Engine modules must not be declared as plugins: {sorted(unexpected)}")
+          print("Unreal project manifest: OK")
+
+      - name: Validate source foundation
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in \
+            Unreal/Source/EROAetheria/EROAetheria.Build.cs \
+            Unreal/Source/EROAetheria/EROAetheria.h \
+            Unreal/Source/EROAetheria/EROAetheria.cpp \
+            Unreal/Source/EROAetheria/EROGameMode.h \
+            Unreal/Source/EROAetheria/EROGameMode.cpp \
+            Unreal/Source/EROAetheria.Target.cs \
+            Unreal/Source/EROAetheriaServer.Target.cs \
+            Unreal/Source/EROAetheriaEditor.Target.cs; do
+            test -f "$f"
+          done
+          test -f Unreal/Config/DefaultEngine.ini
+          test -f Unreal/Config/DefaultGame.ini
+          test -f Unreal/Scripts/GenerateAetheriaWorld.py
+          test -f Unreal/Scripts/GenerateAetheriaInstanceMaps.py
+          test -f Unreal/Config/AetheriaWorldManifest.json
+          test -f Unreal/Config/AetheriaInstanceManifest.json
+          echo "Unreal source/config/world-generation foundation: OK"
+
+      - name: Validate gameplay contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x Tools/Validate-EROUnrealGameplayContract.sh
+          ./Tools/Validate-EROUnrealGameplayContract.sh
+
+      - name: Validate legal gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f Assets/ERO/Legal/ERO_Asset_License_Registry.md
+          grep -q '^# ERO Asset & License Registry' Assets/ERO/Legal/ERO_Asset_License_Registry.md
+          grep -q 'Only assets with a verified license permitting use in a commercial game' Assets/ERO/Legal/ERO_Asset_License_Registry.md
+          echo "Legal registry: OK"
+
+      - name: Reject generated Unreal output
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git ls-files 'Unreal/Binaries/**' 'Unreal/DerivedDataCache/**' 'Unreal/Intermediate/**' 'Unreal/Saved/**' | grep -q .; then
+            echo "Generated Unreal output must not be committed."
+            exit 1
+          fi
+          echo "Generated-output gate: OK"

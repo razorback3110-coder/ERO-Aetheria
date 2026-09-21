@@ -1,0 +1,119 @@
+name: ERO Unreal Build
+
+on:
+  push:
+    branches:
+      - unreal-migration
+  pull_request:
+    branches:
+      - main
+      - unreal-migration
+  workflow_dispatch:
+
+concurrency:
+  group: ero-unreal-build-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  unreal-build:
+    runs-on: [self-hosted, Windows, X64, Unreal]
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify Unreal Engine 5.8.2
+        shell: powershell
+        run: |
+          $ue = "C:\Program Files\Epic Games\UE_5.8"
+          if (-not (Test-Path "$ue\Engine\Build\BatchFiles\Build.bat")) {
+            throw "Unreal Engine 5.8 was not found at $ue"
+          }
+          Write-Host "Unreal Engine 5.8 installation: OK"
+
+      - name: Build EROAetheriaEditor
+        shell: powershell
+        run: |
+          & "C:\Program Files\Epic Games\UE_5.8\Engine\Build\BatchFiles\Build.bat" EROAetheriaEditor Win64 Development -Project="$env:GITHUB_WORKSPACE\Unreal\ERO-Aetheria.uproject" -WaitMutex -NoHotReload
+          if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+          }
+
+      - name: Build EROAetheriaServer
+        shell: powershell
+        run: |
+          & "C:\Program Files\Epic Games\UE_5.8\Engine\Build\BatchFiles\Build.bat" EROAetheriaServer Win64 Development -Project="$env:GITHUB_WORKSPACE\Unreal\ERO-Aetheria.uproject" -WaitMutex -NoHotReload
+          if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+          }
+
+      - name: Smoke test dedicated server startup
+        shell: powershell
+        run: |
+          $server = Join-Path $env:GITHUB_WORKSPACE "Unreal\Binaries\Win64\EROAetheriaServer.exe"
+          if (-not (Test-Path $server)) {
+            throw "Dedicated server binary was not produced: $server"
+          }
+
+          $log = Join-Path $env:RUNNER_TEMP "EROAetheriaServerSmoke.log"
+          $port = 17000 + ([Math]::Abs([int]$env:GITHUB_RUN_ID) % 1000)
+          $arguments = "Unreal/ERO-Aetheria.uproject?listen -nullrhi -unattended -nosound -log=$log -port=$port"
+          Write-Host "Starting dedicated server smoke test on port $port"
+          $process = Start-Process -FilePath $server -ArgumentList $arguments -PassThru -WindowStyle Hidden
+          try {
+            $started = $false
+            for ($i = 0; $i -lt 30; $i++) {
+              Start-Sleep -Seconds 1
+              if ($process.HasExited) {
+                $exitCode = $process.ExitCode
+                if (Test-Path $log) { Get-Content $log -Tail 160 }
+                throw "Dedicated server exited during smoke test with code $exitCode"
+              }
+
+              if (Test-Path $log) {
+                $content = Get-Content $log -Raw
+                if ($content -match "Error:|Fatal error|Assertion failed|Ensure condition failed") {
+                  Get-Content $log -Tail 200
+                  throw "Dedicated server smoke test reported a fatal/assertion error"
+                }
+                if ($content -match "Engine initialized|Game engine initialized|Browse: /Game|LogNet: GameNetDriver") {
+                  $started = $true
+                  break
+                }
+              }
+            }
+
+            if (-not $started) {
+              if (Test-Path $log) { Get-Content $log -Tail 200 }
+              throw "Dedicated server did not reach a recognizable initialized state within 30 seconds"
+            }
+
+            Write-Host "Dedicated server startup smoke test: OK"
+          }
+          finally {
+            if (-not $process.HasExited) {
+              Stop-Process -Id $process.Id -Force
+            }
+          }
+
+      - name: Reject generated Unreal output
+        shell: powershell
+        run: |
+          $generated = @(
+            "Unreal\Binaries",
+            "Unreal\DerivedDataCache",
+            "Unreal\Intermediate",
+            "Unreal\Saved"
+          )
+          foreach ($path in $generated) {
+            if (git ls-files $path | Select-Object -First 1) {
+              throw "Generated Unreal output must not be committed: $path"
+            }
+          }
+
+      - name: Build result
+        shell: powershell
+        run: 'Write-Host "ERO Unreal Editor + Dedicated Server build and startup smoke test: SUCCEEDED"'

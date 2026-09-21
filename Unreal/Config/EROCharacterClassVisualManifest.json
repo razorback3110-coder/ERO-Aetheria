@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "description": "ERO class character, outfit and weapon specialization contract. Final meshes/materials/animations are imported only after license verification.",
+  "classes": [
+    {
+      "id": "Warrior",
+      "visualProfile": "Warrior_Ironheart",
+      "outfit": "Ironheart Vanguard",
+      "silhouette": "Heavy plated frontline armor, broad shoulders, reinforced gauntlets and battle cloak.",
+      "weapons": [
+        {"id":"Warrior_Sword","name":"Ironheart Sword","family":"Sword","specialization":"Vanguard","unlockLevel":18},
+        {"id":"Warrior_Greatsword","name":"Ironheart Greatsword","family":"Greatsword","specialization":"Berserker","unlockLevel":40},
+        {"id":"Warrior_Axe","name":"Ironheart War Axe","family":"Axe","specialization":"Berserker","unlockLevel":75}
+      ]
+    },
+    {
+      "id": "Ranger",
+      "visualProfile": "Ranger_Wildstrider",
+      "outfit": "Wildstrider Scout",
+      "silhouette": "Light layered leather, hood, utility belts, bracers and travel cloak.",
+      "weapons": [
+        {"id":"Ranger_Bow","name":"Wildstrider Longbow","family":"Bow","specialization":"Marksman","unlockLevel":18},
+        {"id":"Ranger_Crossbow","name":"Wildstrider Crossbow","family":"Crossbow","specialization":"Trapper","unlockLevel":40},
+        {"id":"Ranger_Bow_Sharpshooter","name":"Wildstrider Recurve","family":"Bow","specialization":"Sharpshooter","unlockLevel":75}
+      ]
+    },
+    {
+      "id": "Mage",
+      "visualProfile": "Mage_AstralWeaver",
+      "outfit": "Astral Weaver",
+      "silhouette": "Long arcane coat, layered mantle, glowing runic trims and floating spell ornaments.",
+      "weapons": [
+        {"id":"Mage_Staff","name":"Astral Staff","family":"Staff","specialization":"Arcanist","unlockLevel":18},
+        {"id":"Mage_Wand","name":"Astral Wand","family":"Wand","specialization":"Elementalist","unlockLevel":40},
+        {"id":"Mage_Orb","name":"Astral Orb","family":"Orb","specialization":"Spellblade","unlockLevel":75}
+      ]
+    },
+    {
+      "id": "Assassin",
+      "visualProfile": "Assassin_Nightveil",
+      "outfit": "Nightveil Stalker",
+      "silhouette": "Close-fitting stealth armor, hood, segmented shoulder guards, poison vials and shadow cloak.",
+      "weapons": [
+        {"id":"Assassin_Daggers","name":"Nightveil Daggers","family":"Dagger","specialization":"Shadow","unlockLevel":18},
+        {"id":"Assassin_DualBlades","name":"Nightveil Twin Blades","family":"DualBlades","specialization":"Venom","unlockLevel":40},
+        {"id":"Assassin_Daggers_Executioner","name":"Nightveil Execution Knives","family":"Dagger","specialization":"Executioner","unlockLevel":75}
+      ]
+    },
+    {
+      "id": "Cleric",
+      "visualProfile": "Cleric_Dawnkeeper",
+      "outfit": "Dawnkeeper Vestments",
+      "silhouette": "Ceremonial healer robes reinforced with light armor, halo-like shoulder ornaments and holy sigils.",
+      "weapons": [
+        {"id":"Cleric_MaceShield","name":"Dawnkeeper Mace","family":"Mace","specialization":"Holy","unlockLevel":18},
+        {"id":"Cleric_Staff","name":"Dawnkeeper Staff","family":"Staff","specialization":"Sanctuary","unlockLevel":40},
+        {"id":"Cleric_Grimoire","name":"Dawnkeeper Grimoire","family":"Grimoire","specialization":"Judgement","unlockLevel":75}
+      ]
+    },
+    {
+      "id": "Paladin",
+      "visualProfile": "Paladin_Sunwarden",
+      "outfit": "Sunwarden Aegis",
+      "silhouette": "Elite full plate with heraldic tabard, large shield silhouette and radiant crest.",
+      "weapons": [
+        {"id":"Paladin_SwordShield","name":"Sunwarden Sword","family":"Sword","specialization":"Guardian","unlockLevel":18},
+        {"id":"Paladin_MaceShield","name":"Sunwarden Mace","family":"Mace","specialization":"Holy","unlockLevel":40},
+        {"id":"Paladin_Greatsword","name":"Sunwarden Greatsword","family":"Greatsword","specialization":"Judgement","unlockLevel":75}
+      ]
+    },
+    {
+      "id": "Warlock",
+      "visualProfile": "Warlock_Voidbinder",
+      "outfit": "Voidbinder Regalia",
+      "silhouette": "Dark layered regalia, asymmetrical armor, chained relics and corrupted arcane ornaments.",
+      "weapons": [
+        {"id":"Warlock_Grimoire","name":"Voidbinder Grimoire","family":"Grimoire","specialization":"Hex","unlockLevel":18},
+        {"id":"Warlock_Staff","name":"Voidbinder Staff","family":"Staff","specialization":"Soulfire","unlockLevel":40},
+        {"id":"Warlock_Scythe","name":"Voidbinder Scythe","family":"Scythe","specialization":"Pact","unlockLevel":75}
+      ]
+    },
+    {
+      "id": "Summoner",
+      "visualProfile": "Summoner_Ethercaller",
+      "outfit": "Ethercaller Mantle",
+      "silhouette": "Layered ritual attire, summon rings, floating talismans and a prominent pact focus.",
+      "weapons": [
+        {"id":"Summoner_Staff","name":"Ethercaller Staff","family":"Staff","specialization":"Summoner","unlockLevel":18},
+        {"id":"Summoner_Orb","name":"Ethercaller Orb","family":"Orb","specialization":"Conjurer","unlockLevel":40},
+        {"id":"Summoner_Grimoire","name":"Ethercaller Grimoire","family":"Grimoire","specialization":"Beastmaster","unlockLevel":75}
+      ]
+    }
+  ],
+  "equipmentSlots": [
+    "Head","Face","Hair","Chest","Shoulders","Hands","Legs","Feet","Back","MainHand","OffHand","Accessory"
+  ],
+  "rules": {
+    "appearanceSeparateFromStats": true,
+    "transmogSupported": true,
+    "weaponChoiceCanChangeCombatStyle": true,
+    "serverValidatesEquippedWeaponAndSpecialization": true,
+    "classIdentityRemainsFixed": true
+  }
+}

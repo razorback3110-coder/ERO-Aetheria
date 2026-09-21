@@ -1,0 +1,295 @@
+{
+  "version": 1,
+  "total": 22,
+  "spawn_radius_m": 100,
+  "reset_policy": "per_mvp_respawn",
+  "server_authoritative": true,
+  "mvps": [
+    {
+      "id": "MVP_01",
+      "name": "Aetherian MVP 01",
+      "regionId": "AetheriaCapital",
+      "level": 25,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_01",
+      "necklace": {
+        "id": "MVP_NECKLACE_01",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_01",
+        "statsPreset": "MVP_NECKLACE_STATS_01"
+      }
+    },
+    {
+      "id": "MVP_02",
+      "name": "Aetherian MVP 02",
+      "regionId": "AetheriaCapital",
+      "level": 35,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_02",
+      "necklace": {
+        "id": "MVP_NECKLACE_02",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_02",
+        "statsPreset": "MVP_NECKLACE_STATS_02"
+      }
+    },
+    {
+      "id": "MVP_03",
+      "name": "Aetherian MVP 03",
+      "regionId": "ValoriaPlains",
+      "level": 45,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_03",
+      "necklace": {
+        "id": "MVP_NECKLACE_03",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_03",
+        "statsPreset": "MVP_NECKLACE_STATS_03"
+      }
+    },
+    {
+      "id": "MVP_04",
+      "name": "Aetherian MVP 04",
+      "regionId": "ValoriaPlains",
+      "level": 55,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_04",
+      "necklace": {
+        "id": "MVP_NECKLACE_04",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_04",
+        "statsPreset": "MVP_NECKLACE_STATS_04"
+      }
+    },
+    {
+      "id": "MVP_05",
+      "name": "Aetherian MVP 05",
+      "regionId": "Elderglen",
+      "level": 70,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_05",
+      "necklace": {
+        "id": "MVP_NECKLACE_05",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_05",
+        "statsPreset": "MVP_NECKLACE_STATS_05"
+      }
+    },
+    {
+      "id": "MVP_06",
+      "name": "Aetherian MVP 06",
+      "regionId": "Elderglen",
+      "level": 85,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_06",
+      "necklace": {
+        "id": "MVP_NECKLACE_06",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_06",
+        "statsPreset": "MVP_NECKLACE_STATS_06"
+      }
+    },
+    {
+      "id": "MVP_07",
+      "name": "Aetherian MVP 07",
+      "regionId": "Sunscar",
+      "level": 100,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_07",
+      "necklace": {
+        "id": "MVP_NECKLACE_07",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_07",
+        "statsPreset": "MVP_NECKLACE_STATS_07"
+      }
+    },
+    {
+      "id": "MVP_08",
+      "name": "Aetherian MVP 08",
+      "regionId": "Sunscar",
+      "level": 115,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_08",
+      "necklace": {
+        "id": "MVP_NECKLACE_08",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_08",
+        "statsPreset": "MVP_NECKLACE_STATS_08"
+      }
+    },
+    {
+      "id": "MVP_09",
+      "name": "Aetherian MVP 09",
+      "regionId": "Frostheim",
+      "level": 130,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_09",
+      "necklace": {
+        "id": "MVP_NECKLACE_09",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_09",
+        "statsPreset": "MVP_NECKLACE_STATS_09"
+      }
+    },
+    {
+      "id": "MVP_10",
+      "name": "Aetherian MVP 10",
+      "regionId": "Frostheim",
+      "level": 145,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_10",
+      "necklace": {
+        "id": "MVP_NECKLACE_10",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_10",
+        "statsPreset": "MVP_NECKLACE_STATS_10"
+      }
+    },
+    {
+      "id": "MVP_11",
+      "name": "Aetherian MVP 11",
+      "regionId": "Mirehaven",
+      "level": 160,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_11",
+      "necklace": {
+        "id": "MVP_NECKLACE_11",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_11",
+        "statsPreset": "MVP_NECKLACE_STATS_11"
+      }
+    },
+    {
+      "id": "MVP_12",
+      "name": "Aetherian MVP 12",
+      "regionId": "Mirehaven",
+      "level": 175,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_12",
+      "necklace": {
+        "id": "MVP_NECKLACE_12",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_12",
+        "statsPreset": "MVP_NECKLACE_STATS_12"
+      }
+    },
+    {
+      "id": "MVP_13",
+      "name": "Aetherian MVP 13",
+      "regionId": "Arkenfall",
+      "level": 190,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_13",
+      "necklace": {
+        "id": "MVP_NECKLACE_13",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_13",
+        "statsPreset": "MVP_NECKLACE_STATS_13"
+      }
+    },
+    {
+      "id": "MVP_14",
+      "name": "Aetherian MVP 14",
+      "regionId": "Arkenfall",
+      "level": 205,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_14",
+      "necklace": {
+        "id": "MVP_NECKLACE_14",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_14",
+        "statsPreset": "MVP_NECKLACE_STATS_14"
+      }
+    },
+    {
+      "id": "MVP_15",
+      "name": "Aetherian MVP 15",
+      "regionId": "Astralis",
+      "level": 220,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_15",
+      "necklace": {
+        "id": "MVP_NECKLACE_15",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_15",
+        "statsPreset": "MVP_NECKLACE_STATS_15"
+      }
+    },
+    {
+      "id": "MVP_16",
+      "name": "Aetherian MVP 16",
+      "regionId": "Astralis",
+      "level": 235,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_16",
+      "necklace": {
+        "id": "MVP_NECKLACE_16",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_16",
+        "statsPreset": "MVP_NECKLACE_STATS_16"
+      }
+    },
+    {
+      "id": "MVP_17",
+      "name": "Aetherian MVP 17",
+      "regionId": "Duskmoor",
+      "level": 240,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_17",
+      "necklace": {
+        "id": "MVP_NECKLACE_17",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_17",
+        "statsPreset": "MVP_NECKLACE_STATS_17"
+      }
+    },
+    {
+      "id": "MVP_18",
+      "name": "Aetherian MVP 18",
+      "regionId": "Duskmoor",
+      "level": 245,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_18",
+      "necklace": {
+        "id": "MVP_NECKLACE_18",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_18",
+        "statsPreset": "MVP_NECKLACE_STATS_18"
+      }
+    },
+    {
+      "id": "MVP_19",
+      "name": "Aetherian MVP 19",
+      "regionId": "Abyssia",
+      "level": 248,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_19",
+      "necklace": {
+        "id": "MVP_NECKLACE_19",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_19",
+        "statsPreset": "MVP_NECKLACE_STATS_19"
+      }
+    },
+    {
+      "id": "MVP_20",
+      "name": "Aetherian MVP 20",
+      "regionId": "Abyssia",
+      "level": 249,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_20",
+      "necklace": {
+        "id": "MVP_NECKLACE_20",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_20",
+        "statsPreset": "MVP_NECKLACE_STATS_20"
+      }
+    },
+    {
+      "id": "MVP_21",
+      "name": "Aetherian MVP 21",
+      "regionId": "Drakoria",
+      "level": 250,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_21",
+      "necklace": {
+        "id": "MVP_NECKLACE_21",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_21",
+        "statsPreset": "MVP_NECKLACE_STATS_21"
+      }
+    },
+    {
+      "id": "MVP_22",
+      "name": "Aetherian MVP 22",
+      "regionId": "Drakoria",
+      "level": 250,
+      "spawnRadiusMeters": 100,
+      "lootTableId": "MVP_LOOT_22",
+      "necklace": {
+        "id": "MVP_NECKLACE_22",
+        "appearanceId": "MVP_NECKLACE_APPEARANCE_22",
+        "statsPreset": "MVP_NECKLACE_STATS_22"
+      }
+    }
+  ]
+}
