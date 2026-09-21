@@ -41,3 +41,14 @@ The first Unreal slice should be:
 login/entry -> character -> movement -> target selection -> authoritative attack -> enemy defeat -> XP/loot -> inventory/equipment -> quest -> MVP encounter -> save/load -> dedicated-server client connection.
 
 After that, expand to guilds/GvG, raids, towers, world events and Steam packaging.
+
+
+## UE5 visual world generation
+
+UE5 is now the visual authoring/runtime target. The intended stack is World Partition + PCG + Nanite + Lumen + Niagara, with editor automation for deterministic world generation.
+
+AEROEnvironmentActor no longer creates lights or fog during gameplay. The renderer is configured for Lumen/virtual shadows, while editor-generated lighting is stored in the level asset. This separates gameplay/server code from editor lighting and removes the recurring Light/lighting rebuild dependency.
+
+Unreal/Scripts/GenerateAetheriaVisualWorld.py creates a partitioned Aetheria visual map with five biome districts (Capital, Plains, Forest, Desert, Snow), roads, landmarks, crystals, vegetation clusters and dungeon/raid/MVP gateways. It uses only Unreal built-in primitives and ERO-authored materials as a generation scaffold.
+
+The same rules will later drive production zones: capital, plains, forest, mountain/snow, desert, swamp/corrupted, ruins, dungeons, raids, MVP regions and PvP/GvG areas. Approved commercial/CC0 assets can replace generated geometry without changing gameplay rules.
