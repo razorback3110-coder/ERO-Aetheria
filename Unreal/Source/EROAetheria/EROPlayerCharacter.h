@@ -2,23 +2,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "AbilitySystemInterface.h"
+#include "EROClassTypes.h"
 #include "EROPlayerCharacter.generated.h"
 
-UENUM(BlueprintType)
-enum class EEROPlayerClass : uint8
-{
-    Warrior,
-    Ranger,
-    Mage,
-    Assassin,
-    Cleric,
-    Paladin,
-    Warlock,
-    Summoner
-};
+class UAbilitySystemComponent;
+class UEROAttributeSet;
 
 UCLASS()
-class EROAETHERIA_API AEROPlayerCharacter final : public ACharacter
+class EROAETHERIA_API AEROPlayerCharacter final : public ACharacter, public IAbilitySystemInterface
 {
     GENERATED_BODY()
 
@@ -28,6 +20,16 @@ public:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
     virtual float TakeDamage(float DamageAmount, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
+    //~ Begin IAbilitySystemInterface
+    virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+    //~ End IAbilitySystemInterface
+
+    UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category="ERO|Abilities")
+    TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+
+    UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category="ERO|Abilities")
+    TObjectPtr<UEROAttributeSet> AttributeSet;
 
     UPROPERTY(Replicated, BlueprintReadOnly, Category="ERO|Character")
     EEROPlayerClass PlayerClass = EEROPlayerClass::Warrior;
@@ -81,6 +83,7 @@ protected:
     bool CanAttack() const;
     void ResetAttackCooldown();
     void ApplyClassProfile();
+    void SyncAttributesFromLegacyProfile();
     void RespawnAfterDeath();
     int64 ExperienceForNextLevel() const;
 
