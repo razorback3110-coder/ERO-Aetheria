@@ -4,6 +4,11 @@
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 
+namespace
+{
+constexpr float EconomyCheckpointIntervalSeconds = 60.0f;
+}
+
 AEROPlayerEconomyState::AEROPlayerEconomyState()
 {
     bReplicates = true;
@@ -11,7 +16,7 @@ AEROPlayerEconomyState::AEROPlayerEconomyState()
 
 void AEROPlayerEconomyState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
-    Super::GetLifetimeReplicatedProps(OutLifetimeReplicatedProps);
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(AEROPlayerEconomyState, GoldBalance);
     DOREPLIFETIME(AEROPlayerEconomyState, Inventory);
 }
@@ -23,6 +28,13 @@ void AEROPlayerEconomyState::BeginPlay()
     if (HasAuthority())
     {
         LoadPersistentEconomyState();
+        GetWorldTimerManager().SetTimer(
+            PersistenceSaveTimerHandle,
+            this,
+            &AEROPlayerEconomyState::SavePersistentEconomyState,
+            EconomyCheckpointIntervalSeconds,
+            true,
+            EconomyCheckpointIntervalSeconds);
     }
 }
 
@@ -30,6 +42,7 @@ void AEROPlayerEconomyState::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
     if (HasAuthority())
     {
+        GetWorldTimerManager().ClearTimer(PersistenceSaveTimerHandle);
         SavePersistentEconomyState();
     }
 
