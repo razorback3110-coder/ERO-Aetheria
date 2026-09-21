@@ -30,6 +30,12 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ERO|Reward")
     int64 GoldReward = 25;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ERO|Reward")
+    FName ItemRewardId = TEXT("Aetherium_Shard");
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ERO|Reward", meta=(ClampMin="0", ClampMax="9999"))
+    int32 ItemRewardQuantity = 1;
+
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="ERO|Enemy")
     float RespawnDelay = 10.0f;
 
