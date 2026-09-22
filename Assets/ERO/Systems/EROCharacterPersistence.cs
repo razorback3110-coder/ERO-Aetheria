@@ -10,7 +10,7 @@ namespace ERO.Systems
     /// versioned and integrity-checked; the authoritative server remains the source
     /// of truth for live MMO state.
     /// </summary>
-    public sealed class EROCharacterPersistence
+    public sealed class EROCharacterPersistence : IEROCharacterPersistenceStore
     {
         private const string FilePrefix = "ero-character-";
         private const string FileSuffix = ".json";
