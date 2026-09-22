@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
 #include "Animation/AnimInstance.h"
+#include "NiagaraSystem.h"
 #include "EROCharacterVisualTypes.h"
 #include "EROCharacterVisualDefinition.generated.h"
 
@@ -42,5 +43,5 @@ public:
     TMap<FName, TSoftObjectPtr<UStaticMesh>> WeaponMeshes;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|VFX")
-    TArray<TSoftObjectPtr<class UNiagaraSystem>> ClassVFX;
+    TArray<TSoftObjectPtr<UNiagaraSystem>> ClassVFX;
 };
