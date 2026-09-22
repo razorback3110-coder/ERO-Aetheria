@@ -8,6 +8,8 @@ namespace ERO.World
     /// Reusable deterministic chunk streamer. Only rebuilds the active window when the
     /// target crosses a chunk boundary. Chunk creation and destruction are budgeted across
     /// frames so crossing a boundary does not synchronously generate the entire window.
+    /// Generation is prioritized by distance to the current interest center so the nearest
+    /// playable area becomes available before the outer streaming ring.
     /// </summary>
     public sealed class EROWorldChunkStreamer : MonoBehaviour
     {
@@ -18,7 +20,7 @@ namespace ERO.World
         [SerializeField] private Transform target;
 
         private readonly Dictionary<Vector2Int, GameObject> chunks = new Dictionary<Vector2Int, GameObject>();
-        private readonly Queue<Vector2Int> generationQueue = new Queue<Vector2Int>();
+        private readonly List<Vector2Int> generationQueue = new List<Vector2Int>();
         private readonly HashSet<Vector2Int> queuedGeneration = new HashSet<Vector2Int>();
         private Vector2Int streamedCenter = new Vector2Int(int.MinValue, int.MinValue);
 
@@ -61,7 +63,7 @@ namespace ERO.World
                     var coord = new Vector2Int(center.x + x, center.y + z);
                     if (!chunks.ContainsKey(coord) && queuedGeneration.Add(coord))
                     {
-                        generationQueue.Enqueue(coord);
+                        generationQueue.Add(coord);
                     }
                 }
             }
@@ -91,7 +93,9 @@ namespace ERO.World
             int generated = 0;
             while (generated < maxGeneratedChunksPerFrame && generationQueue.Count > 0)
             {
-                var coord = generationQueue.Dequeue();
+                int nearestIndex = FindNearestQueuedChunkIndex(streamedCenter);
+                var coord = generationQueue[nearestIndex];
+                generationQueue.RemoveAt(nearestIndex);
                 queuedGeneration.Remove(coord);
 
                 // The player may have crossed another boundary while this coordinate was queued.
@@ -101,6 +105,28 @@ namespace ERO.World
                 chunks.Add(coord, GenerateChunk(coord));
                 generated++;
             }
+        }
+
+        private int FindNearestQueuedChunkIndex(Vector2Int center)
+        {
+            int bestIndex = 0;
+            int bestDistance = int.MaxValue;
+
+            for (int i = 0; i < generationQueue.Count; i++)
+            {
+                var coord = generationQueue[i];
+                int dx = coord.x - center.x;
+                int dz = coord.y - center.y;
+                int distance = dx * dx + dz * dz;
+
+                if (distance < bestDistance)
+                {
+                    bestDistance = distance;
+                    bestIndex = i;
+                }
+            }
+
+            return bestIndex;
         }
 
         private bool IsWithinStreamWindow(Vector2Int coord, Vector2Int center)
