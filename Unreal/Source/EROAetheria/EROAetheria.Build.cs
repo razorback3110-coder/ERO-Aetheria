@@ -18,7 +18,8 @@ public class EROAetheria : ModuleRules
             "GameplayTasks",
             "NetCore",
             "MassEntity",
-            "Niagara"
+            "Niagara",
+            "OnlineSubsystem"
         });
     }
 }
