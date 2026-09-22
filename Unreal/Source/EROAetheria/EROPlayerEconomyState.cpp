@@ -215,10 +215,10 @@ void AEROPlayerEconomyState::RestorePersistentCharacterState()
 FString AEROPlayerEconomyState::GetPersistenceSlotName() const
 {
     FString Identity;
-    const FUniqueNetIdRepl UniqueId = GetUniqueId();
-    if (UniqueId.IsValid())
+    const FUniqueNetIdRepl PersistenceNetId = GetUniqueId();
+    if (PersistenceNetId.IsValid())
     {
-        Identity = UniqueId.ToString();
+        Identity = PersistenceNetId.ToString();
     }
 
     if (Identity.IsEmpty())
