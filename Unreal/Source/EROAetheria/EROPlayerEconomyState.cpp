@@ -214,20 +214,10 @@ void AEROPlayerEconomyState::RestorePersistentCharacterState()
 
 FString AEROPlayerEconomyState::GetPersistenceSlotName() const
 {
-    FString Identity;
-    const FUniqueNetIdRepl PersistenceNetId = GetUniqueId();
-    if (PersistenceNetId.IsValid())
-    {
-        Identity = PersistenceNetId.ToString();
-    }
-
-    if (Identity.IsEmpty())
-    {
-        Identity = FString::Printf(TEXT("PlayerId_%d"), GetPlayerId());
-    }
-
-    Identity.ReplaceInline(TEXT(":"), TEXT("_"));
-    Identity.ReplaceInline(TEXT("/"), TEXT("_"));
-    Identity.ReplaceInline(TEXT("\\"), TEXT("_"));
-    return FString::Printf(TEXT("ERO_Economy_%s"), *Identity);
+    // Use the replicated PlayerState id for the local prototype save slot.
+    // This avoids requiring a concrete online subsystem implementation during
+    // the standalone/editor build. A production backend can replace this with
+    // the authenticated account identifier.
+    const int32 SafePlayerId = FMath::Max(0, GetPlayerId());
+    return FString::Printf(TEXT("ERO_Economy_PlayerId_%d"), SafePlayerId);
 }
