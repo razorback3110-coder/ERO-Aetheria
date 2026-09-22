@@ -8,6 +8,8 @@ namespace ERO.Systems
         public CharacterData Active { get; private set; }
         public event Action CharacterChanged;
 
+        private EROCharacterPersistence persistence;
+
         public CharacterData NewCharacter(string name, EROClass c, Gender g)
         {
             Active = new CharacterData { id = Guid.NewGuid().ToString("N"), name = name, classId = c, appearance = new Appearance { gender = g } };
@@ -21,6 +23,32 @@ namespace ERO.Systems
             Active = character;
             CharacterChanged?.Invoke();
             return true;
+        }
+
+        /// <summary>
+        /// Persists the active character snapshot to the local checkpoint store.
+        /// Live MMO authority must remain on the server; this method is intended for
+        /// offline/client checkpointing and deterministic restore tests.
+        /// </summary>
+        public bool SaveActiveCheckpoint()
+        {
+            if (Active == null) return false;
+            return GetPersistence().Save(Active);
+        }
+
+        /// <summary>
+        /// Restores a previously persisted character snapshot after its envelope and
+        /// payload integrity have been verified by EROCharacterPersistence.
+        /// </summary>
+        public bool TryLoadCheckpoint(string characterId)
+        {
+            if (!GetPersistence().TryLoad(characterId, out CharacterData character)) return false;
+            return TryRestore(character);
+        }
+
+        public bool DeleteCheckpoint(string characterId)
+        {
+            return GetPersistence().Delete(characterId);
         }
 
         public void SetGender(Gender g)
@@ -39,9 +67,9 @@ namespace ERO.Systems
 
             Active.appearance.face = face;
             Active.appearance.hair = hair;
-            Active.appearance.hairColor = hairColor;
             Active.appearance.eyeColor = eyeColor;
             Active.appearance.skinTone = skin;
+            Active.appearance.hairColor = hairColor;
             CharacterChanged?.Invoke();
         }
 
@@ -94,6 +122,12 @@ namespace ERO.Systems
             target.equipped = true;
             CharacterChanged?.Invoke();
             return true;
+        }
+
+        private EROCharacterPersistence GetPersistence()
+        {
+            if (persistence == null) persistence = new EROCharacterPersistence();
+            return persistence;
         }
     }
 }
