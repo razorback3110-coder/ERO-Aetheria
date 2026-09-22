@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "Animation/AnimInstance.h"
 #include "EROCharacterAppearanceTypes.h"
 #include "EROClassAppearanceDefinition.generated.h"
 
@@ -32,7 +33,7 @@ public:
     TSoftObjectPtr<USkeletalMesh> BodyMesh;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Assets")
-    TSoftObjectPtr<UClass> AnimationBlueprint;
+    TSoftClassPtr<UAnimInstance> AnimationBlueprint;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Assets")
     TArray<TSoftObjectPtr<UObject>> OutfitAssets;
