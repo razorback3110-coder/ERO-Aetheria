@@ -10,8 +10,8 @@ namespace ERO.Systems
     /// </summary>
     public sealed class EROAOIReplicationState
     {
-        private readonly List<EROAOIEntity> previous = new List<EROAOIEntity>();
-        private readonly List<EROAOIEntity> current = new List<EROAOIEntity>();
+        private List<EROAOIEntity> previous = new List<EROAOIEntity>();
+        private List<EROAOIEntity> current = new List<EROAOIEntity>();
         private readonly EROAOIInterestDeltaBuffer deltaBuffer = new EROAOIInterestDeltaBuffer();
 
         /// <summary>
@@ -38,8 +38,9 @@ namespace ERO.Systems
 
             deltaBuffer.Compute(previous, current, entered, left);
 
-            previous.Clear();
-            previous.AddRange(current);
+            List<EROAOIEntity> completed = previous;
+            previous = current;
+            current = completed;
             current.Clear();
         }
 
