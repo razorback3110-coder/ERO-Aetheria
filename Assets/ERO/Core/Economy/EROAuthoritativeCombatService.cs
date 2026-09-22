@@ -28,6 +28,13 @@ namespace EternalRealmsOnline.Core.Economy
 
             CombatInputs attacker = EROCombatStatsResolver.Resolve(attackerStats);
             CombatInputs defender = EROCombatStatsResolver.Resolve(defenderStats);
+
+            // An attacker must have authoritative live state before damage can be applied.
+            // This prevents a defeated client from continuing to issue valid-looking attacks.
+            EnsureHealthInitialized(attackerId, attacker.MaxHealth);
+            if (_healthByActor[attackerId] <= 0)
+                return CombatHitResult.AttackerDefeated(attackerId, defenderId);
+
             EnsureHealthInitialized(defenderId, defender.MaxHealth);
 
             long currentHealth = _healthByActor[defenderId];
@@ -39,7 +46,7 @@ namespace EternalRealmsOnline.Core.Economy
             _healthByActor[defenderId] = newHealth;
 
             bool critical = EROCombatStatsResolver.RollCritical(seed, attacker.CritChanceBasisPoints);
-            return new CombatHitResult(attackerId, defenderId, damage, newHealth, critical, newHealth == 0);
+            return new CombatHitResult(attackerId, defenderId, damage, newHealth, critical, newHealth == 0, false, false);
         }
 
         public long GetCurrentHealth(string actorId, EROCharacterCombatStats stats)
@@ -113,7 +120,7 @@ namespace EternalRealmsOnline.Core.Economy
 
     public readonly struct CombatHitResult
     {
-        private CombatHitResult(string attackerId, string defenderId, long damage, long remainingHealth, bool critical, bool defeated, bool alreadyDefeated)
+        private CombatHitResult(string attackerId, string defenderId, long damage, long remainingHealth, bool critical, bool defeated, bool alreadyDefeated, bool attackerDefeated)
         {
             AttackerId = attackerId ?? throw new ArgumentNullException(nameof(attackerId));
             DefenderId = defenderId ?? throw new ArgumentNullException(nameof(defenderId));
@@ -125,17 +132,23 @@ namespace EternalRealmsOnline.Core.Economy
             Critical = critical;
             Defeated = defeated;
             AlreadyDefeated = alreadyDefeated;
+            AttackerDefeated = attackerDefeated;
         }
 
         public CombatHitResult(string attackerId, string defenderId, long damage, long remainingHealth, bool critical, bool defeated)
-            : this(attackerId, defenderId, damage, remainingHealth, critical, defeated, false)
+            : this(attackerId, defenderId, damage, remainingHealth, critical, defeated, false, false)
         {
             if (damage <= 0) throw new ArgumentOutOfRangeException(nameof(damage));
         }
 
         public static CombatHitResult AlreadyDefeated(string attackerId, string defenderId)
         {
-            return new CombatHitResult(attackerId, defenderId, 0, 0, false, true, true);
+            return new CombatHitResult(attackerId, defenderId, 0, 0, false, true, true, false);
+        }
+
+        public static CombatHitResult AttackerDefeated(string attackerId, string defenderId)
+        {
+            return new CombatHitResult(attackerId, defenderId, 0, 0, false, false, false, true);
         }
 
         public string AttackerId { get; }
@@ -145,6 +158,7 @@ namespace EternalRealmsOnline.Core.Economy
         public bool Critical { get; }
         public bool Defeated { get; }
         public bool AlreadyDefeated { get; }
+        public bool AttackerDefeated { get; }
     }
 
     public sealed class CombatHealthSnapshot
