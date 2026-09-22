@@ -38,7 +38,6 @@ namespace ERO.Systems
 
             deltaBuffer.Compute(previous, current, entered, left);
 
-            var swap = previous;
             previous.Clear();
             previous.AddRange(current);
             current.Clear();
