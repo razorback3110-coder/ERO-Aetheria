@@ -18,6 +18,9 @@ namespace ERO.Systems
         /// <summary>Raised exactly once when an accepted combat result defeats a target.</summary>
         public event Action<ulong, ulong> CombatantDefeated;
 
+        /// <summary>Raised exactly once when the authoritative reward ledger commits a defeat reward.</summary>
+        public event Action<EROCombatReward> CombatRewardGranted;
+
         public int CalculateDamage(CharacterData c, int power, int defense, bool critical = false)
         {
             if (c == null) return 0;
@@ -31,11 +34,13 @@ namespace ERO.Systems
             {
                 stateStore.CombatResolved -= ForwardCombatResolved;
                 stateStore.CombatantDefeated -= ForwardCombatantDefeated;
+                stateStore.CombatRewardGranted -= ForwardCombatRewardGranted;
             }
 
             stateStore = new EROCombatStateStore(actorCapacity, skillCapacity);
             stateStore.CombatResolved += ForwardCombatResolved;
             stateStore.CombatantDefeated += ForwardCombatantDefeated;
+            stateStore.CombatRewardGranted += ForwardCombatRewardGranted;
         }
 
         public EROCombatStateStore AuthoritativeState
@@ -66,7 +71,7 @@ namespace ERO.Systems
         /// Resolves one already-validated combat command against authoritative state.
         /// Returns false for invalid/dead/cooldown-locked commands; accepted outcomes are
         /// forwarded from the authoritative state store exactly once for UI, replication,
-        /// logging and reward systems.
+        /// logging and reward/economy systems.
         /// </summary>
         public bool TryResolve(ulong tickId, ulong sequence, ulong actorId, ulong targetId, int skillId, ulong seed, out EROCombatResult result)
         {
@@ -76,6 +81,8 @@ namespace ERO.Systems
         private void ForwardCombatResolved(EROCombatResult result) => CombatResolved?.Invoke(result);
 
         private void ForwardCombatantDefeated(ulong targetId, ulong attackerId) => CombatantDefeated?.Invoke(targetId, attackerId);
+
+        private void ForwardCombatRewardGranted(EROCombatReward reward) => CombatRewardGranted?.Invoke(reward);
 
         public bool CanAutoInRankedPvP() => false;
         public bool CanAutoInGvG() => false;
