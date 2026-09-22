@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "Animation/AnimInstance.h"
 #include "EROCharacterVisualTypes.h"
 #include "EROCharacterVisualDefinition.generated.h"
 
@@ -35,7 +36,7 @@ public:
     TSoftObjectPtr<USkeletalMesh> HairMesh;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Animation")
-    TSoftObjectPtr<UAnimClass> AnimationClass;
+    TSoftClassPtr<UAnimInstance> AnimationClass;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Weapon")
     TMap<FName, TSoftObjectPtr<UStaticMesh>> WeaponMeshes;
