@@ -8,7 +8,7 @@ namespace ERO.Systems
         public CharacterData Active { get; private set; }
         public event Action CharacterChanged;
 
-        private EROCharacterPersistence persistence;
+        private IEROCharacterPersistenceStore persistence;
 
         public CharacterData NewCharacter(string name, EROClass c, Gender g)
         {
@@ -26,9 +26,19 @@ namespace ERO.Systems
         }
 
         /// <summary>
-        /// Persists the active character snapshot to the local checkpoint store.
+        /// Configures the persistence boundary. A dedicated/server build should inject
+        /// an authoritative store; when no store is configured, the local checkpoint
+        /// adapter is used for offline/client workflows only.
+        /// </summary>
+        public void ConfigurePersistence(IEROCharacterPersistenceStore store)
+        {
+            persistence = store;
+        }
+
+        /// <summary>
+        /// Persists the active character snapshot through the configured store.
         /// Live MMO authority must remain on the server; this method is intended for
-        /// offline/client checkpointing and deterministic restore tests.
+        /// offline/client checkpointing unless an authoritative store is injected.
         /// </summary>
         public bool SaveActiveCheckpoint()
         {
@@ -37,8 +47,8 @@ namespace ERO.Systems
         }
 
         /// <summary>
-        /// Restores a previously persisted character snapshot after its envelope and
-        /// payload integrity have been verified by EROCharacterPersistence.
+        /// Restores a persisted character snapshot after its configured store validates
+        /// the payload. Local restores use the integrity-checked checkpoint envelope.
         /// </summary>
         public bool TryLoadCheckpoint(string characterId)
         {
@@ -124,7 +134,7 @@ namespace ERO.Systems
             return true;
         }
 
-        private EROCharacterPersistence GetPersistence()
+        private IEROCharacterPersistenceStore GetPersistence()
         {
             if (persistence == null) persistence = new EROCharacterPersistence();
             return persistence;
