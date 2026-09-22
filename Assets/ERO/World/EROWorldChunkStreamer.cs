@@ -6,16 +6,20 @@ namespace ERO.World
 {
     /// <summary>
     /// Reusable deterministic chunk streamer. Only rebuilds the active window when the
-    /// target crosses a chunk boundary and explicitly releases generated meshes/materials
-    /// when chunks leave the window to avoid long-session memory growth.
+    /// target crosses a chunk boundary. Chunk creation and destruction are budgeted across
+    /// frames so crossing a boundary does not synchronously generate the entire window.
     /// </summary>
     public sealed class EROWorldChunkStreamer : MonoBehaviour
     {
         [SerializeField, Min(8)] private int chunkSize = 48;
         [SerializeField, Range(1, 8)] private int streamRadius = 2;
+        [SerializeField, Min(1)] private int maxGeneratedChunksPerFrame = 2;
+        [SerializeField, Min(1)] private int maxDestroyedChunksPerFrame = 2;
         [SerializeField] private Transform target;
 
         private readonly Dictionary<Vector2Int, GameObject> chunks = new Dictionary<Vector2Int, GameObject>();
+        private readonly Queue<Vector2Int> generationQueue = new Queue<Vector2Int>();
+        private readonly HashSet<Vector2Int> queuedGeneration = new HashSet<Vector2Int>();
         private Vector2Int streamedCenter = new Vector2Int(int.MinValue, int.MinValue);
 
         public int LoadedChunkCount => chunks.Count;
@@ -24,49 +28,85 @@ namespace ERO.World
         private void Update()
         {
             if (target == null) return;
-            UpdateStreaming(WorldToChunk(target.position));
+
+            var center = WorldToChunk(target.position);
+            if (center != streamedCenter) UpdateStreaming(center);
+            ProcessGenerationBudget();
         }
 
         public void SetTarget(Transform value)
         {
             target = value;
             streamedCenter = new Vector2Int(int.MinValue, int.MinValue);
+            generationQueue.Clear();
+            queuedGeneration.Clear();
         }
 
         public void Rebuild()
         {
             streamedCenter = new Vector2Int(int.MinValue, int.MinValue);
+            generationQueue.Clear();
+            queuedGeneration.Clear();
             if (target != null) UpdateStreaming(WorldToChunk(target.position));
         }
 
         private void UpdateStreaming(Vector2Int center)
         {
-            if (center == streamedCenter) return;
             streamedCenter = center;
 
-            var needed = new HashSet<Vector2Int>();
             for (int z = -streamRadius; z <= streamRadius; z++)
             {
                 for (int x = -streamRadius; x <= streamRadius; x++)
                 {
                     var coord = new Vector2Int(center.x + x, center.y + z);
-                    needed.Add(coord);
-                    if (!chunks.ContainsKey(coord)) chunks.Add(coord, GenerateChunk(coord));
+                    if (!chunks.ContainsKey(coord) && queuedGeneration.Add(coord))
+                    {
+                        generationQueue.Enqueue(coord);
+                    }
                 }
             }
 
+            int destroyed = 0;
             var remove = new List<Vector2Int>();
             foreach (var pair in chunks)
             {
-                if (!needed.Contains(pair.Key)) remove.Add(pair.Key);
+                if (destroyed + remove.Count >= maxDestroyedChunksPerFrame) break;
+                if (!IsWithinStreamWindow(pair.Key, center)) remove.Add(pair.Key);
             }
 
             foreach (var coord in remove)
             {
                 GameObject chunk;
-                if (chunks.TryGetValue(coord, out chunk)) DestroyGeneratedChunk(chunk);
-                chunks.Remove(coord);
+                if (chunks.TryGetValue(coord, out chunk))
+                {
+                    DestroyGeneratedChunk(chunk);
+                    chunks.Remove(coord);
+                    destroyed++;
+                }
             }
+        }
+
+        private void ProcessGenerationBudget()
+        {
+            int generated = 0;
+            while (generated < maxGeneratedChunksPerFrame && generationQueue.Count > 0)
+            {
+                var coord = generationQueue.Dequeue();
+                queuedGeneration.Remove(coord);
+
+                // The player may have crossed another boundary while this coordinate was queued.
+                // Stale work is discarded instead of creating chunks outside the active interest window.
+                if (!IsWithinStreamWindow(coord, streamedCenter) || chunks.ContainsKey(coord)) continue;
+
+                chunks.Add(coord, GenerateChunk(coord));
+                generated++;
+            }
+        }
+
+        private bool IsWithinStreamWindow(Vector2Int coord, Vector2Int center)
+        {
+            return Mathf.Abs(coord.x - center.x) <= streamRadius
+                && Mathf.Abs(coord.y - center.y) <= streamRadius;
         }
 
         private GameObject GenerateChunk(Vector2Int coord)
@@ -123,6 +163,8 @@ namespace ERO.World
                 DestroyGeneratedChunk(pair.Value);
             }
             chunks.Clear();
+            generationQueue.Clear();
+            queuedGeneration.Clear();
         }
     }
 }
