@@ -75,6 +75,52 @@ def road(cube, mat, a, b, width=260):
     ang=math.degrees(math.atan2(dy,dx))
     spawn(cube,((ax+bx)/2,(ay+by)/2,10),(length/100,width/100,0.08),mat,"ERO_WORLD_ROAD")
 
+def add_lighting():
+    """Create a complete UE5 preview lighting stack so the generated world is visible."""
+    actors = unreal.get_editor_subsystem(unreal.EditorActorSubsystem)
+
+    sun = actors.spawn_actor_from_class(
+        unreal.DirectionalLight,
+        unreal.Vector(0, 0, 8000),
+        unreal.Rotator(-35, -35, 0),
+    )
+    if sun:
+        sun.set_actor_label("ERO_Sun_Directional")
+        comp = sun.get_editor_property("directional_light_component")
+        comp.set_editor_property("intensity", 8.0)
+        comp.set_editor_property("cast_shadows", True)
+        comp.set_editor_property("atmosphere_sun_light", True)
+        comp.set_editor_property("affects_world", True)
+
+    sky = actors.spawn_actor_from_class(unreal.SkyLight, unreal.Vector(0, 0, 5000))
+    if sky:
+        sky.set_actor_label("ERO_SkyLight")
+        comp = sky.get_editor_property("sky_light_component")
+        comp.set_editor_property("intensity", 1.0)
+        comp.set_editor_property("real_time_capture", True)
+
+    atmosphere = actors.spawn_actor_from_class(unreal.SkyAtmosphere, unreal.Vector(0, 0, 0))
+    if atmosphere:
+        atmosphere.set_actor_label("ERO_SkyAtmosphere")
+
+    fog = actors.spawn_actor_from_class(unreal.ExponentialHeightFog, unreal.Vector(0, 0, 0))
+    if fog:
+        fog.set_actor_label("ERO_HeightFog")
+        comp = fog.get_editor_property("component")
+        comp.set_editor_property("fog_density", 0.003)
+        comp.set_editor_property("fog_height_falloff", 0.2)
+
+    pp = actors.spawn_actor_from_class(unreal.PostProcessVolume, unreal.Vector(0, 0, 0))
+    if pp:
+        pp.set_actor_label("ERO_PostProcess")
+        pp.set_editor_property("unbound", True)
+        settings = pp.get_editor_property("settings")
+        settings.set_editor_property("auto_exposure_method", unreal.AutoExposureMethod.AEM_HISTOGRAM)
+        settings.set_editor_property("auto_exposure_min_brightness", 0.5)
+        settings.set_editor_property("auto_exposure_max_brightness", 2.0)
+        pp.set_editor_property("settings", settings)
+
+
 def build():
     levels=unreal.get_editor_subsystem(unreal.LevelEditorSubsystem)
     if not levels.new_level(MAP_PATH,True):
@@ -84,6 +130,7 @@ def build():
     sphere=asset("/Engine/BasicShapes/Sphere.Sphere")
     mats={cid:material("MAT_"+cid,rgb) for cid,_,_,_,_,rgb in CITIES}
     roadmat=material("MAT_WorldRoad",(0.10,0.10,0.11))
+    add_lighting()
 
     for cid,name,cx,cy,radius,rgb in CITIES:
         spawn(cube,(cx,cy,-40),(radius/100,radius/100,0.5),mats[cid],"ERO_REGION_"+cid+"_GROUND")
