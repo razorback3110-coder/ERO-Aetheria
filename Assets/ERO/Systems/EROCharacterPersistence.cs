@@ -7,8 +7,8 @@ namespace ERO.Systems
 {
     /// <summary>
     /// Local persistence adapter for ERO character snapshots. The file format is
-    /// intentionally plain JSON so the same CharacterData contract can later be
-    /// backed by the authoritative account service without changing gameplay code.
+    /// versioned and integrity-checked; the authoritative server remains the source
+    /// of truth for live MMO state.
     /// </summary>
     public sealed class EROCharacterPersistence
     {
@@ -27,12 +27,13 @@ namespace ERO.Systems
 
             string path = GetPath(character.id);
             string tempPath = path + ".tmp";
-            string json = JsonUtility.ToJson(character, false);
+            string payloadJson = JsonUtility.ToJson(character, false);
+            string envelopeJson = JsonUtility.ToJson(EROCharacterPersistenceEnvelope.Create(character.id, payloadJson), false);
 
             try
             {
                 Directory.CreateDirectory(Application.persistentDataPath);
-                File.WriteAllText(tempPath, json);
+                File.WriteAllText(tempPath, envelopeJson);
                 if (File.Exists(path)) File.Delete(path);
                 File.Move(tempPath, path);
                 return true;
@@ -59,8 +60,10 @@ namespace ERO.Systems
 
             try
             {
-                string json = File.ReadAllText(path);
-                character = JsonUtility.FromJson<CharacterData>(json);
+                string envelopeJson = File.ReadAllText(path);
+                if (!EROCharacterPersistenceEnvelope.TryDeserialize(envelopeJson, characterId, out string payloadJson)) return false;
+
+                character = JsonUtility.FromJson<CharacterData>(payloadJson);
                 return character != null && string.Equals(character.id, characterId, StringComparison.Ordinal);
             }
             catch (IOException)
@@ -71,7 +74,6 @@ namespace ERO.Systems
             {
                 return false;
             }
-
         }
 
         public bool Delete(string characterId)
