@@ -5,11 +5,18 @@ namespace EternalRealmsOnline.Core.Economy
     /// <summary>
     /// Server-authoritative ownership transfer for concrete item instances.
     /// The operation is idempotent by transfer id and rolls both inventories back
-    /// if either side rejects the mutation. Durable persistence of the resulting
-    /// inventories is still owned by EROPlayerPersistenceCoordinator.
+    /// if either side rejects the mutation. When configured, a durable write-ahead
+    /// journal makes an in-flight transfer recoverable after a process crash.
     /// </summary>
     public sealed class EROItemTransferService
     {
+        private readonly EROItemTransferJournal journal;
+
+        public EROItemTransferService(EROItemTransferJournal journal = null)
+        {
+            this.journal = journal;
+        }
+
         public bool TryTransfer(
             string transferId,
             EROInstanceInventory source,
@@ -32,11 +39,12 @@ namespace EternalRealmsOnline.Core.Economy
             if (target.Contains(instanceId))
                 throw new InvalidOperationException("Target inventory already owns the requested item instance.");
 
-            // Capture both authoritative states so a rejected second mutation cannot
-            // leave the two inventories split across different ownership states.
+            // Persist the intent before either inventory changes. A crash after removal
+            // can then be reconciled from the exact item payload in the journal.
+            journal?.BeginTransfer(transferId, source.ActorId, target.ActorId, item);
+
             var sourceBefore = source.CaptureSnapshot();
             var targetBefore = target.CaptureSnapshot();
-
             string removeTransactionId = transferId + ":remove";
             string addTransactionId = transferId + ":add";
 
@@ -48,6 +56,7 @@ namespace EternalRealmsOnline.Core.Economy
                 if (!target.TryAdd(addTransactionId, item))
                     throw new InvalidOperationException("Target inventory rejected the transfer addition.");
 
+                journal?.CommitTransfer(transferId);
                 return true;
             }
             catch
