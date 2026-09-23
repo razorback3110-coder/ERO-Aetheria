@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace EternalRealmsOnline.Core.Economy
 {
@@ -168,8 +169,8 @@ namespace EternalRealmsOnline.Core.Economy
             foreach (EROWalletTransactionEntry entry in entries)
             {
                 ValidateTransactionId(entry.TransactionId);
-                if (string.IsNullOrWhiteSpace(entry.Fingerprint))
-                    throw new InvalidOperationException("Wallet transaction journal contains an invalid fingerprint.");
+                if (!TryValidateTransactionFingerprint(entry.Fingerprint))
+                    throw new InvalidOperationException("Wallet transaction journal contains a non-canonical fingerprint.");
                 if (previousTransactionId != null && string.CompareOrdinal(previousTransactionId, entry.TransactionId) >= 0)
                     throw new InvalidOperationException("Wallet transaction journal entries must be unique and ordinally sorted.");
                 if (!restored.TryAdd(entry.TransactionId, entry.Fingerprint))
@@ -204,19 +205,37 @@ namespace EternalRealmsOnline.Core.Economy
 
         private static void ValidateTransactionId(string transactionId)
         {
-            if (string.IsNullOrWhiteSpace(transactionId))
-                throw new ArgumentException("Transaction id is required.", nameof(transactionId));
+            if (string.IsNullOrWhiteSpace(transactionId) || transactionId.IndexOf('|') >= 0)
+                throw new ArgumentException("Transaction id is required and cannot contain '|'.", nameof(transactionId));
+        }
+
+        private static bool TryValidateTransactionFingerprint(string fingerprint)
+        {
+            if (string.IsNullOrWhiteSpace(fingerprint))
+                return false;
+
+            string[] parts = fingerprint.Split('|');
+            if (parts.Length != 4 || (parts[0] != "credit" && parts[0] != "debit") || string.IsNullOrWhiteSpace(parts[1]) || string.IsNullOrWhiteSpace(parts[2]))
+                return false;
+            if (parts[1].IndexOf('|') >= 0 || parts[2].IndexOf('|') >= 0)
+                return false;
+            if (!EROCurrencyCatalog.IsKnown(parts[2]))
+                return false;
+            if (!long.TryParse(parts[3], NumberStyles.Integer, CultureInfo.InvariantCulture, out long amount) || amount <= 0)
+                return false;
+
+            return string.Equals(fingerprint, BuildTransactionFingerprint(parts[1], parts[2], amount, parts[0] == "credit"), StringComparison.Ordinal);
         }
 
         private static string BuildTransactionFingerprint(string ownerId, string currencyId, long amount, bool credit)
         {
-            return (credit ? "credit" : "debit") + "|" + ownerId + "|" + currencyId + "|" + amount.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            return (credit ? "credit" : "debit") + "|" + ownerId + "|" + currencyId + "|" + amount.ToString(CultureInfo.InvariantCulture);
         }
 
         private static void ValidateOwner(string ownerId)
         {
-            if (string.IsNullOrWhiteSpace(ownerId))
-                throw new ArgumentException("Wallet owner id is required.", nameof(ownerId));
+            if (string.IsNullOrWhiteSpace(ownerId) || ownerId.IndexOf('|') >= 0)
+                throw new ArgumentException("Wallet owner id is required and cannot contain '|'.", nameof(ownerId));
         }
     }
 
