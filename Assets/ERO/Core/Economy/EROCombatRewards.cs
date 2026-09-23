@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace EternalRealmsOnline.Core.Economy
 {
     /// <summary>
-    /// Converts an authoritative defeat into idempotent XP and loot rewards.
+    /// Converts an authoritative defeat into idempotent XP, loot and optional Gold rewards.
     /// Reward identity is derived from the encounter, so retries after reconnects cannot duplicate rewards.
     /// </summary>
     public sealed class EROCombatRewards
@@ -13,11 +13,21 @@ namespace EternalRealmsOnline.Core.Economy
         private readonly HashSet<string> claimedRewards = new HashSet<string>(StringComparer.Ordinal);
         private readonly EROCharacterProgression progression;
         private readonly EROLootInventoryService loot;
+        private readonly EROAuthoritativeWallet wallet;
 
         public EROCombatRewards(EROCharacterProgression progression, EROLootInventoryService loot)
+            : this(progression, loot, null)
+        {
+        }
+
+        public EROCombatRewards(
+            EROCharacterProgression progression,
+            EROLootInventoryService loot,
+            EROAuthoritativeWallet wallet)
         {
             this.progression = progression ?? throw new ArgumentNullException(nameof(progression));
             this.loot = loot ?? throw new ArgumentNullException(nameof(loot));
+            this.wallet = wallet;
         }
 
         public CombatRewardResult GrantDefeatRewards(
@@ -30,11 +40,15 @@ namespace EternalRealmsOnline.Core.Economy
             int quantity,
             int maxStack,
             int itemLevel,
-            IReadOnlyDictionary<string, long> itemStats = null)
+            IReadOnlyDictionary<string, long> itemStats = null,
+            long gold = 0L)
         {
             if (string.IsNullOrWhiteSpace(encounterId)) throw new ArgumentException("Encounter id is required.", nameof(encounterId));
             if (string.IsNullOrWhiteSpace(defeatedActorId)) throw new ArgumentException("Defeated actor id is required.", nameof(defeatedActorId));
             if (experience < 0) throw new ArgumentOutOfRangeException(nameof(experience));
+            if (gold < 0) throw new ArgumentOutOfRangeException(nameof(gold));
+            if (gold > 0 && wallet == null)
+                throw new InvalidOperationException("A wallet is required when a combat reward grants Gold.");
 
             string rewardId = BuildRewardId(encounterId, encounterSeed, defeatedActorId);
             if (!claimedRewards.Add(rewardId))
@@ -53,20 +67,38 @@ namespace EternalRealmsOnline.Core.Economy
 
             if (!lootResult.Success)
             {
-                // The encounter remains claimed so a retry cannot mint XP again.
+                // The encounter remains claimed so a retry cannot mint XP or Gold again.
                 // The deterministic loot transaction id can be recovered independently.
                 return new CombatRewardResult(
                     CombatRewardStatus.LootPending,
                     rewardId,
                     progressionResult,
-                    lootResult);
+                    lootResult,
+                    0L);
+            }
+
+            if (gold > 0 && !wallet.TryApplyTransaction(
+                rewardId + ":gold",
+                defeatedActorId,
+                EROCurrencyCatalog.Gold,
+                gold,
+                true))
+            {
+                // XP/loot remain committed and the deterministic wallet transaction can be retried safely.
+                return new CombatRewardResult(
+                    CombatRewardStatus.GoldPending,
+                    rewardId,
+                    progressionResult,
+                    lootResult,
+                    gold);
             }
 
             return new CombatRewardResult(
                 CombatRewardStatus.Granted,
                 rewardId,
                 progressionResult,
-                lootResult);
+                lootResult,
+                gold);
         }
 
         public RewardSnapshot CaptureSnapshot()
@@ -111,23 +143,31 @@ namespace EternalRealmsOnline.Core.Economy
     {
         Granted = 1,
         AlreadyGranted = 2,
-        LootPending = 3
+        LootPending = 3,
+        GoldPending = 4
     }
 
     public readonly struct CombatRewardResult
     {
-        public CombatRewardResult(CombatRewardStatus status, string rewardId, ProgressionResult progression, LootGrantResult loot)
+        public CombatRewardResult(
+            CombatRewardStatus status,
+            string rewardId,
+            ProgressionResult progression,
+            LootGrantResult loot,
+            long gold)
         {
             Status = status;
             RewardId = rewardId ?? throw new ArgumentNullException(nameof(rewardId));
             Progression = progression;
             Loot = loot;
+            Gold = gold;
         }
 
         public CombatRewardStatus Status { get; }
         public string RewardId { get; }
         public ProgressionResult Progression { get; }
         public LootGrantResult Loot { get; }
+        public long Gold { get; }
         public bool Success => Status == CombatRewardStatus.Granted || Status == CombatRewardStatus.AlreadyGranted;
 
         public static CombatRewardResult AlreadyGranted(string rewardId, int level, long experience)
@@ -136,7 +176,8 @@ namespace EternalRealmsOnline.Core.Economy
                 CombatRewardStatus.AlreadyGranted,
                 rewardId,
                 new ProgressionResult(level, level, experience, 0),
-                default(LootGrantResult));
+                default(LootGrantResult),
+                0L);
         }
     }
 
