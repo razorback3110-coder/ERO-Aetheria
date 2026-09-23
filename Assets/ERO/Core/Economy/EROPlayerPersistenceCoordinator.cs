@@ -66,6 +66,35 @@ namespace EternalRealmsOnline.Core.Economy
             }
         }
 
+        /// <summary>
+        /// Captures, codecs and durably stores one complete authoritative player state.
+        /// The store performs its own atomic write and integrity envelope.
+        /// </summary>
+        public void Save(EROPlayerPersistenceStore store, IEROPlayerPersistenceCodec codec)
+        {
+            if (store == null) throw new ArgumentNullException(nameof(store));
+            if (codec == null) throw new ArgumentNullException(nameof(codec));
+            store.Save(ActorId, codec.Encode(CaptureSnapshot()));
+        }
+
+        /// <summary>
+        /// Loads one durable state, decodes it, validates it, then applies it atomically
+        /// with rollback if any component rejects the snapshot.
+        /// </summary>
+        public bool TryLoad(EROPlayerPersistenceStore store, IEROPlayerPersistenceCodec codec)
+        {
+            if (store == null) throw new ArgumentNullException(nameof(store));
+            if (codec == null) throw new ArgumentNullException(nameof(codec));
+
+            byte[] payload = store.Load(ActorId);
+            if (payload == null)
+                return false;
+
+            PlayerPersistenceSnapshot snapshot = codec.Decode(payload);
+            RestoreSnapshot(snapshot);
+            return true;
+        }
+
         private void ValidateSnapshot(PlayerPersistenceSnapshot snapshot)
         {
             if (snapshot == null) throw new ArgumentNullException(nameof(snapshot));
