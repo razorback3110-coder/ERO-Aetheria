@@ -116,14 +116,29 @@ namespace EternalRealmsOnline.Core.Economy
                 var target = inventoryResolver(transfer.TargetActorId);
                 if (source == null || target == null) continue;
 
+                // Never trust a resolver that returns an inventory for the wrong actor.
+                // This protects recovery from misrouting an item into another player's inventory.
+                if (!string.Equals(source.ActorId, transfer.SourceActorId, StringComparison.Ordinal) ||
+                    !string.Equals(target.ActorId, transfer.TargetActorId, StringComparison.Ordinal))
+                    throw new InvalidDataException("Transfer recovery resolved an inventory for the wrong actor.");
+
                 bool sourceOwns = source.Contains(transfer.Item.InstanceId);
                 bool targetOwns = target.Contains(transfer.Item.InstanceId);
+
+                // Both sides owning the same immutable instance is an unrecoverable
+                // ownership violation. Fail closed rather than marking the transfer committed
+                // and allowing a duplicated item to survive a server restart.
+                if (sourceOwns && targetOwns)
+                    throw new InvalidDataException("Transfer recovery detected duplicate item ownership.");
+
                 if (targetOwns)
                 {
                     CommitTransfer(transfer.TransferId);
                     continue;
                 }
 
+                // The source still owns the item: the crash happened before removal, so
+                // leaving the intent pending is safe and preserves the original owner.
                 if (sourceOwns)
                     continue;
 
