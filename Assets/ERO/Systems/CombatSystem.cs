@@ -21,6 +21,9 @@ namespace ERO.Systems
         /// <summary>Raised exactly once when the authoritative reward ledger commits a defeat reward.</summary>
         public event Action<EROCombatReward> CombatRewardGranted;
 
+        /// <summary>Raised exactly once when the authoritative respawn schedule restores an actor.</summary>
+        public event Action<ulong, ulong> CombatantRespawned;
+
         public int CalculateDamage(CharacterData c, int power, int defense, bool critical = false)
         {
             if (c == null) return 0;
@@ -35,12 +38,14 @@ namespace ERO.Systems
                 stateStore.CombatResolved -= ForwardCombatResolved;
                 stateStore.CombatantDefeated -= ForwardCombatantDefeated;
                 stateStore.CombatRewardGranted -= ForwardCombatRewardGranted;
+                stateStore.CombatantRespawned -= ForwardCombatantRespawned;
             }
 
             stateStore = new EROCombatStateStore(actorCapacity, skillCapacity);
             stateStore.CombatResolved += ForwardCombatResolved;
             stateStore.CombatantDefeated += ForwardCombatantDefeated;
             stateStore.CombatRewardGranted += ForwardCombatRewardGranted;
+            stateStore.CombatantRespawned += ForwardCombatantRespawned;
         }
 
         public EROCombatStateStore AuthoritativeState
@@ -68,6 +73,25 @@ namespace ERO.Systems
         }
 
         /// <summary>
+        /// Returns the authoritative server tick at which a defeated actor may respawn.
+        /// </summary>
+        public ulong GetRespawnReadyTick(ulong actorId)
+        {
+            return AuthoritativeState.TryGetRespawnReadyTick(actorId, out ulong readyTick)
+                ? readyTick
+                : 0UL;
+        }
+
+        /// <summary>
+        /// Attempts an authoritative respawn at the supplied server tick. The store owns
+        /// the schedule, so the caller cannot shorten the respawn delay.
+        /// </summary>
+        public bool TryRespawnActor(ulong actorId, ulong currentTick)
+        {
+            return AuthoritativeState.TryRespawnActor(actorId, currentTick);
+        }
+
+        /// <summary>
         /// Resolves one already-validated combat command against authoritative state.
         /// Returns false for invalid/dead/cooldown-locked commands; accepted outcomes are
         /// forwarded from the authoritative state store exactly once for UI, replication,
@@ -83,6 +107,8 @@ namespace ERO.Systems
         private void ForwardCombatantDefeated(ulong targetId, ulong attackerId) => CombatantDefeated?.Invoke(targetId, attackerId);
 
         private void ForwardCombatRewardGranted(EROCombatReward reward) => CombatRewardGranted?.Invoke(reward);
+
+        private void ForwardCombatantRespawned(ulong actorId, ulong currentTick) => CombatantRespawned?.Invoke(actorId, currentTick);
 
         public bool CanAutoInRankedPvP() => false;
         public bool CanAutoInGvG() => false;
