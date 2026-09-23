@@ -100,7 +100,7 @@ namespace EternalRealmsOnline.Core.Economy
         private static byte[] BuildEnvelope(string actorId, byte[] payload)
         {
             string checksum = ComputeSha256(payload);
-            string header = Magic + "\n" + CurrentFormatVersion + "\n" + actorId + "\n" + payload.Length + "\n" + checksum + "\n";
+            string header = Magic + "\n" + CurrentFormatVersion + "\n" + actorId + "\n" + payload.Length + "\n" + checksum + "\n\n";
             byte[] headerBytes = Encoding.UTF8.GetBytes(header);
             byte[] envelope = new byte[headerBytes.Length + payload.Length];
             Buffer.BlockCopy(headerBytes, 0, envelope, 0, headerBytes.Length);
@@ -117,9 +117,9 @@ namespace EternalRealmsOnline.Core.Economy
             if (headerEnd <= 0 || headerEnd > 4096)
                 throw new InvalidDataException("Player save header is invalid.");
 
-            string header = Encoding.UTF8.GetString(envelope, 0, headerEnd);
+            string header = Encoding.UTF8.GetString(envelope, 0, headerEnd - 1);
             string[] lines = header.Split(new[] { '\n' }, StringSplitOptions.None);
-            if (lines.Length < 5 || lines[4].Length != 0)
+            if (lines.Length != 5)
                 throw new InvalidDataException("Player save header is malformed.");
 
             if (!string.Equals(lines[0], Magic, StringComparison.Ordinal))
@@ -150,7 +150,7 @@ namespace EternalRealmsOnline.Core.Economy
             for (int i = 0; i < bytes.Length - 1; i++)
             {
                 if (bytes[i] == (byte)'\n' && bytes[i + 1] == (byte)'\n')
-                    return i + 1;
+                    return i + 2;
             }
             return -1;
         }
