@@ -12,10 +12,14 @@ namespace EternalRealmsOnline.Core.Economy
     public sealed class EROItemTransferService
     {
         private readonly EROItemTransferJournal journal;
+        private readonly EROEconomyMutationGate mutationGate;
 
-        public EROItemTransferService(EROItemTransferJournal journal = null)
+        public EROItemTransferService(
+            EROItemTransferJournal journal = null,
+            EROEconomyMutationGate mutationGate = null)
         {
             this.journal = journal;
+            this.mutationGate = mutationGate;
         }
 
         public bool TryTransfer(
@@ -29,6 +33,8 @@ namespace EternalRealmsOnline.Core.Economy
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (target == null) throw new ArgumentNullException(nameof(target));
             if (ReferenceEquals(source, target)) throw new InvalidOperationException("Source and target inventories must differ.");
+
+            mutationGate?.EnsureReady();
 
             if (!source.TryGet(instanceId, out var item))
             {
