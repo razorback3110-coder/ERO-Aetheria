@@ -44,6 +44,9 @@ namespace ERO.Systems
         /// <summary>Raised once when a deterministic reward is committed for a defeat.</summary>
         public event Action<EROCombatReward> CombatRewardGranted;
 
+        /// <summary>Raised once when the authoritative respawn schedule restores an actor.</summary>
+        public event Action<ulong, ulong> CombatantRespawned;
+
         public void RegisterActor(EROCombatantState state)
         {
             if (state.ActorId == 0UL) throw new ArgumentException("Actor must have a valid id.", nameof(state));
@@ -103,6 +106,7 @@ namespace ERO.Systems
                 actor.MaxHealth);
             skillReadyTicks.Remove(actorId);
             respawnReadyTicks.Remove(actorId);
+            CombatantRespawned?.Invoke(actorId, currentTick);
             return true;
         }
 
