@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -35,9 +36,9 @@ namespace EternalRealmsOnline.Core.Economy
 
             string record = string.Join("\t", Begin,
                 Encode(transferId), Encode(sourceActorId), Encode(targetActorId), Encode(item.InstanceId),
-                Encode(item.ItemId), item.Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture),
-                item.MaxStack.ToString(System.Globalization.CultureInfo.InvariantCulture),
-                item.Level.ToString(System.Globalization.CultureInfo.InvariantCulture), EncodeStats(item.Stats));
+                Encode(item.ItemId), item.Quantity.ToString(CultureInfo.InvariantCulture),
+                item.MaxStack.ToString(CultureInfo.InvariantCulture),
+                item.Level.ToString(CultureInfo.InvariantCulture), EncodeStats(item.Stats));
             Append(record);
         }
 
@@ -58,22 +59,49 @@ namespace EternalRealmsOnline.Core.Economy
                 {
                     if (string.IsNullOrWhiteSpace(line)) continue;
                     string[] parts = line.Split('\t');
-                    if (parts.Length == 2 && parts[0] == Commit)
-                    {
-                        pending.Remove(Decode(parts[1]));
-                        continue;
-                    }
-                    if (parts.Length != 10 || parts[0] != Begin) continue;
-
-                    if (!int.TryParse(parts[6], out int quantity) || !int.TryParse(parts[7], out int maxStack) || !int.TryParse(parts[8], out int level))
-                        continue;
                     try
                     {
-                        var item = new EROItemInstance(Decode(parts[4]), Decode(parts[5]), quantity, maxStack, level, DecodeStats(parts[9]));
-                        var transfer = new PendingTransfer(Decode(parts[1]), Decode(parts[2]), Decode(parts[3]), item);
+                        if (parts.Length == 2 && parts[0] == Commit)
+                        {
+                            string transferId = Decode(parts[1]);
+                            ValidateId(transferId, nameof(transferId));
+                            pending.Remove(transferId);
+                            continue;
+                        }
+
+                        if (parts.Length != 10 || parts[0] != Begin)
+                            throw new InvalidDataException("Invalid item transfer journal record.");
+
+                        string transferIdValue = Decode(parts[1]);
+                        string sourceActorId = Decode(parts[2]);
+                        string targetActorId = Decode(parts[3]);
+                        string instanceId = Decode(parts[4]);
+                        string itemId = Decode(parts[5]);
+                        ValidateId(transferIdValue, nameof(transferId));
+                        ValidateId(sourceActorId, nameof(sourceActorId));
+                        ValidateId(targetActorId, nameof(targetActorId));
+                        ValidateId(instanceId, nameof(instanceId));
+                        ValidateId(itemId, nameof(itemId));
+
+                        if (!int.TryParse(parts[6], NumberStyles.Integer, CultureInfo.InvariantCulture, out int quantity) || quantity <= 0)
+                            throw new InvalidDataException("Invalid transfer journal quantity.");
+                        if (!int.TryParse(parts[7], NumberStyles.Integer, CultureInfo.InvariantCulture, out int maxStack) || maxStack <= 0)
+                            throw new InvalidDataException("Invalid transfer journal max stack.");
+                        if (!int.TryParse(parts[8], NumberStyles.Integer, CultureInfo.InvariantCulture, out int level) || level < 0)
+                            throw new InvalidDataException("Invalid transfer journal level.");
+
+                        var item = new EROItemInstance(instanceId, itemId, quantity, maxStack, level, DecodeStats(parts[9]));
+                        var transfer = new PendingTransfer(transferIdValue, sourceActorId, targetActorId, item);
                         pending[transfer.TransferId] = transfer;
                     }
-                    catch (ArgumentException) { }
+                    catch (FormatException ex)
+                    {
+                        throw new InvalidDataException("Item transfer journal contains malformed Base64 data.", ex);
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        throw new InvalidDataException("Item transfer journal contains an invalid identifier.", ex);
+                    }
                 }
                 return new List<PendingTransfer>(pending.Values);
             }
@@ -127,7 +155,7 @@ namespace EternalRealmsOnline.Core.Economy
             if (stats == null || stats.Count == 0) return string.Empty;
             var parts = new List<string>();
             foreach (var pair in stats)
-                parts.Add(Encode(pair.Key) + "=" + pair.Value.ToString(System.Globalization.CultureInfo.InvariantCulture));
+                parts.Add(Encode(pair.Key) + "=" + pair.Value.ToString(CultureInfo.InvariantCulture));
             return string.Join(",", parts);
         }
 
@@ -138,7 +166,8 @@ namespace EternalRealmsOnline.Core.Economy
             foreach (string entry in value.Split(','))
             {
                 string[] pair = entry.Split('=');
-                if (pair.Length != 2 || !long.TryParse(pair[1], out long amount)) throw new InvalidDataException("Invalid transfer journal stat.");
+                if (pair.Length != 2 || !long.TryParse(pair[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out long amount))
+                    throw new InvalidDataException("Invalid transfer journal stat.");
                 stats.Add(Decode(pair[0]), amount);
             }
             return stats;
