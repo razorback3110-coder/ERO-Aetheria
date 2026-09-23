@@ -11,6 +11,7 @@ namespace EternalRealmsOnline.Core.Economy
     {
         private const int SnapshotVersion = 1;
         private readonly Dictionary<string, long> _healthByActor = new Dictionary<string, long>(StringComparer.Ordinal);
+        private readonly Dictionary<string, CombatHitResult> _resolvedAttackCommands = new Dictionary<string, CombatHitResult>(StringComparer.Ordinal);
 
         public CombatHitResult ApplyAttack(
             string attackerId,
@@ -19,34 +20,29 @@ namespace EternalRealmsOnline.Core.Economy
             EROCharacterCombatStats defenderStats,
             ulong seed)
         {
-            if (string.IsNullOrWhiteSpace(attackerId)) throw new ArgumentException("Attacker id is required.", nameof(attackerId));
-            if (string.IsNullOrWhiteSpace(defenderId)) throw new ArgumentException("Defender id is required.", nameof(defenderId));
-            if (attackerStats == null) throw new ArgumentNullException(nameof(attackerStats));
-            if (defenderStats == null) throw new ArgumentNullException(nameof(defenderStats));
-            if (string.Equals(attackerId, defenderId, StringComparison.Ordinal))
-                throw new InvalidOperationException("An actor cannot attack itself.");
+            return ApplyAttackInternal(attackerId, attackerStats, defenderId, defenderStats, seed);
+        }
 
-            CombatInputs attacker = EROCombatStatsResolver.Resolve(attackerStats);
-            CombatInputs defender = EROCombatStatsResolver.Resolve(defenderStats);
+        /// <summary>
+        /// Applies one client attack command exactly once for the lifetime of this authoritative service.
+        /// Replaying the same command id returns the original authoritative result without applying damage again.
+        /// The command journal can be persisted with CaptureAttackCommandJournal/RestoreAttackCommandJournal.
+        /// </summary>
+        public CombatHitResult ApplyAttackCommand(
+            string attackCommandId,
+            string attackerId,
+            EROCharacterCombatStats attackerStats,
+            string defenderId,
+            EROCharacterCombatStats defenderStats,
+            ulong seed)
+        {
+            ValidateCommandId(attackCommandId);
+            if (_resolvedAttackCommands.TryGetValue(attackCommandId, out CombatHitResult previousResult))
+                return previousResult;
 
-            // An attacker must have authoritative live state before damage can be applied.
-            // This prevents a defeated client from continuing to issue valid-looking attacks.
-            EnsureHealthInitialized(attackerId, attacker.MaxHealth);
-            if (_healthByActor[attackerId] <= 0)
-                return CombatHitResult.AttackerDefeated(attackerId, defenderId);
-
-            EnsureHealthInitialized(defenderId, defender.MaxHealth);
-
-            long currentHealth = _healthByActor[defenderId];
-            if (currentHealth <= 0)
-                return CombatHitResult.AlreadyDefeated(attackerId, defenderId);
-
-            long damage = EROCombatStatsResolver.CalculateDamage(attacker, defender, seed);
-            long newHealth = currentHealth <= damage ? 0 : currentHealth - damage;
-            _healthByActor[defenderId] = newHealth;
-
-            bool critical = EROCombatStatsResolver.RollCritical(seed, attacker.CritChanceBasisPoints);
-            return new CombatHitResult(attackerId, defenderId, damage, newHealth, critical, newHealth == 0, false, false);
+            CombatHitResult result = ApplyAttackInternal(attackerId, attackerStats, defenderId, defenderStats, seed);
+            _resolvedAttackCommands.Add(attackCommandId, result);
+            return result;
         }
 
         public long GetCurrentHealth(string actorId, EROCharacterCombatStats stats)
@@ -103,6 +99,87 @@ namespace EternalRealmsOnline.Core.Economy
             {
                 _healthByActor.Add(pair.Key, pair.Value);
             }
+        }
+
+        public CombatAttackCommandJournalSnapshot CaptureAttackCommandJournal()
+        {
+            var entries = new List<CombatAttackCommandEntry>(_resolvedAttackCommands.Count);
+            foreach (KeyValuePair<string, CombatHitResult> pair in _resolvedAttackCommands)
+            {
+                entries.Add(new CombatAttackCommandEntry(pair.Key, pair.Value));
+            }
+            entries.Sort((left, right) => string.CompareOrdinal(left.CommandId, right.CommandId));
+            return new CombatAttackCommandJournalSnapshot(SnapshotVersion, entries);
+        }
+
+        public void RestoreAttackCommandJournal(CombatAttackCommandJournalSnapshot snapshot)
+        {
+            if (snapshot == null) throw new ArgumentNullException(nameof(snapshot));
+            if (snapshot.Version != SnapshotVersion)
+                throw new InvalidOperationException($"Unsupported combat attack journal version: {snapshot.Version}.");
+
+            var restored = new Dictionary<string, CombatHitResult>(StringComparer.Ordinal);
+            string previousCommandId = null;
+            foreach (CombatAttackCommandEntry entry in snapshot.Entries)
+            {
+                ValidateCommandId(entry.CommandId);
+                if (previousCommandId != null && string.CompareOrdinal(previousCommandId, entry.CommandId) >= 0)
+                    throw new InvalidOperationException("Combat attack journal entries must be unique and ordinally sorted.");
+                if (!restored.TryAdd(entry.CommandId, entry.Result))
+                    throw new InvalidOperationException($"Duplicate combat attack command '{entry.CommandId}'.");
+                previousCommandId = entry.CommandId;
+            }
+
+            _resolvedAttackCommands.Clear();
+            foreach (KeyValuePair<string, CombatHitResult> pair in restored)
+            {
+                _resolvedAttackCommands.Add(pair.Key, pair.Value);
+            }
+        }
+
+        private CombatHitResult ApplyAttackInternal(
+            string attackerId,
+            EROCharacterCombatStats attackerStats,
+            string defenderId,
+            EROCharacterCombatStats defenderStats,
+            ulong seed)
+        {
+            if (string.IsNullOrWhiteSpace(attackerId)) throw new ArgumentException("Attacker id is required.", nameof(attackerId));
+            if (string.IsNullOrWhiteSpace(defenderId)) throw new ArgumentException("Defender id is required.", nameof(defenderId));
+            if (attackerStats == null) throw new ArgumentNullException(nameof(attackerStats));
+            if (defenderStats == null) throw new ArgumentNullException(nameof(defenderStats));
+            if (string.Equals(attackerId, defenderId, StringComparison.Ordinal))
+                throw new InvalidOperationException("An actor cannot attack itself.");
+
+            CombatInputs attacker = EROCombatStatsResolver.Resolve(attackerStats);
+            CombatInputs defender = EROCombatStatsResolver.Resolve(defenderStats);
+
+            // An attacker must have authoritative live state before damage can be applied.
+            // This prevents a defeated client from continuing to issue valid-looking attacks.
+            EnsureHealthInitialized(attackerId, attacker.MaxHealth);
+            if (_healthByActor[attackerId] <= 0)
+                return CombatHitResult.AttackerDefeated(attackerId, defenderId);
+
+            EnsureHealthInitialized(defenderId, defender.MaxHealth);
+
+            long currentHealth = _healthByActor[defenderId];
+            if (currentHealth <= 0)
+                return CombatHitResult.AlreadyDefeated(attackerId, defenderId);
+
+            long damage = EROCombatStatsResolver.CalculateDamage(attacker, defender, seed);
+            long newHealth = currentHealth <= damage ? 0 : currentHealth - damage;
+            _healthByActor[defenderId] = newHealth;
+
+            bool critical = EROCombatStatsResolver.RollCritical(seed, attacker.CritChanceBasisPoints);
+            return new CombatHitResult(attackerId, defenderId, damage, newHealth, critical, newHealth == 0, false, false);
+        }
+
+        private static void ValidateCommandId(string commandId)
+        {
+            if (string.IsNullOrWhiteSpace(commandId))
+                throw new ArgumentException("Attack command id is required.", nameof(commandId));
+            if (commandId.Length > 128)
+                throw new ArgumentException("Attack command id is too long.", nameof(commandId));
         }
 
         private void EnsureHealthInitialized(string actorId, long maxHealth)
@@ -186,5 +263,37 @@ namespace EternalRealmsOnline.Core.Economy
 
         public string ActorId { get; }
         public long Health { get; }
+    }
+
+    public sealed class CombatAttackCommandJournalSnapshot
+    {
+        public CombatAttackCommandJournalSnapshot(int version, IReadOnlyList<CombatAttackCommandEntry> entries)
+        {
+            if (version <= 0) throw new ArgumentOutOfRangeException(nameof(version));
+            Version = version;
+            Entries = entries ?? throw new ArgumentNullException(nameof(entries));
+        }
+
+        public int Version { get; }
+        public IReadOnlyList<CombatAttackCommandEntry> Entries { get; }
+    }
+
+    public readonly struct CombatAttackCommandEntry
+    {
+        public CombatAttackCommandEntry(string commandId, CombatHitResult result)
+        {
+            ValidateCommandId(commandId);
+            CommandId = commandId;
+            Result = result;
+        }
+
+        public string CommandId { get; }
+        public CombatHitResult Result { get; }
+
+        private static void ValidateCommandId(string commandId)
+        {
+            if (string.IsNullOrWhiteSpace(commandId)) throw new ArgumentException("Attack command id is required.", nameof(commandId));
+            if (commandId.Length > 128) throw new ArgumentException("Attack command id is too long.", nameof(commandId));
+        }
     }
 }
