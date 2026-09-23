@@ -44,9 +44,13 @@ namespace EternalRealmsOnline.Core.Economy
             ProgressionResult progressionResult = progression.GrantExperience(experience);
             claimedRewards.Add(rewardId);
 
-            if (gold > 0 && !wallet.TryApplyTransaction(rewardId + ":gold", defeatedActorId, EROCurrencyCatalog.Gold, gold, true))
+            // The defeated actor identifies the encounter/loot source, never the wallet owner.
+            // Currency must always be credited to the authoritative player represented by the
+            // progression component, preventing a caller from redirecting Gold to another actor.
+            string rewardOwnerId = progression.ActorId;
+            if (gold > 0 && !wallet.TryApplyTransaction(rewardId + ":gold", rewardOwnerId, EROCurrencyCatalog.Gold, gold, true))
             {
-                pendingGoldRewards[rewardId] = new PendingGoldReward(defeatedActorId, gold);
+                pendingGoldRewards[rewardId] = new PendingGoldReward(rewardOwnerId, gold);
                 return new CombatRewardResult(CombatRewardStatus.GoldPending, rewardId, progressionResult, lootResult, gold);
             }
 
