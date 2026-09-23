@@ -133,6 +133,12 @@ namespace EternalRealmsOnline.Core.Economy
 
                 if (targetOwns)
                 {
+                    // Presence of the InstanceId alone is not sufficient evidence that the
+                    // target contains the transfer. A corrupted or independently-created item
+                    // with the same identity must never cause the WAL to be committed.
+                    if (!target.TryGet(transfer.Item.InstanceId, out var targetItem) || !ItemsMatch(transfer.Item, targetItem))
+                        throw new InvalidDataException("Transfer recovery detected an item payload mismatch.");
+
                     CommitTransfer(transfer.TransferId);
                     continue;
                 }
@@ -160,6 +166,25 @@ namespace EternalRealmsOnline.Core.Economy
                     stream.Flush(true);
                 }
             }
+        }
+
+        private static bool ItemsMatch(EROItemInstance expected, EROItemInstance actual)
+        {
+            if (expected == null || actual == null) return false;
+            if (!string.Equals(expected.InstanceId, actual.InstanceId, StringComparison.Ordinal) ||
+                !string.Equals(expected.ItemId, actual.ItemId, StringComparison.Ordinal) ||
+                expected.Quantity != actual.Quantity ||
+                expected.MaxStack != actual.MaxStack ||
+                expected.Level != actual.Level ||
+                expected.Stats.Count != actual.Stats.Count)
+                return false;
+
+            foreach (var pair in expected.Stats)
+            {
+                if (!actual.Stats.TryGetValue(pair.Key, out long value) || value != pair.Value)
+                    return false;
+            }
+            return true;
         }
 
         private static string Encode(string value) => Convert.ToBase64String(Encoding.UTF8.GetBytes(value));
