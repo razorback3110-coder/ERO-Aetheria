@@ -84,7 +84,8 @@ namespace EternalRealmsOnline.Core.Economy
                 gold,
                 true))
             {
-                // XP/loot remain committed and the deterministic wallet transaction can be retried safely.
+                // The reward remains claimed. The deterministic wallet transaction can be retried
+                // independently through TryFinalizeGoldReward without minting XP or loot again.
                 return new CombatRewardResult(
                     CombatRewardStatus.GoldPending,
                     rewardId,
@@ -99,6 +100,26 @@ namespace EternalRealmsOnline.Core.Economy
                 progressionResult,
                 lootResult,
                 gold);
+        }
+
+        /// <summary>
+        /// Finalizes Gold for an already-claimed combat reward after a transient wallet failure.
+        /// The transaction id is derived from the original reward id, so retries are idempotent.
+        /// </summary>
+        public bool TryFinalizeGoldReward(string rewardId, string ownerId, long gold)
+        {
+            if (string.IsNullOrWhiteSpace(rewardId)) throw new ArgumentException("Reward id is required.", nameof(rewardId));
+            if (!claimedRewards.Contains(rewardId))
+                throw new InvalidOperationException("Gold cannot be finalized for an unclaimed reward.");
+            if (gold <= 0) throw new ArgumentOutOfRangeException(nameof(gold));
+            if (wallet == null) throw new InvalidOperationException("A wallet is required to finalize Gold.");
+
+            return wallet.TryApplyTransaction(
+                rewardId + ":gold",
+                ownerId,
+                EROCurrencyCatalog.Gold,
+                gold,
+                true);
         }
 
         public RewardSnapshot CaptureSnapshot()
