@@ -20,6 +20,8 @@ namespace EternalRealmsOnline.Core.Economy
             this.progression = progression ?? throw new ArgumentNullException(nameof(progression));
             this.loot = loot ?? throw new ArgumentNullException(nameof(loot));
             this.wallet = wallet;
+            if (!string.Equals(this.progression.ActorId, this.loot.Inventory.ActorId, StringComparison.Ordinal))
+                throw new InvalidOperationException("Combat progression and loot inventory must belong to the same authoritative actor.");
         }
 
         public CombatRewardResult GrantDefeatRewards(string encounterId, long encounterSeed, string defeatedActorId, long experience, int dropIndex, string itemId, int quantity, int maxStack, int itemLevel, IReadOnlyDictionary<string, long> itemStats = null, long gold = 0L)
@@ -63,6 +65,8 @@ namespace EternalRealmsOnline.Core.Economy
             if (!claimedRewards.Contains(rewardId)) throw new InvalidOperationException("Gold cannot be finalized for an unclaimed reward.");
             if (gold <= 0) throw new ArgumentOutOfRangeException(nameof(gold));
             if (wallet == null) throw new InvalidOperationException("A wallet is required to finalize Gold.");
+            if (!string.Equals(ownerId, progression.ActorId, StringComparison.Ordinal))
+                throw new InvalidOperationException("Gold owner must match the authoritative progression actor.");
 
             if (!pendingGoldRewards.TryGetValue(rewardId, out PendingGoldReward pending))
             {
@@ -115,6 +119,8 @@ namespace EternalRealmsOnline.Core.Economy
                     if (string.IsNullOrWhiteSpace(entry.RewardId) || string.IsNullOrWhiteSpace(entry.OwnerId) || entry.Gold <= 0)
                         throw new InvalidOperationException("Reward snapshot contains an invalid pending Gold entry.");
                     if (!restored.Contains(entry.RewardId)) throw new InvalidOperationException("Pending Gold entry references an unknown reward.");
+                    if (!string.Equals(entry.OwnerId, progression.ActorId, StringComparison.Ordinal))
+                        throw new InvalidOperationException("Pending Gold owner does not match the authoritative progression actor.");
                     if (previousPending != null && string.CompareOrdinal(previousPending, entry.RewardId) >= 0)
                         throw new InvalidOperationException("Pending Gold entries must be unique and ordinally sorted.");
                     if (!restoredPending.TryAdd(entry.RewardId, new PendingGoldReward(entry.OwnerId, entry.Gold)))
