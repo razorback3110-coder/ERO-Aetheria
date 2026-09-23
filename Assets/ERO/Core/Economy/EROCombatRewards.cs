@@ -9,8 +9,10 @@ namespace EternalRealmsOnline.Core.Economy
     /// </summary>
     public sealed class EROCombatRewards
     {
-        private const int SnapshotVersion = 1;
+        private const int SnapshotVersion = 2;
+        private const int LegacySnapshotVersion = 1;
         private readonly HashSet<string> claimedRewards = new HashSet<string>(StringComparer.Ordinal);
+        private readonly Dictionary<string, PendingGoldReward> pendingGoldRewards = new Dictionary<string, PendingGoldReward>(StringComparer.Ordinal);
         private readonly EROCharacterProgression progression;
         private readonly EROLootInventoryService loot;
         private readonly EROAuthoritativeWallet wallet;
@@ -84,6 +86,7 @@ namespace EternalRealmsOnline.Core.Economy
                 gold,
                 true))
             {
+                pendingGoldRewards[rewardId] = new PendingGoldReward(defeatedActorId, gold);
                 // The reward remains claimed. The deterministic wallet transaction can be retried
                 // independently through TryFinalizeGoldReward without minting XP or loot again.
                 return new CombatRewardResult(
@@ -104,7 +107,7 @@ namespace EternalRealmsOnline.Core.Economy
 
         /// <summary>
         /// Finalizes Gold for an already-claimed combat reward after a transient wallet failure.
-        /// The transaction id is derived from the original reward id, so retries are idempotent.
+        /// The original owner and amount are retained server-side and must match exactly.
         /// </summary>
         public bool TryFinalizeGoldReward(string rewardId, string ownerId, long gold)
         {
@@ -113,26 +116,47 @@ namespace EternalRealmsOnline.Core.Economy
                 throw new InvalidOperationException("Gold cannot be finalized for an unclaimed reward.");
             if (gold <= 0) throw new ArgumentOutOfRangeException(nameof(gold));
             if (wallet == null) throw new InvalidOperationException("A wallet is required to finalize Gold.");
+            if (!pendingGoldRewards.TryGetValue(rewardId, out PendingGoldReward pending))
+            {
+                // A previously completed transaction is safe to replay, but a new mutation cannot be
+                // introduced through the finalization path after the pending record has been cleared.
+                string transactionId = rewardId + ":gold";
+                if (!wallet.HasAppliedTransaction(transactionId))
+                    return false;
+                return wallet.TryApplyTransaction(transactionId, ownerId, EROCurrencyCatalog.Gold, gold, true);
+            }
 
-            return wallet.TryApplyTransaction(
+            if (!string.Equals(pending.OwnerId, ownerId, StringComparison.Ordinal) || pending.Gold != gold)
+                throw new InvalidOperationException("Pending Gold does not match the original combat reward owner or amount.");
+
+            bool applied = wallet.TryApplyTransaction(
                 rewardId + ":gold",
-                ownerId,
+                pending.OwnerId,
                 EROCurrencyCatalog.Gold,
-                gold,
+                pending.Gold,
                 true);
+            if (applied)
+                pendingGoldRewards.Remove(rewardId);
+            return applied;
         }
 
         public RewardSnapshot CaptureSnapshot()
         {
             var ids = new List<string>(claimedRewards);
             ids.Sort(StringComparer.Ordinal);
-            return new RewardSnapshot(SnapshotVersion, ids);
+
+            var pending = new List<PendingGoldRewardSnapshot>(pendingGoldRewards.Count);
+            foreach (KeyValuePair<string, PendingGoldReward> entry in pendingGoldRewards)
+                pending.Add(new PendingGoldRewardSnapshot(entry.Key, entry.Value.OwnerId, entry.Value.Gold));
+            pending.Sort((left, right) => string.CompareOrdinal(left.RewardId, right.RewardId));
+
+            return new RewardSnapshot(SnapshotVersion, ids, pending);
         }
 
         public void RestoreSnapshot(RewardSnapshot snapshot)
         {
             if (snapshot == null) throw new ArgumentNullException(nameof(snapshot));
-            if (snapshot.Version != SnapshotVersion)
+            if (snapshot.Version != SnapshotVersion && snapshot.Version != LegacySnapshotVersion)
                 throw new InvalidOperationException("Unsupported reward snapshot version.");
 
             var restored = new HashSet<string>(StringComparer.Ordinal);
@@ -148,8 +172,29 @@ namespace EternalRealmsOnline.Core.Economy
                 previous = id;
             }
 
+            var restoredPending = new Dictionary<string, PendingGoldReward>(StringComparer.Ordinal);
+            if (snapshot.Version == SnapshotVersion)
+            {
+                string previousPending = null;
+                foreach (PendingGoldRewardSnapshot entry in snapshot.PendingGoldRewards)
+                {
+                    if (string.IsNullOrWhiteSpace(entry.RewardId) || string.IsNullOrWhiteSpace(entry.OwnerId) || entry.Gold <= 0)
+                        throw new InvalidOperationException("Reward snapshot contains an invalid pending Gold entry.");
+                    if (!restored.Contains(entry.RewardId))
+                        throw new InvalidOperationException("Pending Gold entry references an unknown reward.");
+                    if (previousPending != null && string.CompareOrdinal(previousPending, entry.RewardId) >= 0)
+                        throw new InvalidOperationException("Pending Gold entries must be unique and ordinally sorted.");
+                    if (!restoredPending.TryAdd(entry.RewardId, new PendingGoldReward(entry.OwnerId, entry.Gold)))
+                        throw new InvalidOperationException("Reward snapshot contains duplicate pending Gold entries.");
+                    previousPending = entry.RewardId;
+                }
+            }
+
             claimedRewards.Clear();
             foreach (string id in restored) claimedRewards.Add(id);
+            pendingGoldRewards.Clear();
+            foreach (KeyValuePair<string, PendingGoldReward> entry in restoredPending)
+                pendingGoldRewards.Add(entry.Key, entry.Value);
         }
 
         public static string BuildRewardId(string encounterId, long encounterSeed, string defeatedActorId)
@@ -157,6 +202,20 @@ namespace EternalRealmsOnline.Core.Economy
             if (string.IsNullOrWhiteSpace(encounterId)) throw new ArgumentException("Encounter id is required.", nameof(encounterId));
             if (string.IsNullOrWhiteSpace(defeatedActorId)) throw new ArgumentException("Defeated actor id is required.", nameof(defeatedActorId));
             return "reward:" + encounterId + ":" + encounterSeed.ToString(System.Globalization.CultureInfo.InvariantCulture) + ":" + defeatedActorId;
+        }
+
+        private readonly struct PendingGoldReward
+        {
+            public PendingGoldReward(string ownerId, long gold)
+            {
+                if (string.IsNullOrWhiteSpace(ownerId)) throw new ArgumentException("Owner id is required.", nameof(ownerId));
+                if (gold <= 0) throw new ArgumentOutOfRangeException(nameof(gold));
+                OwnerId = ownerId;
+                Gold = gold;
+            }
+
+            public string OwnerId { get; }
+            public long Gold { get; }
         }
     }
 
@@ -205,13 +264,40 @@ namespace EternalRealmsOnline.Core.Economy
     public sealed class RewardSnapshot
     {
         public RewardSnapshot(int version, IReadOnlyList<string> claimedRewardIds)
+            : this(version, claimedRewardIds, Array.Empty<PendingGoldRewardSnapshot>())
+        {
+        }
+
+        public RewardSnapshot(
+            int version,
+            IReadOnlyList<string> claimedRewardIds,
+            IReadOnlyList<PendingGoldRewardSnapshot> pendingGoldRewards)
         {
             if (version <= 0) throw new ArgumentOutOfRangeException(nameof(version));
             Version = version;
             ClaimedRewardIds = claimedRewardIds ?? throw new ArgumentNullException(nameof(claimedRewardIds));
+            PendingGoldRewards = pendingGoldRewards ?? throw new ArgumentNullException(nameof(pendingGoldRewards));
         }
 
         public int Version { get; }
         public IReadOnlyList<string> ClaimedRewardIds { get; }
+        public IReadOnlyList<PendingGoldRewardSnapshot> PendingGoldRewards { get; }
+    }
+
+    public readonly struct PendingGoldRewardSnapshot
+    {
+        public PendingGoldRewardSnapshot(string rewardId, string ownerId, long gold)
+        {
+            if (string.IsNullOrWhiteSpace(rewardId)) throw new ArgumentException("Reward id is required.", nameof(rewardId));
+            if (string.IsNullOrWhiteSpace(ownerId)) throw new ArgumentException("Owner id is required.", nameof(ownerId));
+            if (gold <= 0) throw new ArgumentOutOfRangeException(nameof(gold));
+            RewardId = rewardId;
+            OwnerId = ownerId;
+            Gold = gold;
+        }
+
+        public string RewardId { get; }
+        public string OwnerId { get; }
+        public long Gold { get; }
     }
 }
