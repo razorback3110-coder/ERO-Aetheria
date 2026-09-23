@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace EternalRealmsOnline.Core.Economy
 {
@@ -65,6 +66,25 @@ namespace EternalRealmsOnline.Core.Economy
                 target.RestoreSnapshot(targetBefore);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Reconciles transfer intents left without a COMMIT marker after a process crash.
+        /// Must be called after all player inventories are loaded and before gameplay writes
+        /// are accepted. Recovery is deliberately idempotent and never overwrites an item
+        /// already owned by the target inventory.
+        /// </summary>
+        public IReadOnlyList<EROItemTransferJournal.PendingTransfer> RecoverPendingTransfers(
+            Func<string, EROInstanceInventory> inventoryResolver)
+        {
+            if (journal == null)
+                throw new InvalidOperationException("A durable transfer journal is required for recovery.");
+            if (inventoryResolver == null)
+                throw new ArgumentNullException(nameof(inventoryResolver));
+
+            var pendingBefore = journal.ReadPending();
+            journal.RecoverPending(inventoryResolver);
+            return pendingBefore;
         }
 
         private static void ValidateId(string value, string name)
