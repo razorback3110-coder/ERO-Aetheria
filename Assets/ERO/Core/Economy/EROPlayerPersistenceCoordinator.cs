@@ -1,0 +1,124 @@
+using System;
+using System.Collections.Generic;
+
+namespace EternalRealmsOnline.Core.Economy
+{
+    /// <summary>
+    /// Coordinates a single authoritative player-state snapshot across progression,
+    /// inventory, wallet and combat rewards. The snapshot is immutable and restores
+    /// all components together with rollback if any component rejects the payload.
+    /// </summary>
+    public sealed class EROPlayerPersistenceCoordinator
+    {
+        public const int CurrentSnapshotVersion = 1;
+
+        private readonly EROCharacterProgression progression;
+        private readonly EROInstanceInventory inventory;
+        private readonly EROAuthoritativeWallet wallet;
+        private readonly EROCombatRewards rewards;
+
+        public EROPlayerPersistenceCoordinator(
+            EROCharacterProgression progression,
+            EROInstanceInventory inventory,
+            EROAuthoritativeWallet wallet,
+            EROCombatRewards rewards)
+        {
+            this.progression = progression ?? throw new ArgumentNullException(nameof(progression));
+            this.inventory = inventory ?? throw new ArgumentNullException(nameof(inventory));
+            this.wallet = wallet ?? throw new ArgumentNullException(nameof(wallet));
+            this.rewards = rewards ?? throw new ArgumentNullException(nameof(rewards));
+
+            if (!string.Equals(progression.ActorId, inventory.ActorId, StringComparison.Ordinal))
+                throw new InvalidOperationException("Progression and inventory actor ids must match.");
+        }
+
+        public string ActorId => progression.ActorId;
+
+        public PlayerPersistenceSnapshot CaptureSnapshot()
+        {
+            return new PlayerPersistenceSnapshot(
+                CurrentSnapshotVersion,
+                ActorId,
+                progression.CaptureSnapshot(),
+                inventory.CaptureSnapshot(),
+                wallet.CaptureSnapshot(),
+                wallet.CaptureTransactionJournal(),
+                rewards.CaptureSnapshot());
+        }
+
+        public void RestoreSnapshot(PlayerPersistenceSnapshot snapshot)
+        {
+            ValidateSnapshot(snapshot);
+
+            PlayerPersistenceSnapshot previous = CaptureSnapshot();
+            try
+            {
+                progression.RestoreSnapshot(snapshot.Progression);
+                inventory.RestoreSnapshot(snapshot.Inventory);
+                wallet.RestoreSnapshot(snapshot.WalletBalances);
+                wallet.RestoreTransactionJournal(snapshot.WalletTransactions);
+                rewards.RestoreSnapshot(snapshot.Rewards);
+            }
+            catch
+            {
+                RestoreWithoutRollback(previous);
+                throw;
+            }
+        }
+
+        private void ValidateSnapshot(PlayerPersistenceSnapshot snapshot)
+        {
+            if (snapshot == null) throw new ArgumentNullException(nameof(snapshot));
+            if (snapshot.Version != CurrentSnapshotVersion)
+                throw new InvalidOperationException("Unsupported player persistence snapshot version.");
+            if (!string.Equals(snapshot.ActorId, ActorId, StringComparison.Ordinal))
+                throw new InvalidOperationException("Player persistence actor mismatch.");
+            if (!string.Equals(snapshot.Progression.ActorId, ActorId, StringComparison.Ordinal))
+                throw new InvalidOperationException("Progression snapshot actor mismatch.");
+            if (!string.Equals(snapshot.Inventory.ActorId, ActorId, StringComparison.Ordinal))
+                throw new InvalidOperationException("Inventory snapshot actor mismatch.");
+            if (snapshot.WalletBalances == null) throw new InvalidOperationException("Wallet balance snapshot is required.");
+            if (snapshot.WalletTransactions == null) throw new InvalidOperationException("Wallet transaction snapshot is required.");
+            if (snapshot.Rewards == null) throw new InvalidOperationException("Reward snapshot is required.");
+        }
+
+        private void RestoreWithoutRollback(PlayerPersistenceSnapshot snapshot)
+        {
+            progression.RestoreSnapshot(snapshot.Progression);
+            inventory.RestoreSnapshot(snapshot.Inventory);
+            wallet.RestoreSnapshot(snapshot.WalletBalances);
+            wallet.RestoreTransactionJournal(snapshot.WalletTransactions);
+            rewards.RestoreSnapshot(snapshot.Rewards);
+        }
+    }
+
+    public sealed class PlayerPersistenceSnapshot
+    {
+        public PlayerPersistenceSnapshot(
+            int version,
+            string actorId,
+            ProgressionSnapshot progression,
+            InstanceInventorySnapshot inventory,
+            IReadOnlyList<EROWalletBalanceEntry> walletBalances,
+            IReadOnlyList<EROWalletTransactionEntry> walletTransactions,
+            RewardSnapshot rewards)
+        {
+            if (version <= 0) throw new ArgumentOutOfRangeException(nameof(version));
+            Version = version;
+            ActorId = actorId ?? throw new ArgumentNullException(nameof(actorId));
+            Progression = progression ?? throw new ArgumentNullException(nameof(progression));
+            Inventory = inventory ?? throw new ArgumentNullException(nameof(inventory));
+            WalletBalances = walletBalances ?? throw new ArgumentNullException(nameof(walletBalances));
+            WalletTransactions = walletTransactions ?? throw new ArgumentNullException(nameof(walletTransactions));
+            Rewards = rewards ?? throw new ArgumentNullException(nameof(rewards));
+        }
+
+        public int Version { get; }
+        public string ActorId { get; }
+        public ProgressionSnapshot Progression { get; }
+        public InstanceInventorySnapshot Inventory { get; }
+        public IReadOnlyList<EROWalletBalanceEntry> WalletBalances { get; }
+        public IReadOnlyList<EROWalletTransactionEntry> WalletTransactions { get; }
+        public RewardSnapshot Rewards { get; }
+    }
+}
