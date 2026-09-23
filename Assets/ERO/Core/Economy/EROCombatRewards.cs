@@ -3,10 +3,6 @@ using System.Collections.Generic;
 
 namespace EternalRealmsOnline.Core.Economy
 {
-    /// <summary>
-    /// Converts an authoritative defeat into idempotent XP, loot and optional Gold rewards.
-    /// Loot is committed before XP so an inventory-full retry cannot consume progression.
-    /// </summary>
     public sealed class EROCombatRewards
     {
         private const int SnapshotVersion = 2;
@@ -17,8 +13,7 @@ namespace EternalRealmsOnline.Core.Economy
         private readonly EROLootInventoryService loot;
         private readonly EROAuthoritativeWallet wallet;
 
-        public EROCombatRewards(EROCharacterProgression progression, EROLootInventoryService loot)
-            : this(progression, loot, null) { }
+        public EROCombatRewards(EROCharacterProgression progression, EROLootInventoryService loot) : this(progression, loot, null) { }
 
         public EROCombatRewards(EROCharacterProgression progression, EROLootInventoryService loot, EROAuthoritativeWallet wallet)
         {
@@ -27,18 +22,7 @@ namespace EternalRealmsOnline.Core.Economy
             this.wallet = wallet;
         }
 
-        public CombatRewardResult GrantDefeatRewards(
-            string encounterId,
-            long encounterSeed,
-            string defeatedActorId,
-            long experience,
-            int dropIndex,
-            string itemId,
-            int quantity,
-            int maxStack,
-            int itemLevel,
-            IReadOnlyDictionary<string, long> itemStats = null,
-            long gold = 0L)
+        public CombatRewardResult GrantDefeatRewards(string encounterId, long encounterSeed, string defeatedActorId, long experience, int dropIndex, string itemId, int quantity, int maxStack, int itemLevel, IReadOnlyDictionary<string, long> itemStats = null, long gold = 0L)
         {
             if (string.IsNullOrWhiteSpace(encounterId)) throw new ArgumentException("Encounter id is required.", nameof(encounterId));
             if (string.IsNullOrWhiteSpace(defeatedActorId)) throw new ArgumentException("Defeated actor id is required.", nameof(defeatedActorId));
@@ -50,16 +34,11 @@ namespace EternalRealmsOnline.Core.Economy
             if (claimedRewards.Contains(rewardId))
                 return CombatRewardResult.AlreadyGranted(rewardId, progression.Level, progression.Experience);
 
-            // Commit the inventory grant first. If the inventory is full, no XP is consumed and
-            // the same deterministic reward can be retried after the player makes space.
-            LootGrantResult lootResult = loot.Grant(
-                encounterId, encounterSeed, dropIndex, itemId, quantity, maxStack, itemLevel, itemStats);
+            LootGrantResult lootResult = loot.Grant(encounterId, encounterSeed, dropIndex, itemId, quantity, maxStack, itemLevel, itemStats);
             if (!lootResult.Success)
             {
-                return new CombatRewardResult(
-                    CombatRewardStatus.LootPending, rewardId,
-                    new ProgressionResult(progression.Level, progression.Level, progression.Experience, 0),
-                    lootResult, 0L);
+                return new CombatRewardResult(CombatRewardStatus.LootPending, rewardId,
+                    new ProgressionResult(progression.Level, progression.Level, progression.Experience, 0), lootResult, 0L);
             }
 
             ProgressionResult progressionResult = progression.GrantExperience(experience);
@@ -74,7 +53,6 @@ namespace EternalRealmsOnline.Core.Economy
             return new CombatRewardResult(CombatRewardStatus.Granted, rewardId, progressionResult, lootResult, gold);
         }
 
-        /// <summary>Finalizes Gold after a transient wallet failure without re-granting XP or loot.</summary>
         public bool TryFinalizeGoldReward(string rewardId, string ownerId, long gold)
         {
             if (string.IsNullOrWhiteSpace(rewardId)) throw new ArgumentException("Reward id is required.", nameof(rewardId));
@@ -92,7 +70,7 @@ namespace EternalRealmsOnline.Core.Economy
             if (!string.Equals(pending.OwnerId, ownerId, StringComparison.Ordinal) || pending.Gold != gold)
                 throw new InvalidOperationException("Pending Gold does not match the original combat reward owner or amount.");
 
-            bool applied = wallet.TryApplyTransaction(rewardId + ":gold', pending.OwnerId, EROCurrencyCatalog.Gold, pending.Gold, true);
+            bool applied = wallet.TryApplyTransaction(rewardId + ":gold", pending.OwnerId, EROCurrencyCatalog.Gold, pending.Gold, true);
             if (applied) pendingGoldRewards.Remove(rewardId);
             return applied;
         }
@@ -160,8 +138,7 @@ namespace EternalRealmsOnline.Core.Economy
             {
                 if (string.IsNullOrWhiteSpace(ownerId)) throw new ArgumentException("Owner id is required.", nameof(ownerId));
                 if (gold <= 0) throw new ArgumentOutOfRangeException(nameof(gold));
-                OwnerId = ownerId;
-                Gold = gold;
+                OwnerId = ownerId; Gold = gold;
             }
             public string OwnerId { get; }
             public long Gold { get; }
@@ -182,16 +159,12 @@ namespace EternalRealmsOnline.Core.Economy
         public LootGrantResult Loot { get; }
         public long Gold { get; }
         public bool Success => Status == CombatRewardStatus.Granted || Status == CombatRewardStatus.AlreadyGranted;
-        public static CombatRewardResult AlreadyGranted(string rewardId, int level, long experience)
-        {
-            return new CombatRewardResult(CombatRewardStatus.AlreadyGranted, rewardId, new ProgressionResult(level, level, experience, 0), default(LootGrantResult), 0L);
-        }
+        public static CombatRewardResult AlreadyGranted(string rewardId, int level, long experience) => new CombatRewardResult(CombatRewardStatus.AlreadyGranted, rewardId, new ProgressionResult(level, level, experience, 0), default(LootGrantResult), 0L);
     }
 
     public sealed class RewardSnapshot
     {
-        public RewardSnapshot(int version, IReadOnlyList<string> claimedRewardIds)
-            : this(version, claimedRewardIds, Array.Empty<PendingGoldRewardSnapshot>()) { }
+        public RewardSnapshot(int version, IReadOnlyList<string> claimedRewardIds) : this(version, claimedRewardIds, Array.Empty<PendingGoldRewardSnapshot>()) { }
         public RewardSnapshot(int version, IReadOnlyList<string> claimedRewardIds, IReadOnlyList<PendingGoldRewardSnapshot> pendingGoldRewards)
         {
             if (version <= 0) throw new ArgumentOutOfRangeException(nameof(version));
