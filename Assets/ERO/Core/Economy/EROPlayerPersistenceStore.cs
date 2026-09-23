@@ -8,7 +8,7 @@ namespace EternalRealmsOnline.Core.Economy
     /// <summary>
     /// Crash-safe durable storage primitive for authoritative player snapshots.
     /// The coordinator owns snapshot validation; this store owns atomic file replacement,
-    /// size limits and integrity verification of the serialized snapshot payload.
+    /// bounded storage, integrity verification and last-known-good recovery.
     /// </summary>
     public sealed class EROPlayerPersistenceStore
     {
@@ -16,6 +16,7 @@ namespace EternalRealmsOnline.Core.Economy
         public const int MaxPayloadBytes = 8 * 1024 * 1024;
 
         private const string FileExtension = ".ero.save";
+        private const string BackupExtension = ".bak";
         private const string Magic = "ERO_PLAYER_SAVE";
 
         private readonly string rootDirectory;
@@ -34,10 +35,15 @@ namespace EternalRealmsOnline.Core.Economy
             return Path.Combine(rootDirectory, actorId + FileExtension);
         }
 
+        public string GetBackupPath(string actorId)
+        {
+            return GetPath(actorId) + BackupExtension;
+        }
+
         /// <summary>
         /// Writes a fully serialized PlayerPersistenceSnapshot atomically.
-        /// The payload format is deliberately owned by the caller so this storage layer
-        /// remains independent from Unity serialization packages.
+        /// When replacing an existing save, the previous verified file is retained as a
+        /// last-known-good backup so a truncated or externally damaged primary can recover.
         /// </summary>
         public void Save(string actorId, byte[] payload)
         {
@@ -47,6 +53,7 @@ namespace EternalRealmsOnline.Core.Economy
             if (payload.Length > MaxPayloadBytes) throw new InvalidOperationException("Persistence payload exceeds the configured limit.");
 
             string path = GetPath(actorId);
+            string backupPath = GetBackupPath(actorId);
             string tempPath = path + "." + Guid.NewGuid().ToString("N") + ".tmp";
             byte[] envelope = BuildEnvelope(actorId, payload);
 
@@ -59,7 +66,7 @@ namespace EternalRealmsOnline.Core.Economy
                 }
 
                 if (File.Exists(path))
-                    File.Replace(tempPath, path, null);
+                    File.Replace(tempPath, path, backupPath, true);
                 else
                     File.Move(tempPath, path);
             }
@@ -72,29 +79,69 @@ namespace EternalRealmsOnline.Core.Economy
 
         /// <summary>
         /// Loads and integrity-checks a serialized PlayerPersistenceSnapshot.
-        /// A corrupt or mismatched save is rejected rather than partially restored.
+        /// If the primary save is damaged, the last-known-good backup is attempted before
+        /// the corruption is surfaced to the caller. No partially parsed data is returned.
         /// </summary>
         public byte[] Load(string actorId)
         {
             ValidateActorId(actorId);
             string path = GetPath(actorId);
-            if (!File.Exists(path)) return null;
+            if (!File.Exists(path))
+                return TryLoadBackup(actorId, null);
 
             byte[] envelope = File.ReadAllBytes(path);
-            return ParseEnvelope(actorId, envelope);
+            try
+            {
+                return ParseEnvelope(actorId, envelope);
+            }
+            catch (InvalidDataException primaryError)
+            {
+                return TryLoadBackup(actorId, primaryError);
+            }
         }
 
         public bool Exists(string actorId)
         {
-            return File.Exists(GetPath(actorId));
+            return File.Exists(GetPath(actorId)) || File.Exists(GetBackupPath(actorId));
         }
 
         public bool Delete(string actorId)
         {
             string path = GetPath(actorId);
-            if (!File.Exists(path)) return false;
-            File.Delete(path);
-            return true;
+            string backupPath = GetBackupPath(actorId);
+            bool deleted = false;
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+                deleted = true;
+            }
+            if (File.Exists(backupPath))
+            {
+                File.Delete(backupPath);
+                deleted = true;
+            }
+            return deleted;
+        }
+
+        private byte[] TryLoadBackup(string actorId, InvalidDataException primaryError)
+        {
+            string backupPath = GetBackupPath(actorId);
+            if (!File.Exists(backupPath))
+            {
+                if (primaryError != null) throw primaryError;
+                return null;
+            }
+
+            try
+            {
+                return ParseEnvelope(actorId, File.ReadAllBytes(backupPath));
+            }
+            catch (InvalidDataException backupError)
+            {
+                if (primaryError != null)
+                    throw new InvalidDataException("Both primary and backup player saves are corrupt.", backupError);
+                throw;
+            }
         }
 
         private static byte[] BuildEnvelope(string actorId, byte[] payload)
