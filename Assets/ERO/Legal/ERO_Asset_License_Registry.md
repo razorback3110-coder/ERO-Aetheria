@@ -25,6 +25,7 @@ This registry is the legal gate for third-party content used by Eternal Realms O
 | `EROCombatCommandBuffer.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Bounded deterministic server-side combat input queue; protects server memory from command floods |
 | `EROCombatSimulationBridge.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Bridges queued combat commands into authoritative fixed-step simulation |
 | `EROCombatResolution.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Pure deterministic hit, critical, mitigation, damage and defeat resolution for authoritative combat |
+| `EROCombatResolver.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Unity-free authoritative basic-attack and skill-damage resolution with server-supplied deterministic critical rolls |
 | `EROCombatStateStore.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Authoritative combatant/skill state and application of deterministic combat results |
 | `EROCombatRewards.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Idempotent deterministic XP and loot outcomes after authoritative combat defeat |
 | `EROEncounterCombatService.cs` | ERO-Aetheria source code | ERO-owned/original | Yes | Not required | Connects authoritative combat defeats to persistent XP and loot rewards without Unity dependencies |
