@@ -16,9 +16,16 @@ public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|World|Encounters")
     TArray<FEROEncounterSpawnDefinition> StarterEncounters;
 
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|World|Streaming", meta=(ClampMin="500.0", UIMin="500.0"))
+    float EncounterActivationRadius = 6000.0f;
+
 protected:
     virtual void BeginPlay() override;
+    virtual void Tick(float DeltaSeconds) override;
 
 private:
     void SpawnConfiguredEncounters();
+    bool IsEncounterWithinActivationRadius(const FVector& EncounterLocation) const;
+
+    TSet<FName> ActivatedEncounterIds;
 };
