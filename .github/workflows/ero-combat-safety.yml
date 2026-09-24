@@ -1,0 +1,33 @@
+name: ERO Combat Safety
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'Assets/ERO/Core/EROCombatResolver.cs'
+      - 'Tools/Validate-EROCombatOverflowSafety.sh'
+      - '.github/workflows/ero-combat-safety.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'Assets/ERO/Core/EROCombatResolver.cs'
+      - 'Tools/Validate-EROCombatOverflowSafety.sh'
+      - '.github/workflows/ero-combat-safety.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  combat-safety:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Validate authoritative combat overflow safety
+        shell: bash
+        run: bash Tools/Validate-EROCombatOverflowSafety.sh
