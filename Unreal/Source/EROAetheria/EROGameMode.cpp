@@ -4,6 +4,17 @@
 #include "EROEnvironmentActor.h"
 #include "EROEnemyActor.h"
 #include "GameFramework/PlayerController.h"
+#include "Dom/JsonObject.h"
+#include "Serialization/JsonReader.h"
+#include "Serialization/JsonSerializer.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
+#include "HAL/PlatformFileManager.h"
+
+namespace
+{
+    constexpr const TCHAR* EncounterPersistenceFileName = TEXT("EROEncounterState.json");
+}
 
 AEROGameMode::AEROGameMode()
 {
@@ -52,6 +63,7 @@ void AEROGameMode::BeginPlay()
         return;
     }
 
+    LoadEncounterPersistence();
     GetWorld()->SpawnActor<AEROEnvironmentActor>(FVector::ZeroVector, FRotator::ZeroRotator);
     SpawnConfiguredEncounters();
 }
@@ -67,6 +79,82 @@ void AEROGameMode::Tick(float DeltaSeconds)
 
     SpawnConfiguredEncounters();
     UpdateEncounterStreamingState();
+
+    if (bEncounterPersistenceDirty)
+    {
+        SaveEncounterPersistence();
+        bEncounterPersistenceDirty = false;
+    }
+}
+
+void AEROGameMode::LoadEncounterPersistence()
+{
+    PersistedRespawnDeadlinesUtc.Reset();
+
+    FString JsonText;
+    if (!FFileHelper::LoadFileToString(JsonText, *(FPaths::ProjectSavedDir() / EncounterPersistenceFileName)))
+    {
+        return;
+    }
+
+    TSharedPtr<FJsonObject> Root;
+    const TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(JsonText);
+    if (!FJsonSerializer::Deserialize(Reader, Root) || !Root.IsValid())
+    {
+        UE_LOG(LogTemp, Warning, TEXT("ERO encounter persistence file is invalid; starting with clean encounter state."));
+        return;
+    }
+
+    const TSharedPtr<FJsonObject>* EntriesObject = nullptr;
+    if (!Root->TryGetObjectField(TEXT("respawnDeadlinesUtc"), EntriesObject) || !EntriesObject || !EntriesObject->IsValid())
+    {
+        return;
+    }
+
+    for (const TPair<FString, TSharedPtr<FJsonValue>>& Entry : (*EntriesObject)->Values)
+    {
+        int64 Deadline = 0;
+        if (Entry.Value.IsValid() && Entry.Value->TryGetNumberField(Deadline) && Deadline > 0)
+        {
+            PersistedRespawnDeadlinesUtc.Add(FName(*Entry.Key), Deadline);
+        }
+    }
+}
+
+void AEROGameMode::SaveEncounterPersistence() const
+{
+    const FString SavePath = FPaths::ProjectSavedDir() / EncounterPersistenceFileName;
+    const FString TempPath = SavePath + TEXT(".tmp");
+
+    TSharedRef<FJsonObject> Root = MakeShared<FJsonObject>();
+    TSharedRef<FJsonObject> Entries = MakeShared<FJsonObject>();
+    for (const TPair<FName, int64>& Entry : PersistedRespawnDeadlinesUtc)
+    {
+        Entries->SetNumberField(Entry.Key.ToString(), static_cast<double>(Entry.Value));
+    }
+    Root->SetObjectField(TEXT("respawnDeadlinesUtc"), Entries);
+    Root->SetStringField(TEXT("schemaVersion"), TEXT("1"));
+
+    FString JsonText;
+    const TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&JsonText);
+    if (!FJsonSerializer::Serialize(Root, Writer) || !FFileHelper::SaveStringToFile(JsonText, *TempPath))
+    {
+        UE_LOG(LogTemp, Error, TEXT("Failed to persist ERO encounter state."));
+        return;
+    }
+
+    IPlatformFile& PlatformFile = FPlatformFileManager::Get().GetPlatformFile();
+    if (PlatformFile.FileExists(*SavePath) && !PlatformFile.DeleteFile(*SavePath))
+    {
+        UE_LOG(LogTemp, Error, TEXT("Failed to replace ERO encounter persistence file."));
+        PlatformFile.DeleteFile(*TempPath);
+        return;
+    }
+
+    if (!PlatformFile.MoveFile(*SavePath, *TempPath))
+    {
+        UE_LOG(LogTemp, Error, TEXT("Failed to atomically finalize ERO encounter persistence file."));
+    }
 }
 
 bool AEROGameMode::IsEncounterWithinActivationRadius(const FVector& EncounterLocation) const
@@ -103,11 +191,24 @@ void AEROGameMode::SpawnConfiguredEncounters()
         return;
     }
 
+    const int64 NowUtc = FDateTime::UtcNow().ToUnixTimestamp();
+
     for (const FEROEncounterSpawnDefinition& Definition : StarterEncounters)
     {
         if (!Definition.IsValid() || ActivatedEncounterIds.Contains(Definition.EncounterId))
         {
             continue;
+        }
+
+        if (const int64* Deadline = PersistedRespawnDeadlinesUtc.Find(Definition.EncounterId))
+        {
+            if (*Deadline > NowUtc)
+            {
+                continue;
+            }
+
+            PersistedRespawnDeadlinesUtc.Remove(Definition.EncounterId);
+            bEncounterPersistenceDirty = true;
         }
 
         if (!IsEncounterWithinActivationRadius(Definition.Location))
@@ -138,6 +239,8 @@ void AEROGameMode::SpawnConfiguredEncounters()
 
 void AEROGameMode::UpdateEncounterStreamingState()
 {
+    const int64 NowUtc = FDateTime::UtcNow().ToUnixTimestamp();
+
     for (auto It = ActiveEncounterActors.CreateIterator(); It; ++It)
     {
         AEROEnemyActor* Enemy = It.Value().Get();
@@ -147,14 +250,21 @@ void AEROGameMode::UpdateEncounterStreamingState()
             continue;
         }
 
-        const bool bPlayerNearby = IsEncounterWithinActivationRadius(Enemy->GetActorLocation());
         if (Enemy->bDefeated)
         {
+            if (!PersistedRespawnDeadlinesUtc.Contains(It.Key()))
+            {
+                const int64 RespawnSeconds = FMath::Max<int64>(1, FMath::CeilToInt64(Enemy->RespawnDelay));
+                PersistedRespawnDeadlinesUtc.Add(It.Key(), NowUtc + RespawnSeconds);
+                bEncounterPersistenceDirty = true;
+            }
+
             // Defeated encounters remain resident while their authoritative respawn timer runs.
-            // This preserves respawn state across players moving away from the region.
+            // The deadline is persisted so a dedicated-server restart cannot reset the world boss timer.
             continue;
         }
 
+        const bool bPlayerNearby = IsEncounterWithinActivationRadius(Enemy->GetActorLocation());
         Enemy->SetActorHiddenInGame(!bPlayerNearby);
         Enemy->SetActorEnableCollision(bPlayerNearby);
     }
