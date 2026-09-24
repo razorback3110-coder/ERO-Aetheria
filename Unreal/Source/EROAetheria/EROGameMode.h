@@ -5,6 +5,8 @@
 #include "EROEncounterDirectorTypes.h"
 #include "EROGameMode.generated.h"
 
+class AEROEnemyActor;
+
 UCLASS()
 class EROAETHERIA_API AEROGameMode final : public AGameModeBase
 {
@@ -25,7 +27,9 @@ protected:
 
 private:
     void SpawnConfiguredEncounters();
+    void UpdateEncounterStreamingState();
     bool IsEncounterWithinActivationRadius(const FVector& EncounterLocation) const;
 
     TSet<FName> ActivatedEncounterIds;
+    TMap<FName, TWeakObjectPtr<AEROEnemyActor>> ActiveEncounterActors;
 };
