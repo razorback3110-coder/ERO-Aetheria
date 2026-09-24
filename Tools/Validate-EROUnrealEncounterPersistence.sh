@@ -19,5 +19,9 @@ grep -q 'FJsonSerializer::Deserialize' "$game_mode_cpp"
 grep -q 'FJsonSerializer::Serialize' "$game_mode_cpp"
 grep -q 'bEncounterPersistenceDirty' "$game_mode_cpp"
 grep -q 'RespawnDelay' "$game_mode_cpp"
+# A live actor owns its in-process respawn timer; once it has respawned,
+# the persisted deadline must be cleared or a stale cooldown survives forever.
+grep -q 'PersistedRespawnDeadlinesUtc.Remove(It.Key())' "$game_mode_cpp"
+grep -q 'if (Enemy->bDefeated)' "$game_mode_cpp"
 
 echo "Encounter persistence contract: OK"
