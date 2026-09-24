@@ -75,6 +75,15 @@ public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ERO|Combat")
     float AttackCooldown = 0.5f;
 
+    UFUNCTION(BlueprintCallable, Category="ERO|Combat")
+    float GetServerAttackDamage() const;
+
+    UFUNCTION(BlueprintCallable, Category="ERO|Combat")
+    float GetServerAttackRange() const;
+
+    UFUNCTION(BlueprintCallable, Category="ERO|Combat")
+    float GetServerAttackCooldown() const;
+
     UFUNCTION(BlueprintCallable, Category="ERO|Character")
     bool CanSelectClass() const;
 
