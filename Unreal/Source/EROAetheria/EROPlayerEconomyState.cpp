@@ -9,6 +9,8 @@ namespace
 {
 constexpr float EconomyCheckpointIntervalSeconds = 60.0f;
 constexpr float CharacterRestoreDelaySeconds = 0.1f;
+constexpr int32 MaxInventoryEntries = 128;
+constexpr int32 MaxStackQuantity = 9999;
 }
 
 AEROPlayerEconomyState::AEROPlayerEconomyState()
@@ -79,9 +81,6 @@ void AEROPlayerEconomyState::GrantItem(FName ItemId, int32 Quantity)
         return;
     }
 
-    constexpr int32 MaxInventoryEntries = 128;
-    constexpr int32 MaxStackQuantity = 9999;
-
     const int32 SafeQuantity = FMath::Min(Quantity, MaxStackQuantity);
     for (FEROInventoryStack& Stack : Inventory)
     {
@@ -115,12 +114,11 @@ void AEROPlayerEconomyState::SavePersistentEconomyState()
         return;
     }
 
-    SaveGame->SchemaVersion = 2;
+    SaveGame->SchemaVersion = 3;
+    SaveGame->PersistentPlayerId = GetPersistenceSlotName();
     SaveGame->GoldBalance = FMath::Max<int64>(0, GoldBalance);
     SaveGame->Inventory.Reset();
 
-    constexpr int32 MaxInventoryEntries = 128;
-    constexpr int32 MaxStackQuantity = 9999;
     for (const FEROInventoryStack& Stack : Inventory)
     {
         if (Stack.ItemId.IsNone() || Stack.Quantity <= 0)
@@ -159,16 +157,20 @@ void AEROPlayerEconomyState::LoadPersistentEconomyState()
     }
 
     UEROPlayerEconomySaveGame* SaveGame = Cast<UEROPlayerEconomySaveGame>(UGameplayStatics::LoadGameFromSlot(SlotName, 0));
-    if (!SaveGame || SaveGame->SchemaVersion < 1 || SaveGame->SchemaVersion > 2)
+    if (!SaveGame || SaveGame->SchemaVersion < 1 || SaveGame->SchemaVersion > 3)
     {
+        return;
+    }
+
+    if (SaveGame->SchemaVersion >= 3 && !SaveGame->PersistentPlayerId.IsEmpty() && SaveGame->PersistentPlayerId != SlotName)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Rejected ERO economy save because its persistent identity does not match the authenticated player slot."));
         return;
     }
 
     GoldBalance = FMath::Max<int64>(0, SaveGame->GoldBalance);
     Inventory.Reset();
 
-    constexpr int32 MaxInventoryEntries = 128;
-    constexpr int32 MaxStackQuantity = 9999;
     for (const FEROInventoryStack& Stack : SaveGame->Inventory)
     {
         if (Stack.ItemId.IsNone() || Stack.Quantity <= 0 || Inventory.Num() >= MaxInventoryEntries)
@@ -201,6 +203,12 @@ void AEROPlayerEconomyState::RestorePersistentCharacterState()
         return;
     }
 
+    if (SaveGame->SchemaVersion >= 3 && !SaveGame->PersistentPlayerId.IsEmpty() && SaveGame->PersistentPlayerId != SlotName)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Rejected ERO character restore because its persistent identity does not match the authenticated player slot."));
+        return;
+    }
+
     if (AEROPlayerCharacter* Character = Cast<AEROPlayerCharacter>(GetPawn()))
     {
         Character->RestorePersistentProgression(
@@ -214,10 +222,21 @@ void AEROPlayerEconomyState::RestorePersistentCharacterState()
 
 FString AEROPlayerEconomyState::GetPersistenceSlotName() const
 {
-    // Use the replicated PlayerState id for the local prototype save slot.
-    // This avoids requiring a concrete online subsystem implementation during
-    // the standalone/editor build. A production backend can replace this with
-    // the authenticated account identifier.
+    // Prefer the authenticated online-subsystem identity. PlayerId is only a
+    // deterministic standalone/editor fallback and must never overwrite an
+    // authenticated identity's slot.
+    const FUniqueNetIdRepl& UniqueId = GetUniqueId();
+    if (UniqueId.IsValid())
+    {
+        const FString Identity = UniqueId.ToString();
+        if (!Identity.IsEmpty())
+        {
+            // Keep the filesystem-safe slot deterministic without exposing the
+            // raw platform/account identifier in a save filename.
+            return FString::Printf(TEXT("ERO_Economy_Online_%08X"), FCrc::StrCrc32(*Identity));
+        }
+    }
+
     const int32 SafePlayerId = FMath::Max(0, GetPlayerId());
     return FString::Printf(TEXT("ERO_Economy_PlayerId_%d"), SafePlayerId);
 }
