@@ -19,7 +19,8 @@ public class EROAetheria : ModuleRules
             "NetCore",
             "MassEntity",
             "Niagara",
-            "OnlineSubsystem"
+            "OnlineSubsystem",
+            "Json"
         });
     }
 }
