@@ -122,7 +122,7 @@ void AEROPlayerCharacter::ServerAttack_Implementation()
     LastAttackServerTime = GetWorld()->GetTimeSeconds();
 
     const FVector Start = GetActorLocation() + FVector(0.0f, 0.0f, 60.0f);
-    const FVector End = Start + GetActorForwardVector() * AttackRange;
+    const FVector End = Start + GetActorForwardVector() * GetServerAttackRange();
     const FCollisionShape Shape = FCollisionShape::MakeSphere(60.0f);
 
     FCollisionQueryParams QueryParams(SCENE_QUERY_STAT(EROPlayerAttack), false, this);
@@ -132,7 +132,7 @@ void AEROPlayerCharacter::ServerAttack_Implementation()
         AActor* Target = Hit.GetActor();
         if (IsValid(Target) && Target != this)
         {
-            UGameplayStatics::ApplyDamage(Target, AttackDamage, GetController(), this, UDamageType::StaticClass());
+            UGameplayStatics::ApplyDamage(Target, GetServerAttackDamage(), GetController(), this, UDamageType::StaticClass());
         }
     }
 }
