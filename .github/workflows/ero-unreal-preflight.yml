@@ -52,6 +52,11 @@ jobs:
             Unreal/Source/EROAetheria/EROAetheria.cpp \
             Unreal/Source/EROAetheria/EROGameMode.h \
             Unreal/Source/EROAetheria/EROGameMode.cpp \
+            Unreal/Source/EROAetheria/EROEnemyActor.h \
+            Unreal/Source/EROAetheria/EROEnemyActor.cpp \
+            Unreal/Source/EROAetheria/EROPlayerCharacter.h \
+            Unreal/Source/EROAetheria/EROPlayerCharacter.cpp \
+            Unreal/Source/EROAetheria/EROCombatRules.h \
             Unreal/Source/EROAetheria.Target.cs \
             Unreal/Source/EROAetheriaServer.Target.cs \
             Unreal/Source/EROAetheriaEditor.Target.cs; do
@@ -63,7 +68,15 @@ jobs:
           test -f Unreal/Scripts/GenerateAetheriaInstanceMaps.py
           test -f Unreal/Config/AetheriaWorldManifest.json
           test -f Unreal/Config/AetheriaInstanceManifest.json
+          test -f Unreal/Config/AetheriaMVPManifest.json
           echo "Unreal source/config/world-generation foundation: OK"
+
+      - name: Validate MVP manifest parity
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x Tools/Validate-EROUnrealMvpManifestParity.sh
+          ./Tools/Validate-EROUnrealMvpManifestParity.sh
 
       - name: Validate gameplay contract
         shell: bash
