@@ -85,6 +85,13 @@ jobs:
           chmod +x Tools/Validate-EROUnrealEncounterStreaming.sh
           ./Tools/Validate-EROUnrealEncounterStreaming.sh
 
+      - name: Validate encounter persistence contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x Tools/Validate-EROUnrealEncounterPersistence.sh
+          ./Tools/Validate-EROUnrealEncounterPersistence.sh
+
       - name: Validate gameplay contract
         shell: bash
         run: |
