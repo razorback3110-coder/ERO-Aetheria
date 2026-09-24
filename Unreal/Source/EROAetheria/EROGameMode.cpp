@@ -66,6 +66,7 @@ void AEROGameMode::Tick(float DeltaSeconds)
     }
 
     SpawnConfiguredEncounters();
+    UpdateEncounterStreamingState();
 }
 
 bool AEROGameMode::IsEncounterWithinActivationRadius(const FVector& EncounterLocation) const
@@ -131,5 +132,30 @@ void AEROGameMode::SpawnConfiguredEncounters()
         Enemy->RespawnDelay = Definition.RespawnDelay;
         Enemy->FinishSpawning(SpawnTransform);
         ActivatedEncounterIds.Add(Definition.EncounterId);
+        ActiveEncounterActors.Add(Definition.EncounterId, Enemy);
+    }
+}
+
+void AEROGameMode::UpdateEncounterStreamingState()
+{
+    for (auto It = ActiveEncounterActors.CreateIterator(); It; ++It)
+    {
+        AEROEnemyActor* Enemy = It.Value().Get();
+        if (!IsValid(Enemy))
+        {
+            It.RemoveCurrent();
+            continue;
+        }
+
+        const bool bPlayerNearby = IsEncounterWithinActivationRadius(Enemy->GetActorLocation());
+        if (Enemy->bDefeated)
+        {
+            // Defeated encounters remain resident while their authoritative respawn timer runs.
+            // This preserves respawn state across players moving away from the region.
+            continue;
+        }
+
+        Enemy->SetActorHiddenInGame(!bPlayerNearby);
+        Enemy->SetActorEnableCollision(bPlayerNearby);
     }
 }
