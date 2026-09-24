@@ -20,8 +20,8 @@ if expected_total != len(mvps):
 expected = [(f"MVP_{index:02d}", int(entry["level"])) for index, entry in enumerate(mvps, start=1)]
 
 pattern = re.compile(
-    r'TEXT\\("(?P<id>MVP_\\d{2})"\\).*?Rotator::ZeroRotator,\\s*'
-    r'(?P<level>\\d+),\\s*(?P<hp>[0-9.]+f),'
+    r'TEXT\("(?P<id>MVP_\d{2})"\).*?Rotator::ZeroRotator,\s*'
+    r'(?P<level>\d+),\s*(?P<hp>[0-9.]+f),',
     re.DOTALL,
 )
 actual = [(match.group("id"), int(match.group("level"))) for match in pattern.finditer(source)]
