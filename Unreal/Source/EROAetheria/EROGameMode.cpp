@@ -3,12 +3,15 @@
 #include "EROPlayerEconomyState.h"
 #include "EROEnvironmentActor.h"
 #include "EROEnemyActor.h"
+#include "GameFramework/PlayerController.h"
 
 AEROGameMode::AEROGameMode()
 {
     bUseSeamlessTravel = true;
     DefaultPawnClass = AEROPlayerCharacter::StaticClass();
     PlayerStateClass = AEROPlayerEconomyState::StaticClass();
+    PrimaryActorTick.bCanEverTick = true;
+    PrimaryActorTick.TickInterval = 1.0f;
 
     StarterEncounters = {
         { TEXT("Starter_Imp_01"), FVector(900.0f, 0.0f, 100.0f), FRotator::ZeroRotator, 1, 250.0f, 250, 25, TEXT("Aetherium_Shard"), 1, 10.0f, false },
@@ -53,6 +56,45 @@ void AEROGameMode::BeginPlay()
     SpawnConfiguredEncounters();
 }
 
+void AEROGameMode::Tick(float DeltaSeconds)
+{
+    Super::Tick(DeltaSeconds);
+
+    if (!HasAuthority())
+    {
+        return;
+    }
+
+    SpawnConfiguredEncounters();
+}
+
+bool AEROGameMode::IsEncounterWithinActivationRadius(const FVector& EncounterLocation) const
+{
+    if (!GetWorld())
+    {
+        return false;
+    }
+
+    const float ActivationRadiusSquared = FMath::Square(EncounterActivationRadius);
+
+    for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
+    {
+        const APlayerController* PlayerController = It->Get();
+        const APawn* PlayerPawn = PlayerController ? PlayerController->GetPawn() : nullptr;
+        if (!PlayerPawn)
+        {
+            continue;
+        }
+
+        if (FVector::DistSquared(PlayerPawn->GetActorLocation(), EncounterLocation) <= ActivationRadiusSquared)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void AEROGameMode::SpawnConfiguredEncounters()
 {
     if (!GetWorld())
@@ -62,7 +104,12 @@ void AEROGameMode::SpawnConfiguredEncounters()
 
     for (const FEROEncounterSpawnDefinition& Definition : StarterEncounters)
     {
-        if (!Definition.IsValid())
+        if (!Definition.IsValid() || ActivatedEncounterIds.Contains(Definition.EncounterId))
+        {
+            continue;
+        }
+
+        if (!IsEncounterWithinActivationRadius(Definition.Location))
         {
             continue;
         }
@@ -83,5 +130,6 @@ void AEROGameMode::SpawnConfiguredEncounters()
         Enemy->ItemRewardQuantity = FMath::Clamp(Definition.ItemRewardQuantity, 0, 9999);
         Enemy->RespawnDelay = Definition.RespawnDelay;
         Enemy->FinishSpawning(SpawnTransform);
+        ActivatedEncounterIds.Add(Definition.EncounterId);
     }
 }
