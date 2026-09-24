@@ -151,12 +151,36 @@ void AEROPlayerEconomyState::SavePersistentEconomyState()
 void AEROPlayerEconomyState::LoadPersistentEconomyState()
 {
     const FString SlotName = GetPersistenceSlotName();
-    if (!UGameplayStatics::DoesSaveGameExist(SlotName, 0))
+    FString LoadSlotName = SlotName;
+    UEROPlayerEconomySaveGame* SaveGame = nullptr;
+
+    if (UGameplayStatics::DoesSaveGameExist(SlotName, 0))
     {
-        return;
+        SaveGame = Cast<UEROPlayerEconomySaveGame>(UGameplayStatics::LoadGameFromSlot(SlotName, 0));
     }
 
-    UEROPlayerEconomySaveGame* SaveGame = Cast<UEROPlayerEconomySaveGame>(UGameplayStatics::LoadGameFromSlot(SlotName, 0));
+    // Schema 2 and earlier used the local PlayerId slot. Migrate that legacy
+    // save exactly once when an authenticated identity is now available.
+    if (!SaveGame)
+    {
+        const FUniqueNetIdRepl& UniqueId = GetUniqueId();
+        if (UniqueId.IsValid())
+        {
+            const FString LegacySlotName = FString::Printf(TEXT("ERO_Economy_PlayerId_%d"), FMath::Max(0, GetPlayerId()));
+            if (LegacySlotName != SlotName && UGameplayStatics::DoesSaveGameExist(LegacySlotName, 0))
+            {
+                SaveGame = Cast<UEROPlayerEconomySaveGame>(UGameplayStatics::LoadGameFromSlot(LegacySlotName, 0));
+                if (SaveGame && SaveGame->SchemaVersion >= 1 && SaveGame->SchemaVersion <= 2)
+                {
+                    LoadSlotName = LegacySlotName;
+                    SaveGame->SchemaVersion = 3;
+                    SaveGame->PersistentPlayerId = SlotName;
+                    UGameplayStatics::SaveGameToSlot(SaveGame, SlotName, 0);
+                }
+            }
+        }
+    }
+
     if (!SaveGame || SaveGame->SchemaVersion < 1 || SaveGame->SchemaVersion > 3)
     {
         return;
@@ -181,6 +205,11 @@ void AEROPlayerEconomyState::LoadPersistentEconomyState()
         FEROInventoryStack& SafeStack = Inventory.AddDefaulted_GetRef();
         SafeStack.ItemId = Stack.ItemId;
         SafeStack.Quantity = FMath::Clamp(Stack.Quantity, 1, MaxStackQuantity);
+    }
+
+    if (LoadSlotName != SlotName)
+    {
+        UE_LOG(LogTemp, Log, TEXT("Migrated ERO economy save from legacy PlayerId slot to authenticated persistent identity."));
     }
 }
 
