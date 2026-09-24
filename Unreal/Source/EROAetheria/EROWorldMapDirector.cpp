@@ -124,7 +124,9 @@ void AEROWorldMapDirector::ServerTravelToRegion_Implementation(APlayerController
 {
     const FERORegionDefinition* Region = FindRegion(RegionId);
     AEROPlayerCharacter* Player = RequestingController ? Cast<AEROPlayerCharacter>(RequestingController->GetPawn()) : nullptr;
-    if (!Region || !RequestingController || !IsValid(RequestingController) || !Player)
+    APlayerController* PlayerController = Player ? Cast<APlayerController>(Player->GetController()) : nullptr;
+    if (!Region || !RequestingController || !IsValid(RequestingController) || !Player ||
+        !PlayerController || RequestingController != PlayerController)
     {
         UE_LOG(LogTemp, Warning, TEXT("[ERO] Rejected region travel request: %s"), *RegionId.ToString());
         return;
@@ -169,7 +171,9 @@ void AEROWorldMapDirector::ServerTravelToInstance_Implementation(APlayerControll
 {
     const FEROInstanceDefinition* Instance = FindInstance(InstanceId);
     AEROPlayerCharacter* Player = RequestingController ? Cast<AEROPlayerCharacter>(RequestingController->GetPawn()) : nullptr;
-    if (!Instance || !RequestingController || !IsValid(RequestingController) || !Player)
+    APlayerController* PlayerController = Player ? Cast<APlayerController>(Player->GetController()) : nullptr;
+    if (!Instance || !RequestingController || !IsValid(RequestingController) || !Player ||
+        !PlayerController || RequestingController != PlayerController)
     {
         UE_LOG(LogTemp, Warning, TEXT("[ERO] Rejected instance travel request: %s"), *InstanceId.ToString());
         return;
