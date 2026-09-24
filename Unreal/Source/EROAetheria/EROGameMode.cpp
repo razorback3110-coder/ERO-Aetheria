@@ -259,9 +259,12 @@ void AEROGameMode::UpdateEncounterStreamingState()
                 bEncounterPersistenceDirty = true;
             }
 
-            // Defeated encounters remain resident while their authoritative respawn timer runs.
-            // The deadline is persisted so a dedicated-server restart cannot reset the world boss timer.
             continue;
+        }
+
+        if (PersistedRespawnDeadlinesUtc.Remove(It.Key()) > 0)
+        {
+            bEncounterPersistenceDirty = true;
         }
 
         const bool bPlayerNearby = IsEncounterWithinActivationRadius(Enemy->GetActorLocation());
