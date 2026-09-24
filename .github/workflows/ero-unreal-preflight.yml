@@ -72,6 +72,13 @@ jobs:
           chmod +x Tools/Validate-EROUnrealGameplayContract.sh
           ./Tools/Validate-EROUnrealGameplayContract.sh
 
+      - name: Validate network combat authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x Tools/Validate-EROUnrealNetworkSecurity.sh
+          ./Tools/Validate-EROUnrealNetworkSecurity.sh
+
       - name: Validate legal gate
         shell: bash
         run: |
