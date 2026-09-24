@@ -7,9 +7,10 @@ SRC="$ROOT/Unreal/Source/EROAetheria"
 player_h="$SRC/EROPlayerCharacter.h"
 player_cpp="$SRC/EROPlayerCharacter.cpp"
 enemy_cpp="$SRC/EROEnemyActor.cpp"
+world_cpp="$SRC/EROWorldMapDirector.cpp"
 
-for file in "$player_h" "$player_cpp" "$enemy_cpp"; do
-  test -f "$file" || { echo "Missing authoritative combat source: $file"; exit 1; }
+for file in "$player_h" "$player_cpp" "$enemy_cpp" "$world_cpp"; do
+  test -f "$file" || { echo "Missing authoritative network source: $file"; exit 1; }
 done
 
 # Client combat input must cross a Server RPC boundary.
@@ -35,4 +36,10 @@ grep -q 'EconomyState->GrantItem(ItemRewardId, ItemRewardQuantity);' "$enemy_cpp
 grep -q 'MaxAttackDistance' "$enemy_cpp"
 grep -q 'Delta.SizeSquared2D() > FMath::Square(MaxAttackDistance)' "$enemy_cpp"
 
-echo "Unreal network/combat authority contract: OK"
+# World travel RPCs must bind the requested controller to the pawn's actual owning controller.
+grep -q 'APlayerController\* PlayerController = Player ? Cast<APlayerController>(Player->GetController()) : nullptr;' "$world_cpp"
+grep -q 'RequestingController != PlayerController' "$world_cpp"
+# Both region and instance entry paths must enforce that ownership binding.
+test "$(grep -c 'RequestingController != PlayerController' "$world_cpp")" -ge 2
+
+echo "Unreal network/combat/world authority contract: OK"
