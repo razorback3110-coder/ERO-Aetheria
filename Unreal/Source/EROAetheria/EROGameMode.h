@@ -26,10 +26,14 @@ protected:
     virtual void Tick(float DeltaSeconds) override;
 
 private:
+    void LoadEncounterPersistence();
+    void SaveEncounterPersistence() const;
     void SpawnConfiguredEncounters();
     void UpdateEncounterStreamingState();
     bool IsEncounterWithinActivationRadius(const FVector& EncounterLocation) const;
 
     TSet<FName> ActivatedEncounterIds;
     TMap<FName, TWeakObjectPtr<AEROEnemyActor>> ActiveEncounterActors;
+    TMap<FName, int64> PersistedRespawnDeadlinesUtc;
+    bool bEncounterPersistenceDirty = false;
 };
