@@ -6,6 +6,7 @@
 #include "EROClassTypes.h"
 #include "EROCharacterVisualTypes.h"
 #include "EROCharacterAppearanceTypes.h"
+#include "EROCombatRules.h"
 #include "EROPlayerCharacter.generated.h"
 
 class UAbilitySystemComponent;
@@ -76,13 +77,22 @@ public:
     float AttackCooldown = 0.5f;
 
     UFUNCTION(BlueprintCallable, Category="ERO|Combat")
-    float GetServerAttackDamage() const;
+    float GetServerAttackDamage() const
+    {
+        return FMath::Max(0.0f, AttackDamage * EROCombatRules::GetDamageMultiplier(EquippedWeaponFamily));
+    }
 
     UFUNCTION(BlueprintCallable, Category="ERO|Combat")
-    float GetServerAttackRange() const;
+    float GetServerAttackRange() const
+    {
+        return FMath::Max(1.0f, EROCombatRules::GetRange(EquippedWeaponFamily, AttackRange));
+    }
 
     UFUNCTION(BlueprintCallable, Category="ERO|Combat")
-    float GetServerAttackCooldown() const;
+    float GetServerAttackCooldown() const
+    {
+        return FMath::Max(0.05f, EROCombatRules::GetCooldown(EquippedWeaponFamily, AttackCooldown));
+    }
 
     UFUNCTION(BlueprintCallable, Category="ERO|Character")
     bool CanSelectClass() const;
