@@ -68,6 +68,23 @@ jobs:
         shell: cmd
         run: powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\ero-ci-run.ps1 -Action validate
 
+      - name: Reject compiler failure markers in Unity log
+        if: always()
+        shell: powershell
+        run: |
+          $log = Join-Path $env:GITHUB_WORKSPACE 'Logs/ERO_Unity_Validation.log'
+          if (-not (Test-Path -LiteralPath $log)) {
+            Write-Host "Unity validation log not present; the validation step will provide the primary failure signal."
+            exit 0
+          }
+          $matches = Select-String -LiteralPath $log -Pattern 'error CS\d+|Compilation failed|script compilation failed' -CaseSensitive:$false
+          if ($matches) {
+            Write-Host 'Compiler failure markers found in Unity validation log:'
+            $matches | Select-Object -Last 40 | ForEach-Object { Write-Host $_.Line }
+            exit 1
+          }
+          Write-Host 'Unity validation log contains no compiler failure markers.'
+
       - name: Cleanup temporary Unity/Bee data
         if: always()
         shell: cmd
