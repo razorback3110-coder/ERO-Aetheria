@@ -151,7 +151,7 @@ void AEROGameMode::SaveEncounterPersistence() const
         return;
     }
 
-    if (!PlatformFile.MoveFile(*SavePath, *TempPath))
+    if (!PlatformFile.MoveFile(*TempPath, *SavePath))
     {
         UE_LOG(LogTemp, Error, TEXT("Failed to atomically finalize ERO encounter persistence file."));
     }
