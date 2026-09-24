@@ -14,7 +14,12 @@ class EROAETHERIA_API UEROPlayerEconomySaveGame final : public USaveGame
 
 public:
     UPROPERTY()
-    int32 SchemaVersion = 2;
+    int32 SchemaVersion = 3;
+
+    // Stable authenticated identity when an online subsystem is available.
+    // The server validates this value before loading a save slot.
+    UPROPERTY()
+    FString PersistentPlayerId;
 
     UPROPERTY()
     int64 GoldBalance = 0;
