@@ -95,7 +95,8 @@ namespace EternalRealmsOnline.Core
         private static int MultiplyBps(int value, int basisPoints)
         {
             long scaled = (long)value * basisPoints;
-            return (int)Math.Max(1L, (scaled + 9999L) / 10000L);
+            long rounded = (scaled + 9999L) / 10000L;
+            return rounded >= int.MaxValue ? int.MaxValue : (int)Math.Max(1L, rounded);
         }
 
         private static int Mod(int value, int modulus)
