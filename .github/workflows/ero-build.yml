@@ -9,6 +9,9 @@ on:
 permissions:
   contents: read
 
+env:
+  ERO_UNITY_VERSION: 6000.0.67f1
+
 jobs:
   build:
     name: Build ERO
@@ -22,19 +25,27 @@ jobs:
           lfs: true
           clean: false
 
-      - name: Locate Unity 6000.0.67f1
+      - name: Locate and verify Unity 6000.0.67f1
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
         run: |
+          $ErrorActionPreference = "Stop"
+          $version = $env:ERO_UNITY_VERSION
           $candidates = @(
             $env:ERO_UNITY_EXE,
-            "C:\Program Files\Unity\Hub\Editor\6000.0.67f1\Editor\Unity.exe",
-            "C:\Program Files\Unity Hub\Editor\6000.0.67f1\Editor\Unity.exe",
-            "$env:ProgramFiles\Unity Hub\Editor\6000.0.67f1\Editor\Unity.exe"
+            "C:\Program Files\Unity\Hub\Editor\$version\Editor\Unity.exe",
+            "C:\Program Files\Unity Hub\Editor\$version\Editor\Unity.exe",
+            "$env:ProgramFiles\Unity Hub\Editor\$version\Editor\Unity.exe"
           ) | Where-Object { $_ -and $_.Trim() -ne "" }
-          $unity = $candidates | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
-          if (-not $unity) { throw "Unity 6000.0.67f1 was not found. Set ERO_UNITY_EXE to the exact Unity.exe path." }
+          $unity = $candidates | Where-Object { Test-Path -LiteralPath $_ -PathType Leaf } | Select-Object -First 1
+          if (-not $unity) { throw "Unity $version was not found. Set ERO_UNITY_EXE to the exact Unity.exe path." }
+          $productVersion = (Get-Item -LiteralPath $unity).VersionInfo.ProductVersion
+          if ([string]::IsNullOrWhiteSpace($productVersion) -or -not ($productVersion -match "^$([regex]::Escape($version))(?:\s|_|$)")) {
+            throw "Unity executable version mismatch. Expected $version, got '$productVersion' at $unity"
+          }
           "ERO_UNITY_EXE=$unity" | Out-File $env:GITHUB_ENV -Encoding utf8 -Append
+          "ERO_UNITY_PRODUCT_VERSION=$productVersion" | Out-File $env:GITHUB_ENV -Encoding utf8 -Append
           Write-Host "Unity: $unity"
+          Write-Host "Unity ProductVersion: $productVersion"
           & $unity -version
 
       - name: Initialize Unity project and rebuild Library when needed
@@ -66,6 +77,13 @@ jobs:
           $p = Start-Process -FilePath "$env:ERO_UNITY_EXE" -ArgumentList $args -Wait -PassThru
           Write-Host "Compile validation exit code: $($p.ExitCode)"
           if ($p.ExitCode -ne 0) { Get-Content $log -Tail 500; throw "Unity compile/validation failed with exit code $($p.ExitCode)" }
+          if (Test-Path $log) {
+            $compileErrors = Select-String -Path $log -Pattern 'error CS\d+|Compilation failed|script compilation failed' -CaseSensitive:$false
+            if ($compileErrors) {
+              $compileErrors | Select-Object -Last 40 | ForEach-Object { Write-Host $_.Line }
+              throw "Unity log contains compiler failure markers despite a zero process exit code."
+            }
+          }
 
       - name: Build playable Windows client
         shell: powershell -ExecutionPolicy Bypass -NoProfile -File {0}
