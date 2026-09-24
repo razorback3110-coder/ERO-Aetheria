@@ -92,6 +92,13 @@ jobs:
           chmod +x Tools/Validate-EROUnrealEncounterPersistence.sh
           ./Tools/Validate-EROUnrealEncounterPersistence.sh
 
+      - name: Validate encounter persistence atomic write direction
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x Tools/Validate-EROUnrealEncounterPersistenceAtomicWrite.sh
+          ./Tools/Validate-EROUnrealEncounterPersistenceAtomicWrite.sh
+
       - name: Validate gameplay contract
         shell: bash
         run: |
