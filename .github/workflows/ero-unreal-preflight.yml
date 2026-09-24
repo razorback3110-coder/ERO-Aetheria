@@ -78,6 +78,13 @@ jobs:
           chmod +x Tools/Validate-EROUnrealMvpManifestParity.sh
           ./Tools/Validate-EROUnrealMvpManifestParity.sh
 
+      - name: Validate encounter activation and streaming contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x Tools/Validate-EROUnrealEncounterStreaming.sh
+          ./Tools/Validate-EROUnrealEncounterStreaming.sh
+
       - name: Validate gameplay contract
         shell: bash
         run: |
